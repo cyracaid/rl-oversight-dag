@@ -25,6 +25,7 @@
 [中文](https://cyracaid.github.io/rl-oversight-dag/zh/index.html)
 
 **Implementation spec (build from this):**
+[中文 `IMPLEMENTATION_SPEC.html`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) ·
 [English `IMPLEMENTATION_SPEC.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.md) ·
 [한국어 `IMPLEMENTATION_SPEC_KO.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.md) ·
 [中文 `IMPLEMENTATION_SPEC_CN.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.md)

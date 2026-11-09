@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Implementation Spec — 实现规格 / 구현 명세</title>
+<script>
+  MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Noto Sans", "PingFang SC", "Noto Sans KR", sans-serif;
+    background: #fff; color: #1f2328; line-height: 1.7;
+  }
+  .nav {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    background: #0d1117; color: #fff; padding: 10px 20px;
+  }
+  .nav .title { font-weight: 700; font-size: 0.95em; }
+  .nav .title a { color: #fff; text-decoration: none; }
+  .nav .langs { display: flex; gap: 8px; }
+  .nav .langs a {
+    color: #c9d1d9; text-decoration: none; padding: 4px 12px;
+    border-radius: 16px; font-size: 0.88em; border: 1px solid #30363d;
+  }
+  .nav .langs a.here { background: #1a9850; color: #fff; border-color: #1a9850; }
+  .wrap { display: flex; max-width: 1100px; margin: 0 auto; }
+  aside {
+    width: 230px; padding: 24px 16px; border-right: 1px solid #eaeef2;
+    position: sticky; top: 52px; height: calc(100vh - 52px); overflow-y: auto;
+  }
+  aside a {
+    display: block; color: #57606a; text-decoration: none;
+    padding: 6px 10px; border-radius: 6px; font-size: 0.92em; margin: 2px 0;
+  }
+  aside a:hover { background: #f6f8fa; color: #1f2328; }
+  main { flex: 1; padding: 32px 36px; max-width: 820px; }
+  h1 { font-size: 1.6em; margin: 0 0 8px; }
+  h2 { font-size: 1.22em; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+  p { margin: 12px 0; }
+  .lead { font-size: 1.05em; color: #57606a; }
+  .box { background: #f6f8fa; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  .box.green { background: #e8f5e9; border-left: 4px solid #1a9850; }
+  .box.amber { background: #fff8ec; border-left: 4px solid #fdae61; }
+  figure { margin: 18px 0; text-align: center; }
+  figure img { max-width: 100%; border-radius: 10px; border: 1px solid #eaeef2; }
+  figcaption { font-size: 0.88em; color: #57606a; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95em; }
+  th, td { padding: 8px 12px; border-bottom: 1px solid #eaeef2; text-align: left; }
+  th { background: #f6f8fa; }
+  td.best { color: #1a9850; font-weight: 700; }
+  code { background: #f6f8fa; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+  .tag { display: inline-block; background: #e8f5e9; color: #1b5e20; border-radius: 12px; padding: 2px 10px; font-size: 0.82em; margin: 2px; }
+  .arch { background: #0d1117; color: #d4d4d4; padding: 16px; border-radius: 10px; overflow-x: auto; font-family: monospace; font-size: 0.78em; line-height: 1.5; white-space: pre; }
+  footer { color: #57606a; font-size: 0.85em; padding: 20px 0 40px; }
+  @media (max-width: 820px) { aside { display: none; } main { padding: 24px 18px; } }
+  .warn { background: #fff8ec; border-left: 4px solid #fdae61; padding: 10px 16px; border-radius: 8px; margin: 12px 0; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="title"><a href="index.html">📊 Implementation Spec</a></div>
+  <div class="langs">
+    <a href="index.html">Home</a>
+    <a class="here" href="#">中文</a>
+    <a href="PROJECT_EN.md">EN md</a>
+    <a href="PROJECT_KO.md">KO md</a>
+  </div>
+</nav>
+
+<div class="wrap">
+<aside>
+  <a href="#goal">目标 / Goal</a>
+  <a href="#env">环境规格</a>
+  <a href="#data">数据</a>
+  <a href="#mdp">MDP</a>
+  <a href="#train">训练配置</a>
+  <a href="#policies">对比策略</a>
+  <a href="#metrics">指标</a>
+  <a href="#controls">对照</a>
+  <a href="#transfer">迁移实验</a>
+  <a href="#team">分工</a>
+  <a href="#verify">验证清单</a>
+  <a href="#diff">预期困难</a>
+</aside>
+
+<main>
+
+<h1>实现规格书</h1>
+<p class="lead">这不是叙事。这是组员照着写代码、复现数字的操作手册。</p>
+<p>睡眠数据：与 Maia ten Brink（Stanford Psychophysiology Lab）一年 EMA 合作。<br>
+应用：SciForge — Zhangyang Gao（AI4Science, Shanghai AI Lab）。</p>
+<div class="warn">
+  <b>验证状态</b>：实验代码和数字由 AI 生成，组员尚未独立重跑。未验证项见「验证清单」。<br>
+  <b>GO 搜寻是组员的活</b>，不是这篇文档替你搜完。
+</div>
+
+<h2 id="goal">目标与范围</h2>
+<div class="box">
+  <p>AI 产出一条相互依赖的条目链。人只能审少数几项。错误按类型聚集（76% order_error），没审的错误沿 DAG 往下传，危害到结论才出现。</p>
+  <p>训练一个策略：下一个审哪个节点（或停），预算内，让更少错误到达结论。</p>
+  <p><b>不训练</b>：底层分类器、LLM、视觉模型、splsleep R 包。它们是冻结环境。</p>
+</div>
+<div class="box amber">
+  <p><b>RQ1</b> 学到的策略（GNN + REINFORCE / PPO）能不能打赢最好的固定规则（按类型校准阈值、结构贪心）？<br>
+  <b>RQ2</b> 优势依不依赖图族（模块化 / BA / ER / 真实管道）、预算、置信度信号质量？<br>
+  <b>RQ3</b> RL 没赢的时候，剩余误差住在哪（策略 vs 预测器 vs 审阅者漏检率）？</p>
+</div>
+
+<h2 id="env">环境规格（冻结）</h2>
+<table>
+  <tr><th>图族</th><th>N</th><th>生成</th><th>用途</th></tr>
+  <tr><td>spike（主 RL）</td><td>80</td><td>4 层 DAG，5 类型，约每节点 2 父</td><td>GNN / REINFORCE / PPO / DQN</td></tr>
+  <tr><td>modular</td><td>500</td><td>10 簇 × 50，簇内高、簇间接口</td><td>规模基线</td></tr>
+  <tr><td>BA</td><td>500</td><td>Barabási–Albert m=3，低→高定向</td><td>无标度 / hub</td></tr>
+  <tr><td>ER</td><td>500</td><td>p=0.015，低→高定向</td><td>稀疏对照</td></tr>
+  <tr><td>real</td><td>21</td><td>splsleep SCHEMA 手写</td><td>应用价值</td></tr>
+</table>
+<p><b>DAG 定向</b>：无向边 {u,v} 若 u&lt;v 变 u→v。去自环。Kahn 必须返回 N 个节点。</p>
+<p><b>类型率</b>：</p>
+<ul>
+  <li>80 节点 K=5：<code>[0.01, 0.03, 0.08, 0.15, 0.25]</code></li>
+  <li>500 节点 K=10：Zipf s=1.2 映到 [0.02, 0.40]</li>
+  <li>真实管道 K=6：order_error 0.35，其余对齐 75 条纠错</li>
+</ul>
+<p><b>因果传播</b>：P(X_v=0 | X_u=0) = 1 − exp(−λ w)，w ~ U(0.5, 1.5)，λ=0.8（合成）/ 0.9（真实）。审 = do(X_v:=1)。</p>
+<p><b>置信度</b>：logit = (−1.5 若错 else +1.5) − 0.4(P_type−0.15) + N(0,1.2)。消融换噪声 / oracle。</p>
+<div class="box amber">
+  <b>信息泄露铁律</b>：策略永远看不到 X_v、base、coins。只看 type、conf、sink_reach、reviewed、budget。
+</div>
+
+<h2 id="data">数据</h2>
+<table>
+  <tr><th>数据</th><th>状态</th><th>谁碰</th><th>永不</th></tr>
+  <tr><td>睡眠 EMA 13,990 / 237</td><td>有（Maia 一年）</td><td>5 号计数，3 号 N=21 DAG</td><td>进 git / 整份给 agent</td></tr>
+  <tr><td>75 条纠错（76% order_error；27 共识 / 48 同意）</td><td>有</td><td>5 号动机 + 洞 B</td><td>进 git</td></tr>
+  <tr><td>合成 DAG</td><td>代码生成</td><td>3 号</td><td>—</td></tr>
+  <tr><td>KAIST 1,372 / 49（Figshare 28509740, CC BY）</td><td>脚本有，RL 没接</td><td>5+3 迁移</td><td>调阈值</td></tr>
+  <tr><td>Manchester</td><td>脚本有</td><td>5+3 迁移</td><td>调阈值</td></tr>
+  <tr><td>GO MF 切片</td><td><b>组员去搜</b></td><td>5+4</td><td>做成蛋白功能预测</td></tr>
+</table>
+<p><b>GO MF 切片</b>：节点=GO MF 项（真 DAG），条目=基因-词条，AI=IEA，人=biocurator。切一个父节点 ~500–2,000 条。<b>不是蛋白功能预测</b>（GO Bench 那挂人做烂了）。组员先搜有没有人做过 GO 上的审阅调度；搜到就不抢，留在睡眠 + SciForge。</p>
+<p><b>真实数据防泄漏</b>：RDS / CSV 不进 git、不整份给 agent。文档只引汇总数字。</p>
+
+<h2 id="mdp">MDP</h2>
+<table>
+  <tr><th>要素</th><th>定义</th></tr>
+  <tr><td>状态</td><td>每节点：type one-hot、conf、log1p(sink_reach)/log1p(N)、reviewed? + 剩余预算</td></tr>
+  <tr><td>动作</td><td>选下一个未审节点（固定预算主方法没有 stop）</td></tr>
+  <tr><td>转移</td><td>审 = do(X_v:=1)，P_catch=0.9 修正，重算下游</td></tr>
+  <tr><td>奖励</td><td>r_T = −sink 错误数（稀疏终局）</td></tr>
+  <tr><td>γ</td><td>&lt;1；REINFORCE MC 直接用终局</td></tr>
+</table>
+<p><b>CMDP</b>（形式化；naive 4.85 失败留作消融）：max min J(π) + λ(B − C(π))。d_u=16, d_l=8。</p>
+
+<h2 id="train">训练配置（实际用的数）</h2>
+<table>
+  <tr><th>项</th><th>GNN+REINFORCE 主方法</th><th>来源</th></tr>
+  <tr><td>优化器</td><td>Adam</td><td>rl_cmdp_gnn.py</td></tr>
+  <tr><td>lr</td><td>0.003</td><td>同</td></tr>
+  <tr><td>Hidden</td><td>32</td><td>同</td></tr>
+  <tr><td>Episodes</td><td>20000（1.20 那次）/ 12000（2.05）——<b>用 20000</b></td><td>训练量敏感</td></tr>
+  <tr><td>温度</td><td>max(0.3, 2.0·0.9993^ep)</td><td>同</td></tr>
+  <tr><td>Baseline</td><td>EMA 0.95/0.05</td><td>同</td></tr>
+  <tr><td>预算</td><td>16 / 80</td><td>同</td></tr>
+  <tr><td>P_catch</td><td>0.9</td><td>同</td></tr>
+  <tr><td>训练种子</td><td>1,2,3,4,5</td><td>多种子脚本</td></tr>
+  <tr><td>评估种子</td><td>1..16</td><td>同</td></tr>
+</table>
+<p><b>多种子已跑</b>：[1.85, 1.60, 1.35, 1.00, 1.90]，mean <b>1.54</b>，std 0.37，95% CI <b>[1.08, 2.00]</b>。别脱离 CI 引 1.20。</p>
+<p><b>GNN+PPO</b> 未收敛（~5.60），不进主表。</p>
+<p><b>CMDP naive</b>：STOP + coverage [8,16]，λ clip 2.0，α_λ 8e-4，20k ep。<b>4.85 失败</b>。诊断：终局一个回报给不了 STOP 记功。下一版 = FALCON 式奖励 critic + 成本 critic。别叫「RL 失败」，叫「我们的 naive CMDP 失败」。</p>
+<p><b>DQN 对照</b>：5.10 退化。别调赢——退化是教学点。</p>
+
+<h2 id="policies">对比策略（每个图族都跑）</h2>
+<table>
+  <tr><th>策略</th><th>规则</th></tr>
+  <tr><td>不审</td><td>下限</td></tr>
+  <tr><td>随机</td><td>均匀 R 节点</td></tr>
+  <tr><td>置信度阈值</td><td>conf 最低 R 个</td></tr>
+  <tr><td>Hub</td><td>出度 / 孩子数最高 R 个</td></tr>
+  <tr><td>结构贪心</td><td>每步选当前错误节点中最能减 sink 错误的；(1−1/e) 风格</td></tr>
+  <tr><td>Oracle conf</td><td>特征里放真 X_v</td></tr>
+  <tr><td class="best">GNN + REINFORCE</td><td class="best">学到的打分器</td></tr>
+  <tr><td>Oracle 贪心</td><td>知 X_v，真错贪心</td></tr>
+</table>
+<p><b>公平铁律</b>：同评估种子、同图种子、同 coins、同预算、同 P_catch。Oracle 分开标。有策略用验证集调阈值，所有策略给同样调参预算。</p>
+
+<h2 id="metrics">指标</h2>
+<table>
+  <tr><th>指标</th><th>为什么</th></tr>
+  <tr><td>Mean sink 错误</td><td>主指标</td></tr>
+  <tr><td>Worst-of-n</td><td>一个漏审能作废结论</td></tr>
+  <tr><td>95% CI</td><td>GNN 1.54 ± 0.46 已算</td></tr>
+  <tr><td>消融差距</td><td>normal−noise；normal−oracle</td></tr>
+  <tr><td>图族差距</td><td>贪心−阈值 on BA vs ER</td></tr>
+</table>
+<p><b>CI 包住贪心均值时不要声称赢</b>。当前句子：GNN mean 1.54 与贪心 1.80 和 MLP 1.40 相当；最佳种子 1.00 有空间；消融说剩余误差在置信度信号。</p>
+<p><b>必出图</b>：results_bar / ablation_conf / scale500 / learning_curves / real_pipeline。</p>
+
+<h2 id="controls">对照（破坏结构）</h2>
+<table>
+  <tr><th>对照</th><th>破坏什么</th><th>预期</th></tr>
+  <tr><td>打乱 base</td><td>类型聚集</td><td>优势消失</td></tr>
+  <tr><td>清空 parents</td><td>传播</td><td>优势消失</td></tr>
+  <tr><td>noise conf</td><td>预测器</td><td>RL 比阈值差（已跑 3.78 &gt; 2.30）</td></tr>
+  <tr><td>oracle conf</td><td>预测器天花板</td><td>0.72 vs 1.38</td></tr>
+  <tr><td>压平+打乱</td><td>两个事实</td><td>RL ≈ 随机</td></tr>
+</table>
+<p>同策略同评估种子。除非标「对照下重训」，否则不重训。</p>
+
+<h2 id="transfer">迁移实验（漏了，补上）</h2>
+<p>N=500 只测了结构和规模，没测换领域。</p>
+<table>
+  <tr><th>迁移目标</th><th>是什么</th><th>谁</th><th>状态</th></tr>
+  <tr><td>KAIST HRV 日记</td><td>1,372 行 / 49 人，Figshare 28509740, CC BY；adapt_kaist.R 已有</td><td>5+3</td><td>脚本有，RL 没接</td></tr>
+  <tr><td>Manchester 日记</td><td>adapt_manchester.R 已有</td><td>5+3</td><td>脚本有，RL 没接</td></tr>
+  <tr><td>GO MF 切片</td><td>节点=GO MF 项（真 DAG），AI=IEA，人=biocurator；切一个父节点 ~500–2,000 条</td><td>5+4</td><td><b>组员先搜</b></td></tr>
+  <tr><td>SciForge DAG mock</td><td>第二个实例</td><td>1+3</td><td>洞 A</td></tr>
+  <tr><td>CIFAR-10H</td><td>弃了的 v1</td><td>—</td><td>教授要才复活</td></tr>
+</table>
+<div class="box amber">
+  <p><b>GO 不是蛋白功能预测</b>。GO Bench / Swiss-Prot L2D 是另一篇论文。我们的任务是审阅调度：IEA 是 AI 输出，biocurator 是人，GO 是图。</p>
+  <p><b>组员先搜</b>「GO annotation review scheduling / L2D on GO」有没有人做过。搜到一样的不抢；搜到相近的写 related work；没搜到 GO MF 切片就是第二个实例。</p>
+  <p><b>成功</b>：阈值或贪心在新图上赢不审。冻结 GNN vs 重训 GNN 都报。只有重训赢 = domain adaptation 不是 transfer，直说。</p>
+</div>
+
+<h2 id="team">谁负责什么</h2>
+<table>
+  <tr><th>人</th><th>主责</th><th>背景</th><th>数据</th></tr>
+  <tr><td>1</td><td>组长 + 时间线 + L2D 经典</td><td>提案</td><td>—</td></tr>
+  <tr><td>2</td><td>策略梯度 + 置信度升级</td><td>PG / PPO / CMDP / 消融</td><td>洞 D</td></tr>
+  <tr><td>3</td><td>环境 + GNN + 规模</td><td>GNN 选节点 / 三图族</td><td>合成（已有）</td></tr>
+  <tr><td>4</td><td>基线 + 对照 + HealthBench/BioBasics</td><td>那两个基准</td><td>洞 C 只在洞 A 失败时</td></tr>
+  <tr><td>5 동채하</td><td>叙事 + <b>郑心联络 + GO 搜寻</b> + 写作 + 英文发表</td><td>Data Cascades / 错误传播 / 综合</td><td>睡眠 75/13,990；洞 B；<b>洞 A</b></td></tr>
+</table>
+<p><b>GO 搜寻是 5 号的活</b>。这篇文档不替你搜完。</p>
+<p>指导：Maia ten Brink, PhD（Stanford Psychophysiology Lab — 睡眠数据）· Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab — SciForge)。</p>
+
+<h2 id="verify">验证清单（出表前跑一遍）</h2>
+<ul>
+  <li>策略特征不含 base、err、coins、未来 finish</li>
+  <li>Oracle 分开标</li>
+  <li>验证阈值只在 train/val 调</li>
+  <li>75 行 CSV 不在 repo、没整份贴进 prompt</li>
+  <li>Worst-of-n 和 mean 同一评估集</li>
+  <li>GO 搜寻是 5 号做的，不是这篇文档</li>
+</ul>
+
+<h2 id="diff">预期困难</h2>
+<table>
+  <tr><th>困难</th><th>应对</th></tr>
+  <tr><td>GNN 在 N=500 打不过贪心</td><td>报告。500 的主张是贪心几乎清空图；那个尺度的 RL 是 future work</td></tr>
+  <tr><td>GNN 1.20 CI 包住贪心 1.80</td><td>主张「相当、高方差、最佳种子 1.00」。X-factor 是消融</td></tr>
+  <tr><td>双 critic 还是失败</td><td>报 naive 4.85 和原因。引 FALCON 当没做完的配方</td></tr>
+  <tr><td>真实管道太小喂不动 GNN</td><td>应用价值表，不是 RL 表。阈值 0.50 就是结果</td></tr>
+  <tr><td>GO 搜到一样的</td><td>留睡眠+SciForge，related work 写不抢 GO 功能预测</td></tr>
+  <tr><td>组员复现不出 1.54</td><td>重跑 rl_gnn_multiseed.py；CI 动了更新每个文档。不许手改表</td></tr>
+</table>
+
+<footer>
+  Implementation spec · STA3145 ·
+  <a href="index.html">← 回主页</a> ·
+  <a href="https://github.com/cyracaid/rl-oversight-dag">github</a>
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>
