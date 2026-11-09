@@ -7,6 +7,10 @@
 [한국어 `PROJECT_KO.md`](PROJECT_KO.md) ·
 [中文 `PROJECT_CN.md`](PROJECT_CN.md)
 
+**Implementation spec (build from this):**
+[English `IMPLEMENTATION_SPEC.md`](IMPLEMENTATION_SPEC.md) ·
+[中文 `IMPLEMENTATION_SPEC_CN.md`](IMPLEMENTATION_SPEC_CN.md)
+
 Repo: https://github.com/cyracaid/rl-oversight-dag
 
 ---
