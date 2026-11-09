@@ -47,10 +47,12 @@ permalink: /TEAM_CLAIMS_EN.html
 
 ## 1. Who owns what
 
-Every row: **goal** → **this week** → **you own** → **hard part** → **principles** → **done when** → **don't**.
+Every row: **goal** → **why** → **this week** → **what to do, in order** → **hard part** → **principles** → **done when** → **don't**.
 
 ### Person 1 — PM + co-presenter
 **Goal:** the paper and the talk ship on 11/23 with numbers that are still true.
+
+**Why:** nobody else owns the whole picture. If the deck and the numbers are assembled in the last three days, the talk will contain a number that no longer holds — that is the normal failure mode of a five-person project.
 
 **This week:** one-page timeline (who does what, who is blocked) and a slide skeleton.
 
@@ -71,14 +73,19 @@ Every row: **goal** → **this week** → **you own** → **hard part** → **pr
 ### Person 2 — policy and confidence signal
 **Goal:** find out whether the learned policy can beat the rule, and say which — with evidence either way.
 
+**Why:** the whole project is this one question. Right now our method loses (1.56 vs 1.14). Without an answer, the paper is just a table where we lose. With an answer, it says either "the gap was a missing feature / credit assignment, and here is the fix" or "the gap is structural, and here is where it starts". Every other section of the paper exists to support that one paragraph.
+
 **This week:** run the gate — add `gain(i)` to the node features, 5 seeds, 200 held-out graphs, paired.
 
-**You own:**
-- **the gate.** One experiment decides the project. `gain(i)` is the value the rule maximises: how many downstream errors a review of node *i* is expected to cut. The policy currently sees "how likely is this node wrong", not "how much is it worth reviewing".
-- **the decision after the gate.** If the gap closes, the gap was a missing feature. If it does not, it is credit assignment. Then try n-step / actor-critic with `gain` as the baseline; if we are still ≥ 0.20 behind, stop and write why. Do not start a fourth variant.
-- **the confidence signal.** The number that says how much we trust a node's verdict. The ablation says this is the lever: noise 3.78 / normal 1.38 / oracle 0.72.
-- **the misspecification tests.** Break the model on purpose — edge probabilities off by ±50%, type rates drifting over time, reviewer missing 30% of errors. This is where a learned policy could beat a rule that trusts the model.
-- **one paragraph** on why the gap exists.
+**What to do, in order:**
+1. In `rl_gnn_multiseed.py`, add `gain(i)` to the observed-state features. `gain(i)` is the expected drop in reachable sink errors if node *i* is reviewed — the exact quantity the rule argmaxes.
+2. Write the bar down first: ≤ 1.14, or non-inferior (paired CI contains 0, point estimate < +0.05).
+3. Run 5 seeds × 20k episodes, evaluate on held-out graphs 1000–1199, paired. Put the number in the table before interpreting it.
+4. If the bar is met: the gap was representational. Record it and stop.
+5. If not: add n-step returns or an actor-critic with `gain(a_t)` as the baseline. One variant, one night.
+6. If still ≥ +0.20 behind: stop. Write the paragraph on why, hand the numbers to Person 1. No fourth variant.
+7. In parallel: fit a small confidence predictor (or recalibrate), and measure noise / normal / oracle (3.78 / 1.38 / 0.72).
+8. Then the misspecification runs: edge probabilities ±50%, type rates drifting, reviewer missing 30%.
 
 **Hard part:**
 - the rule is a planner with the model, not a heuristic;
@@ -96,14 +103,18 @@ Every row: **goal** → **this week** → **you own** → **hard part** → **pr
 ### Person 3 — environment and graphs
 **Goal:** one frozen simulator that every other number comes from.
 
+**Why:** every number in the paper is an output of this code. If the simulator is not frozen and reproducible, nothing else means anything: a reviewer cannot tell a real effect from a changed parameter, and we cannot tell either. The job is to make "the same numbers" a property of the repository, not of one laptop.
+
 **This week:** freeze the three scripts and write the intervention rule into the code comments.
 
-**You own:**
-- the three scripts, frozen: `spike_active_selection.py` (the simulator), `graph_scale.py` (large synthetic graphs), `real_pipeline_graph.py` (the real pipeline);
-- **the N=500 table.** 500-node synthetic graphs in three shapes — modular (clusters), scale-free (a few hubs), random. It answers: does the method still work when the graph is six times larger than the main setting?
-- **the N=21 table.** Our real lab pipeline, 21 steps, budget 8. It answers: what happens on our own data? No review 2.12, threshold 0.50.
-- **what "reproduce" means.** Someone else, from a clean clone and one command, gets the same numbers — not "it ran on my laptop".
-- the rule "a review clears only the node's own error; errors inherited from upstream survive" (pinned by 5 tests).
+**What to do, in order:**
+1. Freeze `spike_active_selection.py`, `graph_scale.py`, `real_pipeline_graph.py`. After this week, any change means a new tag and a full rerun.
+2. Write the rule into the comment at `review_step`: a review clears the node's own source error; errors inherited from upstream survive and can re-infect the node. (Already pinned by 5 tests — keep them green.)
+3. Run `graph_scale.py` on the three families — modular (clusters), scale-free (hubs), random — 500 nodes, budget 50 → the **N=500 table**.
+4. Run `real_pipeline_graph.py` — 21 steps, budget 8, 8 seeds → the **N=21 table** (no review 2.12, threshold 0.50).
+5. Write one command that regenerates both tables (a small script or a README block).
+6. From a fresh clone, run that command, diff the output against the committed tables, and keep the log.
+7. Tag the commit.
 
 **Hard part:** the environment is the critical path — if it moves, every table moves. The intervention semantics is easy to get wrong: the docs said the opposite in 8 places before the audit.
 
@@ -116,15 +127,20 @@ Every row: **goal** → **this week** → **you own** → **hard part** → **pr
 ### Person 4 — baselines and controls
 **Goal:** a comparison fair enough that a reviewer cannot dismiss it.
 
+**Why:** a result is only as strong as its comparison. Weak baselines or missing controls give a reviewer the easiest possible objection — "your advantage is an artifact" — and they would be right. This row exists to remove every explanation except the one we claim.
+
 **This week:** run the five baselines on the held-out graphs with paired CIs.
 
-**You own:**
-- the five baselines — confidence threshold, structural greedy, hub, no-review, random — on every graph shape, 5 seeds;
-- **the controls.**
-  - *flatten*: remove the graph and treat every node as independent. If our advantage disappears, it came from the graph — which is the claim.
-  - *shuffle*: rewire the edges at random. If the advantage survives, it was not using the real structure.
-- **worst-of-n**: the worst seed, not just the average — one unreviewed error can invalidate a conclusion.
-- **the 27/48 split.** Of the 75 corrections, 27 were agreed by more than one annotator and 48 by a single one. Evaluate on both halves; if the policy only works on the single-annotator half, say so.
+**What to do, in order:**
+1. Fix the baseline list: confidence threshold, structural greedy, hub, no-review, random. Same graphs, same seeds, same budget.
+2. Run all five on the 200 held-out graphs, 5 seeds, paired; report mean and 95% CI per policy.
+3. Run the two controls:
+   - *flatten*: remove the graph, treat every node as independent. If our advantage disappears, it came from the graph — which is the claim.
+   - *shuffle*: rewire the edges at random. If the advantage survives, our policy was not using real structure.
+4. Report **worst-of-n** next to the mean for every policy — one unreviewed error can invalidate a conclusion.
+5. If Person 5 delivers the 27/48 labels: run the best policy on each half, one table, two rows. If it only works on the single-annotator half, say that.
+6. Write one line per control: what it rules out.
+7. Hand the table and the lines to Person 1.
 
 **Hard part:** controls that kill our own result feel like losing; a control that passes proves little, and one that fails is information.
 
@@ -136,6 +152,8 @@ Every row: **goal** → **this week** → **you own** → **hard part** → **pr
 
 ### Person 5 — 동채하 — narrative, languages, SciForge, co-presenter
 **Goal:** make the problem land for a reader who does not do RL, and keep the SciForge door open without delaying the paper.
+
+**Why:** the method is only half the talk. The other half is why anyone outside this course should care — and that is a different skill. This row also owns the two fragile things: the three languages, and the relationship with the external partner.
 
 **This week:** the motivation slide with the three real numbers.
 
