@@ -5,7 +5,7 @@
 > Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
-**Who does what (visual):** [PLAN.html](PLAN.html) — dependency graph, 8-day schedule, four interfaces, three gates. Text version: [GENERALIZATION_PLAN.md](GENERALIZATION_PLAN.md).
+**Who does what (visual, EN / 한국어 / 中文):** [PLAN.html](PLAN.html) — dependency graph, 8-day schedule, four interfaces, three gates. Built from one source: `python3 tools/build_plan.py`. Text version: [GENERALIZATION_PLAN.md](GENERALIZATION_PLAN.md).
 
 **Two tracks, one codebase (course vs SciForge, and the RL-vs-greedy decision):** [TRACKS.md](TRACKS.md)
 
