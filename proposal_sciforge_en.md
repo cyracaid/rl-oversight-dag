@@ -87,7 +87,7 @@ $$
 P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}),
 $$
 
-a causal intervention: reviewing $v$ forces $X_v=1$ and cuts outgoing infection. Types follow a Zipf law (a few deadly types). The budget is a CMDP constraint $C(\pi)\le B$, Lagrangian $\max_\pi \min_{\lambda\ge0} J(\pi)+\lambda(B-C(\pi))$. Belief greedy — pick the review with the largest expected drop in reachable sink errors under a particle-filter belief, then update the belief with the outcome — is the deployable adaptive-greedy baseline (Golovin & Krause 2011). The same rule on the true error state is the oracle greedy, a ceiling only.
+not a causal intervention: a review clears $v$'s own (source) error only, so an error inherited from a still-wrong parent persists. Types follow a Zipf law (a few deadly types). The budget is a CMDP constraint $C(\pi)\le B$, Lagrangian $\max_\pi \min_{\lambda\ge0} J(\pi)+\lambda(B-C(\pi))$. Belief greedy — pick the review with the largest expected drop in reachable sink errors under a particle-filter belief, then update the belief with the outcome — is the deployable adaptive-greedy baseline (Golovin & Krause 2011). The same rule on the true error state is the oracle greedy, a ceiling only.
 
 ## 5. Data and controls
 

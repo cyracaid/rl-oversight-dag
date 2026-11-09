@@ -83,6 +83,7 @@ def run_episode(policy, variant, rng, belief_seed, temp=None):
     base = list(env["base"])
     err = SP.compute_err(base, env["nodes"], env["topo"], env["coins"])
     reviewed, flagged = [False] * N, [False] * N
+    u = SP.episode_uniforms(rng, N) if SP.CFG["crn"] else None
     logps = []
     for t in range(R):
         s = policy.score(features(env, variant, reviewed, flagged, R - t), env["A"])
@@ -93,7 +94,7 @@ def run_episode(policy, variant, rng, belief_seed, temp=None):
             lp = torch.log_softmax(s / temp, dim=0)
             a = int(torch.multinomial(torch.exp(lp), 1).item())
             logps.append(lp[a])
-        f, err = SP.review_step(a, base, err, env["nodes"], env["topo"], env["coins"], rng)
+        f, err = SP.review_step(a, base, err, env["nodes"], env["topo"], env["coins"], rng, u)
         reviewed[a], flagged[a] = True, f
         if env["belief"] is not None:
             env["belief"].observe(a, f)

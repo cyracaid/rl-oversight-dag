@@ -16,6 +16,7 @@ CFG = dict(
     p_prop=0.6,
     p_catch=0.9,
     budget=16,
+    crn=False,   # True: pre-draw one Uniform per node (common random numbers). Changes numbers; rerun all tables.
     seeds=list(range(1, 21)),
     n_particles=1024,      # <512 collapses after a few flags (particle impoverishment)
 )
@@ -96,9 +97,20 @@ def make_belief(nodes, topo, sinks, conf, seed):
                           n_particles=CFG["n_particles"], seed=seed)
 
 
-def review_step(a, base, err, nodes, topo, coins, rng):
-    """Review node a in place. Returns (flagged, err). flagged = reviewer saw an error."""
-    flagged = err[a] and rng.random() < CFG["p_catch"]
+def episode_uniforms(rng, n):
+    """One Uniform per node, drawn before any review (common random numbers)."""
+    return [rng.random() for _ in range(n)]
+
+
+def review_step(a, base, err, nodes, topo, coins, rng, u=None):
+    """Review node a in place. Returns (flagged, err). flagged = reviewer saw an error.
+
+    Semantics: a successful review clears *a's own* (base) error and recomputes
+    descendants. Errors inherited from a still-wrong parent are not cleared --
+    this is not a do(X_a = 1) intervention. See experiments/SEMANTICS_AUDIT.md.
+    """
+    draw = u[a] if u is not None else rng.random()
+    flagged = err[a] and draw < CFG["p_catch"]
     if flagged:
         base[a] = False
         err = compute_err(base, nodes, topo, coins)
@@ -108,8 +120,9 @@ def review_step(a, base, err, nodes, topo, coins, rng):
 def apply_reviews(order, base, nodes, topo, coins, sinks, rng):
     base = list(base)
     err = compute_err(base, nodes, topo, coins)
+    u = episode_uniforms(rng, len(nodes)) if CFG["crn"] else None
     for i in order:
-        _, err = review_step(i, base, err, nodes, topo, coins, rng)
+        _, err = review_step(i, base, err, nodes, topo, coins, rng, u)
     return sum(1 for i in sinks if err[i])
 
 
@@ -118,10 +131,11 @@ def run_belief_greedy(belief, base, nodes, topo, coins, sinks, budget, rng):
     base = list(base)
     err = compute_err(base, nodes, topo, coins)
     available = [True] * len(nodes)
+    u = episode_uniforms(rng, len(nodes)) if CFG["crn"] else None
     for _ in range(budget):
         a = belief.best_action(available)
         available[a] = False
-        flagged, err = review_step(a, base, err, nodes, topo, coins, rng)
+        flagged, err = review_step(a, base, err, nodes, topo, coins, rng, u)
         belief.observe(a, flagged)
     return sum(1 for i in sinks if err[i])
 

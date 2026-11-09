@@ -79,7 +79,7 @@ $$
 P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \qquad \lambda = 0.8 \text{ (synthetic)} \;\; 0.9 \text{ (real pipeline)}
 $$
 
-**A review is a causal intervention:** force $X_v = 1$. If the reviewer catches the error (probability `P_catch = 0.9`), descendants are recomputed. Otherwise the error stays.
+**A review is not a causal intervention.** It clears $v$'s own (source) error only; an error inherited from a still-wrong parent remains until that parent is fixed. If the reviewer catches it (`P_catch = 0.9`), descendants are recomputed. See `experiments/SEMANTICS_AUDIT.md`.
 
 **Types are heavy-tailed.** Real 75-correction file: 76% `order_error`. Synthetic: Zipf $p_t \propto t^{-1.2}$ mapped into $[0.02, 0.40]$. Real pipeline: `order_error` 0.35/node, then the other correction types.
 

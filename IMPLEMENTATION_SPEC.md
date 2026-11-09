@@ -76,7 +76,7 @@ P(X_v = 0 | X_u = 0) = 1 - exp(-λ * w_uv)
 λ = 0.8   (500-node)     λ = 0.9   (real pipeline)
 ```
 
-A review of node `v` is a **do-operator**: force `X_v = 1`. If the reviewer catches the error (`P_catch = 0.9`), recompute all descendants. Otherwise the error stays.
+A review of node `v` clears **v's own (source) error**; an error inherited from a still-wrong parent remains until that parent is fixed. When the reviewer catches it (`P_catch = 0.9`), descendants are recomputed. This is **not** a `do(X_v = 1)` intervention — see `experiments/SEMANTICS_AUDIT.md`.
 
 **Information leakage rule (hard):** the policy never sees `X_v`, `base[]`, or future coins. It sees only `type`, `confidence`, `sink_reach`, `reviewed`, `budget`. True errors are used *only* to (i) decide whether a review fixes the node and (ii) compute terminal reward.
 

@@ -88,7 +88,7 @@ $$
 P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda \, w_{uv}),
 $$
 
-with infection coefficient $\lambda$ and $w_{uv}\sim U(0.5, 1.5)$. A review of node $v$ is a **causal intervention**: force $X_v = 1$, cutting outgoing infection on that edge.
+with infection coefficient $\lambda$ and $w_{uv}\sim U(0.5, 1.5)$. A review of node $v$ clears **v's own (source) error**; an error inherited from a still-wrong parent remains until that parent is fixed. When the reviewer catches it (`P_catch = 0.9`), descendants are recomputed. This is **not** a `do(X_v = 1)` intervention — see `experiments/SEMANTICS_AUDIT.md`.
 
 **Heavy-tailed types.** Base error rates follow a Zipf law $p_t \propto t^{-s}$ mapped into $[0.02, 0.40]$: a few deadly types cause most crashes (the 76% `order_error` analogue at scale).
 
