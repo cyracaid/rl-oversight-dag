@@ -55,6 +55,15 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 **Why:** nobody else owns the whole picture. If the deck and the numbers are assembled in the last three days, the talk will contain a number that no longer holds — that is the normal failure mode of a five-person project.
 
 **This week:** one-page timeline (who does what, who is blocked) and a slide skeleton.
+**What to do, in order:**
+1. Put the timeline on one page: milestone, owner, dependency, date. Update it every Monday.
+2. Build the deck skeleton — 8–10 slides, one message per slide.
+3. Under each slide, write where its number comes from (script + table). No source, no slide.
+4. Every week: read the newest tables from Persons 2–4, update the deck, delete stale numbers from slides and PDFs.
+5. Keep the benchmark list with Person 5 — one line per candidate: what it measures, why we cite or exclude it.
+6. Book two rehearsals with a clock; split the talk (you take the first half, Person 5 the second).
+7. Submission checklist: file names, PDF export, who sends it, and the deadline in which time zone.
+
 
 **You own:**
 - the timeline and the risk list, updated weekly;
@@ -87,6 +96,7 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 6. If still ≥ +0.20 behind: stop. Write the paragraph on why, hand the numbers to Person 1. No fourth variant.
 7. In parallel: fit a small confidence predictor (or recalibrate), and measure noise / normal / oracle (3.78 / 1.38 / 0.72).
 8. Then the misspecification runs: edge probabilities ±50%, type rates drifting, reviewer missing 30%.
+9. Hand the table and the paragraph to Person 1 one day before the rehearsal.
 
 **Hard part:**
 - the rule is a planner with the model, not a heuristic;
@@ -116,6 +126,7 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 5. Write one command that regenerates both tables (a small script or a README block).
 6. From a fresh clone, run that command, diff the output against the committed tables, and keep the log.
 7. Tag the commit.
+8. Hand the tag and the reproduction log to Person 1.
 
 **Hard part:** the environment is the critical path — if it moves, every table moves. The intervention semantics is easy to get wrong: the docs said the opposite in 8 places before the audit.
 
@@ -142,6 +153,7 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 5. If Person 5 delivers the 27/48 labels: run the best policy on each half, one table, two rows. If it only works on the single-annotator half, say that.
 6. Write one line per control: what it rules out.
 7. Hand the table and the lines to Person 1.
+8. Keep the raw outputs in `experiments/` — no hand-edited tables, ever.
 
 **Hard part:** controls that kill our own result feel like losing; a control that passes proves little, and one that fails is information.
 
@@ -157,6 +169,15 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 **Why:** the method is only half the talk. The other half is why anyone outside this course should care — and that is a different skill. This row also owns the two fragile things: the three languages, and the relationship with the external partner.
 
 **This week:** the motivation slide with the three real numbers.
+**What to do, in order:**
+1. Motivation slide: the three numbers (75 / 13,990 / 76%), one caveat line, one sentence on why nobody can check everything.
+2. HealthBench paragraph: what it asks, what it measures, and the one difference from us (they grade a single reply; we schedule attention over a chain).
+3. BioBasicsBench paragraph: real wet-lab evidence; the failure mode is an assumption overriding a control.
+4. The SciForge ask: one page — nodes, edges, correction types, receipt fields (`reviewed_at`, `verdict`, `duration`). Log the reply in one line.
+5. Keep the three languages in sync: same commit, then run the link check.
+6. Second half of the talk: why it matters → related work → what is next. Rehearse twice with Person 1.
+7. Hand the final text to Person 1 one day before the rehearsal.
+
 
 **You own:**
 - motivation: 75 corrections / 13,990 rows / 76% one type — plus the caveat that this is the *fix* type, not proof the AI caused it;
