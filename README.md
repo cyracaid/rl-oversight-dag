@@ -17,9 +17,9 @@
 [illustrated talk page](https://cyracaid.github.io/rl-oversight-dag/index.html)
 
 **Full narrative (pick your language):**
-[English `PROJECT_EN.md`](https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.md) ·
-[한국어 `PROJECT_KO.md`](https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.md) ·
-[中文 `PROJECT_CN.md`](https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.md)
+[English](https://cyracaid.github.io/rl-oversight-dag/en/index.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/ko/index.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/zh/index.html)
 
 **Implementation spec (build from this):**
 [English `IMPLEMENTATION_SPEC.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.md) ·
