@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generalization plan / 일반화 계획 / 泛化计划</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>* { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, "Segoe UI", "Noto Sans", "PingFang SC", "Noto Sans KR", sans-serif;
+         background: #f6f8fa; color: #1f2328; line-height: 1.65; }
+  .nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center;
+         justify-content: space-between; background: #0d1117; color: #fff; padding: 10px 20px; }
+  .nav .title { font-weight: 700; font-size: 0.95em; }
+  .nav a { color: #c9d1d9; text-decoration: none; }
+  .nav .langs a { padding: 4px 10px; border-radius: 16px; font-size: 0.85em;
+                  border: 1px solid #30363d; margin-left: 6px; }
+  .lang-tabs { display: flex; gap: 8px; max-width: 980px; margin: 14px auto 0; padding: 0 16px; }
+  .lang-tabs button { border: 1px solid #d0d7de; background: #fff; color: #1f2328; padding: 6px 16px;
+                      border-radius: 16px; cursor: pointer; font-size: 0.9em; }
+  .lang-tabs button.active { background: #1a9850; color: #fff; border-color: #1a9850; }
+  .lang-block { display: none; max-width: 980px; margin: 0 auto; padding: 18px 16px 40px; }
+  .lang-block.show { display: block; }
+  h1 { font-size: 1.6em; margin: 6px 0 6px; }
+  h2 { font-size: 1.18em; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+  p { margin: 10px 0; }
+  .lead { font-size: 1.03em; color: #57606a; }
+  .box { background: #fff; border-radius: 10px; padding: 14px 18px; margin: 14px 0; border: 1px solid #eaeef2; }
+  .box.green { background: #e8f5e9; border-left: 4px solid #1a9850; }
+  .box.red { background: #fdecea; border-left: 4px solid #c0392b; }
+  .box.amber { background: #fff8ec; border-left: 4px solid #fdae61; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0 4px; }
+  .stat { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 14px 16px; }
+  .stat .n { font-size: 1.7em; font-weight: 700; line-height: 1.1; }
+  .stat .l { font-size: 0.85em; color: #57606a; }
+  .graph { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 8px; overflow-x: auto; }
+  svg { display: block; width: 100%; height: auto; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.85em; color: #57606a; margin-top: 8px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.92em; background: #fff; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid #eaeef2; text-align: left; vertical-align: top; }
+  th { background: #f6f8fa; font-weight: 600; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-top: 12px; }
+  .pcard { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 16px; }
+  .pcard h3 { font-size: 1em; margin: 0 0 2px; }
+  .pcard .role { font-size: 0.84em; color: #57606a; margin-bottom: 10px; }
+  .pcard .wp { display: inline-block; background: #0d1117; color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 0.78em; margin-bottom: 8px; }
+  .pcard ul { padding-left: 18px; margin: 6px 0; font-size: 0.9em; }
+  .pcard .acc { font-size: 0.84em; color: #1a5e20; background: #e8f5e9; border-radius: 6px; padding: 8px 10px; margin-top: 8px; }
+  .gantt td, .gantt th { text-align: center; padding: 6px 4px; font-size: 0.82em; }
+  .gantt td.name { text-align: left; font-weight: 600; white-space: nowrap; }
+  .c1 { background: #e3f2fd; } .c2 { background: #e8f5e9; } .c3 { background: #fff3e0; }
+  .c4 { background: #f3e5f5; } .c5 { background: #fce4ec; }
+  .gate { background: #c0392b; color: #fff; font-weight: 700; }
+  .tag { display: inline-block; background: #eef2f6; color: #30363d; border-radius: 12px; padding: 2px 10px; font-size: 0.8em; margin: 2px 4px 2px 0; }
+  footer { text-align: center; color: #57606a; font-size: 0.85em; padding: 24px 0 40px; }
+  code { background: #eef2f6; padding: 1px 6px; border-radius: 4px; font-size: 0.88em; }
+  a { color: #2a7de1; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="title"><a href="index.html">📋 Generalization</a></div>
+  <div class="langs">
+    <a href="index.html">Home</a>
+    <a href="PLAN.html">Plan</a>
+    <a href="GENERALIZATION_PLAN.html">Generalization</a>
+    <a href="RL_PLAN.html">RL</a>
+    <a href="GENERALIZATION_PLAN.md">Markdown</a>
+  </div>
+</nav>
+<div class="lang-tabs">
+  <button class="active" onclick="setLang('en', this)">English</button>
+  <button onclick="setLang('ko', this)">한국어</button>
+  <button onclick="setLang('zh', this)">中文</button>
+</div>
+<div class="lang-block show" id="lang-en">
+<h1>Generalization plan — team work packages</h1>
+<p class="lead">The goal is not another result on the sleep queue. It is a protocol that
+survives a change of cohort and a change of domain.</p>
+<div class="box amber"><b>Status: not done, not verified.</b> The belief-conditioned result is a single run.
+Nothing below assumes it holds until WP1 reproduces it.</div>
+
+<h2>1. What we believe, and what still needs checking</h2>
+<table class=""><tr><th>Claim</th><th>Evidence today</th><th>Status</th></tr><tr><td>Belief-conditioned GNN + REINFORCE is best</td><td>one run, seeds not fixed</td><td>unverified — WP1</td></tr><tr><td>Belief greedy beats static/observed GNN</td><td>200 held-out graphs, paired CI</td><td>in-repo, needs a second rerun</td></tr><tr><td>Type partition explains the real queue</td><td>1,048 flags, 68 labels</td><td>in-repo, single lab</td></tr></table>
+
+<h2>2. What "generalize" means — three rungs, in order</h2>
+<table class=""><tr><th>Rung</th><th>Data</th><th>Question</th><th>Why</th></tr><tr><td><b>G1</b></td><td>second sleep cohort (KAIST 1,372/49, CC BY)</td><td>does the row/field structure transfer?</td><td>same schema, different people</td></tr><tr><td><b>G2</b></td><td>GO annotations (IEA vs experimental; GO is a DAG)</td><td>does it transfer to another biological unit?</td><td>real graph, real auto-vs-curator split</td></tr><tr><td><b>G3</b></td><td>clinical, only if licensed</td><td>does it survive a regulated domain?</td><td>highest cost, do last</td></tr></table>
+<p><b>Operational definition:</b> generalization = the same table, from the same script, with the
+same metrics, on a new dataset. If the columns change, it is not a transfer result.</p>
+<table class=""><tr><th>dataset</th><th>unit</th><th>type ceiling</th><th>within-type gain</th><th>cost gain</th></tr><tr><td>sleep A</td><td>row/field</td><td>84%</td><td>none</td><td>2×</td></tr><tr><td>sleep B (G1)</td><td>row</td><td>?</td><td>?</td><td>?</td></tr><tr><td>GO (G2)</td><td>gene–term</td><td>?</td><td>?</td><td>?</td></tr></table>
+
+<h2>3. Work packages</h2>
+<div class="cards"><div class="pcard"><span class="wp">WP0</span><h3>P1 · protocol</h3><div class="role">One job: make everyone's numbers comparable</div><ul><li><code>eval.py</code>: the only recall / CI implementation</li><li>table template, seed protocol</li><li>reject any table without a CI or a script path</li></ul><div class="acc">Acceptance: others import your eval instead of copying it. Frozen by D2.</div></div><div class="pcard"><span class="wp">WP1</span><h3>P2 · verify</h3><div class="role">Does RL lose on representation or on credit assignment?</div><ul><li>belief / static / observed / belief-greedy</li><li>5 seeds × 200 held-out × paired bootstrap</li><li>publish every seed</li></ul><div class="acc">Acceptance: one command, one table; a negative result is still a delivery.<br>Blocked by: WP2.</div></div><div class="pcard"><span class="wp">WP2</span><h3>P3 · environment</h3><div class="role">The choke point: move it and every number dies</div><ul><li>tag and freeze the generator</li><li>define the item schema</li><li>write the KAIST adapter</li></ul><div class="acc">Acceptance: <code>--dataset kaist</code> runs end to end.</div></div><div class="pcard"><span class="wp">WP3·4</span><h3>P4 · baselines</h3><div class="role">Survey first, implement two</div><ul><li>VOI, MCTS, BC, offline RL, transformer</li><li>two cheapest on the same harness</li><li>diagnostics only under Option 2</li></ul><div class="acc">Acceptance: one-page fit/effort/risk table + two working baselines.</div></div><div class="pcard"><span class="wp">WP5</span><h3>P5 · datasets</h3><div class="role">The only truly independent job</div><ul><li>KAIST → GO → Manchester, licence and fields verified</li><li>open the real files</li><li>no data in the repo</li></ul><div class="acc">Acceptance: every row has a licence and a load command that runs.</div></div></div>
+
+<h2>4. Rules for every package</h2>
+<ul>
+<li><b>One table, one script.</b> If a number cannot be regenerated by a command, it does not exist.</li>
+<li><b>Paired comparisons only</b>, bootstrap CI, at least 5 seeds.</li>
+<li><b>Report the interval, not the winner.</b> Below ~10 pp on the real queue is noise.</li>
+<li><b>No dataset in the repo.</b> Code and aggregates only.</li>
+<li><b>Status labels:</b> every claim is <code>verified</code> / <code>unverified</code> / <code>retracted</code>.</li>
+</ul>
+
+<h2>5. Dependencies, honestly</h2>
+<p>Only two tasks are independent: the dataset survey and the reading half of the model survey.
+Everything else is on one chain.</p>
+<table class=""><tr><th>Package</th><th>Blocked by</th><th>Blocks</th></tr><tr><td>WP0</td><td>—</td><td>all</td></tr><tr><td>WP2</td><td>WP0</td><td>WP1, WP3 impl, G1/G2</td></tr><tr><td>WP1</td><td>WP2</td><td>the Option 1/2 decision</td></tr><tr><td>WP4</td><td>WP1 + decision</td><td>—</td></tr><tr><td>WP5 adapter</td><td>WP2 schema</td><td>G1</td></tr></table>
+<div class="box red"><b>Single choke point: the environment freeze.</b> If the simulator changes after
+verification, every number invalidates. Changing the environment is a new version and a full rerun.</div>
+<p>Parallelism is bought with four interfaces frozen by day 2:
+<code>eval.py</code>, the item schema, the env tag + seed protocol, and the table template.</p>
+</div>
+<div class="lang-block" id="lang-ko">
+<h1>일반화 계획 — 팀 작업 패키지</h1>
+<p class="lead">목표는 수면 큐에서 결과를 하나 더 내는 것이 아니라, 코호트와 도메인이 바뀌어도 살아남는
+프로토콜을 만드는 것이다.</p>
+<div class="box amber"><b>상태: 미완료, 미검증.</b> belief 조건화 결과는 단 한 번의 실행이다.
+WP1이 재현하기 전까지 아래 어떤 것도 이를 전제로 하지 않는다.</div>
+
+<h2>1. 우리가 믿는 것, 아직 확인해야 하는 것</h2>
+<table class=""><tr><th>주장</th><th>현재 증거</th><th>상태</th></tr><tr><td>belief 조건화 GNN + REINFORCE가 최고</td><td>1회 실행, 시드 미고정</td><td>미검증 — WP1</td></tr><tr><td>belief greedy가 static/observed GNN을 이김</td><td>200 held-out, 짝지은 CI</td><td>저장소 내, 재현 필요</td></tr><tr><td>타입 분할이 실제 큐를 설명</td><td>1,048 플래그, 68 라벨</td><td>저장소 내, 단일 실험실</td></tr></table>
+
+<h2>2. "일반화"의 정의 — 세 단계</h2>
+<table class=""><tr><th>단계</th><th>데이터</th><th>질문</th><th>이유</th></tr><tr><td><b>G1</b></td><td>두 번째 수면 코호트 (KAIST 1,372/49, CC BY)</td><td>행/필드 구조가 전이되는가?</td><td>같은 스키마, 다른 사람</td></tr><tr><td><b>G2</b></td><td>GO 주석 (IEA vs 실험; GO는 DAG)</td><td>다른 생물학적 단위로 전이되는가?</td><td>실제 그래프, 자동 대 큐레이터</td></tr><tr><td><b>G3</b></td><td>임상, 라이선스가 있을 때만</td><td>규제 도메인에서도 통하는가?</td><td>비용 최대, 마지막</td></tr></table>
+<p><b>조작적 정의:</b> 일반화 = 같은 표, 같은 스크립트, 같은 지표, 새 데이터셋. 열이 바뀌면 전이가 아니다.</p>
+<table class=""><tr><th>데이터셋</th><th>단위</th><th>타입 상한</th><th>타입 내 이득</th><th>비용 이득</th></tr><tr><td>sleep A</td><td>행/필드</td><td>84%</td><td>없음</td><td>2×</td></tr><tr><td>sleep B (G1)</td><td>행</td><td>?</td><td>?</td><td>?</td></tr><tr><td>GO (G2)</td><td>유전자–용어</td><td>?</td><td>?</td><td>?</td></tr></table>
+
+<h2>3. 작업 패키지</h2>
+<div class="cards"><div class="pcard"><span class="wp">WP0</span><h3>P1 · 프로토콜</h3><div class="role">한 가지 일: 모두의 숫자를 비교 가능하게</div><ul><li><code>eval.py</code>: 유일한 recall / CI 구현</li><li>표 템플릿, 시드 프로토콜</li><li>CI나 스크립트 경로 없는 표는 반려</li></ul><div class="acc">검수: 다른 사람이 import 한다. D2까지 확정.</div></div><div class="pcard"><span class="wp">WP1</span><h3>P2 · 검증</h3><div class="role">RL은 표현에서 지는가, 크레딧 할당에서 지는가</div><ul><li>belief / static / observed / belief-greedy</li><li>5 시드 × 200 held-out × 짝지은 부트스트랩</li><li>모든 시드 공개</li></ul><div class="acc">검수: 한 명령, 한 표; 부정적 결과도 납품.<br>차단: WP2.</div></div><div class="pcard"><span class="wp">WP2</span><h3>P3 · 환경</h3><div class="role">병목: 움직이면 모든 숫자가 죽는다</div><ul><li>생성기 동결</li><li>item 스키마 정의</li><li>KAIST 어댑터</li></ul><div class="acc">검수: <code>--dataset kaist</code>가 끝까지 실행.</div></div><div class="pcard"><span class="wp">WP3·4</span><h3>P4 · 베이스라인</h3><div class="role">먼저 조사, 두 개 구현</div><ul><li>VOI, MCTS, BC, 오프라인 RL, 트랜스포머</li><li>가장 싼 두 개를 같은 harness에</li><li>진단은 Option 2일 때만</li></ul><div class="acc">검수: fit/effort/risk 표 + 작동하는 베이스라인 두 개.</div></div><div class="pcard"><span class="wp">WP5</span><h3>P5 · 데이터</h3><div class="role">유일하게 진짜 독립인 일</div><ul><li>KAIST → GO → Manchester, 라이선스·필드 확인</li><li>실제 파일을 연다</li><li>데이터는 저장소에 넣지 않는다</li></ul><div class="acc">검수: 모든 행에 라이선스와 실행되는 로드 명령.</div></div></div>
+
+<h2>4. 모든 패키지에 적용되는 규칙</h2>
+<ul>
+<li><b>표 하나, 스크립트 하나.</b> 명령으로 재생성할 수 없는 숫자는 존재하지 않는다.</li>
+<li><b>짝지은 비교만</b>, 부트스트랩 CI, 최소 5 시드.</li>
+<li><b>승자가 아니라 구간을 보고하라.</b> 실제 큐에서 ~10pp 이하는 노이즈다.</li>
+<li><b>데이터는 저장소에 넣지 않는다.</b> 코드와 집계만.</li>
+<li><b>상태 표기:</b> 모든 주장은 <code>verified</code> / <code>unverified</code> / <code>retracted</code>.</li>
+</ul>
+
+<h2>5. 의존성, 정직하게</h2>
+<p>독립은 두 개뿐이다: 데이터셋 조사, 그리고 모델 조사의 문헌 읽기 부분. 나머지는 한 사슬 위에 있다.</p>
+<table class=""><tr><th>패키지</th><th>차단</th><th>차단하는 것</th></tr><tr><td>WP0</td><td>—</td><td>전부</td></tr><tr><td>WP2</td><td>WP0</td><td>WP1, WP3 구현, G1/G2</td></tr><tr><td>WP1</td><td>WP2</td><td>Option 1/2 결정</td></tr><tr><td>WP4</td><td>WP1 + 결정</td><td>—</td></tr><tr><td>WP5 어댑터</td><td>WP2 스키마</td><td>G1</td></tr></table>
+<div class="box red"><b>단일 병목: 환경 동결.</b> 검증 후 시뮬레이터가 바뀌면 모든 숫자가 무효다.
+환경 변경은 새 버전 + 전면 재실행이다.</div>
+<p>병렬성은 2일 차까지 고정하는 네 인터페이스로 산다:
+<code>eval.py</code>, item 스키마, 환경 태그 + 시드 프로토콜, 표 템플릿.</p>
+</div>
+<div class="lang-block" id="lang-zh">
+<h1>泛化计划 —— 团队工作包</h1>
+<p class="lead">目标不是在睡眠队列上再出一个结果，而是一个换队列、换领域都还成立的协议。</p>
+<div class="box amber"><b>状态：未完成，未验证。</b>belief 条件化结果只是一次运行。
+在 WP1 复现之前，下面任何内容都不以它为前提。</div>
+
+<h2>1. 我们相信什么，还需要查什么</h2>
+<table class=""><tr><th>主张</th><th>现有证据</th><th>状态</th></tr><tr><td>belief 条件化 GNN + REINFORCE 最好</td><td>一次运行，种子未固定</td><td>未验证 — WP1</td></tr><tr><td>belief greedy 赢 static/observed GNN</td><td>200 held-out，配对 CI</td><td>仓库内有，需第二人重跑</td></tr><tr><td>类型分区解释真实队列</td><td>1,048 flag，68 标签</td><td>仓库内有，单实验室</td></tr></table>
+
+<h2>2.「泛化」的定义 —— 三级</h2>
+<table class=""><tr><th>级</th><th>数据</th><th>问题</th><th>为什么</th></tr><tr><td><b>G1</b></td><td>第二个睡眠队列（KAIST 1,372/49，CC BY）</td><td>行/字段结构能否迁移？</td><td>同 schema，不同的人</td></tr><tr><td><b>G2</b></td><td>GO 注释（IEA vs 实验；GO 本身是 DAG）</td><td>能否迁移到另一种生物单元？</td><td>真图，真「自动 vs 人工」</td></tr><tr><td><b>G3</b></td><td>临床，有许可才做</td><td>监管领域还成立吗？</td><td>成本最高，放最后</td></tr></table>
+<p><b>操作性定义：</b>泛化 = 同一张表、同一个脚本、同一套指标，换数据集。列变了就不算迁移。</p>
+<table class=""><tr><th>数据集</th><th>unit</th><th>类型天花板</th><th>组内增益</th><th>成本增益</th></tr><tr><td>sleep A</td><td>行/字段</td><td>84%</td><td>无</td><td>2×</td></tr><tr><td>sleep B (G1)</td><td>行</td><td>?</td><td>?</td><td>?</td></tr><tr><td>GO (G2)</td><td>基因–词条</td><td>?</td><td>?</td><td>?</td></tr></table>
+
+<h2>3. 工作包</h2>
+<div class="cards"><div class="pcard"><span class="wp">WP0</span><h3>P1 · 协议</h3><div class="role">唯一职责：让所有人的数字可比</div><ul><li><code>eval.py</code>：唯一的 recall / CI 实现</li><li>表模板、种子协议</li><li>没 CI 或没脚本路径的表一律退回</li></ul><div class="acc">验收：别人 import 你的 eval。D2 前定死。</div></div><div class="pcard"><span class="wp">WP1</span><h3>P2 · 验证</h3><div class="role">RL 输在表示，还是输在信用分配</div><ul><li>belief / static / observed / belief-greedy</li><li>5 种子 × 200 held-out × 配对 bootstrap</li><li>每种子都公开</li></ul><div class="acc">验收：一条命令一张表；负结果也算交付。<br>阻塞：WP2。</div></div><div class="pcard"><span class="wp">WP2</span><h3>P3 · 环境</h3><div class="role">卡点：一动，全部数字作废</div><ul><li>生成器打 tag 冻结</li><li>定义 item schema</li><li>写 KAIST 适配器</li></ul><div class="acc">验收：<code>--dataset kaist</code> 跑通。</div></div><div class="pcard"><span class="wp">WP3·4</span><h3>P4 · 基线</h3><div class="role">先调研，再实现两个</div><ul><li>VOI、MCTS、BC、离线 RL、Transformer</li><li>最便宜的两个接同一 harness</li><li>诊断只在 Option 2 时做</li></ul><div class="acc">验收：一页 fit/effort/risk 表 + 两个能跑的基线。</div></div><div class="pcard"><span class="wp">WP5</span><h3>P5 · 数据</h3><div class="role">唯一真正独立的活</div><ul><li>KAIST → GO → Manchester，核实许可与字段</li><li>打开真实文件</li><li>数据不进 repo</li></ul><div class="acc">验收：每行都有许可 + 能跑的加载命令。</div></div></div>
+
+<h2>4. 适用于每个包的规矩</h2>
+<ul>
+<li><b>一表一脚本。</b>不能用命令重新生成的数字，等于不存在。</li>
+<li><b>只做配对比较</b>，bootstrap CI，至少 5 种子。</li>
+<li><b>报区间，不报赢家。</b>真实队列上 ~10pp 以内是噪声。</li>
+<li><b>数据不进仓库。</b>只放代码和聚合。</li>
+<li><b>状态标签：</b>每条主张只能是 <code>verified</code> / <code>unverified</code> / <code>retracted</code>。</li>
+</ul>
+
+<h2>5. 依赖，说实话</h2>
+<p>独立的只有两个：数据集调研、模型调研的文献部分。其余都在一条链上。</p>
+<table class=""><tr><th>包</th><th>被谁阻塞</th><th>阻塞谁</th></tr><tr><td>WP0</td><td>—</td><td>全部</td></tr><tr><td>WP2</td><td>WP0</td><td>WP1、WP3 实现、G1/G2</td></tr><tr><td>WP1</td><td>WP2</td><td>Option 1/2 决策</td></tr><tr><td>WP4</td><td>WP1 + 决策</td><td>—</td></tr><tr><td>WP5 适配器</td><td>WP2 schema</td><td>G1</td></tr></table>
+<div class="box red"><b>唯一卡点：环境冻结。</b>验证之后环境再动，所有数字作废。改环境 = 新版本 + 全量重跑。</div>
+<p>并行靠第 2 天前定死的四个接口买来：<code>eval.py</code>、item schema、环境 tag + 种子协议、表模板。</p>
+</div>
+<script>
+function setLang(lang, btn) {
+  document.querySelectorAll('.lang-block').forEach(el => el.classList.remove('show'));
+  document.getElementById('lang-' + lang).classList.add('show');
+  document.querySelectorAll('.lang-tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.documentElement.lang = lang;
+}
+</script>
+</body>
+</html>

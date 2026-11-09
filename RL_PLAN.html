@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RL plan / RL 계획 / 强化学习计划</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>* { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, "Segoe UI", "Noto Sans", "PingFang SC", "Noto Sans KR", sans-serif;
+         background: #f6f8fa; color: #1f2328; line-height: 1.65; }
+  .nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center;
+         justify-content: space-between; background: #0d1117; color: #fff; padding: 10px 20px; }
+  .nav .title { font-weight: 700; font-size: 0.95em; }
+  .nav a { color: #c9d1d9; text-decoration: none; }
+  .nav .langs a { padding: 4px 10px; border-radius: 16px; font-size: 0.85em;
+                  border: 1px solid #30363d; margin-left: 6px; }
+  .lang-tabs { display: flex; gap: 8px; max-width: 980px; margin: 14px auto 0; padding: 0 16px; }
+  .lang-tabs button { border: 1px solid #d0d7de; background: #fff; color: #1f2328; padding: 6px 16px;
+                      border-radius: 16px; cursor: pointer; font-size: 0.9em; }
+  .lang-tabs button.active { background: #1a9850; color: #fff; border-color: #1a9850; }
+  .lang-block { display: none; max-width: 980px; margin: 0 auto; padding: 18px 16px 40px; }
+  .lang-block.show { display: block; }
+  h1 { font-size: 1.6em; margin: 6px 0 6px; }
+  h2 { font-size: 1.18em; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+  p { margin: 10px 0; }
+  .lead { font-size: 1.03em; color: #57606a; }
+  .box { background: #fff; border-radius: 10px; padding: 14px 18px; margin: 14px 0; border: 1px solid #eaeef2; }
+  .box.green { background: #e8f5e9; border-left: 4px solid #1a9850; }
+  .box.red { background: #fdecea; border-left: 4px solid #c0392b; }
+  .box.amber { background: #fff8ec; border-left: 4px solid #fdae61; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0 4px; }
+  .stat { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 14px 16px; }
+  .stat .n { font-size: 1.7em; font-weight: 700; line-height: 1.1; }
+  .stat .l { font-size: 0.85em; color: #57606a; }
+  .graph { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 8px; overflow-x: auto; }
+  svg { display: block; width: 100%; height: auto; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.85em; color: #57606a; margin-top: 8px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.92em; background: #fff; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid #eaeef2; text-align: left; vertical-align: top; }
+  th { background: #f6f8fa; font-weight: 600; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-top: 12px; }
+  .pcard { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 16px; }
+  .pcard h3 { font-size: 1em; margin: 0 0 2px; }
+  .pcard .role { font-size: 0.84em; color: #57606a; margin-bottom: 10px; }
+  .pcard .wp { display: inline-block; background: #0d1117; color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 0.78em; margin-bottom: 8px; }
+  .pcard ul { padding-left: 18px; margin: 6px 0; font-size: 0.9em; }
+  .pcard .acc { font-size: 0.84em; color: #1a5e20; background: #e8f5e9; border-radius: 6px; padding: 8px 10px; margin-top: 8px; }
+  .gantt td, .gantt th { text-align: center; padding: 6px 4px; font-size: 0.82em; }
+  .gantt td.name { text-align: left; font-weight: 600; white-space: nowrap; }
+  .c1 { background: #e3f2fd; } .c2 { background: #e8f5e9; } .c3 { background: #fff3e0; }
+  .c4 { background: #f3e5f5; } .c5 { background: #fce4ec; }
+  .gate { background: #c0392b; color: #fff; font-weight: 700; }
+  .tag { display: inline-block; background: #eef2f6; color: #30363d; border-radius: 12px; padding: 2px 10px; font-size: 0.8em; margin: 2px 4px 2px 0; }
+  footer { text-align: center; color: #57606a; font-size: 0.85em; padding: 24px 0 40px; }
+  code { background: #eef2f6; padding: 1px 6px; border-radius: 4px; font-size: 0.88em; }
+  a { color: #2a7de1; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="title"><a href="index.html">🧠 RL plan</a></div>
+  <div class="langs">
+    <a href="index.html">Home</a>
+    <a href="PLAN.html">Plan</a>
+    <a href="GENERALIZATION_PLAN.html">Generalization</a>
+    <a href="RL_PLAN.html">RL</a>
+    <a href="RL_PLAN.md">Markdown</a>
+  </div>
+</nav>
+<div class="lang-tabs">
+  <button class="active" onclick="setLang('en', this)">English</button>
+  <button onclick="setLang('ko', this)">한국어</button>
+  <button onclick="setLang('zh', this)">中文</button>
+</div>
+<div class="lang-block show" id="lang-en">
+<h1>The RL plan, in detail</h1>
+<p class="lead">Course-facing only. No external partner, no restricted data, every number from one script.</p>
+
+<h2>1. G0 — the experiment that decides the paper</h2>
+<p>Give the policy the belief posterior (marginal, entropy, reviewed mask) so it sees exactly what
+belief greedy sees. Everything else unchanged.</p>
+<table class=""><tr><th>G0 result</th><th>Reading</th><th>Course claim</th></tr><tr><td>RL ≥ belief greedy (CI excludes 0)</td><td>the loss was representation</td><td><b>Option 1</b> — RL is the method</td></tr><tr><td>RL < belief greedy</td><td>the loss is credit assignment</td><td><b>Option 2</b> — the analysis is the result</td></tr></table>
+
+<h2>2. MDP, stated once</h2>
+<table class=""><tr><th>Element</th><th>Definition</th></tr><tr><td>State</td><td>per node: type, confidence, downstream count, reviewed mask, budget left; <b>belief variant adds</b> posterior marginal and entropy</td></tr><tr><td>Action</td><td>pick an unreviewed node, or stop</td></tr><tr><td>Transition</td><td>review → observation (flagged w.p. <code>p_catch</code>) → fix only at the source; recompute descendants</td></tr><tr><td>Reward</td><td>terminal only: −(# wrong sinks). Variants: potential shaping, n-step</td></tr><tr><td>Horizon</td><td>budget B (80-node: 16), γ &lt; 1</td></tr></table>
+
+<h2>3. What gets compared</h2>
+<table class=""><tr><th>Class</th><th>Policy</th><th>Role</th></tr><tr><td>baselines</td><td>no review / random / threshold / structural greedy</td><td>traditional</td></tr><tr><td>model-based</td><td><b>belief greedy</b></td><td>the one to beat</td></tr><tr><td>model-free</td><td>REINFORCE (MLP), PPO, DQN</td><td>preliminary / control</td></tr><tr><td>graph</td><td>GNN + REINFORCE (static / observed)</td><td>upgrade path</td></tr><tr><td>constrained</td><td>CMDP + PPO-Lagrangian (naive)</td><td>negative result</td></tr><tr><td>new</td><td><b>GNN + REINFORCE, belief-conditioned</b></td><td>G0</td></tr><tr><td>ceiling</td><td>oracle greedy</td><td>upper bound</td></tr></table>
+
+<h2>4. Experiment matrix</h2>
+<table class=""><tr><th>Axis</th><th>Levels</th></tr><tr><td>environment</td><td>80-node synthetic (main), N=500 modular/BA/ER (heuristics), N=21 real pipeline</td></tr><tr><td>seeds</td><td>5 training seeds × 20k episodes</td></tr><tr><td>evaluation</td><td>200 held-out graphs, paired by graph, bootstrap CI</td></tr><tr><td>state ablation</td><td>static / observed / belief</td></tr><tr><td>reward ablation</td><td>terminal only / potential shaping / n-step (3, 5)</td></tr><tr><td>budget</td><td>8, 16, 32 (eval only)</td></tr></table>
+<p><b>Reporting rule.</b> Every comparison is a paired difference with a CI. A point estimate without a
+CI does not enter the paper — five seeds already fooled us once.</p>
+
+<h2>5. If RL loses: four diagnostics</h2>
+<ol>
+<li><b>Credit assignment.</b> Correlation between per-step advantage and the action's realized contribution.</li>
+<li><b>Return variance.</b> Terminal-only reward over a 16-step horizon at fixed policy.</li>
+<li><b>Interventions.</b> Potential shaping, n-step, batch size, 100k episodes.</li>
+<li><b>Information control.</b> Already covered by G0.</li>
+</ol>
+<p>The write-up becomes: policy gradient fails here because X, and here are three tests that would have falsified X.</p>
+
+<h2>6. Timeline to 12/05</h2>
+<table class=""><tr><th>Week</th><th>Work</th><th>Gate</th></tr><tr><td>11/10–11/16</td><td>G0 run; freeze environment</td><td>G0 decided</td></tr><tr><td>11/17–11/23</td><td>diagnostics or seed tightening; one transfer set</td><td>every table from one script</td></tr><tr><td>11/24–11/30</td><td>draft, figures, ceiling section</td><td>draft complete</td></tr><tr><td>12/01–12/05</td><td>slides, ≥2 rehearsals</td><td>talk delivered</td></tr></table>
+
+<h2>7. Definition of done</h2>
+<p><b>Option 1:</b> belief-conditioned RL beats belief greedy on 200 held-out graphs, paired CI excluding 0,
+5 seeds, and the gain survives the state ablation.<br>
+<b>Option 2:</b> a named mechanism, at least one intervention that moves RL toward parity or provably
+cannot, and the information control reported.</p>
+
+<h2>Appendix — public datasets worth testing</h2>
+<table class=""><tr><th>Dataset</th><th>Unit</th><th>Fit</th><th>Gap</th></tr><tr><td><b>SYNERGY</b> (ASReview)</td><td>record</td><td>best for the screening task: fully labelled, many fields</td><td>no graph, no cost</td></tr><tr><td><b>GO annotations</b> (IEA vs experimental)</td><td>gene–term</td><td>best for the DAG story and the real auto-vs-curator split</td><td>no cost</td></tr><tr><td>KAIST / Manchester diaries</td><td>row</td><td>does the row/field structure transfer?</td><td>labels must be built</td></tr><tr><td>GitHub code review (HF)</td><td>PR/hunk</td><td>the AI-review narrative</td><td>no correctness labels</td></tr><tr><td>FEVER / Bugzilla</td><td>claim / issue</td><td>other flavours</td><td>not review scheduling</td></tr></table>
+</div>
+<div class="lang-block" id="lang-ko">
+<h1>RL 계획, 상세</h1>
+<p class="lead">과정용. 외부 파트너 없음, 제한 데이터 없음, 모든 숫자는 하나의 스크립트에서.</p>
+
+<h2>1. G0 — 논문의 방향을 결정하는 실험</h2>
+<p>정책에 belief 사후분포(주변확률, 엔트로피, 검토 마스크)를 준다. belief greedy가 보는 것과 동일하게.</p>
+<table class=""><tr><th>G0 결과</th><th>해석</th><th>과정 주장</th></tr><tr><td>RL ≥ belief greedy (CI가 0 제외)</td><td>손실은 표현 문제</td><td><b>Option 1</b> — RL이 방법</td></tr><tr><td>RL < belief greedy</td><td>손실은 크레딧 할당</td><td><b>Option 2</b> — 분석이 결과</td></tr></table>
+
+<h2>2. MDP</h2>
+<table class=""><tr><th>요소</th><th>정의</th></tr><tr><td>상태</td><td>노드별: 타입, 신뢰도, 하류 수, 검토 마스크, 남은 예산; <b>belief 변형은</b> 사후 주변확률과 엔트로피 추가</td></tr><tr><td>행동</td><td>미검토 노드 선택 또는 종료</td></tr><tr><td>전이</td><td>검토 → 관측(<code>p_catch</code>로 flagged) → 원인 노드만 수정; 하류 재계산</td></tr><tr><td>보상</td><td>종료 시점만: −(잘못된 sink 수). 변형: potential shaping, n-step</td></tr><tr><td>지평</td><td>예산 B (80노드: 16), γ &lt; 1</td></tr></table>
+
+<h2>3. 비교 대상</h2>
+<table class=""><tr><th>분류</th><th>정책</th><th>역할</th></tr><tr><td>베이스라인</td><td>무검토 / 무작위 / 임계값 / 구조적 탐욕</td><td>전통</td></tr><tr><td>모델 기반</td><td><b>belief greedy</b></td><td>이겨야 할 대상</td></tr><tr><td>모델 프리</td><td>REINFORCE (MLP), PPO, DQN</td><td>예비 / 대조</td></tr><tr><td>그래프</td><td>GNN + REINFORCE (static / observed)</td><td>업그레이드 경로</td></tr><tr><td>제약</td><td>CMDP + PPO-Lagrangian (naive)</td><td>부정적 결과</td></tr><tr><td>신규</td><td><b>GNN + REINFORCE, belief 조건화</b></td><td>G0</td></tr><tr><td>상한</td><td>oracle greedy</td><td>상한</td></tr></table>
+
+<h2>4. 실험 매트릭스</h2>
+<table class=""><tr><th>축</th><th>수준</th></tr><tr><td>환경</td><td>80노드 합성(주), N=500 modular/BA/ER(휴리스틱), N=21 실제 파이프라인</td></tr><tr><td>시드</td><td>학습 5 시드 × 20k 에피소드</td></tr><tr><td>평가</td><td>200 held-out 그래프, 그래프 단위 짝지음, 부트스트랩 CI</td></tr><tr><td>상태 소거</td><td>static / observed / belief</td></tr><tr><td>보상 소거</td><td>종료만 / potential shaping / n-step (3, 5)</td></tr><tr><td>예산</td><td>8, 16, 32 (평가만)</td></tr></table>
+<p><b>보고 규칙.</b> 모든 비교는 CI가 있는 짝지은 차이. CI 없는 점추정은 논문에 넣지 않는다 —
+5 시드에 이미 한 번 속았다.</p>
+
+<h2>5. RL이 지면: 네 가지 진단</h2>
+<ol>
+<li><b>크레딧 할당.</b> 단계별 advantage와 실제 기여의 상관.</li>
+<li><b>리턴 분산.</b> 고정 정책에서 16스텝 종료 보상의 분산.</li>
+<li><b>개입.</b> potential shaping, n-step, 배치 크기, 100k 에피소드.</li>
+<li><b>정보 대조.</b> G0가 이미 처리.</li>
+</ol>
+<p>서술은 이렇게 된다: 정책 경사는 여기서 X 때문에 실패하며, X를 반증했을 세 가지 검사를 함께 보고한다.</p>
+
+<h2>6. 12/05까지 일정</h2>
+<table class=""><tr><th>주</th><th>작업</th><th>관문</th></tr><tr><td>11/10–11/16</td><td>G0 실행, 환경 동결</td><td>G0 확정</td></tr><tr><td>11/17–11/23</td><td>진단 또는 시드 강화, 전이 하나</td><td>모든 표가 한 스크립트에서</td></tr><tr><td>11/24–11/30</td><td>초안, 그림, 상한 절</td><td>초안 완성</td></tr><tr><td>12/01–12/05</td><td>슬라이드, 2회 이상 리허설</td><td>발표</td></tr></table>
+
+<h2>7. 완료의 정의</h2>
+<p><b>Option 1:</b> 200 held-out에서 belief 조건화 RL이 belief greedy를 이기고, 짝지은 CI가 0을 제외,
+5 시드, 이득이 상태 소거 후에도 유지.<br>
+<b>Option 2:</b> 명명된 기제, RL을 동등 수준으로 옮기는 개입 최소 하나(또는 불가능함의 증명),
+그리고 정보 대조 보고.</p>
+
+<h2>부록 — 시험해 볼 공개 데이터셋</h2>
+<table class=""><tr><th>데이터셋</th><th>단위</th><th>적합성</th><th>결핍</th></tr><tr><td><b>SYNERGY</b> (ASReview)</td><td>레코드</td><td>스크리닝 과제에 최적: 완전 라벨, 다분야</td><td>그래프·비용 없음</td></tr><tr><td><b>GO 주석</b> (IEA vs 실험)</td><td>유전자–용어</td><td>DAG 이야기와 실제 자동 대 큐레이터</td><td>비용 없음</td></tr><tr><td>KAIST / Manchester</td><td>행</td><td>행/필드 구조 전이 여부</td><td>라벨을 만들어야 함</td></tr><tr><td>GitHub 코드 리뷰 (HF)</td><td>PR/hunk</td><td>AI 리뷰 서사</td><td>정답 라벨 없음</td></tr><tr><td>FEVER / Bugzilla</td><td>주장 / 이슈</td><td>다른 결</td><td>리뷰 스케줄링 아님</td></tr></table>
+</div>
+<div class="lang-block" id="lang-zh">
+<h1>强化学习计划（细化）</h1>
+<p class="lead">只面向课程。无外部合作方、无受限数据、每个数字来自一个脚本。</p>
+
+<h2>1. G0 —— 决定整篇写法的实验</h2>
+<p>把 belief 后验（边际概率、熵、已审掩码）喂给策略，让它看到的和 belief greedy 完全一样。</p>
+<table class=""><tr><th>G0 结果</th><th>解释</th><th>课程主张</th></tr><tr><td>RL ≥ belief greedy（CI 排除 0）</td><td>之前输是表示问题</td><td><b>Option 1</b> — RL 是方法</td></tr><tr><td>RL < belief greedy</td><td>输是信用分配</td><td><b>Option 2</b> — 分析即结果</td></tr></table>
+
+<h2>2. MDP</h2>
+<table class=""><tr><th>要素</th><th>定义</th></tr><tr><td>状态</td><td>每节点：类型、置信度、下游数、已审掩码、剩余预算；<b>belief 变体加</b>后验边际与熵</td></tr><tr><td>行动</td><td>选未审节点，或停止</td></tr><tr><td>转移</td><td>审阅 → 观测（以 <code>p_catch</code> 报错）→ 只修源头；重算下游</td></tr><tr><td>奖励</td><td>仅终局：−（错误 sink 数）。变体：potential shaping、n-step</td></tr><tr><td>时间跨度</td><td>预算 B（80 节点：16），γ &lt; 1</td></tr></table>
+
+<h2>3. 对比对象</h2>
+<table class=""><tr><th>类别</th><th>策略</th><th>角色</th></tr><tr><td>基线</td><td>不审 / 随机 / 阈值 / 结构贪心</td><td>传统</td></tr><tr><td>模型基</td><td><b>belief greedy</b></td><td>要打赢的对象</td></tr><tr><td>无模型</td><td>REINFORCE (MLP)、PPO、DQN</td><td>初步 / 对照</td></tr><tr><td>图</td><td>GNN + REINFORCE（static / observed）</td><td>升级路径</td></tr><tr><td>约束</td><td>CMDP + PPO-Lagrangian（naive）</td><td>负结果</td></tr><tr><td>新</td><td><b>GNN + REINFORCE，belief 条件化</b></td><td>G0</td></tr><tr><td>上界</td><td>oracle greedy</td><td>上界</td></tr></table>
+
+<h2>4. 实验矩阵</h2>
+<table class=""><tr><th>轴</th><th>水平</th></tr><tr><td>环境</td><td>80 节点合成（主）、N=500 modular/BA/ER（启发式）、N=21 真实管道</td></tr><tr><td>种子</td><td>5 个训练种子 × 20k episode</td></tr><tr><td>评估</td><td>200 张 held-out 图，按图配对，bootstrap CI</td></tr><tr><td>状态消融</td><td>static / observed / belief</td></tr><tr><td>奖励消融</td><td>仅终局 / potential shaping / n-step（3、5）</td></tr><tr><td>预算</td><td>8、16、32（仅评估）</td></tr></table>
+<p><b>报告规则。</b>所有比较都是带 CI 的配对差。没有 CI 的点估计不进论文——5 个种子已经骗过我们一次。</p>
+
+<h2>5. 如果 RL 输了：四个诊断</h2>
+<ol>
+<li><b>信用分配。</b>每步 advantage 与该步实际贡献的相关性。</li>
+<li><b>回报方差。</b>固定策略下 16 步终局奖励的方差。</li>
+<li><b>干预。</b>potential shaping、n-step、batch、100k episode。</li>
+<li><b>信息对照。</b>G0 已经覆盖。</li>
+</ol>
+<p>写法：策略梯度在这里失败，原因是 X，并附上三个本可以证伪 X 的检验。</p>
+
+<h2>6. 到 12/05 的时间线</h2>
+<table class=""><tr><th>周</th><th>工作</th><th>关卡</th></tr><tr><td>11/10–11/16</td><td>跑 G0；冻结环境</td><td>G0 定案</td></tr><tr><td>11/17–11/23</td><td>诊断或收紧种子；一个迁移集</td><td>所有表来自一个脚本</td></tr><tr><td>11/24–11/30</td><td>草稿、图、上界一节</td><td>初稿完成</td></tr><tr><td>12/01–12/05</td><td>slides、≥2 次排练</td><td>交付</td></tr></table>
+
+<h2>7. 完成定义</h2>
+<p><b>Option 1：</b>belief 条件化 RL 在 200 张 held-out 上赢 belief greedy，配对 CI 排除 0，5 种子，
+且增益在状态消融后仍成立。<br>
+<b>Option 2：</b>说出机制、至少一个把 RL 推向平手的干预（或证明不可能），并报告信息对照。</p>
+
+<h2>附录 —— 值得一试的公开数据集</h2>
+<table class=""><tr><th>数据集</th><th>单元</th><th>契合点</th><th>缺什么</th></tr><tr><td><b>SYNERGY</b>（ASReview）</td><td>记录</td><td>筛选题最佳：全标注、多领域</td><td>无图、无成本</td></tr><tr><td><b>GO 注释</b>（IEA vs 实验）</td><td>基因–词条</td><td>DAG 故事 + 真实的自动 vs 人工</td><td>无成本</td></tr><tr><td>KAIST / Manchester</td><td>行</td><td>行/字段结构能否迁移</td><td>需自造标签</td></tr><tr><td>GitHub code review（HF）</td><td>PR/hunk</td><td>「AI review」叙事</td><td>无正确性标签</td></tr><tr><td>FEVER / Bugzilla</td><td>claim / issue</td><td>其他口味</td><td>不是审阅调度</td></tr></table>
+</div>
+<script>
+function setLang(lang, btn) {
+  document.querySelectorAll('.lang-block').forEach(el => el.classList.remove('show'));
+  document.getElementById('lang-' + lang).classList.add('show');
+  document.querySelectorAll('.lang-tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.documentElement.lang = lang;
+}
+</script>
+</body>
+</html>

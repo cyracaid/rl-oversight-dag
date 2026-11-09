@@ -1,0 +1,50 @@
+* { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, "Segoe UI", "Noto Sans", "PingFang SC", "Noto Sans KR", sans-serif;
+         background: #f6f8fa; color: #1f2328; line-height: 1.65; }
+  .nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center;
+         justify-content: space-between; background: #0d1117; color: #fff; padding: 10px 20px; }
+  .nav .title { font-weight: 700; font-size: 0.95em; }
+  .nav a { color: #c9d1d9; text-decoration: none; }
+  .nav .langs a { padding: 4px 10px; border-radius: 16px; font-size: 0.85em;
+                  border: 1px solid #30363d; margin-left: 6px; }
+  .lang-tabs { display: flex; gap: 8px; max-width: 980px; margin: 14px auto 0; padding: 0 16px; }
+  .lang-tabs button { border: 1px solid #d0d7de; background: #fff; color: #1f2328; padding: 6px 16px;
+                      border-radius: 16px; cursor: pointer; font-size: 0.9em; }
+  .lang-tabs button.active { background: #1a9850; color: #fff; border-color: #1a9850; }
+  .lang-block { display: none; max-width: 980px; margin: 0 auto; padding: 18px 16px 40px; }
+  .lang-block.show { display: block; }
+  h1 { font-size: 1.6em; margin: 6px 0 6px; }
+  h2 { font-size: 1.18em; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+  p { margin: 10px 0; }
+  .lead { font-size: 1.03em; color: #57606a; }
+  .box { background: #fff; border-radius: 10px; padding: 14px 18px; margin: 14px 0; border: 1px solid #eaeef2; }
+  .box.green { background: #e8f5e9; border-left: 4px solid #1a9850; }
+  .box.red { background: #fdecea; border-left: 4px solid #c0392b; }
+  .box.amber { background: #fff8ec; border-left: 4px solid #fdae61; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0 4px; }
+  .stat { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 14px 16px; }
+  .stat .n { font-size: 1.7em; font-weight: 700; line-height: 1.1; }
+  .stat .l { font-size: 0.85em; color: #57606a; }
+  .graph { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 8px; overflow-x: auto; }
+  svg { display: block; width: 100%; height: auto; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.85em; color: #57606a; margin-top: 8px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.92em; background: #fff; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid #eaeef2; text-align: left; vertical-align: top; }
+  th { background: #f6f8fa; font-weight: 600; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-top: 12px; }
+  .pcard { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 16px; }
+  .pcard h3 { font-size: 1em; margin: 0 0 2px; }
+  .pcard .role { font-size: 0.84em; color: #57606a; margin-bottom: 10px; }
+  .pcard .wp { display: inline-block; background: #0d1117; color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 0.78em; margin-bottom: 8px; }
+  .pcard ul { padding-left: 18px; margin: 6px 0; font-size: 0.9em; }
+  .pcard .acc { font-size: 0.84em; color: #1a5e20; background: #e8f5e9; border-radius: 6px; padding: 8px 10px; margin-top: 8px; }
+  .gantt td, .gantt th { text-align: center; padding: 6px 4px; font-size: 0.82em; }
+  .gantt td.name { text-align: left; font-weight: 600; white-space: nowrap; }
+  .c1 { background: #e3f2fd; } .c2 { background: #e8f5e9; } .c3 { background: #fff3e0; }
+  .c4 { background: #f3e5f5; } .c5 { background: #fce4ec; }
+  .gate { background: #c0392b; color: #fff; font-weight: 700; }
+  .tag { display: inline-block; background: #eef2f6; color: #30363d; border-radius: 12px; padding: 2px 10px; font-size: 0.8em; margin: 2px 4px 2px 0; }
+  footer { text-align: center; color: #57606a; font-size: 0.85em; padding: 24px 0 40px; }
+  code { background: #eef2f6; padding: 1px 6px; border-radius: 4px; font-size: 0.88em; }
+  a { color: #2a7de1; }
