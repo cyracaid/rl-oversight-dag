@@ -62,6 +62,15 @@
 - Say: (1) the model uses the signal — destroy it and RL is *worse* than a static threshold. (2) The noisy predictor is the bottleneck, not the scheduler — **do not keep tuning the policy; invest in the confidence signal.** We located where the remaining error lives.
 - Reliability (HealthBench worst-of-n): one unreviewed error can invalidate a conclusion. Worst-of-5: GNN 1.90, noise 5.20, oracle 0.80 — **a noisy signal hurts the tail more than the mean.**
 
+## Slide 8c — Scale: N=500, three graph families
+| family | no | threshold | greedy |
+|---|---|---|---|
+| modular | 24 | 8.6 | **2.0** |
+| scale-free (BA) | 81 | 30 | **3.8** |
+| sparse (ER) | 43 | 16 | **8.2** |
+- Figure: `scale500.png`
+- Say: greedy influence maximization (1−1/e style) nearly clears every family; random ≈ no review; threshold unstable on scale-free. **These are heuristics, not RL** — any learned policy must beat this. Math: P(X_v=0|X_u=0)=1−e^(−λw); CMDP Lagrangian; Zipf types.
+
 ## Slide 9 — Controls (anti-self-fulfilling)
 - Shuffle errors (break clustering) → advantage gone; flatten graph (break propagation) → advantage gone
 - Say: the advantage comes from structure, not from a rigged simulator

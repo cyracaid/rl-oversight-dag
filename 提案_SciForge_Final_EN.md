@@ -73,11 +73,19 @@ A sequential-decision MDP with sparse, delayed reward — not a bandit.
 
 The node scorer is a **GNN**: each node's (type, confidence, downstream influence) is encoded together with its graph neighborhood, following Mattick et al. (arXiv:2310.00112). The soft-budget extension (FALCON's CMDP + PPO-Lagrangian, budget as a coverage constraint) is still in progress.
 
+**Formalization.** On DAG \(G=(V,E)\), with \(X_v\in\{0,1\}\) (1 = correct):
+
+\[
+P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}),
+\]
+
+a causal intervention: reviewing \(v\) forces \(X_v=1\) and cuts outgoing infection. Types follow a Zipf law (a few deadly types). The budget is a CMDP constraint \(C(\pi)\le B\), Lagrangian \(\max_\pi \min_{\lambda\ge0} J(\pi)+\lambda(B-C(\pi))\). Greedy review that most reduces reachable sink errors is a \((1-1/e)\)-style influence-maximization baseline.
+
 ## 5. Data and controls
 
 - **Real data (motivation, internal, not public):** `deidentified_intervalvars_forCD_111325.rds` = **13,990 rows / 237 participants** of daily sleep logs (bed / sleep / wake / get-up times → automated SOL, WASO, sleep efficiency). 75 corrections (0.54%), of which `order_error` = **57/75 = 76%** (not 85.1%; the 85% was 57/67, 8 rows unlabeled), entropy 0.612, p < 0.0001.
   - Per SciForge's raw-data protection, this CSV **never enters git and is never handed whole to an agent**; the document cites summary numbers only.
-- **Synthetic dependency graph (main experiments):** ≈80 nodes, errors clustered by type and propagating downstream. Synthetic data lets us know which nodes are truly wrong and change one factor at a time.
+- **Synthetic dependency graph (main experiments):** ≈80 nodes, errors clustered by type and propagating downstream. Scaled follow-up (**N=500**, budget 50, Zipf types, exponential propagation 1−e^(−λw)): modular / scale-free (BA) / sparse (ER). Greedy influence maximization: modular 24→**2**, scale-free 81→**4**, ER 43→**8**; random ≈ no review; conf threshold unstable on scale-free (6–76). Script `graph_scale.py`, figure `scale500.png`. These 500-node numbers are **greedy, not RL**.
 - **Controls (proving the advantage is not baked in):** shuffle which items are wrong (break clustering) → advantage disappears; flatten the graph (break propagation) → advantage disappears. → the advantage comes from clustering + propagation.
 
 ## 6. Results so far (AI-generated, not re-run, see Section 8)
@@ -161,7 +169,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 **What the experiments add.** An explainable negative result (bandit loses because the graph is flattened), the reframe that fixes it, a method comparison (policy gradient beats value-based under sparse reward), and controls showing the gain comes from structure.
 
-**Limits (stated plainly).** Main experiments are synthetic (≈80 nodes); the GNN scorer is a single training run; real data is 75 rows (motivation only); "no direct precedent" = not found, not nonexistent.
+**Limits (stated plainly).** Main experiments are synthetic (≈80 nodes; scaled greedy baselines at 500 nodes, RL not yet trained at that scale); the GNN scorer is multi-seed but high-variance; real data is 75 rows (motivation only); "no direct precedent" = not found, not nonexistent.
 
 **SciForge deployment (phased idea):**
 1. **Offline evaluation.** On the synthetic graph and an exported, de-identified real evidence graph, compare the suggester vs "sort by confidence". No app integration, no change to record-keeping.
