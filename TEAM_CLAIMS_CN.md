@@ -20,7 +20,7 @@ layout: default
 | | 论文轨 Track P | SciForge 轨 Track C |
 |---|---|---|
 | 做什么 | STA3145 独立论文 / talk | 把建议器作为只读审阅层嵌进 SciForge |
-| 截止 | 课程 final（约 12/05） | 论文之后，或者并行（如果链主人同意） |
+| 截止 | 课程 final（发表 11/23） | 论文之后，或者并行（如果链主人同意） |
 | 观众 | 教授 + 同学 | 郑心（链主人）+ Zhangyang Gao + 实验室用户 |
 | 数据 | 合成 DAG + 睡眠 75/13,990 + 真实管道 N=21 | 同样，再加脱敏 SciForge DAG 导出 |
 | 风险 | GNN 方差；RL 在 N=500 可能不赢贪心 | 集成成本；SciForge 可能没有置信度字段 |
@@ -143,7 +143,7 @@ POST /suggest/review-order
 
 ### 我们的推荐
 **两条都做，按这个顺序。**
-1. ~12/03 之前冻结 Track P 当课程论文 / talk。
+1. ~11/15 之前冻结 Track P 当课程论文 / talk，11/23 发表。
 2. Track C 从 W3 并行，只做设计 + mock 导出，不做生产集成。
 3. 课结束后，如果 Maia 和 Gao 要，Track C 可以变成 SciForge 的一个 PR（只读建议器）。
 

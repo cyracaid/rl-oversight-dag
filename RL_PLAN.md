@@ -1,6 +1,6 @@
 # The RL plan, in detail
 
-> Course-facing only. Scope: STA3145, deadline 12/05. No external partner, no
+> Course-facing only. Scope: STA3145, talk 11/23 (analysis frozen 11/14). No external partner, no
 > restricted data, every number from one script.
 > Companion: `IMPLEMENTATION_SPEC.md` (constants), `TRACKS.md` (why this is separate
 > from SciForge).
@@ -123,9 +123,10 @@ Both gates run the same night. Nothing waits for a "phase" to finish. Numbers fr
 | Thu 11/12–Fri 11/13 | Option 1: misspecification (λ ±50%, drift, catch 0.7) · Option 2: diagnostics; **2-step greedy control** for both | branch data |
 | Sat 11/14 | numbers frozen; curves, paired CIs, clean-clone rerun | numbers frozen |
 | Sun 11/15–Mon 11/16 | draft + slides + ≥2 rehearsals | talk ready |
+| Mon 11/23 | final presentation (11/17–11/22 polish only) | delivered |
 
-If the talk stays on 12/05, everything after 11/16 is buffer plus one optional transfer set —
-not extra scope.
+The talk is Mon 11/23. 11/17–11/22 is rehearsal and buffer (plus at most one optional transfer
+set) — not extra scope.
 
 ---
 

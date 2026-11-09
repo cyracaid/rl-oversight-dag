@@ -21,7 +21,7 @@ permalink: /TEAM_CLAIMS_EN.html
 | | Track P — Paper | Track C — SciForge chain |
 |---|---|---|
 | What | Standalone RL paper / talk for STA3145 | Embed the suggester as a read-only review layer in SciForge |
-| Deadline | Course final (~12/05) | After the paper, or in parallel if the chain owner agrees |
+| Deadline | Course final (talk 11/23) | After the paper, or in parallel if the chain owner agrees |
 | Audience | Professor + classmates | 郑心 (chain owner) + Zhangyang Gao + lab users |
 | Data | Synthetic DAGs + sleep 75/13,990 + real pipeline N=21 | Same, plus a de-identified SciForge DAG export |
 | Risk | GNN variance; RL may not beat greedy at N=500 | Integration cost; SciForge may not have a confidence field |
@@ -144,7 +144,7 @@ This is a feature of SciForge, not a separate product. Zhangyang Gao decides if 
 
 ### Our recommendation
 **Do both, in this order.**
-1. Freeze Track P by ~12/03 as the course paper/talk.
+1. Freeze Track P by ~11/15 as the course paper/talk; present 11/23.
 2. Track C starts W3 in parallel as a design + mock export, not as a production integration.
 3. After the course, Track C can become a SciForge PR (read-only suggester) if Maia and Gao want it.
 

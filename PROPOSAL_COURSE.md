@@ -275,8 +275,8 @@ Not used: VAE / diffusion (different module) — deliberately not forced in.
 
 ## 10. Deliverables and timeline — one week, seven days
 
-Everything lands by **Sun 11/15**; 11/16 is freeze-and-buffer only. If the course talk stays on
-12/05, the extra weeks are buffer and a transfer set — not more scope.
+Everything lands by **Sun 11/15**; 11/16 is freeze only. The talk is **Mon 11/23** — the week
+in between (11/17–11/22) is rehearsal and polish, not more scope.
 
 | day | date | lane 1 (env / RL, people 2–3) | lane 2 (baselines / write-up, people 4–5) | gate |
 |---|---|---|---|---|
@@ -287,7 +287,9 @@ Everything lands by **Sun 11/15**; 11/16 is freeze-and-buffer only. If the cours
 | D4 | Fri 11/13 | branch runs (5 seeds each, overnight) | controls: shuffle / flatten; worst-of-n table | — |
 | D5 | Sat 11/14 | numbers frozen; learning curves; paired CIs | figures + table regeneration; clean-clone rerun of one seed | numbers frozen |
 | D6 | Sun 11/15 | draft §results, negative-result section | slides + one rehearsal | draft |
-| D7 | Mon 11/16 | buffer only | second rehearsal | freeze |
+| D7 | Mon 11/16 | buffer only — fix anything the clean-clone rerun breaks | second rehearsal | freeze |
+| — | Tue 11/17 – Sun 11/22 | polish only; no new experiments | slides, ≥2 full rehearsals, timing | talk ready |
+| — | **Mon 11/23** | — | — | **final presentation** |
 
 **Deliverables:** code that runs from a clean clone (data auto-skips if absent), a generated
 results table, the held-out paired evaluation, the negative-result or Option-A section, and the

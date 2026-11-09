@@ -339,7 +339,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 | Thu 11/12 – Fri 11/13 | Branch work + 2-step greedy control; shuffle / flatten controls | 2, 4 |
 | Sat 11/14 | Numbers frozen; curves, paired CIs, clean-clone rerun | 4 |
 | Sun 11/15 – Mon 11/16 | Draft + slides + ≥2 rehearsals | 5, all |
-| 12/05 | Final presentation (the weeks before it are buffer + one optional transfer set) | all |
+| Mon 11/23 | Final presentation (11/17–11/22 is rehearsal and polish only) | all |
 
 ## 14. Presentation outline (condensed)
 

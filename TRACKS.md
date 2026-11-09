@@ -2,7 +2,7 @@
 
 > Written 2026-11-09 to answer the two questions raised in the group chat.
 > Rule: **Track A must be finishable without any external partner. Track B may
-> depend on SciForge. Nothing in B may block A's 12/05 deadline.**
+> depend on SciForge. Nothing in B may block A's 11/23 talk.**
 
 ---
 
@@ -14,7 +14,7 @@
 | Data | Synthetic DAGs (80 / 500), **open** transfer sets (KAIST, GO) | SciForge evidence queue + review receipts; sleep queue as the worked example |
 | Method | REINFORCE / PPO / DQN / CMDP, GNN scorer, belief-conditioned RL; belief greedy as the model-based baseline | Receipt schema, audit-chain granularity, review-cost model |
 | Claim | Either "belief-conditioned PG wins" or "PG loses for a stated, testable reason" | "Review scheduling is information-bound; here is the ceiling and the cost" |
-| Deliverable | Course paper + talk, 12/05 | Design docs → offline evaluation → (later) Nature Communications |
+| Deliverable | Course paper + talk, 11/23 | Design docs → offline evaluation → (later) Nature Communications |
 | External dependency | **None** | 郑心's audit chain; IRB for sleep data |
 | Risk | RL may not win → answer is the analysis | Partner may not deliver receipts in time → ship the design + demo |
 
@@ -73,7 +73,8 @@ a stated mechanism that could be disproved.
 | **P0** | Mon 11/09 → Wed 11/11 | `gain(i)`-feature and n-step/AC gates, **run in parallel on 11/10**; decision 11/11 | **G0**: does RL match greedy? decides Option 1 vs 2 |
 | **P1** | Thu 11/12 → Sat 11/14 | Branch work + 2-step greedy control; numbers frozen | G1: every table reproducible from one script |
 | **P2** | Sun 11/15 → Mon 11/16 | Draft, slides, ≥2 rehearsals | G2: talk ready |
-| **P3** | only if the week finishes early | One open transfer set (KAIST or GO), same protocol | G3: does the ordering repeat (type ≫ within-type)? |
+| **P3** | Mon 11/23 | Final talk (11/17–11/22 polish only) | G3: delivered |
+| **optional** | only if the week finishes early | One open transfer set (KAIST or GO), same protocol | does the ordering repeat (type ≫ within-type)? |
 | **B1** | parallel, no deadline | Receipt schema + demo (done); 20-row sample from 郑心 | B-gate: real receipts exist |
 | **B2** | after the course | Offline evaluation on the real chain; cost in minutes | B-gate: recall per hour reported |
 
