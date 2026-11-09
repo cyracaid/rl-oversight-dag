@@ -35,8 +35,8 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | File | Language | For |
 |---|---|---|
 | `PROJECT_EN.md` / `PROJECT_KO.md` / `PROJECT_CN.md` | EN / KO / CN | course narrative |
-| `presentation_outline.md` | EN | slides |
-| `IMPLEMENTATION_SPEC.md` / `_CN.md` | EN / CN | build constants |
+| `presentation_outline.md` / `presentation_outline_ko.md` | EN / KO | slides |
+| `IMPLEMENTATION_SPEC.md` / `_KO.md` / `_CN.md` | EN / KO / CN | build constants |
 | `index.html` | ZH / EN / KO | humanized illustrated talk page |
 | `meeting_proposal.html` / `.pdf` | ZH / EN / KO | one-page meeting handout (math + figures) |
 | `experiments/` | code | every number |

@@ -306,7 +306,6 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 | 4 | Baselines + controls | 2 | comparison table + shuffle/flatten |
 | 5 (동채하) | Literature + real-data motivation + writing (+ English presenting if allowed) | 1 | related work + motivation + slides |
 
-Presentation language TBD: if English is allowed, 동채하 presents; if Korean-only, another member presents.
 
 | Date | Milestone | Owner |
 |---|---|---|
