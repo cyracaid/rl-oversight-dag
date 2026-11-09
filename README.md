@@ -12,12 +12,12 @@
 **Who claims what (5 people, two tracks):**
 [Team claims HTML (中文/EN/한국어)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html)
 
-**Meeting one-pager (humanized + math, click to open):**
+**Meeting one-pager (humanized + math, 中文 / EN / 한국어, click to open):**
 [中文 PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_zh.pdf) ·
 [English PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_en.pdf) ·
 [한국어 PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_ko.pdf) ·
 [HTML 三语切换](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.html) ·
-[illustrated talk page](https://cyracaid.github.io/rl-oversight-dag/index.html)
+[illustrated talk page](https://cyracaid.github.io/rl-oversight-dag/talk.html)
 
 **Full narrative (pick your language):**
 [English](https://cyracaid.github.io/rl-oversight-dag/en/index.html) ·
@@ -43,7 +43,8 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | `PROJECT_EN.md` / `PROJECT_KO.md` / `PROJECT_CN.md` | EN / KO / CN | course narrative |
 | `presentation_outline.md` / `presentation_outline_ko.md` | EN / KO | slides |
 | `IMPLEMENTATION_SPEC.md` / `_KO.md` / `_CN.md` | EN / KO / CN | build constants |
-| `index.html` | ZH / EN / KO | humanized illustrated talk page |
+| `index.html` | EN landing | language cards → EN / KO / CN docs |
+| `talk.html` | ZH / EN / KO | humanized illustrated talk page |
 | `meeting_proposal.html` | ZH / EN / KO tabs | humanized meeting handout |
 | `meeting_proposal_zh.pdf` / `_en.pdf` / `_ko.pdf` | ZH / EN / KO | printable one-pagers |
 | `experiments/` | code | every number |
