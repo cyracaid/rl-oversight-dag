@@ -309,6 +309,16 @@ Hidden 32，lr 0.003 / 0.001，12k–20k episodes，tabular 变体 conf_bins = 8
 | 3 | 75 条的共识/困难拆分（27/48）；各自消融；N=500 对照 | 两行表：共识 vs 单人 |
 | 4 | 用 `presentation_outline.md` 加四/五张图做幻灯片；排练 ≥2 次 | talk |
 
+### 9.1 谁负责什么（五个人）
+
+| 人 | 主责 | 背景那块 | 数据 |
+|---|---|---|---|
+| 1 | 组长 + 时间线 + L2D 经典（Mozannar / FALCON / SLTD） | 提案 | — |
+| 2 | 策略梯度（REINFORCE → PPO-Lagrangian）+ 置信度信号升级 | PG / PPO / CMDP / 消融 | 洞 D（conf，不是数据集） |
+| 3 | 环境 + GNN + DQN + 规模（N=500） | GNN 选节点 / 三图族 | 合成（已有） |
+| 4 | 基线 + 打乱/压平对照 + HealthBench / BioBasicsBench | 那两个基准 | 洞 C 只在洞 A 失败时 |
+| 5 동채하 | 叙事 + 郑心联络 + 写作 + 英文发表 | Data Cascades / 错误传播 / 综合 | 睡眠 75 / 13,990；洞 B |
+
 **代码布局（基本已成立）：**
 
 ```

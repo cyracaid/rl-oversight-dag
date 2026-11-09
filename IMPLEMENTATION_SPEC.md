@@ -309,6 +309,16 @@ Run each control with the *same* trained policy and the *same* eval seeds. Do no
 | 3 | Consensus/hard split of the 75 (27/48); ablation on each; controls on N=500 | two-row table: consensus vs agree |
 | 4 | Slides from `presentation_outline.md` with the four/five figures embedded; ≥2 rehearsals | talk |
 
+### 9.1 Who owns what (five people)
+
+| Person | Primary | Background slice | Data |
+|---|---|---|---|
+| 1 | PM + timeline + L2D classics (Mozannar / FALCON / SLTD) | proposal | — |
+| 2 | Policy gradient (REINFORCE → PPO-Lagrangian) + confidence-signal upgrade | PG / PPO / CMDP / ablation | Gap D (conf, not a dataset) |
+| 3 | Environment + GNN + DQN + scale (N=500) | GNN node selection / three families | synthetic (already done) |
+| 4 | Baselines + shuffle/flatten controls + HealthBench / BioBasicsBench | those two benchmarks | Gap C only if Gap A fails |
+| 5 동채하 | Narrative + 郑心 liaison + writing + presenting (English) | Data Cascades / error propagation / synthesis | sleep 75 / 13,990; Gap B |
+
 **Code layout (already mostly true):**
 
 ```
