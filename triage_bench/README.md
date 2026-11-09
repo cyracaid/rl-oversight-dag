@@ -55,11 +55,13 @@ python3 triage_bench/run_unflagged.py    # the corrections the queue never sees
 python3 triage_bench/run_belief_queue.py # belief greedy inside the M4-only block
 python3 triage_bench/run_field_queue.py  # field-scoped review: half the reads
 python3 triage_bench/run_audit_demo.py  # receipts -> cost model -> recall per minute
+python3 triage_bench/run_trace_demo.py --change time_awake   # N=21 traceability demo
+python3 triage_bench/run_trace_demo.py --all                 # which input change is riskiest
 ```
 
 Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,
 `participant.json`, `m4_mining.md`, `ceiling.md`, `unflagged.md`,
-`belief_queue.md`, `field_queue.md`, `audit_demo.md`, plus `figures/recall_at_k.png`.
+`belief_queue.md`, `field_queue.md`, `audit_demo.md`, `trace_<node>.md`, plus `figures/recall_at_k.png`.
 
 The one-page argument is [`CEILING.md`](CEILING.md); the paper draft is
 [`SECTION5_CEILING.md`](SECTION5_CEILING.md); the data request for the SciForge
@@ -143,4 +145,5 @@ run_ceiling.py         coverage / type / power bounds
 run_unflagged.py       profile of never-flagged corrections
 run_belief_queue.py    belief greedy inside the M4-only block
 run_audit_demo.py      receipts -> cost model -> recall per minute
+run_trace_demo.py      N=21: change one input -> affected nodes + stale receipts
 ```
