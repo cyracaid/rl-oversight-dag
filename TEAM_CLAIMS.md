@@ -6,7 +6,7 @@ permalink: /TEAM_CLAIMS_EN.html
 
 # Team claims — who owns what
 
-<p><b>Language:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html">中文/EN/한국어 (one page)</a> · <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
+<p><b>Language:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html">summary</a> · <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
 
 > 5 people · 2 tracks · talk on **11/23**
 > One sentence: we study **where a human should look first** in a chain of dependent AI outputs.

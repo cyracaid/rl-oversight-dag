@@ -5,7 +5,7 @@ layout: default
 
 # 五人分工：谁负责什么
 
-<p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html">中文/EN/한국어（同页）</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html">English</a> · <b>中文</b></p>
+<p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html">摘要</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_KO.html">한국어</a> · <b>中文</b></p>
 
 > 5 个人 · 两条线 · **11/23** 发表
 > 一句话：我们研究**人应该先看哪里**——当一堆 AI 结果互相依赖时。

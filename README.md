@@ -16,7 +16,7 @@
 [证据链设计 (中文)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html)
 
 **Who claims what (5 people, two tracks):**
-[Team claims — who owns what (summary + full EN/中文 pages)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html)
+[Team claims — who owns what (summary + full EN/한국어/中文 pages)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html)
 (markdown source: [EN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html) ·
 [中文](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html))
 
