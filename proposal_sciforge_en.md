@@ -1,7 +1,8 @@
 # Proposal (Final): Review Scheduling on a Dependency Graph under Budget — an AI4Science application for SciForge
 
 Team course project proposal · STA3145 Reinforcement Learning · Deepened version 2026-11-09
-Supervised by Maia ten Brink, PhD (evidence chain / sleep data) · Zhangyang Gao, PhD (AI / RL)
+Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford, psychophysiology).
+Application: SciForge, developed by Zhangyang Gao (AI4Science). This proposal is for SciForge.
 > This version restates the proposal inside SciForge's evidence chain and merges all second-round results (GNN scorer, CMDP soft budget, the 76% correction, and the 2026 literature). Sections 3 and 9 are new for SciForge.
 
 **Verification status**: the experiment code and results were produced by an AI agent and have not been independently checked. Unverified items are in Section 8.

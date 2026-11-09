@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meeting Proposal — 证据链审阅层（一页）</title>
+<style>
+  :root {
+    --bg: #fbf7f0; --ink: #2b2b2b; --green: #1a9850; --blue: #2a7de1;
+    --card: #fff; --muted: #5a5a5a; --line: #e8dcc8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "PingFang SC", "Noto Sans KR", "Helvetica Neue", sans-serif;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 900px; margin: 0 auto; padding: 28px 20px 48px;
+  }
+  h1 { font-size: 1.55em; margin: 0 0 4px; }
+  h2 { font-size: 1.15em; margin: 22px 0 8px; color: #1b5e20;
+       border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+  .sub { color: var(--muted); font-size: 0.92em; margin-bottom: 12px; }
+  .who { font-size: 0.9em; color: var(--muted); }
+  .box {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 12px 16px; margin: 10px 0;
+  }
+  .green { color: var(--green); font-weight: 700; }
+  .fig { background: #fff; border-radius: 10px; padding: 8px;
+         border: 1px solid var(--line); margin: 10px 0; text-align: center; }
+  .fig img { max-width: 100%; height: auto; border-radius: 6px; }
+  .fig figcaption { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 0.92em; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid #eee; text-align: left; }
+  th { background: #f3ede0; }
+  td.best { color: var(--green); font-weight: 700; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 680px) { .cols { grid-template-columns: 1fr; } }
+  ul { margin: 6px 0; padding-left: 18px; }
+  li { margin: 3px 0; }
+  .ask { background: #fff4e0; border-left: 4px solid #fdae61;
+         padding: 10px 14px; border-radius: 8px; margin: 10px 0; }
+  .say { font-style: italic; color: #333; }
+  .tag { display: inline-block; background: #e8f5e9; color: #1b5e20;
+         border-radius: 12px; padding: 2px 10px; font-size: 0.8em; margin: 2px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>证据链上，人该先审哪一项？</h1>
+<div class="sub">
+  STA3145 强化学习 · 小组提案（开会用一页）<br>
+  数据：与 Maia ten Brink（斯坦福心理生理学）一年 EMA 合作<br>
+  应用：SciForge（高张阳 开发，AI4Science）<br>
+  2026-11-09 · 5 人小组
+</div>
+
+<h2>我们要做什么</h2>
+<div class="box">
+  <p>AI 已经在帮实验室洗睡眠日记、标文献、跑分析。它产出的一条条结果<b>互相依赖</b>：时间写反了，睡眠潜伏期就错，睡眠效率就错，结论就不可信。</p>
+  <p>人不可能全查。我们用强化学习学一个<b>只读建议器</b>：下一步该审哪个节点，让更少的错误走到结论。</p>
+  <p><span class="tag">机器不盖章</span> <span class="tag">只读排序</span> <span class="tag">人点裁决才有收据</span></p>
+</div>
+
+<h2>为什么这不是编的</h2>
+<div class="box">
+  <p>我们自己的数据：<b>13,990 条 / 237 人</b>，人改了 <b>75 处</b>（0.54%）。这 75 处里 <b>76% 是同一种错</b>（order_error，p&lt;0.0001）。</p>
+  <p>错误率低，所以全审不划算；错误高度聚集，所以「审哪个」比「审多少」重要。这就是预算审阅的教科书场景——而且它就发生在我们实验室的 EMA 管道里。</p>
+</div>
+
+<h2>我们已经跑出来的（AI 生成，待组员复现）</h2>
+<p>第一版做成逐条 bandit，<b>输给了阈值</b>（2.81 vs Q-learning 3.38）。诊断：把依赖图压平了，RL 没东西可学。</p>
+<p>重构成「图上主动选节点」之后：</p>
+
+<div class="fig">
+  <img src="experiments/results_bar.png" alt="80-node results">
+  <figcaption>80 节点：GNN 均值 1.54 ± 0.46（最佳种子 1.00），和贪心相当，好于阈值。DQN 退化。</figcaption>
+</div>
+
+<table>
+  <tr><th>方法</th><th>结论错误（80 节点）</th></tr>
+  <tr><td>不审</td><td>5.90</td></tr>
+  <tr><td>置信度阈值</td><td>2.30</td></tr>
+  <tr><td>结构贪心</td><td>1.80</td></tr>
+  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
+  <tr><td>DQN</td><td>5.10（退化）</td></tr>
+</table>
+
+<div class="fig">
+  <img src="experiments/ablation_conf.png" alt="ablation">
+  <figcaption>消融：打掉置信度信号 → 比阈值还差；给完美信号 → 0.72。剩下的误差住在预测器里，不在策略里。</figcaption>
+</div>
+
+<div class="fig">
+  <img src="experiments/scale500.png" alt="scale 500">
+  <figcaption>放大到 500 节点（模块化 / 无标度 / 稀疏）：贪心影响最大化 81→3.8（无标度）。这批是贪心，不是 RL。</figcaption>
+</div>
+
+<div class="fig">
+  <img src="experiments/real_pipeline.png" alt="real pipeline">
+  <figcaption>真实睡眠管道（N=21，从 SCHEMA 编码）：阈值 2.12 → 0.50。今天的数据今天就能用。</figcaption>
+</div>
+
+<h2>和 OpenAI 两个基准的关系</h2>
+<div class="box">
+  <p><b>HealthBench</b>（医生 rubric + worst-of-n + 共识/Hard 拆分）教我们怎么评。<b>BioBasicsBench</b>（原始湿实验证据 + 错误检测 + 「证据不足」）教我们 everyday science 的失败长什么样——假设压过对照，和我们 76% order_error 同一物种。</p>
+  <p>我们采纳：偏学分收据、错误检测当一等技能、「证据不足」当显式动作、三轮评审。</p>
+  <p>我们加的：预算、依赖图、延迟到结论的惩罚。<b>他们没建这个。</b></p>
+</div>
+
+<h2>边界（从 SciForge 继承，不放松）</h2>
+<div class="box">
+  <ul>
+    <li>建议器<b>只读</b>证据图，输出排序。</li>
+    <li>人点裁决才产生收据；建议永远不自动变裁决。</li>
+    <li>评论正文不进特征；收据存引用不存散文。</li>
+    <li>原始 RDS / CSV <b>永不进 git</b>。</li>
+  </ul>
+</div>
+
+<h2>请两位博士拍板</h2>
+<div class="ask">
+  <p><b>Maia ten Brink</b>：睡眠 EMA 数据只做动机可以吗？真实管道 DAG（N=21）这样编码对不对？证据链边界这样划可以吗？</p>
+  <p><b>高张阳</b>：第一版 bandit 输了、重构成图上 MDP、主实验用合成图 + 真实管道小图——这个方向和范围，对 SciForge / RL 课可以吗？GNN + REINFORCE 已经跑，CMDP 软预算 naive 失败，下一步做双 critic 还是先不做？</p>
+</div>
+
+<h2>四周排期（如果今天方向定下来）</h2>
+<table>
+  <tr><th>周</th><th>做什么</th><th>谁</th></tr>
+  <tr><td>W1 ~11/12</td><td>冻结环境 + 基线；复现 GNN 多种子</td><td>3, 4</td></tr>
+  <tr><td>W2 ~11/19</td><td>双 critic CMDP 或 GNN 上 200 节点；方法表</td><td>2, 3</td></tr>
+  <tr><td>W3 ~11/26</td><td>对照 + 曲线 + 共识/困难拆分 + related work 定稿</td><td>4, 5</td></tr>
+  <tr><td>W4 ~12/03</td><td>幻灯片 + 排练 ≥2 次</td><td>5, 全体</td></tr>
+</table>
+
+<h2>分工（草）</h2>
+<div class="box">
+  <p>指导：Maia ten Brink, PhD（睡眠数据 / 证据链边界）· 高张阳, PhD（AI 方法 / SciForge）</p>
+  <ul>
+    <li><b>1</b> 组长 + 叙事整合</li>
+    <li><b>2</b> 策略梯度（REINFORCE → PPO-Lagrangian）</li>
+    <li><b>3</b> 环境 + GNN + DQN</li>
+    <li><b>4</b> 基线 + 对照实验</li>
+    <li><b>5 동채하</b> 文献 + 真实数据动机 + 写作（英文发表可谈；韩语发表则幕后）</li>
+  </ul>
+</div>
+
+<h2>如果被问「为什么不直接用阈值」</h2>
+<div class="box">
+  <p class="say">「阈值看不到图。结构贪心（用图）已经比阈值少 22%，证明图有价值；RL 再压 20%。而且消融说剩下的误差在置信度信号里——所以下一步是改信号，不是继续卷策略。」</p>
+</div>
+
+<div class="sub" style="margin-top:24px">
+  详细版：`PROJECT_CN.md` · `PROJECT_EN.md` · `PROJECT_KO.md` · `IMPLEMENTATION_SPEC_CN.md` / `.md` · `EVIDENCE_CHAIN_DESIGN_CN.md` / `.md`<br>
+  代码与图：github.com/cyracaid/rl-oversight-dag
+</div>
+
+</div>
+</body>
+</html>
