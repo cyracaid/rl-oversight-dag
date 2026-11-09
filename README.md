@@ -10,8 +10,7 @@
 [证据链设计 (中文)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.md)
 
 **Who claims what (5 people, two tracks):**
-[Team claims (EN)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.md) ·
-[五人认领书 (中文)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.md)
+[Team claims HTML (中文/EN/한국어)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html)
 
 **Meeting one-pager (humanized + math, click to open):**
 [中文 PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_zh.pdf) ·
