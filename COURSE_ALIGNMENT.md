@@ -1,3 +1,8 @@
+---
+title: "Course Alignment & Data Division"
+layout: default
+---
+
 # Course Alignment & Data Division
 
 > STA3145 · how this project maps to the Korean classroom · how data search is split across 5 people · 2026-11-09

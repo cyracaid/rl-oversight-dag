@@ -1,3 +1,8 @@
+---
+title: "Review Scheduling on a Dependency Graph — Project Document (English)"
+layout: default
+---
+
 # Review Scheduling on a Dependency Graph — Project Document (English)
 
 > STA3145 Reinforcement Learning · Group project · Deepened 2026-11-09

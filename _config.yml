@@ -1,0 +1,19 @@
+theme: jekyll-theme-primer
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Static pages (index.html, talk.html, meeting_proposal.html, en/ko/zh/index.html,
+# IMPLEMENTATION_SPEC.html, TEAM_CLAIMS.html) have no front matter, so Jekyll copies
+# them through untouched. Only *.md files that opt in with front matter (added below)
+# are converted to HTML and wrapped in this theme's "default" layout.
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+exclude:
+  - add_front_matter.py

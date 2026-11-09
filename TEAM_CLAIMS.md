@@ -1,3 +1,8 @@
+---
+title: "Team Claims: Paper Track & SciForge Track"
+layout: default
+---
+
 # Team Claims: Paper Track & SciForge Track
 
 > 5 people · two tracks · 2026-11-09

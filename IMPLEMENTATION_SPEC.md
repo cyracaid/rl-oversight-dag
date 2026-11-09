@@ -1,3 +1,8 @@
+---
+title: "Review Scheduling on a Dependency Graph — Implementation Specification"
+layout: default
+---
+
 # Review Scheduling on a Dependency Graph — Implementation Specification
 
 > STA3145 RL group project · implementation design (not a measured result) · 2026-11-09

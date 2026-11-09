@@ -1,3 +1,8 @@
+---
+title: "Proposal (Final): Review Scheduling on a Dependency Graph under Budget — an AI4Science application for SciForge"
+layout: default
+---
+
 # Proposal (Final): Review Scheduling on a Dependency Graph under Budget — an AI4Science application for SciForge
 
 Team course project proposal · STA3145 Reinforcement Learning · Deepened version 2026-11-09

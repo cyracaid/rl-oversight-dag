@@ -1,3 +1,8 @@
+---
+title: "Designing the Review Layer of an Evidence Chain"
+layout: default
+---
+
 # Designing the Review Layer of an Evidence Chain
 
 > Single synthesized document · STA3145 RL group project · SciForge AI4Science · 2026-11-09

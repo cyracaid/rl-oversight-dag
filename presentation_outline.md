@@ -1,3 +1,8 @@
+---
+title: "Presentation Outline (slide by slide)"
+layout: default
+---
+
 # Presentation Outline (slide by slide)
 
 > Build slides directly from this. Each slide: key points + numbers + what to say.

@@ -1,3 +1,8 @@
+---
+title: "五人认领书：论文轨 + SciForge 轨"
+layout: default
+---
+
 # 五人认领书：论文轨 + SciForge 轨
 
 > 5 人 · 两条轨 · 2026-11-09

@@ -11,6 +11,8 @@
 
 **Who claims what (5 people, two tracks):**
 [Team claims HTML (中文/EN/한국어)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html)
+(markdown source: [`TEAM_CLAIMS.md`](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.md) ·
+[`TEAM_CLAIMS_CN.md`](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.md))
 
 **Meeting one-pager (humanized + math, 中文 / EN / 한국어, click to open):**
 [中文 PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_zh.pdf) ·
@@ -25,10 +27,11 @@
 [中文](https://cyracaid.github.io/rl-oversight-dag/zh/index.html)
 
 **Implementation spec (build from this):**
-[中文 `IMPLEMENTATION_SPEC.html`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) ·
+[中文网页版 `IMPLEMENTATION_SPEC.html`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) ·
 [English `IMPLEMENTATION_SPEC.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.md) ·
 [한국어 `IMPLEMENTATION_SPEC_KO.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.md) ·
-[中文 `IMPLEMENTATION_SPEC_CN.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.md)
+[中文源码 `IMPLEMENTATION_SPEC_CN.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.md)
+(the `.html` page and `IMPLEMENTATION_SPEC_CN.md` are both Chinese — the former is the styled web page, the latter is its plain-markdown source; its on-page language switcher links to the EN/KO spec siblings directly.)
 
 Repo: https://github.com/cyracaid/rl-oversight-dag
 
@@ -41,6 +44,8 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | File | Language | For |
 |---|---|---|
 | `PROJECT_EN.md` / `PROJECT_KO.md` / `PROJECT_CN.md` | EN / KO / CN | course narrative |
+| `COURSE_ALIGNMENT.md` / `_CN.md` | EN / CN | how this maps to the STA3145 rubric; data-search split across the 5 people |
+| `TEAM_CLAIMS.md` / `_CN.md` | EN / CN | markdown source behind `TEAM_CLAIMS.html` |
 | `presentation_outline.md` / `presentation_outline_ko.md` | EN / KO | slides |
 | `IMPLEMENTATION_SPEC.md` / `_KO.md` / `_CN.md` | EN / KO / CN | build constants |
 | `index.html` | EN landing | language cards → EN / KO / CN docs |
@@ -78,6 +83,8 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 PROJECT_EN.md                   Full project document (English)
 PROJECT_KO.md                   Full project document (한국어)
 PROJECT_CN.md                   Full project document (中文)
+COURSE_ALIGNMENT.md / _CN.md    Course-rubric mapping + data-search split (EN / CN)
+TEAM_CLAIMS.md / _CN.md         Markdown source for TEAM_CLAIMS.html (EN / CN)
 proposal_sciforge_en.md         SciForge / AI4Science proposal (EN)
 presentation_outline.md         Presentation outline (EN)
 
