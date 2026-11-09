@@ -5,6 +5,8 @@ layout: default
 
 # Proposal (Final): Review Scheduling on a Dependency Graph under Budget — an AI4Science application for SciForge
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_ko.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_cn.html">中文</a></p>
+
 Team course project proposal · STA3145 Reinforcement Learning · Deepened version 2026-11-09
 Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
 Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab). This proposal is for SciForge.

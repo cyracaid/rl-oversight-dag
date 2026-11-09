@@ -1,5 +1,7 @@
 # Two stages: what we decide, and what belongs to SciForge
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TRACKS_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TRACKS_CN.html">中文</a></p>
+
 > Written 2026-11-09. Replaces the "tracks" framing with a staged one, because the
 > question "who decides?" has different answers on each side of 12/05.
 > Rule: **Stage 1 needs no external approval. Stage 2 is their system; we propose,

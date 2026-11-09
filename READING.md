@@ -39,10 +39,9 @@ people doing the work.
 
 ## 2. What each document is (one line each)
 
-**Languages.** Six groups exist in more than one language, and each of their pages has a
-switcher at the top (English · 한국어 · 中文). Everything else is English-only:
-`PROPOSAL_COURSE`, `proposal_sciforge_en`, `RL_PLAN`, `TRACKS`, `GENERALIZATION_PLAN`,
-`ROADMAP`, `PLAN.html`.
+**Languages.** Every document now exists in English, 한국어 and 中文, and each page carries a
+switcher at the top. The one exception is `PLAN.html`, the generated visual work plan
+(English-only; it is rebuilt from `tools/build_plan.py`).
 
 | Document | What it is | For |
 |---|---|---|

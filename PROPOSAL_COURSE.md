@@ -5,6 +5,8 @@ layout: default
 
 # Proposal — STA3145 Reinforcement Learning (team project)
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROPOSAL_COURSE_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROPOSAL_COURSE_CN.html">中文</a></p>
+
 > Yonsei University · team 6 · v1 2026-11-09
 > Phases and the pre-registered decision gate: §8 below. Operational detail:
 > [`RL_PLAN.md`](RL_PLAN.md) (with the correction in its §0) · track split: [`TRACKS.md`](TRACKS.md).

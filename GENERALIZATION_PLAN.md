@@ -1,5 +1,7 @@
 # Generalization plan — team work packages
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/GENERALIZATION_PLAN_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/GENERALIZATION_PLAN_CN.html">中文</a></p>
+
 > Status: **not done, not verified.** The belief-conditioned GNN + REINFORCE result
 > is a single run and needs reproducing before anyone cites it. This document is the
 > assignment sheet, not a report.

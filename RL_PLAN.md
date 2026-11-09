@@ -1,5 +1,7 @@
 # The RL plan, in detail
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/RL_PLAN_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/RL_PLAN_CN.html">中文</a></p>
+
 > Course-facing only. Scope: STA3145, talk 11/23 (analysis frozen 11/14). No external partner, no
 > restricted data, every number from one script.
 > Companion: `IMPLEMENTATION_SPEC.md` (constants), `TRACKS.md` (why this is separate
