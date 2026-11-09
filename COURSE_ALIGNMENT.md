@@ -5,6 +5,8 @@ layout: default
 
 # Course Alignment & Data Division
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/COURSE_ALIGNMENT_CN.html">中文</a></p>
+
 > STA3145 · how this project maps to the Korean classroom · how data search is split across 5 people · 2026-11-09
 
 ---

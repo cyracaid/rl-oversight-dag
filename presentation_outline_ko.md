@@ -5,6 +5,8 @@ layout: default
 
 # 발표 개요 (슬라이드별) — 한국어
 
+<p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/presentation_outline.html">English</a> · <b>한국어</b></p>
+
 > 이 개요 그대로 슬라이드를 만드세요. 각 장: 요점 + 숫자 + 뭐라고 말할지.
 > 그림: `experiments/` 폴더의 PNG 그대로 넣습니다.
 

@@ -5,10 +5,11 @@ layout: default
 
 # 依赖图上的审阅调度 —— 项目文档（中文版）
 
+<p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.html">한국어</a> · <b>中文</b></p>
+
 > STA3145 强化学习 · 小组项目 · 深化版 2026-11-09
 > 睡眠数据：与 Maia ten Brink（Stanford Psychophysiology Lab）一年合作的EMA数据
 > 应用对象：SciForge（Zhangyang Gao 开发，AI4Science, Shanghai AI Lab）
-> 对应版本：English `PROJECT_EN.md` · 한국어 `PROJECT_KO.md`
 > 仓库：https://github.com/cyracaid/rl-oversight-dag
 
 **验证状态**：实验代码和数字由 AI 智能体生成，组员尚未独立重跑。未验证项见第 12 节。

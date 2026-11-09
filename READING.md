@@ -39,6 +39,11 @@ people doing the work.
 
 ## 2. What each document is (one line each)
 
+**Languages.** Six groups exist in more than one language, and each of their pages has a
+switcher at the top (English · 한국어 · 中文). Everything else is English-only:
+`PROPOSAL_COURSE`, `proposal_sciforge_en`, `RL_PLAN`, `TRACKS`, `GENERALIZATION_PLAN`,
+`ROADMAP`, `PLAN.html`.
+
 | Document | What it is | For |
 |---|---|---|
 | [PROPOSAL_COURSE](https://cyracaid.github.io/rl-oversight-dag/PROPOSAL_COURSE.html) | the course proposal: question, MDP, methods, **the sleep-data tables we already ran (§7.2)**, the two gates | everyone |

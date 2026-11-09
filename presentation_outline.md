@@ -5,6 +5,8 @@ layout: default
 
 # Presentation Outline (slide by slide)
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/presentation_outline_ko.html">한국어</a></p>
+
 > Build slides directly from this. Each slide: key points + numbers + what to say.
 
 ---

@@ -5,6 +5,8 @@ layout: default
 
 # 课程对齐与数据分工
 
+<p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/COURSE_ALIGNMENT.html">English</a> · <b>中文</b></p>
+
 > STA3145 · 本项目怎么对上韩国课堂 · 数据寻找怎么分给 5 个人 · 2026-11-09
 > 英文版：`COURSE_ALIGNMENT.md`（repo）
 

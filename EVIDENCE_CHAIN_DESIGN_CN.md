@@ -5,6 +5,8 @@ layout: default
 
 # 设计证据链的审阅层 — 总文书（中文）
 
+<p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html">English</a> · <b>中文</b></p>
+
 > 一份合成文书 · STA3145 强化学习小组 · SciForge AI4Science · 2026-11-09
 > 英文版：`EVIDENCE_CHAIN_DESIGN.md`
 > 仓库：https://github.com/cyracaid/rl-oversight-dag

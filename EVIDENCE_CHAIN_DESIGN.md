@@ -5,8 +5,9 @@ layout: default
 
 # Designing the Review Layer of an Evidence Chain
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html">中文</a></p>
+
 > Single synthesized document · STA3145 RL group project · SciForge AI4Science · 2026-11-09
-> Languages: this file (English) · `EVIDENCE_CHAIN_DESIGN_CN.md` (中文)
 > Repo: https://github.com/cyracaid/rl-oversight-dag
 >
 > This is the one document. It replaces the scattered proposals as the design view of the evidence chain. Narrative details still live in `PROJECT_EN.md` / `PROJECT_KO.md` / `PROJECT_CN.md`. Build numbers live in `IMPLEMENTATION_SPEC.md`.

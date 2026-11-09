@@ -5,6 +5,8 @@ layout: default
 
 # 의존성 그래프 위 검토 스케줄링 — 프로젝트 문서 (한국어)
 
+<p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html">English</a> · <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.html">中文</a></p>
+
 > STA3145 강화학습 · 팀 프로젝트 · 심화판 2026-11-09
 > 수면 데이터: Maia ten Brink(Stanford Psychophysiology Lab)와 1년 협업 EMA
 > 응용 대상: SciForge(Zhangyang Gao 개발, AI4Science, Shanghai AI Lab)
