@@ -8,7 +8,7 @@
 ## 슬라이드 1 — 제목
 - "예산이 걸린 의존성 그래프 위 검토 스케줄링: 어떤 항목을 먼저 볼까?"
 - 팀원 5명 + 과목명 (STA3145 강화학습)
-- 지도: Maia ten Brink (수면 데이터) · Zhangyang Gao (SciForge / AI4Science)
+- 지도: Maia ten Brink (Stanford Psychophysiology Lab, 수면 데이터) · Zhangyang Gao (AI4Science, Shanghai AI Lab, SciForge)
 
 ## 슬라이드 2 — 동기
 - 사실 1: AI 오류는 무작위가 아니라 유형별로 뭉친다 (실데이터: order_error = 76%, p < 0.0001)
@@ -99,7 +99,7 @@
 
 ## 슬라이드 12 — 역할 + Q&A
 - 5인 역할 표
-- 지도: Maia ten Brink, PhD (수면 데이터) · Zhangyang Gao, PhD (AI / SciForge)
+- 지도: Maia ten Brink, PhD (Stanford Psychophysiology Lab) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab)
 
 ---
 

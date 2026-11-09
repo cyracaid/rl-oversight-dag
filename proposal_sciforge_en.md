@@ -1,8 +1,8 @@
 # Proposal (Final): Review Scheduling on a Dependency Graph under Budget — an AI4Science application for SciForge
 
 Team course project proposal · STA3145 Reinforcement Learning · Deepened version 2026-11-09
-Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford, psychophysiology).
-Application: SciForge, developed by Zhangyang Gao (AI4Science). This proposal is for SciForge.
+Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
+Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab). This proposal is for SciForge.
 > This version restates the proposal inside SciForge's evidence chain and merges all second-round results (GNN scorer, CMDP soft budget, the 76% correction, and the 2026 literature). Sections 3 and 9 are new for SciForge.
 
 **Verification status**: the experiment code and results were produced by an AI agent and have not been independently checked. Unverified items are in Section 8.
@@ -186,5 +186,5 @@ This suggester is not an isolated RL toy — it is the **review layer of a resea
 **Decisions needed from others:**
 - Maia ten Brink, PhD: whether the bandit → MDP direction, the real sleep data as motivation, and the evidence-chain boundaries are acceptable.
 - Zhangyang Gao, PhD: whether the RL method stack (GNN + REINFORCE/PPO; CMDP dual critic) and a synthetic main experiment are acceptable for an RL course.
-- Evidence-chain owner (Zhenxing): whether suggester output may be recorded in the audit chain, and the receipt fields.
+- Evidence-chain owner (郑心): whether suggester output may be recorded in the audit chain, and the receipt fields.
 - Teammates: the division of the Section 8 verification items.

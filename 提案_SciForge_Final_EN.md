@@ -184,5 +184,5 @@ This suggester is not an isolated RL toy — it is the **review layer of a resea
 
 **Decisions needed from others:**
 - Professor: whether the bandit → MDP direction and a synthetic main experiment are acceptable in scope.
-- Evidence-chain owner (Zhenxing): whether suggester output may be recorded in the audit chain, and the receipt fields.
+- Evidence-chain owner (郑心): whether suggester output may be recorded in the audit chain, and the receipt fields.
 - Teammates: the division of the Section 8 verification items.

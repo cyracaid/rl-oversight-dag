@@ -242,7 +242,7 @@ Each ingredient exists. The combination does not (we did not find it).
 
 1. **Offline.** Synthetic DAG + exported de-identified evidence DAG. Suggester vs sort-by-confidence. No app integration, no change to stamping.
 2. **Read-only suggestion.** Next to the review interface: "inspect these nodes first" + reasons (downstream influence, error likelihood, type cluster). Human may ignore.
-3. **Receipt handshake.** To log "was this review suggestion-followed," the evidence-chain owner (Zhenxing) decides the field. This design does not pre-decide.
+3. **Receipt handshake.** To log "was this review suggestion-followed," the evidence-chain owner (郑心) decides the field. This design does not pre-decide.
 
 **Front-end tool (separate workstream, same chain):** highlight-and-ask on code / diary rows / claims, with an inline branch that keeps context and leaves collaborator notes. That tool produces the *traces* this layer consumes. It is not this course's RL deliverable; it is the采集层 of the same chain.
 
@@ -269,9 +269,8 @@ A reviewer can ask "is this just FALCON on a graph" and get: FALCON has no error
 |---|---|
 | Maia ten Brink, PhD | bandit → MDP reframe; synthetic main experiment; real data as motivation only; evidence-chain boundaries; sleep-pipeline DAG |
 | Zhangyang Gao, PhD | RL method stack (GNN + REINFORCE/PPO; CMDP dual critic); whether a synthetic main experiment is acceptable for an RL course |
-| Zhenxing (evidence-chain owner) | may suggester output enter the audit chain; receipt fields; does a node have confidence |
+| 郑心 (evidence-chain owner) | may suggester output enter the audit chain; receipt fields; does a node have confidence |
 | Teammates | own the Section 8 checks; pick dual-critic CMDP **or** GNN-at-scale, not both badly |
-| 동채하 | presenting language: English if allowed, else backend (literature / simulation / data) |
 
 ---
 

@@ -1,8 +1,8 @@
 # 의존성 그래프 위 검토 스케줄링 — 프로젝트 문서 (한국어)
 
 > STA3145 강화학습 · 팀 프로젝트 · 심화판 2026-11-09
-> 수면 데이터: Maia ten Brink(스탠퍼드 정신생리학)와 1년 협업 EMA
-> 응용 대상: SciForge(장양양 개발, AI4Science)
+> 수면 데이터: Maia ten Brink(Stanford Psychophysiology Lab)와 1년 협업 EMA
+> 응용 대상: SciForge(Zhangyang Gao 개발, AI4Science, Shanghai AI Lab)
 > 영어판: `PROJECT_EN.md` · 중국어판: `PROJECT_CN.md`
 > 저장소: https://github.com/cyracaid/rl-oversight-dag
 

@@ -1,8 +1,8 @@
 # Review Scheduling on a Dependency Graph — Project Document (English)
 
 > STA3145 Reinforcement Learning · Group project · Deepened 2026-11-09
-> Sleep data: one year of collaboration with Maia ten Brink (Stanford, psychophysiology)
-> Application: SciForge, developed by Zhangyang Gao (AI4Science)
+> Sleep data: one year of collaboration with Maia ten Brink (Stanford Psychophysiology Lab)
+> Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab)
 > Companion versions: 한국어 `PROJECT_KO.md` · 中文 `PROJECT_CN.md`
 > Repo: https://github.com/cyracaid/rl-oversight-dag
 

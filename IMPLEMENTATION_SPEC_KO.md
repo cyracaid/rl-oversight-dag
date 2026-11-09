@@ -2,7 +2,7 @@
 
 > STA3145 RL 팀 프로젝트 · 구현 설계 (측정 결과가 아님) · 2026-11-09
 > 영어판: `IMPLEMENTATION_SPEC.md` · 중국어판: `IMPLEMENTATION_SPEC_CN.md`
-> 지도교수: Maia ten Brink, PhD (증거 사슬 / 수면 데이터) · Zhangyang Gao, PhD (AI / RL)
+> 지도: Maia ten Brink, PhD (Stanford Psychophysiology Lab, 수면 데이터) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab, SciForge)
 >
 > 스타일: 이 문서는 *만들 때 필요한* 선택과 가정을 확정한다. 아래 속도·메모리·에피소드 수·보상은 시작값이며, 해당 절에 "이미 실행됨"이라고 쓰인 경우가 아니면 측정 결과가 아니다.
 
