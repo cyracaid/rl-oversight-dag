@@ -2,11 +2,17 @@
 
 > STA3145 Reinforcement Learning · Group project. Under a limited review budget, we use RL to learn which node of a dependency graph to review, so that fewer errors reach the final conclusion.
 >
-> Supervisors: Maia ten Brink, PhD & Zhangyang Gao, PhD
+> Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford, psychophysiology).
+> Application: SciForge, developed by Zhangyang Gao (AI4Science).
 
 **Start here — one synthesized design document:**
 [Evidence-chain design (EN)](EVIDENCE_CHAIN_DESIGN.md) ·
 [证据链设计 (中文)](EVIDENCE_CHAIN_DESIGN_CN.md)
+
+**Meeting one-pager (humanized + math):**
+[meeting_proposal.html](meeting_proposal.html) ·
+[meeting_proposal.pdf](meeting_proposal.pdf) ·
+[illustrated talk page](index.html)
 
 **Full narrative (pick your language):**
 [English `PROJECT_EN.md`](PROJECT_EN.md) ·
@@ -32,9 +38,10 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | `presentation_outline.md` | EN | slides |
 | `IMPLEMENTATION_SPEC.md` / `_CN.md` | EN / CN | build constants |
 | `index.html` | ZH / EN / KO | humanized illustrated talk page |
+| `meeting_proposal.html` / `.pdf` | ZH / EN / KO | one-page meeting handout (math + figures) |
 | `experiments/` | code | every number |
 
-**SciForge / AI4Science (lab, Maia ten Brink + Zhangyang Gao)** — the evidence-chain review layer, the real sleep pipeline:
+**SciForge (AI4Science, developed by Zhangyang Gao)** — the evidence-chain review layer, applied to sleep data from the one-year collaboration with Maia ten Brink (Stanford psychophysiology):
 
 | File | Language | For |
 |---|---|---|
