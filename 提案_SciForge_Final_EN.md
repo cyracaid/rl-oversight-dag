@@ -118,6 +118,27 @@ Diagnosis: per-item review flattens the graph, and with one type at 76%, the opt
 - **Error cascades and propagation:** Data Cascades (CHI 2021); Finkel et al. (EMNLP 2006); **From Spark to Fire** (arXiv:2603.04474, directed dependency graph + cascades); DN-ILDL (arXiv:2405.16474).
 - **Budget + node-selection RL / GNN encoding:** **WS-option** (arXiv:2502.05537, budget allocation + node selection two-layer MDP); **Mattick & Mutschler** (arXiv:2310.00112, GNN + RL node selection — our scorer follows it).
 
+### 7.1 Compared with HealthBench (OpenAI, 2025-05)
+
+HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling precedent. Side by side:
+
+| | HealthBench | Ours |
+|---|---|---|
+| Question | Is this LLM health-conversation reply good enough, by physician rubrics? | Given dependent AI outputs and a human who can check only a few, which check first so the conclusion is least contaminated? |
+| Human standard | 262 physicians, 48,562 weighted criteria | 75 lab corrections (27 consensus / 48 agree), 76% one type |
+| What is scored | Quality of an open-ended reply | Allocation of finite attention over a DAG |
+| Error dynamics | Per-reply rubric; no propagation | Errors propagate; penalty delayed to the conclusion |
+| Reliability | worst-of-n (one unsafe reply cancels many good ones) | worst-of-5: GNN 1.90 / noise 5.20 / oracle 0.80 — noisy signal hurts the tail more than the mean |
+| Consensus / Hard | 3,671 consensus cases; 1,000 Hard | 27 consensus / 48 agree — split planned, not yet evaluated |
+| Non-saturation | HealthBench Hard still unsolved | even oracle conf leaves 0.72 (p_catch = 0.9) |
+| RL scheduling | not part of the benchmark | the entire project |
+
+**Adopted:** three principles (*meaningful* — sink errors on a real pipeline; *trustworthy* — 75 human corrections, machine never stamps; *non-saturated* — oracle still leaves 0.72), worst-of-n, and the consensus/hard split as a next step.
+
+**Not copied:** community-scale physician crowdsourcing; LLM-as-grader for open-ended text; the medical-dialogue task.
+
+**One paragraph for the talk.** HealthBench asked whether an LLM reply meets physician standards on a real health conversation. We ask where finite human attention should go first over a chain of dependent AI outputs. They taught the field to evaluate with meaningful, trustworthy, non-saturated rubrics and worst-of-n reliability. We apply those lessons to a problem they do not solve: scheduling that attention over a dependency graph. Their grading signal (rubrics + a model grader) is exactly the kind of confidence signal our ablation says is the bottleneck — improving the signal buys more than improving the policy.
+
 ## 8. Verification status
 
 **Checked while writing:** paper titles/authors/venues; the Section 6 percentages against the table numbers (39.1% / 30.4% / 22.2% / 22.2% / 11.1%).
