@@ -45,52 +45,67 @@ permalink: /TEAM_CLAIMS_EN.html
 
 ### Person 1 — PM / narrative
 **This week:** put the 11/09 → 11/23 timeline on one page, and mark who is blocked on whom.
+
 **You own:**
 - the timeline, updated once a week — who is doing what, where it is stuck;
 - the proposal (`PROPOSAL_COURSE`) and the slide deck;
 - keeping the three language versions in sync: any number change goes into all three;
 - chasing stale numbers out of slides and PDFs (old 1.54, "95%").
+
 **Done when:** the 12-page narrative with figures exists, the deck is rehearsed twice with timing, and no old number survives anywhere.
+
 **Don't:** train models; do not become the SciForge integrator.
 
 ### Person 2 — policy and confidence signal
 **This week:** run the gate — add `gain(i)` (the value belief greedy maximises) to the node features, 5 seeds, 200 held-out graphs, paired.
+
 **You own:**
 - the gate: does the learned policy catch the rule? If it is still ≥ 0.20 behind, try n-step / actor-critic with `gain` as the baseline, then stop and write the result;
 - the confidence signal: calibration or a small predictor; measure the three levels (noise 3.78 / normal 1.38 / oracle 0.72);
 - the misspecification conditions: edge probabilities off by ±50%, type rates drifting, reviewer miss rate 30% — where the rule should start to break;
 - one paragraph on *why* the gap exists, not just that it does.
+
 **Done when:** a paired table plus that paragraph, and code that reruns from a clean clone.
+
 **Don't:** tune DQN until it looks like a win; touch SciForge code.
 
 ### Person 3 — environment and graphs
 **This week:** freeze the three scripts and write the intervention rule into the code comments.
+
 **You own:**
 - `spike_active_selection.py`, `graph_scale.py`, `real_pipeline_graph.py` — frozen;
 - the rule "a review clears only the node's own error; errors inherited from upstream survive" (already pinned by 5 tests);
 - reproducing the N=500 three-family table and the N=21 table from a clean clone;
 - one command that regenerates the main tables (a script or a README block).
+
 **Done when:** the reproduction log and a tagged commit exist.
+
 **Don't:** add a new graph family during the paper weeks.
 
 ### Person 4 — baselines and controls
 **This week:** run the five baselines on the held-out graphs with paired CIs.
+
 **You own:**
 - threshold / structural greedy / hub / no-review / random on every graph family, 5 seeds;
 - the shuffle and flatten controls — the test of whether the graph is doing the work;
 - worst-of-n next to the mean;
 - the 27/48 split, if Person 5 hands over the labels; one row, "consensus vs agree".
+
 **Done when:** the control table and a short note on what each control rules out.
+
 **Don't:** download CIFAR-10H or BurstGPT.
 
 ### Person 5 — 동채하 — narrative, SciForge liaison, literature, presenting
 **This week:** write the motivation slide with the three real numbers.
+
 **You own:**
 - motivation: 75 corrections / 13,990 rows / 76% one type — plus the caveat that this is the *fix* type, not proof that the AI caused it;
 - related work: HealthBench and BioBasicsBench, 3–5 sentences each, with the difference from us;
 - the one-page SciForge ask to 郑心 (export fields, receipt fields), and a note of the reply;
 - the Korean outline, one rehearsal, and presenting in English.
+
 **Done when:** those four artefacts exist.
+
 **Don't:** become the RL theory person.
 
 ---
