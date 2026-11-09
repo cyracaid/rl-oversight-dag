@@ -50,132 +50,137 @@
   <div class="title"><a href="index.html">📊 Team Claims</a></div>
   <div class="langs">
     <a href="index.html">Home</a>
-    <a class="here" href="#">中文/EN/한국어</a>
+    <a class="here" href="#">摘要 / summary</a>
     <a href="TEAM_CLAIMS_EN.html">English</a>
-    <a href="TEAM_CLAIMS_CN.html">中文</a>
+    <a href="TEAM_CLAIMS_CN.html">中文全文</a>
   </div>
 </nav>
 
 <main>
 
-<h1>谁认领什么 / Who claims what / 누가 무엇을 담당하나</h1>
-<p class="lead">5 人 · 两条轨 · 论文先做，SciForge 嵌入随后。</p>
+<h1>谁负责什么 / Who owns what / 누가 무엇을 맡나</h1>
+<p class="lead">5 个人 · 两条线 · 论文 11/23 发表。先做论文，SciForge 随后。</p>
 
 <div class="box green">
-  <p><b>定位</b>：AI-for-Science——科研证据链上的人类审阅调度。</p>
-  <p>睡眠数据：与 Maia ten Brink（Stanford Psychophysiology Lab）一年 EMA 合作。<br>
-  应用：SciForge，Zhangyang Gao 开发（AI4Science, Shanghai AI Lab）。</p>
+  <p><b>一句话</b>：一堆 AI 结果互相依赖，人只能抽查几个，我们研究<b>先看哪个最划算</b>。</p>
+  <p>第一条真实数据：睡眠日记（Maia ten Brink，Stanford）。第二个目标：SciForge（Zhangyang Gao，上海 AI Lab）。</p>
 </div>
 
-<h2>两条轨</h2>
+<h2>先看这七个词</h2>
 <table>
-  <tr><th></th><th>论文轨 Track P</th><th>SciForge 轨 Track C</th></tr>
-  <tr><td>做什么</td><td>STA3145 独立论文 / talk</td><td>只读建议器嵌进证据链</td></tr>
-  <tr><td>截止</td><td>课程 final（约 12/05）</td><td>论文之后，或 W3 并行设计</td></tr>
-  <tr><td>观众</td><td>教授 + 同学</td><td>郑心 + Zhangyang Gao + 实验室用户</td></tr>
+  <tr><th>词</th><th>大白话</th></tr>
+  <tr><td><b>belief greedy</b></td><td>要打败的那条简单规则："先审最能减少下游错误的节点"</td></tr>
+  <tr><td><b>学到的策略</b></td><td>我们训练的模型（GNN + REINFORCE）。现在打不过规则：1.56 对 1.14</td></tr>
+  <tr><td><b>sink errors</b></td><td>最终结论里错了几处。越低越好</td></tr>
+  <tr><td><b>held-out</b></td><td>训练时没见过的图——诚实的分数</td></tr>
+  <tr><td><b>N=21</b></td><td>我们真实实验室流程（21 步），不是合成图</td></tr>
+  <tr><td><b>shuffle / flatten</b></td><td>把图结构破坏掉的对照。优势活下来，才说明是图在起作用</td></tr>
+  <tr><td><b>Gap A–D</b></td><td>缺的四样：SciForge 导出、共识标签、第三数据集、更好的置信度信号</td></tr>
+</table>
+
+<h2>两条线</h2>
+<table>
+  <tr><th></th><th>论文线 Track P</th><th>SciForge 线 Track C</th></tr>
+  <tr><td>是什么</td><td>STA3145 课程项目</td><td>同一套方法，做成只读建议器</td></tr>
+  <tr><td>什么时候</td><td><b>11/23 发表</b></td><td>论文之后；并行只做设计</td></tr>
+  <tr><td>需要什么</td><td>合成图 + 睡眠数据 + N=21</td><td>同上，加脱敏的 SciForge 图导出</td></tr>
 </table>
 <div class="box amber">
-  <b>顺序</b>：先论文轨（已经在跑）。SciForge 轨 W3 并行做设计 + mock 导出。<b>别在论文图冻结前嵌 SciForge 代码。</b>
+  <b>一条规矩</b>：论文线永远不等 SciForge 线。SciForge 慢了，论文照发。别在论文图冻结前嵌 SciForge 代码。
 </div>
 
-<h2>五个人认领</h2>
-
+<h2>五个人：负责什么、何时算完、别做什么</h2>
 <table>
-  <tr><th>人</th><th>论文轨</th><th>SciForge 轨</th><th>数据</th></tr>
+  <tr><th>人</th><th>你负责</th><th>做到什么算完</th><th>别做</th></tr>
   <tr>
     <td><b>1 号</b></td>
-    <td>组长 + 时间线 + L2D 经典（Mozannar / FALCON / SLTD）</td>
-    <td>没有（동채하 联络郑心）</td>
-    <td>提案 + 时间线</td>
+    <td>时间线、提案、幻灯片、三语版本一致</td>
+    <td>12 页正文 + 图；幻灯片排练过；PDF 里没有旧数字</td>
+    <td>训模型；别当 SciForge 集成工程师</td>
   </tr>
   <tr>
     <td><b>2 号</b></td>
-    <td>策略梯度（REINFORCE → PPO-Lagrangian）+ 置信度信号升级</td>
-    <td>没有</td>
-    <td>消融 / 洞 D（conf，不是数据集）</td>
+    <td>让学到的策略赢，或写清楚为什么赢不了；置信度信号</td>
+    <td>held-out 差距 &lt; 0，或一份写清楚的"为什么不行"；信号变好，或写清为什么改不动</td>
+    <td>把 DQN 调到"看起来能赢"；别碰 SciForge 代码</td>
   </tr>
   <tr>
     <td><b>3 号</b></td>
-    <td>环境 + GNN + 规模（N=500）</td>
-    <td>同一套环境包一层吃 DAG 导出</td>
-    <td>合成生成器（已有）</td>
+    <td>模拟器和图，并<b>冻结</b>它们</td>
+    <td>N=500 和 N=21 的表能从干净 clone 复现</td>
+    <td>论文周里加新的图类型</td>
   </tr>
   <tr>
     <td><b>4 号</b></td>
-    <td>基线 + 打乱/压平对照 + HealthBench / BioBasicsBench</td>
-    <td>洞 C 只在洞 A 失败时（第三数据集）</td>
-    <td>对照表</td>
+    <td>各图族的基线、shuffle/flatten 对照、27/48 拆分（拿到标签才做）</td>
+    <td>对照能复现；拆分表存在，或写一行"没跑"</td>
+    <td>去找 CIFAR-10H 或 BurstGPT</td>
   </tr>
   <tr>
     <td class="best"><b>5 동채하</b></td>
-    <td class="best">叙事 + 郑心联络 + 文献综合 + 写作 + 英文发表</td>
-    <td class="best">SciForge 联络：向郑心要 DAG 导出和收据字段</td>
-    <td class="best">睡眠 75 / 13,990；洞 B</td>
+    <td class="best">动机（75 条纠错）、相关工作、向郑心提要求、英文发表</td>
+    <td class="best">相关工作一节 + 动机一页 + 一页 SciForge 需求 + 排练一次</td>
+    <td class="best">变成 RL 理论负责人（方法是 2、3 号）</td>
   </tr>
 </table>
 
-<div class="box green">
-  <p><b>指导</b>：Maia ten Brink, PhD（Stanford Psychophysiology Lab — 睡眠数据）· Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab — SciForge)。</p>
-  <p>郑心是<b>证据链外部负责人</b>，不在 5 人组里。找他要 DAG 导出、问收据字段。</p>
-</div>
-
-<h2>第 8 节验证，谁负责</h2>
+<h2>谁复现哪个数字</h2>
+<p>没被这个人重跑过，就不算验证过。</p>
 <table>
-  <tr><th>项</th><th>认领人</th></tr>
-  <tr><td>所有模拟数字、曲线、打乱/压平</td><td>3 号 + 4 号</td></tr>
-  <tr><td>真实数据 76% / 13,990 / 237（11-09 已重算）</td><td>5 号 동채하</td></tr>
-  <tr><td>模拟器设计 / 两表不审 5.62 vs 5.90</td><td>3 号</td></tr>
-  <tr><td>「无直接先例」再搜</td><td>5 号</td></tr>
-  <tr><td>引文全文</td><td>5 号</td></tr>
-  <tr><td>GNN vs 信念贪心；信念模型设错时的信念贪心</td><td>2 号</td></tr>
-  <tr><td>GNN+PPO 收敛</td><td>2 号</td></tr>
-  <tr><td>双 critic CMDP</td><td>2 号</td></tr>
-  <tr><td>SciForge 置信度字段 / 图规模</td><td>5 号</td></tr>
-  <tr><td>共识/困难拆分（27/48）</td><td>5 号 + 4 号</td></tr>
-  <tr><td>幻灯片 / PDF 里的旧数字（旧 1.54、「95%」）</td><td>1 号</td></tr>
+  <tr><th>数字 / 说法</th><th>谁</th></tr>
+  <tr><td>所有模拟数字、曲线、shuffle/flatten</td><td>3 号 + 4 号</td></tr>
+  <tr><td>真实数据 76% / 13,990 行 / 237 人</td><td>5 号</td></tr>
+  <tr><td>为什么两张表的"不审"是 5.62 和 5.90</td><td>3 号</td></tr>
+  <tr><td>「没有直接先例」再搜一次、引用全文</td><td>5 号</td></tr>
+  <tr><td>GNN vs belief greedy；模型设错时的 belief greedy</td><td>2 号</td></tr>
+  <tr><td>GNN + PPO 收敛；双 critic CMDP</td><td>2 号</td></tr>
+  <tr><td>SciForge 有没有置信度字段、图多大</td><td>5 号</td></tr>
+  <tr><td>27/48 拆分</td><td>5 号 + 4 号</td></tr>
+  <tr><td>幻灯片 / PDF 里的旧数字（旧 1.54、"95%"）</td><td>1 号</td></tr>
 </table>
 
 <h2>谁等谁</h2>
-<div class="arch">
-3 号（环境 + 图）  ──►  2 号（RL）  ──►  4 号（对照）
-        │                              │
-        ▼                              ▼
-5 号동채하（郑心联络 + 写作）  ──►  郑心 / Zhangyang Gao
+<div class="arch">3 号（环境）  →  2 号（策略）  →  4 号（对照）
+      │
+      └── 5 号（SciForge 需求、写作）  →  郑心 / Zhangyang Gao
 
-1 号（PM + 时间线）在旁边收口
-</div>
+1 号并行收口时间线</div>
+<p><b>关键路径</b>：3 号冻结的环境。它一动，所有数字都得动。</p>
 
-<h2>每个人开会该能说出的那句话</h2>
+<h2>数据：有什么、缺什么</h2>
+<table>
+  <tr><th>数据</th><th>有吗</th><th>谁碰</th></tr>
+  <tr><td>睡眠日记 13,990 行 / 237 人</td><td>有（Maia，一年）</td><td>5 号（计数）、3 号（N=21 图）</td></tr>
+  <tr><td>75 条纠错（76% order_error，27/48）</td><td>有</td><td>5 号（动机）、4 号（拆分）</td></tr>
+  <tr><td>合成图 80 / 500</td><td>有（代码）</td><td>3 号</td></tr>
+  <tr><td>真实流程 N=21</td><td>有（手工编码）</td><td>3 号</td></tr>
+  <tr><td>SciForge 图导出</td><td><b>没有（Gap A）</b></td><td>5 号去要，3 号消费</td></tr>
+  <tr><td>更好的置信度信号</td><td><b>没有（Gap D）</b></td><td>2 号（是模型，不是数据集）</td></tr>
+  <tr><td>CIFAR-10H、BurstGPT、湿实验图像</td><td><b>别去找</b></td><td>—</td></tr>
+</table>
+
+<h2>开会时每个人能说出的一句话</h2>
 <table>
   <tr><th>人</th><th>那句话</th></tr>
-  <tr><td>1</td><td>「时间线和提案是我。동채하负责证据链设计和郑心的 ask。」</td></tr>
-  <tr><td>2</td><td>「策略梯度 + GNN 是主方法。消融说剩下的误差在置信度信号里。我要么修信号，要么如实报告没修好。」</td></tr>
-  <tr><td>3</td><td>「环境是我冻的。图一动每个数字都动。我冻结它，复现这些表。」</td></tr>
-  <tr><td>4</td><td>「基线和对照是我。打乱和压平把优势杀掉，优势就是真的。杀不掉我们就那么说。」</td></tr>
-  <tr><td class="best">5 동채하</td><td class="best">「叙事、郑心联络、文献综合、写作是我。HealthBench 和 BioBasicsBench 放在结果旁边。房间的语言是英语我就用英语讲。」</td></tr>
+  <tr><td>1</td><td>「时间线和提案是我。동채하负责证据链设计和郑心那边。」</td></tr>
+  <tr><td>2</td><td>「学到的策略 1.56，简单规则 1.14。消融说瓶颈在信号。我要么补上差距，要么写清楚为什么补不上。」</td></tr>
+  <tr><td>3</td><td>「环境是我冻结的。图一动，所有数字都动。」</td></tr>
+  <tr><td>4</td><td>「基线和对照是我。shuffle 和 flatten 杀不掉优势，优势才是真的。」</td></tr>
+  <tr><td class="best">5 동채하</td><td class="best">「叙事、郑心那边、文献、真实数据动机、英文发表都是我。」</td></tr>
 </table>
 
-<h2>数据分工（最终）</h2>
-<table>
-  <tr><th>数据</th><th>已有吗</th><th>谁碰</th></tr>
-  <tr><td>睡眠 EMA 13,990 / 237</td><td>有（Maia，一年）</td><td>5 号（计数），3 号（N=21 DAG）</td></tr>
-  <tr><td>75 条纠错</td><td>有</td><td>5 号（动机 + 洞 B），4 号（拆分评估）</td></tr>
-  <tr><td>合成 80 / 500</td><td>有（代码）</td><td>3 号</td></tr>
-  <tr><td>真实管道 N=21</td><td>有（手写）</td><td>3 号</td></tr>
-  <tr><td>SciForge DAG 导出</td><td>没有——洞 A</td><td>5 号去要；3 号消费</td></tr>
-  <tr><td>置信度信号升级</td><td>没有——洞 D</td><td>2 号（不是数据集）</td></tr>
-  <tr><td>CIFAR-10H / BurstGPT / 湿实验图像</td><td><b>不要找</b></td><td>—</td></tr>
-</table>
-
-<h2>两条轨怎么走</h2>
 <div class="box">
-  <p><b>独立论文（课程交付）</b>：不需要 SciForge 代码。睡眠数据当第一个真实实例。</p>
-  <p><b>证据链的一部分（AI4Science 落地）</b>：论文之后，建议器变成 SciForge 只读节点排序服务。Zhangyang Gao 决定进不进 client。郑心决定「按建议审」是不是收据字段。</p>
-  <p><b>都做，按这个顺序</b>：先冻结论文（~12/03）。SciForge 嵌入 W3 并行只做设计 + mock，不做生产集成。</p>
+  <p><b>한국어 요약</b></p>
+  <ul>
+    <li>목표: 의존성 그래프에서 사람이 <b>어디를 먼저 볼지</b> 정하는 것.</li>
+    <li>현재: belief greedy 1.14, 학습 정책 1.56 — 학습이 지고 있음.</li>
+    <li>두 트랙: 논문(11/23) 먼저, SciForge는 그 다음.</li>
+    <li>5명 각자 "무엇을 맡는지 / 언제 끝인지 / 하지 말 것"은 위 표에 한 줄씩.</li>
+  </ul>
 </div>
 
 <footer>
-  <a href="index.html">← 回主页</a> · github.com/cyracaid/rl-oversight-dag
+  <a href="index.html">← 回主页</a> · <a href="TEAM_CLAIMS_CN.html">中文全文</a> · <a href="TEAM_CLAIMS_EN.html">English full page</a> · github.com/cyracaid/rl-oversight-dag
 </footer>
 
 </main>

@@ -1,189 +1,177 @@
 ---
-title: "Team Claims: Paper Track & SciForge Track"
+title: "Team claims — who owns what"
 layout: default
 permalink: /TEAM_CLAIMS_EN.html
 ---
 
-# Team Claims: Paper Track & SciForge Track
+# Team claims — who owns what
 
 <p><b>Language:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html">中文/EN/한국어 (one page)</a> · <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
 
-> 5 people · two tracks · 2026-11-09
-> Positioning (agreed): **AI-for-Science — human review scheduling on research evidence chains.**
-> First real instance: sleep EMA (Maia ten Brink, Stanford Psychophysiology Lab, 1 year).
-> Second instance: SciForge evidence DAG (Zhangyang Gao, AI4Science, Shanghai AI Lab).
-> The proposal is **for SciForge**. The course deliverable is a **standalone paper / talk**.
+> 5 people · 2 tracks · talk on **11/23**
+> One sentence: we study **where a human should look first** in a chain of dependent AI outputs.
+> First real data: sleep diaries (Maia ten Brink, Stanford). Second target: SciForge (Zhangyang Gao, Shanghai AI Lab).
+
+---
+
+## Read this first: seven words
+
+| Word | Plain meaning |
+|---|---|
+| **belief greedy** | the simple rule we have to beat: "review the node whose review is expected to cut the most downstream errors" |
+| **learned policy** (GNN + REINFORCE) | our trained model. Right now it is **worse** than the rule: 1.56 vs 1.14 |
+| **sink errors** | how many wrong values reach the final conclusion. Lower is better |
+| **held-out** | graphs the model never saw while training — the honest score |
+| **N=21** | our real lab pipeline (21 steps), not a synthetic graph |
+| **shuffle / flatten** | controls that destroy the graph. If our advantage survives them, the graph is doing the work |
+| **Gap A / B / C / D** | the four things we do not have: SciForge export (A), consensus labels (B), a third dataset (C), a better confidence signal (D) |
 
 ---
 
 ## 0. Two tracks, one method
 
-| | Track P — Paper | Track C — SciForge chain |
+| | **Track P — course paper** | **Track C — SciForge** |
 |---|---|---|
-| What | Standalone RL paper / talk for STA3145 | Embed the suggester as a read-only review layer in SciForge |
-| Deadline | Course final (talk 11/23) | After the paper, or in parallel if the chain owner agrees |
-| Audience | Professor + classmates | 郑心 (chain owner) + Zhangyang Gao + lab users |
-| Data | Synthetic DAGs + sleep 75/13,990 + real pipeline N=21 | Same, plus a de-identified SciForge DAG export |
-| Risk | GNN variance; RL may not beat greedy at N=500 | Integration cost; SciForge may not have a confidence field |
+| What | the RL project for STA3145 | the same method as a read-only suggester inside SciForge |
+| When | talk **11/23** | after the paper, or design-only in parallel |
+| Who reads it | professor + classmates | 郑心 (chain owner) + Zhangyang Gao + lab users |
+| Needs | synthetic graphs + sleep data + N=21 pipeline | the same, plus a de-identified SciForge graph export |
 
-**Recommended sequence:** Track P first (it is already running). Track C starts after W2, in parallel, using the same numbers. Do not integrate into SciForge code before the paper figures are frozen.
-
----
-
-## 1. Five claims (each person picks one row)
-
-### Person 1 — 组长 / 叙事
-**Track P (claim):** narrative, proposal, HealthBench/BioBasics section, figures into slides.
-**Track C (claim):** none. 동채하 (Person 5) owns the 郑心 / DAG-export ask.
-**Do not:** train models. **Do not:** become the SciForge integrator.
-
-**Done when:**
-- Paper: 12-page-equivalent narrative with figures, three-language sync.
-- Chain: a de-identified DAG export (nodes, edges, types) or a written mock if none exists; one meeting note from 郑心.
+**The rule that keeps us sane: Track P never waits for Track C.** If SciForge is slow, the paper still ships.
 
 ---
 
-### Person 2 — Policy gradient / confidence signal
-**Track P (claim):** a learned policy that beats deployable belief greedy (currently GNN − belief greedy = +0.42 ± 0.15 on held-out graphs; try a deeper GNN, per-step credit, or a misspecified belief model where belief greedy should degrade); PPO-Lagrangian / dual-critic CMDP (naive 2.15 is the thing to fix); confidence-signal upgrade (Gap D — the ablation said this is the lever).
-**Track C (claim):** none before W3. After the paper, port the scorer as a read-only endpoint.
-**Do not:** touch SciForge integration; do not tune DQN into a win.
+## 1. Who owns what
 
-**Done when:**
-- Paper: a learned policy whose paired held-out gap to belief greedy is below zero, or a written reason it is not; either dual-critic beats naive 2.15, or a written reason it still fails.
-- Signal: a better conf (calibration / small predictor) that closes part of the oracle−normal gap (0.72 vs 1.38).
+### Person 1 — PM / narrative
+**You own:** the timeline, the proposal, the slides, and keeping the three language versions in sync.
+**Done when:** the 12-page narrative with figures exists; the slides are rehearsed; no stale numbers are left in any PDF.
+**Don't:** train models. Don't become the SciForge integrator.
 
----
+### Person 2 — policy and confidence signal
+**You own:** getting the learned policy to beat the simple rule — or explaining, with evidence, why it does not; plus the confidence-signal upgrade.
+**Where we are:** 1.56 vs 1.14 on held-out graphs, gap **+0.42 ± 0.15**. The ablation says the *signal* is the lever: noise 3.78 / normal 1.38 / oracle 0.72.
+**Done when:** the gap is below zero on held-out graphs, or there is a written reason it is not; and either a better confidence signal or a written reason it cannot be improved.
+**Don't:** tune DQN until it looks good. Don't touch SciForge code.
 
-### Person 3 — Environment + GNN + scale
-**Track P (claim):** freeze `spike_active_selection.py` + `graph_scale.py` + `real_pipeline_graph.py`; N=500 three-family table (already run); GNN on a 200-node subsample if Person 2 has time.
-**Track C (claim):** the same environment code, wrapped so SciForge DAG export can be dropped in (Gap A consumer).
-**Do not:** invent a new graph family during the paper weeks.
+### Person 3 — environment and graphs
+**You own:** the simulator and the graphs (`spike_active_selection.py`, `graph_scale.py`, `real_pipeline_graph.py`). Freeze them.
+**Done when:** the N=500 table and the N=21 table reproduce from a clean clone.
+**Don't:** introduce a new graph family during the paper weeks.
 
-**Done when:**
-- Paper: N=500 table reproduced; N=21 real pipeline table reproduced.
-- Chain: `load_sciforge_dag(path)` works on Person 5's export.
+### Person 4 — baselines and controls
+**You own:** threshold / greedy / hub / no-review / random on every graph family; the shuffle and flatten controls; the 27/48 split **only if** Person 5 hands over the labels.
+**Done when:** the controls reproduce, and the split table exists — or a line saying it was not run.
+**Don't:** download CIFAR-10H or BurstGPT.
 
----
-
-### Person 4 — Baselines, controls, optional third data
-**Track P (claim):** threshold / greedy / hub / no-review / random on every family; shuffle + flatten controls; consensus/hard split **only if** Person 5 hands over the 27/48 labels.
-**Track C (claim):** none, unless Gap A fails — then Gap C (third real dataset).
-**Do not:** download CIFAR-10H or BurstGPT.
-
-**Done when:**
-- Paper: shuffle/flatten controls reproduced; a one-row "consensus vs agree" table if Gap B is done.
-- Optional: a third real set only if Person 5's SciForge export fails.
+### Person 5 — 동채하 — narrative, SciForge liaison, literature, presenting
+**You own:** the motivation (75 corrections, 13,990 rows), the related-work section (HealthBench, BioBasicsBench), the 郑心 ask, and presenting in English.
+**Done when:** the related-work section and the motivation slide exist; the one-page SciForge ask is written; you have rehearsed once.
+**Don't:** become the RL theory person. The method is Persons 2–3.
 
 ---
 
-### Person 5 — 동채하 — narrative, 郑心 liaison, GO search, literature, writing, presenting (English)
-**Track P (claim):** HealthBench + BioBasicsBench sections (already drafted); sleep 75 / 13,990 motivation; Korean outline `presentation_outline_ko.md`; presenting (English OK).
-**Track C (claim):** SciForge liaison — ask 郑心 for the DAG export and receipt fields; write the SciForge-side one-pager from `EVIDENCE_CHAIN_DESIGN_CN.md`.
-**Do not:** become the RL theory person. The method is Persons 2–3.
+## 2. What the paper looks like
 
-**Done when:**
-- Paper: related-work section, motivation slide, Korean outline rehearsed once.
-- Chain: a one-page SciForge ask (what the suggester needs from the DAG).
+One sentence per section:
 
----
+1. **Problem** — two facts: errors cluster by type, and an unreviewed error is reused downstream.
+2. **Bandit fails** — reviewing items one by one ignores the graph (Q-learning 3.38 vs threshold 2.81).
+3. **Reframe as a graph MDP** — state, action, terminal reward, budget as the horizon.
+4. **Our method** — GNN + REINFORCE; what it sees and what it does not.
+5. **Ablation** — the confidence signal, not the scheduler, is the remaining error.
+6. **Scale** — at 500 nodes a simple greedy nearly clears the errors.
+7. **Real data** — the N=21 lab pipeline: no review 2.12, threshold 0.50.
+8. **Controls** — shuffle, flatten, seeds, paired tests.
+9. **Related work** — learning-to-defer, HealthBench, BioBasicsBench.
+10. **Limits** — what we did not run and what we will not claim.
 
-## 2. Section 8 verification, split to owners
-
-| Item | Owner |
-|---|---|
-| All simulation numbers, curves, shuffle/flatten | Person 3 (env) + Person 4 (controls) |
-| Real-data 76% / 13,990 / 237 (already recomputed 11-09) | Person 5 |
-| Simulator design / why no-review 5.62 vs 5.90 | Person 3 |
-| "No direct precedent" — search again | Person 5 |
-| Full texts of cited papers | Person 5 |
-| GNN vs belief greedy; belief greedy under misspecification | Person 2 |
-| GNN+PPO convergence | Person 2 |
-| Dual-critic CMDP | Person 2 |
-| SciForge confidence field / graph size | Person 5 |
-| Consensus/hard split (27/48) | Person 5 + Person 4 |
-| BestReject = our threshold (claim dropped) | Person 5, if they read the full paper |
-| Stale numbers in slides / PDFs (old 1.54, "95%") | Person 1 (PM) |
+The paper does **not** need SciForge code. Sleep data is the first real instance, not the product.
 
 ---
 
-## 3. Dependency graph (who waits for whom)
+## 3. The SciForge version, later
 
-```
-Person 3 (env + graphs)  ──►  Person 2 (RL)  ──►  Person 4 (controls)
-        │                                              │
-        ▼                                              ▼
-Person 5 (SciForge ask + write)  ──►  郑心 / Zhangyang Gao
-        │                                              │
-        └─────────────► Person 1 (PM + timeline) ◄────┘
-```
-
-Critical path: **Person 3's frozen environment** → everyone else. If the environment moves, all numbers move.
-
----
-
-## 4. What "part of the evidence chain" vs "standalone paper" actually means
-
-### Standalone paper (Track P) — the course deliverable
-Title shape: *Learning When a Human Should Review AI Output on a Research Evidence Chain.*
-
-Sections: problem (two facts) → bandit negative → graph MDP reframe → GNN + REINFORCE → ablation (conf is the bottleneck) → scale (greedy nearly clears) → real pipeline (threshold 0.50) → controls → related (L2D, HealthBench, BioBasics) → limits.
-
-This is a complete, honest RL-course paper. It does not need SciForge code. It uses sleep data as the first real instance.
-
-### Part of the evidence chain (Track C) — the AI4Science landing
-After (or beside) the paper, the same suggester becomes a **read-only node-ranking service** in SciForge:
+The same suggester becomes one read-only endpoint:
 
 ```
 POST /suggest/review-order
-  in:  evidence DAG slice, budget, conf field name
-  out: ranked node ids + reasons (downstream, likelihood, type)
+  in:  a slice of the evidence DAG, a budget, the name of the confidence field
+  out: ranked node ids with reasons (downstream, likelihood, type)
   never: a receipt, a stamp, a write
 ```
 
-This is a feature of SciForge, not a separate product. Zhangyang Gao decides if it enters the client. 郑心 decides if "followed-suggestion" is a receipt field.
+Zhangyang Gao decides whether it enters the client. 郑心 decides whether "followed the suggestion" becomes a receipt field. We never write into their chain.
 
-### Our recommendation
-**Do both, in this order.**
-1. Freeze Track P by ~11/15 as the course paper/talk; present 11/23.
-2. Track C starts W3 in parallel as a design + mock export, not as a production integration.
-3. After the course, Track C can become a SciForge PR (read-only suggester) if Maia and Gao want it.
-
-Trying to land in SciForge *before* the paper is how this becomes an unfinished engineering project. Trying to stay "just a paper" forever is how it never becomes AI4Science. Sequence, do not merge.
+**Order matters:** land the paper first. Trying to integrate before the paper is how this becomes an unfinished engineering project.
 
 ---
 
-## 5. Data division (final)
+## 4. Verification: who re-runs which number
 
-| Data | Already have? | Who touches it |
+Nothing counts as verified until the named person reruns it.
+
+| Number or claim | Who |
+|---|---|
+| every simulation number, the curves, shuffle/flatten | Person 3 + Person 4 |
+| real data 76% / 13,990 rows / 237 people (recomputed 11-09) | Person 5 |
+| why "no review" is 5.62 in one table and 5.90 in another | Person 3 |
+| "no direct precedent" — search again | Person 5 |
+| full texts of the cited papers | Person 5 |
+| GNN vs belief greedy, and belief greedy when the model is wrong | Person 2 |
+| GNN + PPO convergence | Person 2 |
+| dual-critic CMDP | Person 2 |
+| whether SciForge has a confidence field, and the graph size | Person 5 |
+| the 27/48 split | Person 5 + Person 4 |
+| the claim that BestReject is just our threshold | Person 5, if they read the full paper |
+| stale numbers in slides or PDFs (old 1.54, "95%") | Person 1 |
+
+---
+
+## 5. Who waits for whom
+
+```
+Person 3 (environment)  →  Person 2 (policy)  →  Person 4 (controls)
+        │
+        └── Person 5 (SciForge ask, writing)  →  郑心 / Zhangyang Gao
+
+Person 1 collects the timeline in parallel.
+```
+
+**Critical path:** Person 3's frozen environment. If it moves, every number moves.
+
+---
+
+## 6. Data: what exists and what is missing
+
+| Data | Do we have it? | Who touches it |
 |---|---|---|
-| Sleep EMA 13,990 / 237 | yes (Maia, 1 year) | Person 5 (counts), Person 3 (N=21 DAG) |
-| 75 corrections (76% order_error; 27/48 consensus) | yes | Person 5 (motivation + Gap B), Person 4 (split eval) |
-| Synthetic 80 / 500 / modular / BA / ER | yes (code) | Person 3 |
-| Real pipeline N=21 | yes (hand-encoded) | Person 3 |
-| SciForge DAG export | **no — Gap A** | Person 5 asks; Person 3 consumes |
-| Conf-signal upgrade | **no — Gap D** | Person 2 (not a dataset) |
-| CIFAR-10H / BurstGPT / wet-lab images | **do not search** | — |
+| sleep diaries 13,990 rows / 237 people | yes (Maia, one year) | Person 5 (counts), Person 3 (N=21 graph) |
+| 75 corrections (76% `order_error`, 27 consensus / 48 agree) | yes | Person 5 (motivation), Person 4 (split) |
+| synthetic graphs 80 / 500 | yes (code) | Person 3 |
+| real pipeline N=21 | yes (hand-encoded) | Person 3 |
+| SciForge graph export | **no — Gap A** | Person 5 asks, Person 3 consumes |
+| better confidence signal | **no — Gap D** | Person 2 (it is a model, not a dataset) |
+| CIFAR-10H, BurstGPT, wet-lab images | **do not look for these** | — |
 
 ---
 
-## 6. Claim protocol (this week)
+## 7. This week: claim your row in one line
 
-Each person sends a one-line message in the group chat:
+Send one line in the group chat:
 
-> I claim **[row]** on **[Track P / Track C / both]**. My first deliverable is **[thing]** by **[date]**.
+> I take **[row]** on **[Track P / Track C / both]**. My first deliverable is **[thing]** by **[date]**.
 
-If a row is unwanted, swap with another member. Do not leave two people on the same row. Do not leave a row empty.
-
-Default (if nobody swaps): the table in §1.
+If you do not want your row, swap with someone. Two people must not share a row, and no row may be left empty.
 
 ---
 
-## 7. The one thing each person should be able to say at the meeting
+## 8. The sentence each person should be able to say
 
-| Person | The sentence |
+| Person | Say this |
 |---|---|
 | 1 | "I keep the timeline and the proposal. 동채하 owns the evidence-chain design and the 郑心 ask." |
-| 2 | "Policy gradient with a GNN scorer is the main method. The ablation says the confidence signal, not the scheduler, is the remaining error. I will either fix the signal or report that we did not." |
-| 3 | "I own the environment. If the graph moves, every number moves. I will freeze it and reproduce the tables." |
-| 4 | "I own the baselines and the controls. If shuffle and flatten kill the advantage, the advantage is real. If they do not, we say so." |
-| 5 동채하 | "I own the narrative, the 郑心 ask, the GO search, the real-data motivation, and I present in English. HealthBench and BioBasicsBench sit next to our results." |
+| 2 | "The learned policy is 1.56, the simple rule is 1.14. The ablation says the signal is the bottleneck. I will either close the gap or report why I could not." |
+| 3 | "I own the environment. If the graph moves, every number moves. I freeze it and reproduce the tables." |
+| 4 | "I own the baselines and the controls. If shuffle and flatten kill the advantage, the advantage was real. If they do not, we report that." |
+| 5 | "I own the narrative, the 郑心 ask, the literature, the real-data motivation, and the English presentation." |
