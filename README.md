@@ -5,6 +5,8 @@
 > Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
+**Two tracks, one codebase (course vs SciForge, and the RL-vs-greedy decision):** [TRACKS.md](TRACKS.md)
+
 **Start here — one synthesized design document:**
 [Evidence-chain design (EN)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) ·
 [证据链设计 (中文)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html)
