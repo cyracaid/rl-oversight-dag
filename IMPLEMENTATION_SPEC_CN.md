@@ -5,6 +5,8 @@ layout: default
 
 # 依赖图审阅调度 — 实现规格书（中文）
 
+<p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html">中文（网页版）</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html">한국어</a></p>
+
 > STA3145 RL 小组项目 · 实现设计（不是实测结果）· 2026-11-09
 > 对应英文版：`IMPLEMENTATION_SPEC.md` · 叙事文档：`PROJECT_CN.md`
 > 风格说明：本文档确定**搭建时需要的选择和假设**。下面的速度、内存、episode 数、奖励是起始值；除非某节标注「已跑」，否则不是测量结论。

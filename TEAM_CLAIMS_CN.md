@@ -5,6 +5,8 @@ layout: default
 
 # 五人认领书：论文轨 + SciForge 轨
 
+<p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html">中文/EN/한국어（同页）</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html">English</a> · <b>中文</b></p>
+
 > 5 人 · 两条轨 · 2026-11-09
 > 定位（已定）：**AI-for-Science——科研证据链上的人类审阅调度。**
 > 第一个真实实例：睡眠 EMA（Maia ten Brink, Stanford Psychophysiology Lab，一年数据）。

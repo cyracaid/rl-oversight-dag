@@ -1,9 +1,12 @@
 ---
 title: "Team Claims: Paper Track & SciForge Track"
 layout: default
+permalink: /TEAM_CLAIMS_EN.html
 ---
 
 # Team Claims: Paper Track & SciForge Track
+
+<p><b>Language:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html">中文/EN/한국어 (one page)</a> · <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
 
 > 5 people · two tracks · 2026-11-09
 > Positioning (agreed): **AI-for-Science — human review scheduling on research evidence chains.**

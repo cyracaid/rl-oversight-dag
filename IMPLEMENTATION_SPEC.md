@@ -1,9 +1,12 @@
 ---
 title: "Review Scheduling on a Dependency Graph — Implementation Specification"
 layout: default
+permalink: /IMPLEMENTATION_SPEC_EN.html
 ---
 
 # Review Scheduling on a Dependency Graph — Implementation Specification
+
+<p><b>Language:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html">中文（网页版）</a> · <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html">한국어</a></p>
 
 > STA3145 RL group project · implementation design (not a measured result) · 2026-11-09
 > Companion: `PROJECT_EN.md` (narrative) · `PROJECT_CN.md` (中文) · `PROJECT_KO.md` (한국어)

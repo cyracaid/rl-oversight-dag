@@ -5,6 +5,8 @@ layout: default
 
 # 의존성 그래프 검토 스케줄링 — 구현 명세서 (한국어)
 
+<p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html">中文（网页版）</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html">English</a> · <b>한국어</b></p>
+
 > STA3145 RL 팀 프로젝트 · 구현 설계 (측정 결과가 아님) · 2026-11-09
 > 영어판: `IMPLEMENTATION_SPEC.md` · 중국어판: `IMPLEMENTATION_SPEC_CN.md`
 > 지도: Maia ten Brink, PhD (Stanford Psychophysiology Lab, 수면 데이터) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab, SciForge)

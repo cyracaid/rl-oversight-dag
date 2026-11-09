@@ -6,13 +6,13 @@
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
 **Start here — one synthesized design document:**
-[Evidence-chain design (EN)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.md) ·
-[证据链设计 (中文)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.md)
+[Evidence-chain design (EN)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) ·
+[证据链设计 (中文)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html)
 
 **Who claims what (5 people, two tracks):**
-[Team claims HTML (中文/EN/한국어)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html)
-(markdown source: [`TEAM_CLAIMS.md`](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.md) ·
-[`TEAM_CLAIMS_CN.md`](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.md))
+[Team claims (中文/EN/한국어, one page)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html)
+(markdown source: [EN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html))
 
 **Meeting one-pager (humanized + math, 中文 / EN / 한국어, click to open):**
 [中文 PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_zh.pdf) ·
@@ -26,12 +26,11 @@
 [한국어](https://cyracaid.github.io/rl-oversight-dag/ko/index.html) ·
 [中文](https://cyracaid.github.io/rl-oversight-dag/zh/index.html)
 
-**Implementation spec (build from this):**
-[中文网页版 `IMPLEMENTATION_SPEC.html`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) ·
-[English `IMPLEMENTATION_SPEC.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.md) ·
-[한국어 `IMPLEMENTATION_SPEC_KO.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.md) ·
-[中文源码 `IMPLEMENTATION_SPEC_CN.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.md)
-(the `.html` page and `IMPLEMENTATION_SPEC_CN.md` are both Chinese — the former is the styled web page, the latter is its plain-markdown source; its on-page language switcher links to the EN/KO spec siblings directly.)
+**Implementation spec (build from this) — the same document in three languages:**
+[中文](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) ·
+[English](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html)
+(each page carries a language bar at the top, so you can switch without coming back here. The Chinese page is the styled web version; its markdown twin `IMPLEMENTATION_SPEC_CN.md` renders at `IMPLEMENTATION_SPEC_CN.html` and is listed in the document index below.)
 
 Repo: https://github.com/cyracaid/rl-oversight-dag
 
@@ -65,6 +64,26 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | `experiments/verify_clustering.py` | code | 75-correction clustering (skips if data missing) |
 
 **Local only, never commit:** raw `*.rds` / `*.csv`; anyone else's proposal; long Chinese literature notes (`延迟惩罚审查调度_文献调研/`).
+
+---
+
+## Document index (every page, rendered)
+
+Every link below is the rendered GitHub Pages version — nothing here opens raw markdown in the browser.
+
+| Document | English | 한국어 | 中文 |
+|---|---|---|---|
+| Project narrative | [PROJECT_EN](https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html) | [PROJECT_KO](https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.html) | [PROJECT_CN](https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.html) |
+| Evidence-chain design | [EVIDENCE_CHAIN_DESIGN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) | — | [EVIDENCE_CHAIN_DESIGN_CN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html) |
+| Implementation spec | [IMPLEMENTATION_SPEC_EN](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html) | [IMPLEMENTATION_SPEC_KO](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html) | [网页版](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) · [md 渲染](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.html) |
+| Team claims | [TEAM_CLAIMS_EN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html) | [TEAM_CLAIMS (三语同页)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html) | [TEAM_CLAIMS_CN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html) |
+| Course alignment | [COURSE_ALIGNMENT](https://cyracaid.github.io/rl-oversight-dag/COURSE_ALIGNMENT.html) | — | [COURSE_ALIGNMENT_CN](https://cyracaid.github.io/rl-oversight-dag/COURSE_ALIGNMENT_CN.html) |
+| SciForge proposal | [proposal_sciforge_en](https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_en.html) | — | — |
+| Slide outline | [presentation_outline](https://cyracaid.github.io/rl-oversight-dag/presentation_outline.html) | [presentation_outline_ko](https://cyracaid.github.io/rl-oversight-dag/presentation_outline_ko.html) | — |
+| Meeting one-pager | [HTML (tabs)](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.html) · [PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_en.pdf) | [PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_ko.pdf) | [PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_zh.pdf) |
+| Illustrated talk | [talk.html](https://cyracaid.github.io/rl-oversight-dag/talk.html) | [talk.html](https://cyracaid.github.io/rl-oversight-dag/talk.html) | [talk.html](https://cyracaid.github.io/rl-oversight-dag/talk.html) |
+
+The same index is on the site landing page: <https://cyracaid.github.io/rl-oversight-dag/#documents>.
 
 ---
 
