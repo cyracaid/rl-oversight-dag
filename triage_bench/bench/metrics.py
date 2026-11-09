@@ -61,3 +61,31 @@ def bootstrap_recall_ci(
         return point, float("nan"), float("nan")
     lo, hi = np.percentile(vals, [2.5, 97.5])
     return point, float(lo), float(hi)
+
+
+def bootstrap_paired_diff(
+    queue: pd.DataFrame,
+    scores_a: np.ndarray,
+    scores_b: np.ndarray,
+    k: int,
+    label_col: str = "y_broad",
+    n_boot: int = 1000,
+    seed: int = SEED,
+) -> tuple[float, float, float]:
+    """Paired cluster bootstrap for recall_a@k - recall_b@k on the same participants."""
+    y = queue[label_col].to_numpy()
+    obs = recall_at_k(scores_a, y, k) - recall_at_k(scores_b, y, k)
+
+    pids = queue["pid"].to_numpy()
+    unique = np.unique(pids)
+    by_pid = {p: np.where(pids == p)[0] for p in unique}
+    rng = np.random.default_rng(seed)
+    vals = []
+    for _ in range(n_boot):
+        chosen = rng.choice(unique, size=len(unique), replace=True)
+        rows = np.concatenate([by_pid[p] for p in chosen])
+        d = recall_at_k(scores_a[rows], y[rows], k) - recall_at_k(scores_b[rows], y[rows], k)
+        if np.isfinite(d):
+            vals.append(d)
+    lo, hi = np.percentile(vals, [2.5, 97.5])
+    return float(obs), float(lo), float(hi)

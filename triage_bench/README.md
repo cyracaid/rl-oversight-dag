@@ -75,7 +75,9 @@ costs ~15 reviews.
 - **One rule — "M1-bearing flags first" — reaches 84% of all errors in 140 of 1,048 reviews (13%).**
 - **The pipeline's own order is worse than random** (23.5% vs 39.7% at k=400). Whatever ordering the default queue has, it is anti-correlated with the truth.
 - The M1 block is separable; the remaining 885 M4-only flags hold 11 positives (1.24%).
+- **Errors cluster inside participants** (variance/mean 2.00 vs label-shuffle null 1.10, p = 0.0005; one participant carries 7 errors).
 - Inside that block, a participant-grouped CV model reaches **AUC 0.467** (worse than chance; permutation p = 0.53). The best fixed single feature (`sleepperiod_minutes`) has AUC 0.78 (family-wise p = 0.010) but yields P@100 = 3% — 3 errors per 100 reviews.
+- Ranking *participants* by M1 density reaches 91.2% at k=400, but the paired difference against the row-level rule is **not significant** (@400 +7.3% [−8.6%, +10.0%], @200 −1.5% [−11.4%, +6.8%]).
 - 7–8 corrections are **never flagged at all**, so no ranking policy can reach them.
 
 ### What this means (and what it forbids claiming)

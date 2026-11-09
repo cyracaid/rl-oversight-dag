@@ -13,6 +13,37 @@ Queue precision: **6.5%**
 | m1_then_sol_gap | 26.5% | 58.8% | 83.8% | 85.3% | 40.0% | [46.2%, 81.2%] |
 | oracle | 73.5% | 100.0% | 100.0% | 100.0% | 68.0% | [100.0%, 100.0%] |
 
+## Participant-level policies
+
+Do errors cluster inside participants, and can a label-free feature rank them?
+
+- participants in queue: **203** (46 with at least one error)
+- max errors carried by one participant: **7**
+- variance/mean of errors per participant: **1.998** (label-shuffle null 1.097, p95 1.289, p = 0.0005)
+
+| policy | R@50 | R@100 | R@200 | R@400 |
+|---|---:|---:|---:|---:|
+| pid:flag_density | 5.9% | 8.8% | 20.6% | 42.6% |
+| pid:m1_density | 29.4% | 60.3% | 82.3% | 91.2% |
+| pid:mean_n_rules | 22.1% | 29.4% | 30.9% | 82.3% |
+| pid:mean_abs_sol_gap | 20.6% | 26.5% | 33.8% | 45.6% |
+| pid:tst_break_rate | 8.8% | 20.6% | 20.6% | 26.5% |
+| pid:sd_bed_hour | 22.1% | 25.0% | 39.7% | 50.0% |
+
+Paired difference, `pid:m1_density` − `m1_first` (same participants, cluster bootstrap): @200 -1.5% [-11.4%, +6.8%], @400 +7.3% [-8.6%, +10.0%].
+
+| participant feature | AUC (has >=1 error) |
+|---|---:|
+| `m1_density` | 0.868 |
+| `sd_bed_hour` | 0.597 |
+| `mean_n_rules` | 0.579 |
+| `flag_density` | 0.532 |
+| `mean_abs_sol_gap` | 0.450 |
+| `tst_break_rate` | 0.416 |
+
+`pid:<feature>` = rank participants by that feature, then M1-bearing rows first inside.
+6 features were tried; treat the best AUC as multiple-comparison weak.
+
 `queue_order` = the pipeline's own file order (no prioritisation).
 `oracle` needs the labels and is a ceiling, not a policy.
 CI = participant-clustered bootstrap, 1,000 resamples, k fixed at 100.

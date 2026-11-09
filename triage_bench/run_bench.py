@@ -16,8 +16,10 @@ import json
 import numpy as np
 
 from bench import config
-from bench.load import describe, load_queue
-from bench.metrics import bootstrap_recall_ci, precision_at_k
+from bench.load import describe, load_queue, load_rows
+from bench.participant import (FEATURES, build_features, overdispersion,
+                               participant_auc, scores_for)
+from bench.metrics import bootstrap_paired_diff, bootstrap_recall_ci, precision_at_k
 from bench.policies import score_all
 
 
@@ -32,12 +34,16 @@ def main() -> None:
         os.environ[config.DATA_DIR_ENV] = args.data_dir
 
     data = config.require_data()
-    queue = load_queue(data)
+    rows = load_rows(data)
+    queue = load_queue(data, rows=rows)
     info = describe(queue)
     print("queue:", info)
 
     ks = [10, 25, 50, 100, 200, 400, 800]
     scores = score_all(queue)
+    pf = build_features(queue, rows)
+    for name in FEATURES:
+        scores[f"pid:{name}"] = scores_for(queue, pf, name)
     y = queue["y_broad"].to_numpy()
 
     curves = {}
@@ -52,7 +58,24 @@ def main() -> None:
         }
         print(f"{name:18s} " + "  ".join(f"R@{k}={curve[k]:.3f}" for k in (50, 100, 200, 400)))
 
+    delta = {}
+    for k in (200, 400):
+        d, lo, hi = bootstrap_paired_diff(queue, scores["pid:m1_density"], scores["m1_first"], k,
+                                          n_boot=args.boot)
+        delta[f"k{k}"] = {"diff": round(d, 4), "lo95": round(lo, 4), "hi95": round(hi, 4)}
+    print("paired pid:m1_density - m1_first:", delta)
+
+    disp = overdispersion(queue)
+    pid_auc = participant_auc(queue, pf)
+    print("participant clustering:", disp)
+    print(pid_auc.to_string(index=False))
+
     config.OUT_DIR.mkdir(parents=True, exist_ok=True)
+    (config.OUT_DIR / "participant.json").write_text(
+        json.dumps({"overdispersion": disp,
+                    "pid_auc": pid_auc.to_dict("records"),
+                    "paired_vs_m1_first": delta}, indent=2) + "\n"
+    )
     (config.OUT_DIR / "queue_summary.json").write_text(json.dumps(info, indent=2) + "\n")
     (config.OUT_DIR / "recall_at_k.json").write_text(
         json.dumps({"k": ks, "curves": curves, "at_100": table}, indent=2) + "\n"
@@ -81,6 +104,39 @@ def main() -> None:
         )
     lines += [
         "",
+        "## Participant-level policies",
+        "",
+        "Do errors cluster inside participants, and can a label-free feature rank them?",
+        "",
+        f"- participants in queue: **{disp['participants_in_queue']}** "
+        f"({disp['participants_with_positive']} with at least one error)",
+        f"- max errors carried by one participant: **{disp['max_positives_one_participant']}**",
+        f"- variance/mean of errors per participant: **{disp['observed_vmr']}** "
+        f"(label-shuffle null {disp['null_vmr_mean']}, p95 {disp['null_vmr_p95']}, "
+        f"p = {disp['p_value']})",
+        "",
+        "| policy | R@50 | R@100 | R@200 | R@400 |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for name in [f"pid:{f}" for f in FEATURES]:
+        c = curves[name]
+        lines.append(f"| {name} | {c[50]:.1%} | {c[100]:.1%} | {c[200]:.1%} | {c[400]:.1%} |")
+    lines += [
+        "",
+        "Paired difference, `pid:m1_density` − `m1_first` (same participants, cluster bootstrap): "
+        f"@200 {delta['k200']['diff']:+.1%} [{delta['k200']['lo95']:+.1%}, {delta['k200']['hi95']:+.1%}], "
+        f"@400 {delta['k400']['diff']:+.1%} [{delta['k400']['lo95']:+.1%}, {delta['k400']['hi95']:+.1%}].",
+        "",
+        "| participant feature | AUC (has >=1 error) |",
+        "|---|---:|",
+    ]
+    for _, row in pid_auc.iterrows():
+        lines.append(f"| `{row['feature']}` | {row['auc']:.3f} |")
+    lines += [
+        "",
+        "`pid:<feature>` = rank participants by that feature, then M1-bearing rows first inside.",
+        f"{len(FEATURES)} features were tried; treat the best AUC as multiple-comparison weak.",
+        "",
         "`queue_order` = the pipeline's own file order (no prioritisation).",
         "`oracle` needs the labels and is a ceiling, not a policy.",
         "CI = participant-clustered bootstrap, 1,000 resamples, k fixed at 100.",
@@ -95,7 +151,8 @@ def main() -> None:
         import matplotlib.pyplot as plt
 
         fig, ax = plt.subplots(figsize=(6, 4))
-        for name in ["queue_order", "random", "rule_count", "m1_first", "oracle"]:
+        for name in ["queue_order", "random", "rule_count", "m1_first",
+                     "pid:m1_density", "oracle"]:
             ax.plot(ks, [curves[name][k] for k in ks], marker="o", label=name)
         ax.set_xlabel("review budget k (items)")
         ax.set_ylabel("recall of human-confirmed errors")

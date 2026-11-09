@@ -53,11 +53,20 @@ def _normalise_keys(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def load_queue(data_dir: Path) -> pd.DataFrame:
+def load_rows(data_dir: Path) -> pd.DataFrame:
+    """All 13,990 rows, keys normalised, label-derived columns dropped."""
+    rows = _normalise_keys(pd.read_csv(data_dir / FILES["rows"]))
+    keep = [c for c in rows.columns if c not in LABEL_COLUMNS]
+    return rows[list(dict.fromkeys(keep))].copy()
+
+
+def load_queue(data_dir: Path, rows: pd.DataFrame | None = None) -> pd.DataFrame:
     """Return the review queue: one row per AI FLAG, with rule flags and labels."""
     audit = _normalise_keys(pd.read_csv(data_dir / FILES["candidates"]))
     labels = _normalise_keys(pd.read_csv(data_dir / FILES["labels"]))
-    rows = _normalise_keys(pd.read_csv(data_dir / FILES["rows"]))
+    raw = _normalise_keys(pd.read_csv(data_dir / FILES["rows"]))
+
+    label_keys = raw[KEYS + ["human_review"]].copy()
 
     for rule in RULES:
         audit[rule] = audit[rule].astype(str).str.upper().eq("TRUE")
@@ -67,7 +76,7 @@ def load_queue(data_dir: Path) -> pd.DataFrame:
 
     narrow = set(map(tuple, labels[KEYS].drop_duplicates().itertuples(index=False, name=None)))
     broad = set(
-        map(tuple, rows.loc[rows["human_review"] == "corrected", KEYS]
+        map(tuple, label_keys.loc[label_keys["human_review"] == "corrected", KEYS]
             .drop_duplicates().itertuples(index=False, name=None))
     )
     keys = list(queue[KEYS].itertuples(index=False, name=None))
@@ -75,10 +84,7 @@ def load_queue(data_dir: Path) -> pd.DataFrame:
     queue["y_broad"] = np.array([k in broad for k in keys], dtype=int)
 
     # Features: the cleaned row fields, minus every label-derived column.
-    # dict.fromkeys keeps order and removes duplicates (timestamps are already
-    # inside `rows`, so appending them blindly would duplicate the column).
-    keep = [c for c in rows.columns if c not in LABEL_COLUMNS]
-    features = rows[list(dict.fromkeys(keep))].copy()
+    features = rows if rows is not None else load_rows(data_dir)
     merged = queue.merge(features, on=KEYS, how="left", validate="one_to_one")
 
     merged["n_rules"] = merged[RULES].sum(axis=1)

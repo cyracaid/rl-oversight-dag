@@ -1,0 +1,55 @@
+{
+  "overdispersion": {
+    "participants_in_queue": 203,
+    "participants_with_positive": 46,
+    "max_positives_one_participant": 7,
+    "observed_vmr": 1.998,
+    "null_vmr_mean": 1.097,
+    "null_vmr_p95": 1.289,
+    "p_value": 0.0005
+  },
+  "pid_auc": [
+    {
+      "feature": "m1_density",
+      "auc": 0.868,
+      "n": 203
+    },
+    {
+      "feature": "sd_bed_hour",
+      "auc": 0.597,
+      "n": 203
+    },
+    {
+      "feature": "mean_n_rules",
+      "auc": 0.579,
+      "n": 203
+    },
+    {
+      "feature": "flag_density",
+      "auc": 0.532,
+      "n": 203
+    },
+    {
+      "feature": "mean_abs_sol_gap",
+      "auc": 0.45,
+      "n": 203
+    },
+    {
+      "feature": "tst_break_rate",
+      "auc": 0.416,
+      "n": 198
+    }
+  ],
+  "paired_vs_m1_first": {
+    "k200": {
+      "diff": -0.0147,
+      "lo95": -0.1139,
+      "hi95": 0.0678
+    },
+    "k400": {
+      "diff": 0.0735,
+      "lo95": -0.0863,
+      "hi95": 0.1
+    }
+  }
+}
