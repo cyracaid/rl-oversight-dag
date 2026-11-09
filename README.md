@@ -2,7 +2,11 @@
 
 > STA3145 Reinforcement Learning · Group project. Under a limited review budget, we use RL to learn which node of a dependency graph to review, so that fewer errors reach the final conclusion.
 
-**Project document (pick your language):**
+**Start here — one synthesized design document:**
+[Evidence-chain design (EN)](EVIDENCE_CHAIN_DESIGN.md) ·
+[证据链设计 (中文)](EVIDENCE_CHAIN_DESIGN_CN.md)
+
+**Full narrative (pick your language):**
 [English `PROJECT_EN.md`](PROJECT_EN.md) ·
 [한국어 `PROJECT_KO.md`](PROJECT_KO.md) ·
 [中文 `PROJECT_CN.md`](PROJECT_CN.md)
