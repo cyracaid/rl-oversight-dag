@@ -113,7 +113,7 @@ i.e. remove the most uncertainty with the fewest reviews. Our greedy baseline is
 ## 6. Data and controls
 
 - **Real data (motivation, internal, never committed).** `deidentified_intervalvars_forCD_111325.rds` = **13,990 rows / 237 participants** of daily sleep logs. **75 corrections (0.54%)**, of which `order_error` = **57/75 = 76%** (the old 85.1% was 57/67, 8 rows unlabeled), entropy 0.612, p < 0.0001. Per SciForge raw-data protection, the CSV never enters git and is never handed whole to an agent.
-- **Synthetic graph (main experiments).** ≈80 nodes, type-clustered errors, downstream propagation.
+- **Synthetic graph (main experiments).** ≈80 nodes, type-clustered errors, downstream propagation. Scaled: **N=500** modular / BA / ER, greedy 81→3.8 on scale-free. **Transfer (specified, not yet run):** KAIST HRV diary (1,372 rows / 49 adults, Figshare 28509740, CC BY) and Manchester diary — adapt scripts in `splsleep/validation/external/`. Frozen GNN vs retrained GNN, both reported.
 - **Controls.** Shuffle which items are wrong → advantage disappears. Flatten the graph → advantage disappears. The advantage comes from clustering + propagation, not a rigged simulator.
 
 ## 7. Results so far
@@ -265,7 +265,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 **Experiments add.** An explainable negative result, the reframe that fixes it, a method comparison, controls showing the gain comes from structure, and an ablation locating the remaining error in the confidence signal.
 
-**Limits.** Synthetic main experiments (≈80 nodes); GNN is multi-seed but high-variance; real data is 75 rows (motivation only); CMDP soft budget not solved.
+**Limits.** Synthetic main experiments (≈80 nodes; scaled greedy at 500 nodes, RL not yet trained at that scale; KAIST/Manchester transfer specified not run); GNN is multi-seed but high-variance; real data is 75 rows (motivation only); CMDP soft budget not solved.
 
 **Feasibility.** Simulator, baselines, REINFORCE, PPO, DQN, GNN scorer already run. Remaining: clean multi-seed reproduction, dual-critic CMDP, slides. Next: larger graphs, the real evidence graph, consensus/hard split.
 

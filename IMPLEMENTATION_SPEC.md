@@ -309,7 +309,34 @@ Run each control with the *same* trained policy and the *same* eval seeds. Do no
 | 3 | Consensus/hard split of the 75 (27/48); ablation on each; controls on N=500 | two-row table: consensus vs agree |
 | 4 | Slides from `presentation_outline.md` with the four/five figures embedded; ≥2 rehearsals | talk |
 
-### 9.1 Who owns what (five people)
+### 9.1 Transfer experiments (missing — add these)
+
+The N=500 families test **structure and scale**, not **domain transfer**. A reviewer will ask: does the suggester still work on a pipeline that is not the sleep SCHEMA?
+
+| Transfer target | What it is | Who | Status |
+|---|---|---|---|
+| **KAIST HRV sleep diary** (Baigutanova 2025, Figshare 28509740, CC BY) | 1,372 rows / 49 adults; adapt script `splsleep/validation/external/adapt_kaist.R` already exists | Person 5 + 3 | scripts exist; RL env not wired |
+| **Manchester diary** (Didikoglu 2023, Figshare 23786238) | adapt script `adapt_manchester.R` exists | Person 5 + 3 | scripts exist; RL env not wired |
+| **GO molecular-function slice** (IEA vs EXP/IDA) | broader bio, same review-scheduling task: nodes = GO MF terms (DAG), items = gene-term annotations, AI = IEA, human = biocurator. Sample one parent term (~500–2,000 annotations). **Not protein-function prediction.** | Person 5 + 4 | not started; search first |
+| Mock SciForge DAG from docs | second instantiation (Zhangyang Gao) | Person 1 | Gap A; mock from SciForge docs if no export |
+| ClinVar conflicting (Kaggle 30 MB) | backup classification if GO is too heavy; no dependency DAG | Person 4 | easy to load; weaker fit |
+| CIFAR-10H image proxy | dropped v1 | — | do not revive unless professor asks |
+
+**How to run transfer (concrete):**
+
+1. Download KAIST from Figshare 28509740 (CC BY).
+2. `Rscript adapt_kaist.R sleep_diary.csv kaist_adapted.csv`
+3. Build the same N-node DAG on KAIST timestamps (time_bed / sleep / awake / getup) — same SCHEMA shape, different participants.
+4. Inject our type rates (76% order_error analogue + others).
+5. Run no-review / threshold / greedy / GNN. **Same GNN weights, no retrain** (true transfer) **and** a retrained GNN (domain adaptation). Report both.
+
+**Success:** threshold or greedy beats no-review on KAIST/Manchester. If only retrained GNN wins and frozen GNN does not, that is domain adaptation, not transfer — say so.
+
+**Do not** collect a new wet-lab set. Do not revive CIFAR-10H unless asked.
+
+**Broader-bio (GO MF slice) is Person 5 + 4, not this week's KAIST run.** Search first whether GO-annotation review scheduling already exists; if it does, stay on sleep + SciForge and say so.
+
+### 9.2 Who owns what (five people)
 
 | Person | Primary | Background slice | Data |
 |---|---|---|---|

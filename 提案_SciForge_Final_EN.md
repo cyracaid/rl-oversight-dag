@@ -86,6 +86,7 @@ a causal intervention: reviewing \(v\) forces \(X_v=1\) and cuts outgoing infect
 - **Real data (motivation, internal, not public):** `deidentified_intervalvars_forCD_111325.rds` = **13,990 rows / 237 participants** of daily sleep logs (bed / sleep / wake / get-up times → automated SOL, WASO, sleep efficiency). 75 corrections (0.54%), of which `order_error` = **57/75 = 76%** (not 85.1%; the 85% was 57/67, 8 rows unlabeled), entropy 0.612, p < 0.0001.
   - Per SciForge's raw-data protection, this CSV **never enters git and is never handed whole to an agent**; the document cites summary numbers only.
 - **Synthetic dependency graph (main experiments):** ≈80 nodes, errors clustered by type and propagating downstream. Scaled follow-up (**N=500**, budget 50, Zipf types, exponential propagation 1−e^(−λw)): modular / scale-free (BA) / sparse (ER). Greedy influence maximization: modular 24→**2**, scale-free 81→**4**, ER 43→**8**; random ≈ no review; conf threshold unstable on scale-free (6–76). Script `graph_scale.py`, figure `scale500.png`. These 500-node numbers are **greedy, not RL**. On the *actual* lab pipeline DAG (N=21, from splsleep SCHEMA, `real_pipeline_graph.py`), a confidence threshold nearly clears conclusion errors: 2.12 → **0.50**.
+- **Transfer (specified, not yet run):** KAIST HRV sleep diary (1,372 rows / 49 adults, Figshare 28509740, CC BY) and Manchester diary — adapt scripts already in `splsleep/validation/external/`. Same DAG shape, different participants. Frozen GNN (true transfer) vs retrained GNN (domain adaptation). Success: threshold or greedy beats no-review on the new set.
 - **Controls (proving the advantage is not baked in):** shuffle which items are wrong (break clustering) → advantage disappears; flatten the graph (break propagation) → advantage disappears. → the advantage comes from clustering + propagation.
 
 ## 6. Results so far (AI-generated, not re-run, see Section 8)
@@ -126,6 +127,7 @@ Diagnosis: per-item review flattens the graph, and with one type at 76%, the opt
 - **Error cascades and propagation:** Data Cascades (CHI 2021); Finkel et al. (EMNLP 2006); **From Spark to Fire** (arXiv:2603.04474, directed dependency graph + cascades); DN-ILDL (arXiv:2405.16474).
 - **Budget + node-selection RL / GNN encoding:** **WS-option** (arXiv:2502.05537, budget allocation + node selection two-layer MDP); **Mattick & Mutschler** (arXiv:2310.00112, GNN + RL node selection — our scorer follows it).
 - **Everyday-science evaluation (OpenAI, 2026-11):** **BioBasicsBench** (with Ligo) — 100 wet-lab tasks on raw evidence (gels, plates, microscopy, instrument exports), expert rubrics, error detection and "evidence cannot support a conclusion" as first-class skills. Top model 66.7%. Closest *task-philosophy* precedent: raw messy everyday-science data, error detection, controls, partial credit. Not scheduling, not a DAG, no budget.
+- **Broader-bio transfer (specified, not run):** **GO molecular-function slice** — nodes = GO MF terms (a real DAG), items = gene-term annotations, AI = IEA, human = biocurator. Same review-scheduling task, broader bio. **Not protein-function prediction** (GO Bench / Swiss-Prot L2D is a different paper). Search first whether GO-annotation review scheduling already exists.
 
 ### 7.1 Compared with HealthBench (OpenAI, 2025-05)
 
@@ -170,7 +172,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 **What the experiments add.** An explainable negative result (bandit loses because the graph is flattened), the reframe that fixes it, a method comparison (policy gradient beats value-based under sparse reward), and controls showing the gain comes from structure.
 
-**Limits (stated plainly).** Main experiments are synthetic (≈80 nodes; scaled greedy baselines at 500 nodes, RL not yet trained at that scale); the GNN scorer is multi-seed but high-variance; real data is 75 rows (motivation only); "no direct precedent" = not found, not nonexistent.
+**Limits (stated plainly).** Main experiments are synthetic (≈80 nodes; scaled greedy baselines at 500 nodes, RL not yet trained at that scale); KAIST/Manchester transfer specified not run; GO MF slice specified as broader-bio, not run; the GNN scorer is multi-seed but high-variance; real data is 75 rows (motivation only); "no direct precedent" = not found, not nonexistent.
 
 **SciForge deployment (phased idea):**
 1. **Offline evaluation.** On the synthetic graph and an exported, de-identified real evidence graph, compare the suggester vs "sort by confidence". No app integration, no change to record-keeping.
