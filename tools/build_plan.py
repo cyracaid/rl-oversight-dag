@@ -25,6 +25,8 @@ L["en"] = {
               ("1", "choke point: freezing the environment (change it once, every number dies)"),
               ("4", "interfaces frozen by day 2"),
               ("G0", "day-5 decision: Option 1 or Option 2")],
+    "stages": ["<b>Stage 1 · STA3145</b>we decide: scope, methods, data, what we claim. No external approval.",
+               "<b>Stage 2 · SciForge</b>their system: we propose the audit chain, they decide what enters it."],
     "banner": "<b>Status discipline.</b> The belief-conditioned GNN + REINFORCE result is <b>a single run</b>, "
               "marked <span class=\"tag\">unverified</span>. Until WP1 reproduces it, no document, slide or "
               "group-chat message may present it as a finding.",
@@ -111,6 +113,8 @@ L["ko"] = {
               ("1", "병목: 환경 동결 (한 번 바뀌면 모든 숫자가 죽는다)"),
               ("4", "2일 차까지 고정하는 인터페이스"),
               ("G0", "5일 차 결정: Option 1 또는 Option 2")],
+    "stages": ["<b>Stage 1 · STA3145</b>우리가 결정: 범위, 방법, 데이터, 주장. 외부 승인 불필요.",
+               "<b>Stage 2 · SciForge</b>그들의 시스템: 감사 사슬을 제안하고, 무엇이 들어갈지는 그들이 결정."],
     "banner": "<b>상태 규율.</b> belief 조건화 GNN + REINFORCE 결과는 <b>단 한 번의 실행</b>이며 "
               "<span class=\"tag\">unverified</span>로 표시한다. WP1이 재현하기 전까지 어떤 문서·슬라이드·단체 대화도 "
               "이를 결론으로 쓰지 않는다.",
@@ -196,6 +200,8 @@ L["zh"] = {
               ("1", "卡点：环境冻结（动一次，全部数字作废）"),
               ("4", "第 2 天前必须定死的接口"),
               ("G0", "第 5 天决策：Option 1 还是 Option 2")],
+    "stages": ["<b>Stage 1 · STA3145</b>我们决定：范围、方法、数据、主张。不需要外部批准。",
+               "<b>Stage 2 · SciForge</b>他们的系统：我们提审计链，进不进由他们定。"],
     "banner": "<b>状态纪律。</b>belief 条件化的 GNN + REINFORCE 目前是<b>一次运行</b>，标记 "
               "<span class=\"tag\">unverified</span>；在 WP1 复现之前，任何文档、幻灯片、群消息都不得把它写成结论。",
     "h_graph": "1. 依赖图",
@@ -355,6 +361,7 @@ def block(lang: str, lg: dict, default: bool) -> str:
 <h1>{lg["title"]}</h1>
 <p class="lead">{lg["lead"]}</p>
 <div class="stats">{stats}</div>
+<div class="stages">{''.join(f'<div class="stage s{i+1}">{c}</div>' for i, c in enumerate(lg["stages"]))}</div>
 <div class="box amber">{lg["banner"]}</div>
 
 <h2>{lg["h_graph"]}</h2>
@@ -405,6 +412,12 @@ CSS = """
   .stat { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 14px 16px; }
   .stat .n { font-size: 1.7em; font-weight: 700; line-height: 1.1; }
   .stat .l { font-size: 0.85em; color: #57606a; }
+  .stages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 4px; }
+  .stage { border-radius: 10px; padding: 12px 16px; font-size: 0.9em; }
+  .stage b { display: block; font-size: 0.98em; margin-bottom: 2px; }
+  .stage.s1 { background: #e8f5e9; border-left: 4px solid #1a9850; }
+  .stage.s2 { background: #eef2f6; border-left: 4px solid #8b949e; }
+  @media (max-width: 640px) { .stages { grid-template-columns: 1fr; } }
   .graph { background: #fff; border: 1px solid #eaeef2; border-radius: 10px; padding: 8px; overflow-x: auto; }
   svg { display: block; width: 100%; height: auto; }
   .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.85em; color: #57606a; margin-top: 8px; }

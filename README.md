@@ -7,7 +7,7 @@
 
 **Who does what (visual, EN / 한국어 / 中文):** [PLAN.html](PLAN.html) — dependency graph, 8-day schedule, four interfaces, three gates. Built from one source: `python3 tools/build_plan.py`. Text version: [GENERALIZATION_PLAN.md](GENERALIZATION_PLAN.md).
 
-**Two tracks, one codebase (course vs SciForge, and the RL-vs-greedy decision):** [TRACKS.md](TRACKS.md)
+**Two stages — Stage 1 we decide, Stage 2 is SciForge's system:** [TRACKS.md](TRACKS.md)
 
 **Start here — one synthesized design document:**
 [Evidence-chain design (EN)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) ·
