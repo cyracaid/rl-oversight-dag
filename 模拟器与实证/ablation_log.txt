@@ -1,0 +1,6 @@
+Ablation: GNN+REINFORCE under three confidence conditions (3 seeds x 12k ep)
+  normal = learned conf signal (as in main experiments)
+  noise  = conf replaced by uniform noise (signal destroyed)
+  oracle = conf reveals the true error (upper bound of the signal)
+
+  seed 1  normal  1.30

@@ -58,7 +58,7 @@ Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torc
 
 ## Honest caveats (please read)
 
-- **GNN + REINFORCE = 1.20** was confirmed in a single 20k-episode run; at 12k episodes it is 2.05, so it is training-sensitive → reproduce with multiple seeds (`rl_gnn_multiseed.py`) before citing.
+- **GNN + REINFORCE multi-seed (5 seeds): mean 1.54 ± 0.46 (95% CI [1.08, 2.00])**. The single-run 1.20 was one seed's good luck. Mean does not significantly beat structural greedy (1.80) or MLP REINFORCE (1.40). Reproduce before citing (`rl_gnn_multiseed.py`).
 - **CMDP soft-budget (PPO-Lagrangian + stop action), naive version, fails at 4.85** — its stop-action credit assignment is too coarse and needs a FALCON-style reward-critic + cost-critic. This is our open problem.
 - **GNN + PPO has not converged (~5.60)** and is omitted from the main table.
 - All numbers were produced by an AI agent and have not been independently verified; Section 8 of the proposal lists the full checklist.

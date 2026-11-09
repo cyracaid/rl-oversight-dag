@@ -45,12 +45,12 @@
 | Structural greedy | 1.80 |
 | REINFORCE (MLP) | 1.40 |
 | PPO (MLP) | 1.60 |
-| **GNN + REINFORCE** | **1.20 ✅** |
+| **GNN + REINFORCE** | **1.54 ± 0.46 (5 seeds)** |
 | DQN (value-based) | 5.10 (degenerate) |
 | CMDP soft-budget (naive) | 4.85 ⏳ |
 | Oracle (upper) | 0.00 |
 - Figures: `results_bar.png` + `learning_curves.png`
-- Say: the GNN scorer beats the threshold by 48% and structural greedy by 33%; **DQN degenerates** — under a sparse terminal reward a value function gets no per-step credit, which is exactly why policy gradient is the right tool here
+- Say: the GNN scorer's mean is comparable to structural greedy (1.54 vs 1.80) and beats the threshold (2.30); single best seed hits 1.00; **DQN degenerates** — under a sparse terminal reward a value function gets no per-step credit, which is exactly why policy gradient is the right tool here
 
 ## Slide 9 — Controls (anti-self-fulfilling)
 - Shuffle errors (break clustering) → advantage gone; flatten graph (break propagation) → advantage gone

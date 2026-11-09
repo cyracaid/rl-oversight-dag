@@ -72,7 +72,7 @@ Methods compared:
 | Structural greedy (picks by downstream fan-out × error likelihood) | Hand-crafted heuristic baseline |
 | Bandit + tabular Q-learning | First version (negative result) |
 | REINFORCE / PPO (MLP node scorer) | Preliminary run (results in Section 5) |
-| **GNN node scorer + REINFORCE (fixed budget)** | **Main method (running, 1.20)** |
+| **GNN node scorer + REINFORCE (fixed budget)** | **Main method (mean 1.54 ± 0.46, best seed 1.00)** |
 | CMDP + PPO-Lagrangian (soft budget) | In progress (naive version fails, Section 8) |
 | DQN (value-based) | Control (degenerates under sparse reward) |
 
@@ -97,7 +97,7 @@ The node scorer is a **graph neural network (GNN)** that encodes each node's (ty
 | 구조적 그리디 (하류 팬아웃 × 오류 가능성으로 선택) | 손으로 만든 휴리스틱 베이스라인 |
 | 밴딧 + 테이블 Q-러닝 | 첫 버전 (부정적 결과) |
 | REINFORCE / PPO (MLP 노드 점수 함수) | 예비 실행 (결과는 5절) |
-| **GNN 노드 점수 함수 + REINFORCE (고정 예산)** | **주 방법 (실행됨, 1.20)** |
+| **GNN 노드 점수 함수 + REINFORCE (고정 예산)** | **주 방법 (평균 1.54 ± 0.46, 최고 시드 1.00)** |
 | CMDP + PPO-Lagrangian (소프트 예산) | 진행 중 (naive 버전 실패, 8절) |
 | DQN (가치 기반) | 대조군 (희소 보상에서 퇴화) |
 
@@ -153,7 +153,7 @@ The calibrated threshold beats Q-learning across all binning choices. Diagnosis:
 | Structural greedy | traditional (hand-crafted) | 1.80 |
 | REINFORCE (MLP scorer) | ours (preliminary) | 1.40 |
 | PPO (MLP scorer) | ours (preliminary) | 1.60 |
-| **GNN + REINFORCE (fixed budget)** | **ours (upgrade)** | **1.20** ✅ |
+| **GNN + REINFORCE (fixed budget)** | **ours (upgrade)** | **1.54 ± 0.46** |
 | DQN (value-based) | ours (control) | 5.10 (degenerate) |
 | Oracle | upper bound | 0.00 |
 
@@ -185,7 +185,7 @@ The calibrated threshold beats Q-learning across all binning choices. Diagnosis:
 | 구조적 그리디 | 전통 (손으로 만든) | 1.80 |
 | REINFORCE (MLP 점수 함수) | 우리 (예비) | 1.40 |
 | PPO (MLP 점수 함수) | 우리 (예비) | 1.60 |
-| **GNN + REINFORCE (고정 예산)** | **우리 (업그레이드)** | **1.20** ✅ |
+| **GNN + REINFORCE (고정 예산)** | **우리 (업그레이드)** | **1.54 ± 0.46** |
 | DQN (가치 기반) | 우리 (대조군) | 5.10 (퇴화) |
 | 오라클 (상한) | 상한 | 0.00 |
 
@@ -295,8 +295,8 @@ The experiment code and results in this document were produced by an AI agent. W
 5. **What the papers actually say.** We read abstracts and search summaries only. Anyone citing a paper's findings in the talk should read the relevant part of the full text.
 6. **A claim we left out because we could not verify it:** that the BestReject method in the online deferral paper (arXiv:2409.20489) is the same as our calibrated-threshold baseline.
 7. **A number that disagrees across our own files:** the presentation outline says RL adds "19%" over the structural greedy in one place, while the results say 22% (1.80 to 1.40). Fix whichever is wrong.
-8. **The upgraded method (Section 3): GNN scorer is run, CMDP soft-budget is not.** The GNN scorer with a fixed budget gives 1.20 (beats the MLP 1.40), but this is a single 20000-episode run and needs multi-seed confirmation. The CMDP soft-budget (PPO-Lagrangian + stop action) naive version fails at 4.85 — its stop-action credit assignment is too coarse and needs a FALCON-style reward-critic + cost-critic. GNN+PPO has not converged (~5.60) and is omitted from Section 5.
-9. **GNN result is unstable across training budgets.** 1.20 at 20000 episodes vs 2.05 at 12000 episodes. Report with confidence intervals only after multi-seed reproduction.
+8. **The upgraded method (Section 3): GNN scorer is run, CMDP soft-budget is not.** The GNN scorer with a fixed budget: multi-seed mean 1.54 ± 0.46 (best seed 1.00, single-run 1.20 was luck). Mean does not significantly beat MLP 1.40 or greedy 1.80. The CMDP soft-budget (PPO-Lagrangian + stop action) naive version fails at 4.85 — its stop-action credit assignment is too coarse and needs a FALCON-style reward-critic + cost-critic. GNN+PPO has not converged (~5.60) and is omitted from Section 5.
+9. **GNN result is unstable.** Multi-seed mean 1.54 ± 0.46 (per-seed 1.00–1.90); 2.05 at 12k episodes. Report with CI; do not claim a stable win.
 
 **KO**
 이 문서의 실험 코드와 결과는 AI 에이전트가 만들었다. 정확한지 확실하지 않으므로, 아래 항목은 무엇이든 확정된 사실로 발표하기 전에 조원들이 확인하고 심화해야 한다.
@@ -313,5 +313,5 @@ The experiment code and results in this document were produced by an AI agent. W
 5. **논문이 실제로 말하는 내용.** 초록과 검색 요약만 읽었다. 발표에서 논문의 발견을 인용하는 사람은 전체 논문의 해당 부분을 읽어야 한다.
 6. **확인할 수 없어서 뺀 주장:** 온라인 deferral 논문(arXiv:2409.20489)의 BestReject 방법이 우리의 보정 임계값 베이스라인과 같다는 주장.
 7. **우리 파일끼리 맞지 않는 수치:** 발표 개요는 한 곳에서 RL이 구조적 그리디보다 "19%" 더 낫다고 하고, 결과 문서는 22%(1.80에서 1.40)라고 한다. 틀린 쪽을 고친다.
-8. **업그레이드 방법(3절): GNN 점수 함수는 실행됨, CMDP 소프트 예산은 아직.** 고정 예산의 GNN 점수 함수는 1.20을 낸다(MLP 1.40을 이김). 그러나 이는 단일 20000-에피소드 실행이며 다중 시드 확인이 필요하다. CMDP 소프트 예산(PPO-Lagrangian + stop 행동)의 naive 버전은 4.85로 실패한다 — stop 행동의 크레딧 할당이 너무 거칠어 FALCON식 보상 critic + 비용 critic이 필요하다. GNN+PPO는 수렴하지 않아(~5.60) 5절에서 제외했다.
-9. **GNN 결과는 훈련량에 따라 불안정하다.** 20000 에피소드에서 1.20, 12000 에피소드에서 2.05. 다중 시드 재현 후 신뢰구간과 함께 보고해야 한다.
+8. **업그레이드 방법(3절): GNN 점수 함수는 실행됨, CMDP 소프트 예산은 아직.** 고정 예산의 GNN 점수 함수: 다중 시드 평균 1.54 ± 0.46 (최고 시드 1.00, 단일 실행 1.20은 운). 평균은 MLP 1.40이나 그리디 1.80을 유의하게 이기지 못한다. CMDP 소프트 예산(PPO-Lagrangian + stop 행동)의 naive 버전은 4.85로 실패한다 — stop 행동의 크레딧 할당이 너무 거칠어 FALCON식 보상 critic + 비용 critic이 필요하다. GNN+PPO는 수렴하지 않아(~5.60) 5절에서 제외했다.
+9. **GNN 결과는 불안정하다.** 다중 시드 평균 1.54 ± 0.46 (시드별 1.00–1.90); 12k 에피소드에서 2.05. 신뢰구간과 함께 보고하라; 안정적 승리라고 주장하지 마라.

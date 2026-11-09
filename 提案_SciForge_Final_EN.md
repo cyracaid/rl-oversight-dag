@@ -13,7 +13,7 @@ Team course project proposal · STA3145 Reinforcement Learning · Deepened versi
 
 1. **From bandit to MDP.** The first version decided pass-or-review per item. Experiments showed this flattens the structure, and a calibrated threshold (2.81) beat tabular Q-learning (3.38). Now the agent picks the next node of a dependency graph to review, and a review changes what happens downstream.
 2. **From a proxy dataset to our own data + a synthetic graph.** We now use our real error-correction data (75 rows) to motivate the problem, and a synthetic graph for the main experiments.
-3. **From a plan to results, then to an upgrade.** We now have numbers, controls, a reported failure, a verified method upgrade (GNN scorer 1.40 → 1.20), and an honestly-labelled open problem (the CMDP soft budget, naive version, fails).
+3. **From a plan to results, then to an upgrade.** We now have numbers, controls, a reported failure, a method upgrade whose single-run 1.20 does not hold across seeds (mean 1.54 ± 0.46), and an honestly-labelled open problem (the CMDP soft budget, naive version, fails).
 
 ## 1. Topic
 Under a limited review budget, learn which node of a dependency graph to review first.
@@ -67,7 +67,7 @@ A sequential-decision MDP with sparse, delayed reward — not a bandit.
 | Structural greedy (fan-out × error likelihood) | hand-crafted heuristic baseline | — |
 | Bandit + tabular Q-learning | first version (negative) | — |
 | REINFORCE / PPO (MLP scorer) | preliminary policy gradient | 1.40 / 1.60 |
-| **GNN scorer + REINFORCE (fixed budget)** | **main method** | **1.20 ✅** |
+| **GNN scorer + REINFORCE (fixed budget)** | **main method** | **mean 1.54 ± 0.46 (single best 1.20)** |
 | CMDP + PPO-Lagrangian (soft budget) | upgrade direction | ⏳ naive fails (4.85) |
 | DQN (value-based) | control | 5.10 (degenerate) |
 
@@ -101,13 +101,13 @@ Diagnosis: per-item review flattens the graph, and with one type at 76%, the opt
 | Structural greedy | 1.80 | traditional (hand-crafted) |
 | REINFORCE (MLP) | 1.40 | ours (preliminary) |
 | PPO (MLP) | 1.60 | ours (preliminary) |
-| **GNN + REINFORCE** | **1.20 ✅** | **ours (upgrade)** |
+| **GNN + REINFORCE** | **1.54 ± 0.46 (best seed 1.00)** | **ours (upgrade)** |
 | DQN | 5.10 (degenerate) | control |
 | CMDP soft-budget (naive) | 4.85 ⏳ | in progress |
 | Oracle | 0.00 | upper bound |
 
 - The graph itself has value: structural greedy beats the threshold by 22%.
-- The GNN scorer improves REINFORCE from 1.40 to **1.20**.
+- The GNN scorer's mean (1.54) is comparable to MLP REINFORCE (1.40) and structural greedy (1.80); the single best seed hits 1.00. High variance, not a stable win.
 - DQN degenerates to near-random: under a sparse terminal reward a value function gets no per-step credit → policy gradient beats value-based.
 - The CMDP soft budget, naive version, fails (4.85): the stop-action credit assignment is too coarse; it needs a FALCON-style dual critic — our open problem.
 
@@ -128,7 +128,7 @@ Diagnosis: per-item review flattens the graph, and with one type at 76%, the opt
 3. Simulator design (graph construction, error clustering/propagation, structural-greedy definition, hyperparameters); why the no-review baseline differs across experiments (5.62 vs 5.90).
 4. "No direct precedent" — not an exhaustive search; phrase as "we did not find one". **Closest are Oversight (flat actions) + WS-option (budget + node selection); we differ by dependency-graph error propagation + sparse delayed reward.**
 5. What the papers actually say (abstracts only).
-6. **GNN + REINFORCE = 1.20 is a single 20k-episode run**; at 12k episodes it is 2.05, so it is training-sensitive → reproduce with multiple seeds + confidence interval.
+6. **GNN + REINFORCE multi-seed: mean 1.54 ± 0.46 (5 seeds)**. Single-run 1.20 was one seed's good luck; at 12k episodes it is 2.05. Report with CI; do not claim a stable win.
 7. **GNN + PPO has not converged (~5.60)**, omitted from the main table.
 8. **CMDP soft budget, naive version, fails (4.85)** — needs a dual critic.
 9. Cross-file inconsistency: an outline says "19%", the results say "22%" (1.80 → 1.40 is 22.2%).
