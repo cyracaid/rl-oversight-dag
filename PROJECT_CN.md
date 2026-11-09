@@ -144,7 +144,11 @@ R = \alpha \, \Delta H_v - \beta \, \mathrm{Cost}(v), \qquad
 - DQN 退化：稀疏终局奖励下价值函数拿不到逐步功劳 → 策略梯度才是对的工具。
 - CMDP 软预算 naive 版失败（4.85）：stop 动作信用分配太粗，需要 FALCON 式双 critic。
 
-图：`results_bar.png`、`learning_curves.png`、`ablation_conf.png`。
+图：`experiments/results_bar.png`、`experiments/learning_curves.png`、`experiments/ablation_conf.png`。
+
+![方法对比](experiments/results_bar.png)
+
+![学习曲线](experiments/learning_curves.png)
 
 ## 8. 消融：置信度信号是瓶颈
 
@@ -155,6 +159,8 @@ GNN + REINFORCE 在三种置信度条件下训练（3 种子 × 12k episode）�
 | noise（置信度=均匀噪声） | **3.78** | 3.30 / 5.20 / 2.85 | 打掉信号，性能崩掉（比阈值差，接近不审） |
 | normal（学到的置信度） | **1.38** | 1.30 / 1.95 / 0.90 | 与多种子均值一致 |
 | oracle（置信度揭示真实错误） | **0.72** | 0.80 / 0.70 / 0.65 | 几乎到达 oracle 上界 0.00 |
+
+![消融：置信度信号是瓶颈](experiments/ablation_conf.png)
 
 两条系统级洞察：
 
@@ -192,7 +198,9 @@ GNN + REINFORCE 在三种置信度条件下训练（3 种子 × 12k episode）�
 | 无标度（BA） | 80.6 | 79.2 | 29.8 | 53.8 | **3.8** |
 | 稀疏（ER） | 42.6 | 42.0 | 16.4 | 34.6 | **8.2** |
 
-图：`scale500.png`。脚本：`graph_scale.py`。
+图：`experiments/scale500.png`。脚本：`graph_scale.py`。
+
+![规模实验](experiments/scale500.png)
 
 **500 节点告诉我们的（X-factor）：**
 
@@ -213,6 +221,8 @@ GNN + REINFORCE 在三种置信度条件下训练（3 种子 × 12k episode）�
 | 随机 | 1.88 |
 | **置信度阈值** | **0.50** |
 | hub | 1.75 |
+
+![真实睡眠管道 DAG](experiments/real_pipeline.png)
 
 在**实际实验室管道**上，校准过的置信度阈值几乎清空结论错误。500 节点的结果说证据图变大时怎么办；这 21 节点的结果说**我们今天的数据**怎么办。
 
@@ -243,6 +253,8 @@ HealthBench 是最接近的**评估哲学**先例，不是调度先例。
 **不抄**：社区级医生众包；LLM 给开放文本打分；医疗对话任务本身。
 
 **给 talk 的一段话**。HealthBench 问的是：这个 LLM 回答按医生标准、在真实健康对话上够不够好。我们问的是：一条依赖的 AI 输出链 + 有限人类注意力，先花在哪。他们教领域用 meaningful / trustworthy / non-saturated 的 rubric 和 worst-of-n 评可靠性。我们把这套用到他们没解的问题上：**在依赖图上调度那份注意力**。他们的评分信号恰好是我们消融里说的瓶颈——**改信号比改策略收益大**。
+
+**BioBasicsBench（OpenAI + Ligo，2026-11-06）是 everyday-science 的姊妹篇**。100 个湿实验任务，原始证据（凝胶、平板、显微镜）；最强模型 66.7%；失败模式是假设压过对照、忽略矛盾观察、数错菌落。我们的 76% `order_error` 是同一物种（熟悉的时间顺序假设压过记录的时间戳）。采纳：收据上的偏学分 rubric、把错误检测当作一等技能、显式的「证据尚不支持该结论」动作。我们加上他们没建的：**预算下的序贯审阅 + 依赖图**。
 
 ## 10. 差异、局限、可行性
 

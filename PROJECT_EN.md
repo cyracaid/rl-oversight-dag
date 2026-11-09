@@ -145,7 +145,11 @@ Diagnosis: per-item review flattens the graph; with one type at 76%, the optimal
 - DQN degenerates: under sparse terminal reward a value function gets no per-step credit → policy gradient is the right tool.
 - CMDP soft budget, naive, fails (4.85): stop-action credit assignment is too coarse; it needs a FALCON-style dual critic.
 
-Figures: `results_bar.png`, `learning_curves.png`, `ablation_conf.png`.
+Figures: `experiments/results_bar.png`, `experiments/learning_curves.png`, `experiments/ablation_conf.png`.
+
+![Method comparison](experiments/results_bar.png)
+
+![Learning curves](experiments/learning_curves.png)
 
 ## 8. Ablation: the confidence signal is the bottleneck
 
@@ -156,6 +160,8 @@ GNN + REINFORCE under three confidence conditions (3 seeds × 12k episodes):
 | noise (conf = uniform noise) | **3.78** | 3.30 / 5.20 / 2.85 | destroying the signal destroys performance (worse than the threshold; approaching no-review) |
 | normal (learned conf) | **1.38** | 1.30 / 1.95 / 0.90 | matches the multi-seed mean |
 | oracle (conf reveals the true error) | **0.72** | 0.80 / 0.70 / 0.65 | nearly reaches the oracle bound 0.00 |
+
+![Ablation: confidence signal is the bottleneck](experiments/ablation_conf.png)
 
 Two system-level insights:
 
@@ -193,7 +199,9 @@ Same intervention model (P(X_v=0 | X_u=0) = 1 − e^(−λw)), Zipf type rates, 
 | scale-free (BA) | 80.6 | 79.2 | 29.8 | 53.8 | **3.8** |
 | sparse (ER) | 42.6 | 42.0 | 16.4 | 34.6 | **8.2** |
 
-Figure: `scale500.png`. Script: `graph_scale.py`.
+Figure: `experiments/scale500.png`. Script: `graph_scale.py`.
+
+![Scaled experiments](experiments/scale500.png)
 
 **What the scale says (the X-factor at 500 nodes):**
 
@@ -214,6 +222,8 @@ Encoded from splsleep SCHEMA (`real_pipeline_graph.py`): raw diary leaves → pa
 | random | 1.88 |
 | **conf threshold** | **0.50** |
 | hub | 1.75 |
+
+![Real sleep-pipeline DAG](experiments/real_pipeline.png)
 
 On the *actual* lab pipeline, a calibrated confidence threshold nearly clears conclusion errors. The 500-node result says what to do when the evidence graph is large; this 21-node result says what to do on our data today.
 
@@ -244,6 +254,8 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 **Not copied:** community-scale physician crowdsourcing; LLM-as-grader for open-ended text; the medical-dialogue task.
 
 **For the talk.** HealthBench asked whether an LLM reply meets physician standards on a real health conversation. We ask where finite human attention should go first over a chain of dependent AI outputs. They taught the field to evaluate with meaningful, trustworthy, non-saturated rubrics and worst-of-n reliability. We apply those lessons to a problem they do not solve: scheduling that attention over a dependency graph. Their grading signal is exactly the kind of confidence signal our ablation says is the bottleneck — improving the signal buys more than improving the policy.
+
+**BioBasicsBench (OpenAI + Ligo, 2026-11-06) is the everyday-science sibling.** 100 wet-lab tasks on raw evidence (gels, plates, microscopy); top model 66.7%; failures are assumption-overrides-control, discounted contradictions, miscounts. Our 76% `order_error` is the same species (a familiar time-order assumption overrides the recorded timestamps). Adopt: partial-credit rubrics on receipts, error detection as a first-class skill, and an explicit "evidence cannot support this conclusion" action. We add what they did not build: budgeted sequential review over a dependency graph.
 
 ## 10. Differentiation, limits, feasibility
 
