@@ -193,6 +193,22 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 **Done when:** those artefacts exist and the second half is rehearsed.
 
 **Don't:** become the RL theory person.
+
+### Timeline — who does what, when
+
+| When | Person 1 | Person 2 | Person 3 | Person 4 | Person 5 |
+|---|---|---|---|---|---|
+| Mon 11/09 | timeline + deck skeleton | code `gain(i)`, smoke test | freeze the scripts, keep tests green | baseline list, data check | motivation numbers |
+| Tue 11/10 | slide skeleton | run the gate, 5 seeds | reproduce N=500 and N=21 | run the five baselines | HealthBench / BioBasics draft |
+| Wed 11/11 | collect the first numbers | read-out, **decide A/B** | publish the tag | first control results | send the SciForge ask |
+| Thu 11/12 – Fri 11/13 | slides with real numbers | branch work (misspecification / credit) | reruns, 200-node GNN if there is time | shuffle / flatten, worst-of-n | related work, second half |
+| Sat 11/14 | **numbers frozen** | final table + paragraph | reproduction log | control table | three-language sync |
+| Sun 11/15 – Mon 11/16 | deck, rehearsal 1 | on call | on call | appendix | slides, rehearsal 1 |
+| Tue 11/17 – Sun 11/22 | timing, rehearsals 2–3 | on call | on call | on call | English polish, rehearsals 2–3 |
+| Mon 11/23 | first half | — | — | — | second half |
+
+**Rules on the timeline:** the gate on 11/11 decides the branch; numbers freeze on 11/14; after 11/14 nobody starts a new experiment.
+
 ---
 
 ## 2. What the paper looks like
