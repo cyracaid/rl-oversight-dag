@@ -8,7 +8,7 @@ layout: default
 <p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP_KO.html">한국어</a> · <b>中文</b></p>
 
 > 状态说明，2026-11-09。这**不是**下周计划（那是
-> [`PROPOSAL_COURSE.md`](PROPOSAL_COURSE.md) §8）。它的存在是为了让我们不再暗示：
+> [`PROPOSAL_COURSE.md`](PROPOSAL_COURSE.html) §8）。它的存在是为了让我们不再暗示：
 > 一个只有一次负向运行的课程项目是 Nature Communications 投稿。
 
 ---

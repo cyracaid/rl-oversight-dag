@@ -9,8 +9,8 @@ layout: default
 
 > 연세대학교 · 6팀 · v1 2026-11-09
 > 단계와 사전 등록된 결정 게이트: 아래 §8. 운영 세부:
-> [`RL_PLAN.md`](RL_PLAN.md)(§0의 교정 포함) · 트랙 분담: [`TRACKS.md`](TRACKS.md).
-> 전체 서사: [`PROJECT_EN.md`](PROJECT_EN.md). 강의 매핑: [`COURSE_ALIGNMENT.md`](COURSE_ALIGNMENT.md).
+> [`RL_PLAN.md`](RL_PLAN.html)(§0의 교정 포함) · 트랙 분담: [`TRACKS.md`](TRACKS.html).
+> 전체 서사: [`PROJECT_EN.md`](PROJECT_EN.html). 강의 매핑: [`COURSE_ALIGNMENT.md`](COURSE_ALIGNMENT.html).
 
 ---
 
@@ -61,8 +61,8 @@ TST, TIB, 효율)와 행별 타당성 판정으로 바꾼다.
 
 동기 문구를 어떻게 쓸지에 영향을 주므로 명시해 둔다.
 
-- 75건의 교정은 **자동 파이프라인의 행별 출력**(파싱 필드 + 파생 값 + 감사 판정)에 대한
-  **사람의 교정**이며, 참가자가 스스로를 고친 것이 아니다.
+- 75건의 교정은 **자동 파이프라인의 행별 출력(파싱 필드 + 파생 값 + 감사 판정)에 대한 사람의
+  교정**이며, 참가자가 스스로를 고친 것이 아니다.
 - 그러나 `order_error`는 *필드 수준* 조건이다: 기록된 타임스탬프가 기대 순서를 위반한다(각성
   전 기상, AM/PM 오기, 24시간 넘김). 교정은 일관성을 복원하지만, **잘못된 값이 참가자 입력에서
   왔는지 파서에서 왔는지는 파일에 기록되어 있지 않다**.

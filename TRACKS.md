@@ -1,3 +1,8 @@
+---
+title: "Two stages: what we decide, and what belongs to SciForge"
+layout: default
+---
+
 # Two stages: what we decide, and what belongs to SciForge
 
 <p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TRACKS_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TRACKS_CN.html">中文</a></p>

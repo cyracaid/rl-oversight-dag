@@ -39,9 +39,9 @@ people doing the work.
 
 ## 2. What each document is (one line each)
 
-**Languages.** Every document now exists in English, 한국어 and 中文, and each page carries a
-switcher at the top. The one exception is `PLAN.html`, the generated visual work plan
-(English-only; it is rebuilt from `tools/build_plan.py`).
+**Languages.** Every document exists in English, 한국어 and 中文. Most pages carry a switcher
+at the top; the three hand-built plan pages (`PLAN.html`, `RL_PLAN.html`,
+`GENERALIZATION_PLAN.html`) use in-page language tabs instead.
 
 | Document | What it is | For |
 |---|---|---|

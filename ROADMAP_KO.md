@@ -8,7 +8,7 @@ layout: default
 <p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP.html">English</a> · <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP_CN.html">中文</a></p>
 
 > 상태 메모, 2026-11-09. 이것은 다음 주 계획이 **아니다**(그것은
-> [`PROPOSAL_COURSE.md`](PROPOSAL_COURSE.md) §8이다). 한 번의 부정적 실행이 있는
+> [`PROPOSAL_COURSE.md`](PROPOSAL_COURSE.html) §8이다). 한 번의 부정적 실행이 있는
 > 수업 프로젝트를 Nature Communications 투고라고 암시하는 것을 멈추기 위해 존재한다.
 
 ---

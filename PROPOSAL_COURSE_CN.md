@@ -9,8 +9,8 @@ layout: default
 
 > 延世大学 · 第 6 组 · v1 2026-11-09
 > 阶段与预注册的决策关卡（gate）：见下文 §8。操作细节：
-> [`RL_PLAN.md`](RL_PLAN.md)（含其 §0 的更正） · 赛道分工：[`TRACKS.md`](TRACKS.md)。
-> 完整叙述：[`PROJECT_EN.md`](PROJECT_EN.md)。课程映射：[`COURSE_ALIGNMENT.md`](COURSE_ALIGNMENT.md)。
+> [`RL_PLAN.md`](RL_PLAN.html)（含其 §0 的更正） · 赛道分工：[`TRACKS.md`](TRACKS.html)。
+> 完整叙述：[`PROJECT_EN.md`](PROJECT_EN.html)。课程映射：[`COURSE_ALIGNMENT.md`](COURSE_ALIGNMENT.html)。
 
 ---
 

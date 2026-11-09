@@ -8,7 +8,7 @@ layout: default
 <p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP_CN.html">中文</a></p>
 
 > Status note, 2026-11-09. This is **not** the next-week plan (that is
-> [`PROPOSAL_COURSE.md`](PROPOSAL_COURSE.md) §8). It exists so we stop implying that a
+> [`PROPOSAL_COURSE.md`](PROPOSAL_COURSE.html) §8). It exists so we stop implying that a
 > course project with one negative run is a Nature Communications submission.
 
 ---

@@ -458,8 +458,8 @@ HTML = f'''<!DOCTYPE html>
   <div class="title"><a href="index.html">📊 Plan</a></div>
   <div class="langs">
     <a href="index.html">Home</a>
-    <a href="GENERALIZATION_PLAN.md">Markdown</a>
-    <a href="RL_PLAN.md">RL plan</a>
+    <a href="GENERALIZATION_PLAN.html">Markdown</a>
+    <a href="RL_PLAN.html">RL plan</a>
     <a href="TEAM_CLAIMS.html">Claims</a>
   </div>
 </nav>

@@ -9,8 +9,8 @@ layout: default
 
 > Yonsei University · team 6 · v1 2026-11-09
 > Phases and the pre-registered decision gate: §8 below. Operational detail:
-> [`RL_PLAN.md`](RL_PLAN.md) (with the correction in its §0) · track split: [`TRACKS.md`](TRACKS.md).
-> Full narrative: [`PROJECT_EN.md`](PROJECT_EN.md). Course mapping: [`COURSE_ALIGNMENT.md`](COURSE_ALIGNMENT.md).
+> [`RL_PLAN.md`](RL_PLAN.html) (with the correction in its §0) · track split: [`TRACKS.md`](TRACKS.html).
+> Full narrative: [`PROJECT_EN.md`](PROJECT_EN.html). Course mapping: [`COURSE_ALIGNMENT.md`](COURSE_ALIGNMENT.html).
 
 ---
 
