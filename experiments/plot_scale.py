@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Scale-500 results figure: three graph families × five policies."""
+"""Scale-500 results figure, read from scale500_table.md (written by graph_scale.py)."""
 import os
 import numpy as np
 import matplotlib
@@ -8,31 +8,40 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 OUT = os.path.dirname(os.path.abspath(__file__))
+FAMILY_LABEL = {"modular": "modular", "ba": "scale-free (BA)", "er": "sparse (ER)"}
+COLORS = ["#999999", "#bbbbbb", "#fdae61", "#abdda4", "#1a9850", "#d7d7d7"]
 
-families = ["modular", "scale-free (BA)", "sparse (ER)"]
-policies = ["No review", "Random", "Conf threshold", "Hub", "Greedy (1−1/e)"]
-means = {
-    "modular": [24.00, 22.60, 8.60, 19.00, 2.00],
-    "scale-free (BA)": [80.60, 79.20, 29.80, 53.80, 3.80],
-    "sparse (ER)": [42.60, 42.00, 16.40, 34.60, 8.20],
-}
-colors = ["#999999", "#bbbbbb", "#fdae61", "#abdda4", "#1a9850"]
 
+def read_table(path):
+    rows = [l.strip() for l in open(path) if l.startswith("|")]
+    header = [c.strip() for c in rows[0].strip("|").split("|")]
+    data = {}
+    for line in rows[2:]:
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        data[cells[0]] = [float(c) for c in cells[1:]]
+    title = open(path).readline().strip()
+    return header[1:], data, title
+
+
+policies, means, title = read_table(os.path.join(OUT, "scale500_table.md"))
+families = list(means)
 x = np.arange(len(families))
-width = 0.15
+width = 0.8 / len(policies)
 
-plt.figure(figsize=(9, 5))
+plt.figure(figsize=(10, 5))
 for j, pol in enumerate(policies):
-    vals = [means[fam][j] for fam in families]
-    bars = plt.bar(x + (j - 2) * width, vals, width, label=pol, color=colors[j], alpha=0.9)
+    vals = [means[f][j] for f in families]
+    hatch = "//" if "oracle" in pol else None
+    bars = plt.bar(x + (j - (len(policies) - 1) / 2) * width, vals, width, label=pol,
+                   color=COLORS[j % len(COLORS)], hatch=hatch, edgecolor="#555555", lw=0.3)
     for b, v in zip(bars, vals):
         plt.text(b.get_x() + b.get_width() / 2, v + 1.5, f"{v:.1f}",
                  ha="center", va="bottom", fontsize=7)
 
-plt.xticks(x, families, fontsize=10)
+plt.xticks(x, [FAMILY_LABEL.get(f, f) for f in families], fontsize=10)
 plt.ylabel("avg sink errors (lower = better)")
-plt.title(f"Scaled experiments: N=500, budget=50 (10%), λ=0.8, Zipf types, 5 seeds")
-plt.legend(title="policy")
+plt.title(f"Scaled experiments: {title}")
+plt.legend(title="policy", fontsize=8)
 plt.grid(axis="y", alpha=0.3)
 plt.tight_layout()
 plt.savefig(os.path.join(OUT, "scale500.png"), dpi=130)

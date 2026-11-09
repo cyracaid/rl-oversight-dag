@@ -82,12 +82,13 @@ proposal_sciforge_en.md         SciForge / AI4Science proposal (EN)
 presentation_outline.md         Presentation outline (EN)
 
 experiments/                    (simulation & experiments)
-  spike_active_selection.py     Dependency-graph environment + baselines
+  belief.py                     Confidence model + particle-filter belief (what a deployable policy may know)
+  spike_active_selection.py     Dependency-graph environment + baselines (incl. belief greedy)
   dependency_review_sim.py      First version: bandit (negative result)
   rl_methods_compare.py         REINFORCE / PPO / DQN with an MLP node scorer
   rl_cmdp_gnn.py                CMDP + PPO-Lagrangian + GNN
   rl_final.py                   Final table + figures (no training)
-  rl_gnn_multiseed.py           Multi-seed reproduction of GNN + REINFORCE
+  rl_gnn_multiseed.py           GNN + REINFORCE, static vs observed state, held-out paired eval
   graph_scale.py                N=500 experiments: modular / BA / ER
   real_pipeline_graph.py        Real sleep-pipeline DAG (N=21, from SCHEMA)
   verify_clustering.py          Real-data clustering check (skips if data missing)
@@ -105,7 +106,8 @@ experiments/                    (simulation & experiments)
 | Three RL methods (MLP scorer) | `python3 rl_methods_compare.py` | No |
 | GNN upgrade | `python3 rl_cmdp_gnn.py` | No |
 | Final table + figures | `python3 rl_final.py` | No |
-| GNN multi-seed | `python3 rl_gnn_multiseed.py` | No |
+| GNN static vs observed state vs belief greedy (held-out, paired) | `python3 rl_gnn_multiseed.py` (~6 min, 8 cores) | No |
+| N=500 heuristics incl. belief vs oracle greedy | `python3 graph_scale.py && python3 plot_scale.py` | No |
 | Real-data clustering | `python3 verify_clustering.py` | **Yes (auto-skips if missing)** |
 
 Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torch matplotlib`).
@@ -122,9 +124,10 @@ Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torc
 
 ## Honest caveats (please read)
 
-- **GNN + REINFORCE multi-seed (5 seeds): mean 1.54 ± 0.46 (95% CI [1.08, 2.00])**. The single-run 1.20 was one seed's good luck. Mean does not significantly beat structural greedy (1.80) or MLP REINFORCE (1.40). Reproduce before citing (`rl_gnn_multiseed.py`).
+- **Deployable belief greedy beats every learned policy.** On 200 held-out graphs (paired): belief greedy 1.14, GNN static state 1.56, GNN observed state 1.56; GNN − belief greedy = +0.42 ± 0.15. Giving the GNN its review outcomes did not help (−0.00 ± 0.08). See `experiments/gnn_vs_greedy_table.md` (`rl_gnn_multiseed.py`).
+- **The old N=500 "greedy" read the true error state** — it was an oracle. It is now reported as "oracle greedy (reads truth)", next to the deployable belief greedy (`belief.py`).
 - **CMDP soft-budget (PPO-Lagrangian + stop action), naive version, fails at 4.85** — its stop-action credit assignment is too coarse and needs a FALCON-style reward-critic + cost-critic. This is our open problem.
 - **GNN + PPO has not converged (~5.60)** and is omitted from the main table.
-- **N=500 results are greedy / heuristics, not RL.**
+- **N=500 results are heuristics, not RL.** Deployable belief greedy: BA 12.8 vs threshold 37.6; on modular/ER it is only slightly better than the threshold.
 - **Real-pipeline DAG (N=21): threshold 0.50 vs no-review 2.12** — the application-value result on our actual lab pipeline.
 - All numbers were produced by an AI agent and have not been independently verified; Section 12 of `PROJECT_EN.md` lists the full checklist.

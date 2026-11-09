@@ -1,4 +1,5 @@
-seeds=[1.85, 1.6, 1.35, 1.0, 1.9]
-mean=1.540
-std=0.373
-ci95=0.463
+static: legacy_per_seed=[1.6, 2.0, 1.5, 1.1, 1.35] legacy_mean=1.510 ci95=0.413 heldout_per_seed=[1.605, 1.735, 1.815, 1.26, 1.38] heldout_mean=1.559
+observed: legacy_per_seed=[1.75, 1.75, 2.35, 1.15, 1.4] legacy_mean=1.680 ci95=0.561 heldout_per_seed=[1.495, 1.655, 1.71, 1.515, 1.405] heldout_mean=1.556
+paired GNN observed - GNN static: -0.003 ci95=0.083
+paired GNN observed - belief greedy: +0.421 ci95=0.150
+paired GNN static - structural greedy: +0.109 ci95=0.156

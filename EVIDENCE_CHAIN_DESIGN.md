@@ -86,7 +86,7 @@ Sparse, delayed reward. Not a bandit (v1 was; it lost).
 
 | | Definition |
 |---|---|
-| State | graph knowledge: per node (type, confidence, downstream influence, reviewed?) + remaining budget |
+| State | belief over the hidden error state: per node (type, confidence, downstream influence, reviewed?, flagged?, posterior P(error)) + remaining budget. The posterior is a particle filter (`experiments/belief.py`) updated after every review outcome; the true state is never a feature |
 | Action | choose the next node to review, or STOP |
 | Transition | review = do\(X_v := 1\); recompute downstream |
 | Reward | terminal \(r_T = -\#\{\text{sink errors}\}\) |
@@ -100,7 +100,10 @@ Sparse, delayed reward. Not a bandit (v1 was; it lost).
 
 **Information-gain alternative** (not yet run): \(R = \alpha \Delta H_v - \beta\,\mathrm{Cost}(v)\).
 
-**Greedy \((1-1/e)\) baseline:** each step pick the currently erroneous node that most reduces reachable sink errors. On influence-maximization-style submodular objectives this is the theoretical approximation; empirically it is the strongest heuristic we have at N=500.
+**Two greedies, never to be confused:**
+
+- **Belief greedy (deployable baseline).** Each step pick the node with the largest *expected* drop in sink errors under the current belief; feed the review outcome back into the belief. It reads only structure, edge probabilities, calibrated confidence and its own review outcomes. This is adaptive greedy in the sense of adaptive submodularity (Golovin & Krause 2011) and is **the baseline a learned policy has to beat**.
+- **Oracle greedy (ceiling only).** Same step rule, but on the *true* error state. Not a policy. Earlier versions of this document reported it as "greedy"; those N=500 numbers were oracle numbers.
 
 ---
 
@@ -131,15 +134,31 @@ Threshold 2.81 beats tabular Q-learning 3.38. Diagnosis: per-item review flatten
 |---|---|---|
 | No review | 5.90 | floor |
 | Confidence threshold | 2.30 | strong static |
-| Structural greedy | 1.80 | strong heuristic |
+| Structural greedy | 1.80 | static heuristic |
+| **Belief greedy (adaptive, deployable)** | **0.85** | **strongest deployable policy** |
 | REINFORCE (MLP) | 1.40 | preliminary |
 | PPO (MLP) | 1.60 | preliminary |
-| **GNN + REINFORCE** | **1.54 ± 0.46** (best seed 1.00; single-run 1.20 was luck) | **main method** |
+| GNN + REINFORCE (static state) | 1.51 ± 0.41 | does not beat belief greedy |
+| GNN + REINFORCE (observed state) | 1.68 ± 0.56 | does not beat belief greedy |
 | DQN | 5.10 (degenerate) | control |
 | CMDP soft budget (naive) | 4.85 | open problem |
 | Oracle | 0.00 | ceiling |
 
-GNN scorer: 1-layer message passing, child→parent aggregation, H=32, following Mattick et al. (arXiv:2310.00112).
+GNN scorer: 1-layer message passing, child→parent aggregation, H=32, following Mattick et al. (arXiv:2310.00112). Rows above come from `spike_active_selection.py` and `rl_gnn_multiseed.py` on seeds 1–20. Those 20 graphs are easier than average; use the held-out table below for comparisons.
+
+**Held-out, paired (200 unseen graphs, same graph and same catch-randomness stream for every policy; `gnn_vs_greedy_table.md`):**
+
+| policy | sink errors (95% CI) |
+|---|---|
+| conf threshold | 1.41 ± 0.25 |
+| structural greedy | 1.45 ± 0.22 |
+| **belief greedy** | **1.14 ± 0.20** |
+| GNN static state | 1.56 ± 0.29 (over 5 training seeds) |
+| GNN observed state | 1.56 ± 0.15 (over 5 training seeds) |
+
+Paired differences: GNN observed − static = −0.00 ± 0.08; GNN observed − belief greedy = **+0.42 ± 0.15**; GNN static − structural greedy = +0.11 ± 0.16.
+
+Reading: (1) the static-state GNN could only learn a fixed ranking; giving it the review outcomes did not help this 1-layer GNN with a terminal-only REINFORCE signal. (2) A deployable model-based adaptive greedy beats every learned policy we have. (3) On unseen graphs the confidence threshold is as good as structural greedy, so the "22% from structure" claim does not hold off the 20 legacy graphs. The RL question is now: can a learned policy beat belief greedy, for example when the belief model is misspecified?
 
 ### 5.4 Ablation: the confidence signal is the bottleneck
 
@@ -155,15 +174,15 @@ Worst-of-5 (HealthBench): GNN 1.90 / noise 5.20 / oracle 0.80. A noisy signal hu
 
 ### 5.5 Scale: N = 500, three graph families
 
-Greedy influence maximization (not RL):
+Heuristics, not RL (`scale500_table.md`; every policy replays the same catch stream; 5 seeds):
 
-| family | no review | threshold | greedy |
-|---|---|---|---|
-| modular | 24.0 | 8.6 | **2.0** |
-| scale-free (BA) | 80.6 | 29.8 | **3.8** (95% down) |
-| sparse (ER) | 42.6 | 16.4 | **8.2** |
+| family | no review | threshold | hub | **belief greedy (deployable)** | oracle greedy (reads truth) |
+|---|---|---|---|---|---|
+| modular | 24.0 | 9.2 | 21.0 | **8.4** | 2.0 |
+| scale-free (BA) | 80.6 | 37.6 | 29.2 | **12.8** (84% down) | 3.6 |
+| sparse (ER) | 42.6 | 21.4 | 34.0 | **19.2** | 7.8 |
 
-Random ≈ no review. Threshold unstable on scale-free (6–76). **Honest scope: greedy, not RL.** Any learned policy must beat this. The 80-node GNN, even at best seed, does not yet.
+Random ≈ no review. Threshold unstable on scale-free (6–76). Structure clearly pays on scale-free graphs; on modular and sparse graphs belief greedy is only slightly better than the threshold, and 5 seeds cannot separate them. The old "95% down" was the oracle. Any learned policy must beat **belief greedy**, not the oracle.
 
 ### 5.6 Real sleep-pipeline DAG (N=21) — the application-value table
 
@@ -228,7 +247,7 @@ Each ingredient exists. The combination does not (we did not find it).
 2. Simulator design (graph build, clustering, greedy, hyperparameters); why no-review differs across tables (5.62 vs 5.90).
 3. "No direct precedent" — search again; say "we did not find one."
 4. Full texts of cited papers.
-5. GNN multi-seed CI needs more seeds (mean 1.54 ± 0.46 already computed; 12k-episode run was 2.05 — training-sensitive).
+5. GNN vs belief greedy: belief greedy wins by 0.42 ± 0.15 on 200 held-out graphs. Belief greedy assumes the confidence model and edge probabilities are known exactly; test it under misspecification before treating it as an upper bound for deployable policies.
 6. GNN + PPO not converged (~5.60).
 7. Dual-critic CMDP not built (naive 4.85).
 8. Cross-file 19% vs 22% (1.80 → 1.40 is 22.2%).
@@ -254,10 +273,10 @@ A teammate can, from this repo, without the real RDS/CSV:
 
 1. Reproduce the four figure families (`results_bar`, `ablation_conf`, `scale500`, `real_pipeline`).
 2. Reproduce the bandit negative result (threshold beats Q-learning).
-3. Reproduce GNN multi-seed mean 1.54 ± 0.46, or update every table if the CI moves.
+3. Reproduce `gnn_vs_greedy_table.md` (static vs observed GNN vs belief greedy on 200 held-out graphs), or update every table if it moves.
 4. Point at the three boundaries and say "the machine does not stamp."
 
-A professor can ask "why not just the threshold" and get: the threshold cannot see the graph; greedy proves the graph has value (22% at N=80, 95% on BA at N=500); the GNN mean is comparable today, the ablation says invest in the signal.
+A professor can ask "why not just the threshold" and get: the threshold cannot see the graph; deployable belief greedy shows the graph has value (84% fewer sink errors than no review on BA at N=500, versus 53% for the threshold; at N=80 on held-out graphs 1.14 vs 1.41). Our GNN does not beat belief greedy yet. The ablation says invest in the signal.
 
 A reviewer can ask "is this just FALCON on a graph" and get: FALCON has no error propagation, no delayed sink penalty, no dependency graph; our naive CMDP on this graph *fails*, which is why we did not claim FALCON's recipe as a win.
 

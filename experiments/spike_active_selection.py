@@ -8,7 +8,8 @@ whether graph structure has independent value beyond confidence.
 """
 import random
 import collections
-import math
+
+from belief import ParticleBelief, conf_posterior, sample_conf
 
 CFG = dict(
     N=80, K=5, L=4,
@@ -16,6 +17,7 @@ CFG = dict(
     p_catch=0.9,
     budget=16,
     seeds=list(range(1, 21)),
+    n_particles=1024,      # <512 collapses after a few flags (particle impoverishment)
 )
 P_TYPE = [0.01, 0.03, 0.08, 0.15, 0.25]
 
@@ -82,26 +84,49 @@ def compute_err(base, nodes, topo, coins):
 
 
 def make_conf(nodes, base, rng):
-    conf = []
-    for i, nd in enumerate(nodes):
-        signal = -1.5 if base[i] else 1.5
-        signal -= 0.4 * (P_TYPE[nd["type"]] - 0.15)
-        logit = signal + rng.gauss(0, 1.2)
-        conf.append(1.0 / (1.0 + math.exp(-logit)))
-    return conf
+    return [sample_conf(base[i], P_TYPE[nd["type"]], rng) for i, nd in enumerate(nodes)]
+
+
+def make_belief(nodes, topo, sinks, conf, seed):
+    """Deployable belief: structure, edge probabilities, calibrated prior. No truth."""
+    parents = [nd["parents"] for nd in nodes]
+    edge_prob = {(p, i): CFG["p_prop"] for i, ps in enumerate(parents) for p in ps}
+    prior = [conf_posterior(conf[i], P_TYPE[nd["type"]]) for i, nd in enumerate(nodes)]
+    return ParticleBelief(parents, topo, sinks, edge_prob, prior, CFG["p_catch"],
+                          n_particles=CFG["n_particles"], seed=seed)
+
+
+def review_step(a, base, err, nodes, topo, coins, rng):
+    """Review node a in place. Returns (flagged, err). flagged = reviewer saw an error."""
+    flagged = err[a] and rng.random() < CFG["p_catch"]
+    if flagged:
+        base[a] = False
+        err = compute_err(base, nodes, topo, coins)
+    return flagged, err
 
 
 def apply_reviews(order, base, nodes, topo, coins, sinks, rng):
     base = list(base)
     err = compute_err(base, nodes, topo, coins)
     for i in order:
-        if err[i] and rng.random() < CFG["p_catch"]:
-            base[i] = False
-            err = compute_err(base, nodes, topo, coins)
+        _, err = review_step(i, base, err, nodes, topo, coins, rng)
     return sum(1 for i in sinks if err[i])
 
 
-def run_seed(rng):
+def run_belief_greedy(belief, base, nodes, topo, coins, sinks, budget, rng):
+    """Adaptive greedy on the particle belief; each review outcome updates the belief."""
+    base = list(base)
+    err = compute_err(base, nodes, topo, coins)
+    available = [True] * len(nodes)
+    for _ in range(budget):
+        a = belief.best_action(available)
+        available[a] = False
+        flagged, err = review_step(a, base, err, nodes, topo, coins, rng)
+        belief.observe(a, flagged)
+    return sum(1 for i in sinks if err[i])
+
+
+def run_seed(rng, belief_seed):
     nodes, topo, coins, sinks, sink_reach = build_graph(rng)
     base = [rng.random() < P_TYPE[nodes[i]["type"]] for i in range(CFG["N"])]
     conf = make_conf(nodes, base, rng)
@@ -114,7 +139,7 @@ def run_seed(rng):
     score = [(1.0 - conf[i]) * (1 + sink_reach[i]) for i in range(CFG["N"])]
     order_struct = sorted(range(CFG["N"]), key=lambda i: -score[i])[:R]
 
-    # 参考上限：贪心 oracle（每步选当下能最大减少 sink 错误的节点）
+    # 参考上限：贪心 oracle（读真实错误状态，不可部署；只作天花板）
     base_or = list(base)
     err_or = compute_err(base_or, nodes, topo, coins)
     order_or = []
@@ -141,10 +166,14 @@ def run_seed(rng):
     no_review = sum(1 for j in sinks if compute_err(base, nodes, topo, coins)[j])
     oracle_final = sum(1 for j in sinks if err_or[j])
 
-    return (no_review,
-            apply_reviews(order_conf, base, nodes, topo, coins, sinks, rng),
-            apply_reviews(order_struct, base, nodes, topo, coins, sinks, rng),
-            oracle_final)
+    res_conf = apply_reviews(order_conf, base, nodes, topo, coins, sinks, rng)
+    res_struct = apply_reviews(order_struct, base, nodes, topo, coins, sinks, rng)
+
+    # 策略3：信念贪心（可部署：粒子信念 + 每次审查结果回写信念，不读真实状态）
+    belief = make_belief(nodes, topo, sinks, conf, belief_seed)
+    res_belief = run_belief_greedy(belief, base, nodes, topo, coins, sinks, R, rng)
+
+    return (no_review, res_conf, res_struct, res_belief, oracle_final)
 
 
 def main():
@@ -154,21 +183,23 @@ def main():
     print(f"N={CFG['N']} K={CFG['K']} 层={CFG['L']} p_prop={CFG['p_prop']} "
           f"预算={CFG['budget']} 类型错误率={P_TYPE}")
     print()
-    agg = [0.0] * 4
+    agg = [0.0] * 5
     for seed in CFG["seeds"]:
-        r = run_seed(random.Random(seed))
-        for k in range(4):
+        r = run_seed(random.Random(seed), belief_seed=10_000 + seed)
+        for k in range(5):
             agg[k] += r[k]
     n = len(CFG["seeds"])
     agg = [a / n for a in agg]
-    labels = ["不审", "按置信度阈值", "结构贪心(扇出×likelihood)", "贪心oracle上限"]
+    labels = ["不审", "按置信度阈值", "结构贪心(扇出×likelihood)",
+              "信念贪心(自适应,可部署)", "贪心oracle上限(读真值)"]
     print(f"{'策略':<28}{'平均sink错误数':>14}")
     for lab, v in zip(labels, agg):
         print(f"{lab:<28}{v:>14.2f}")
     print()
     gain = agg[1] - agg[2]
     print(f"结构贪心 vs 阈值：{'少' if gain > 0 else '多'} {abs(gain):.2f} 个 sink 错误")
-    print(f"oracle 上限 = {agg[3]:.2f}（结构贪心离它 {'还有空间' if agg[2] > agg[3] + 0.5 else '已接近'}）")
+    print(f"信念贪心 vs 结构贪心：{agg[2] - agg[3]:+.2f}（正数 = 信念贪心更少）")
+    print(f"oracle 上限 = {agg[4]:.2f}（读真实错误状态，不可部署）")
     print()
     print("判读：结构贪心明显 < 阈值 → 图结构有独立价值 → RL 有东西可学 → 值得重构 + 上 DQN/PPO。")
     print("      否则 → 换题。")

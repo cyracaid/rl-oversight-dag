@@ -15,8 +15,10 @@ Error model (causal intervention form)
       P(X_v = 0 | X_u = 0) = 1 - exp(-λ * w_uv)
   A review is a causal intervention: force X_v = 1, cutting outgoing infection.
 
-Baselines (no RL): no-review, random, conf-threshold, hub (degree), greedy
-  (submodular-style, (1-1/e) approximate influence maximization).
+Baselines (no RL): no-review, random, conf-threshold, hub (degree),
+  belief greedy (deployable: adaptive greedy on a particle belief that sees only
+  structure, edge probabilities, calibrated confidence and its own review outcomes),
+  oracle greedy (reads the true error state; a ceiling, not a policy).
 
 Mathematical notes are in the module docstring of each generator and in
 the proposal Section 5 / new Section "scaled experiments".
@@ -27,6 +29,8 @@ import math
 import random
 import time
 
+from belief import ParticleBelief, conf_posterior, sample_conf
+
 # ---------------------------------------------------------------- config
 N = 500
 K = 10                    # error types
@@ -36,6 +40,7 @@ P_CATCH = 0.9
 BUDGET = 50               # 10% of N
 N_SEEDS = 5
 N_EP_TRIALS = 20          # Monte Carlo repetitions per seed for propagation noise
+N_PARTICLES = 1024        # belief particles; fewer collapse after a few flags
 
 
 def zipf_type_rates(k=K, s=ZIPF_S):
@@ -154,36 +159,52 @@ def propagate(base, parents, topo, coins, rng_py):
 
 
 def make_coins(parents, rng):
-    """w_uv ~ U(0.5, 1.5); P = 1 - exp(-λ w)."""
-    coins = {}
+    """w_uv ~ U(0.5, 1.5); P = 1 - exp(-λ w). Returns (coins, probs); probs are public."""
+    coins, probs = {}, {}
     for i, ps in enumerate(parents):
         for p in ps:
             w = rng.uniform(0.5, 1.5)
-            coins[(p, i)] = rng.random() < (1.0 - math.exp(-LAMBDA * w))
-    return coins
+            probs[(p, i)] = 1.0 - math.exp(-LAMBDA * w)
+            coins[(p, i)] = rng.random() < probs[(p, i)]
+    return coins, probs
 
 
 def make_conf(base, types, rng):
-    """Noisy confidence, as in the 80-node version."""
-    out = []
-    for i in range(N):
-        signal = -1.5 if base[i] else 1.5
-        signal -= 0.4 * (P_TYPE[types[i]] - 0.15)
-        out.append(1.0 / (1.0 + math.exp(-(signal + rng.gauss(0, 1.2)))))
-    return out
+    """Noisy confidence, same model as the 80-node version (belief.sample_conf)."""
+    return [sample_conf(base[i], P_TYPE[types[i]], rng) for i in range(N)]
 
 
 def sink_error(err, sinks):
     return sum(1 for i in sinks if err[i])
 
 
+def review_step(a, base, err, parents, topo, coins, rng):
+    """Review node a in place. Returns (flagged, err)."""
+    flagged = err[a] and rng.random() < P_CATCH
+    if flagged:
+        base[a] = False
+        err = propagate(base, parents, topo, coins, rng)
+    return flagged, err
+
+
 def review_and_count(order, base, parents, topo, coins, sinks, rng):
     base = list(base)
     err = propagate(base, parents, topo, coins, rng)
     for i in order:
-        if err[i] and rng.random() < P_CATCH:
-            base[i] = False
-            err = propagate(base, parents, topo, coins, rng)
+        _, err = review_step(i, base, err, parents, topo, coins, rng)
+    return sink_error(err, sinks)
+
+
+def belief_greedy_and_count(belief, base, parents, topo, coins, sinks, rng):
+    """Adaptive greedy on the particle belief; each outcome is fed back to the belief."""
+    base = list(base)
+    err = propagate(base, parents, topo, coins, rng)
+    available = [True] * N
+    for _ in range(BUDGET):
+        a = belief.best_action(available)
+        available[a] = False
+        flagged, err = review_step(a, base, err, parents, topo, coins, rng)
+        belief.observe(a, flagged)
     return sink_error(err, sinks)
 
 
@@ -200,7 +221,7 @@ def run_family(family, seed):
     else:
         raise ValueError(family)
     topo, children = topo_order(parents)
-    coins = make_coins(parents, rng)
+    coins, edge_prob = make_coins(parents, rng)
     types = [rng.randrange(K) for _ in range(N)]
     base = sample_base(rng_np, types)
     conf = make_conf(base, types, rng)
@@ -210,11 +231,12 @@ def run_family(family, seed):
 
     # policies
     idx = list(range(N))
-    random.shuffle(idx)
+    rng.shuffle(idx)
     pol_random = idx[:BUDGET]
     pol_thresh = sorted(idx, key=lambda i: conf[i])[:BUDGET]
     pol_hub = sorted(idx, key=lambda i: -len(children[i]))[:BUDGET]
-    # greedy: iteratively pick node that most reduces current sink errors (submodular greedy)
+    # oracle greedy: reads the TRUE error state (skips nodes that are not wrong).
+    # Not deployable; reported only as a ceiling.
     base_g = list(base)
     err = propagate(base_g, parents, topo, coins, rng)
     chosen = []
@@ -236,20 +258,29 @@ def run_family(family, seed):
         remaining.discard(best)
         base_g[best] = False
         err = propagate(base_g, parents, topo, coins, rng)
-    pol_greedy = chosen
+    pol_oracle_greedy = chosen
+
+    def catch_rng():
+        # every policy replays the same catch-randomness stream -> paired comparison
+        return random.Random(1_000_000 + seed)
 
     no_rev = sink_error(propagate(base, parents, topo, coins, rng), sinks)
+    args = (base, parents, topo, coins, sinks)
     out = {
         "no_review": no_rev,
-        "random": review_and_count(pol_random, base, parents, topo, coins, sinks, rng),
-        "threshold": review_and_count(pol_thresh, base, parents, topo, coins, sinks, rng),
-        "hub": review_and_count(pol_hub, base, parents, topo, coins, sinks, rng),
-        "greedy": review_and_count(pol_greedy, base, parents, topo, coins, sinks, rng),
+        "random": review_and_count(pol_random, *args, catch_rng()),
+        "threshold": review_and_count(pol_thresh, *args, catch_rng()),
+        "hub": review_and_count(pol_hub, *args, catch_rng()),
+        "oracle_greedy": review_and_count(pol_oracle_greedy, *args, catch_rng()),
         "n_err_base": sum(base),
         "n_sinks": len(sinks),
         "n_edges": sum(len(p) for p in parents),
         "max_deg": max(len(children[i]) for i in range(N)),
     }
+    prior = [conf_posterior(conf[i], P_TYPE[types[i]]) for i in range(N)]
+    belief = ParticleBelief(parents, topo, sinks, edge_prob, prior, P_CATCH,
+                            n_particles=N_PARTICLES, seed=10_000 + seed)
+    out["belief_greedy"] = belief_greedy_and_count(belief, *args, catch_rng())
     return out
 
 
@@ -261,7 +292,7 @@ def main():
     print("=" * 72)
 
     families = ["modular", "ba", "er"]
-    keys = ["no_review", "random", "threshold", "hub", "greedy"]
+    keys = ["no_review", "random", "threshold", "hub", "belief_greedy", "oracle_greedy"]
     agg = {f: {k: [] for k in keys} for f in families}
     meta = {}
 
@@ -273,7 +304,8 @@ def main():
                 agg[fam][k].append(r[k])
             meta[fam] = {kk: r[kk] for kk in ("n_err_base", "n_sinks", "n_edges", "max_deg")}
             print(f"  {fam:<8} seed {seed}  no={r['no_review']:3d}  rand={r['random']:3d}  "
-                  f"thr={r['threshold']:3d}  hub={r['hub']:3d}  greedy={r['greedy']:3d}  "
+                  f"thr={r['threshold']:3d}  hub={r['hub']:3d}  "
+                  f"belief={r['belief_greedy']:3d}  oracle={r['oracle_greedy']:3d}  "
                   f"edges={r['n_edges']}  max_deg={r['max_deg']}", flush=True)
 
     print("\n" + "=" * 72)
@@ -288,8 +320,9 @@ def main():
     lines = [
         f"N={N}, budget={BUDGET} (10%), λ={LAMBDA}, Zipf s={ZIPF_S}, {N_SEEDS} seeds",
         "",
-        "| family | no review | random | conf threshold | hub | structural greedy |",
-        "|---|---|---|---|---|---|",
+        "| family | no review | random | conf threshold | hub | belief greedy (deployable) "
+        "| oracle greedy (reads truth) |",
+        "|---|---|---|---|---|---|---|",
     ]
     for fam in families:
         row = " | ".join(f"{sum(v)/len(v):.2f}" for k, v in agg[fam].items())

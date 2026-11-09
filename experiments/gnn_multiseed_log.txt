@@ -1,19 +1,25 @@
-[1/5] 训练 seed 1 ...
-      seed 1: 1.85
-[2/5] 训练 seed 2 ...
-      seed 2: 1.60
-[3/5] 训练 seed 3 ...
-      seed 3: 1.35
-[4/5] 训练 seed 4 ...
-      seed 4: 1.00
-[5/5] 训练 seed 5 ...
-      seed 5: 1.90
+  static    seed 1: legacy 1.60  held-out 1.60
+  static    seed 2: legacy 2.00  held-out 1.74
+  static    seed 3: legacy 1.50  held-out 1.81
+  static    seed 4: legacy 1.10  held-out 1.26
+  static    seed 5: legacy 1.35  held-out 1.38
+  observed  seed 1: legacy 1.75  held-out 1.50
+  observed  seed 2: legacy 1.75  held-out 1.66
+  observed  seed 3: legacy 2.35  held-out 1.71
+  observed  seed 4: legacy 1.15  held-out 1.51
+  observed  seed 5: legacy 1.40  held-out 1.41
+N=80, budget=16, 5 training seeds x 20000 episodes, held-out graphs 1000..1199 (n=200), particles=1024
 
-=======================================================
-GNN + REINFORCE 多种子复现结果
-  各种子 = [1.85, 1.6, 1.35, 1.0, 1.9]
-  mean  = 1.54
-  std   = 0.37
-  95% CI = 1.54 ± 0.46  (即 [1.08, 2.00])
-  对比: MLP REINFORCE = 1.40
-=======================================================
+| policy | legacy seeds 1-20 | held-out mean | 95% CI |
+|---|---:|---:|---:|
+| conf threshold | 2.30 | 1.41 | ± 0.25 |
+| structural greedy | 1.45 | 1.45 | ± 0.22 |
+| belief greedy | 0.90 | 1.14 | ± 0.20 |
+| GNN + REINFORCE (static state) | 1.51 ± 0.41 | 1.56 | ± 0.29 (over training seeds) |
+| GNN + REINFORCE (observed state) | 1.68 ± 0.56 | 1.56 | ± 0.15 (over training seeds) |
+
+Paired differences on held-out graphs (per graph, GNN averaged over training seeds; negative = left side has fewer sink errors):
+
+- GNN observed − GNN static: -0.00 ± 0.08
+- GNN observed − belief greedy: +0.42 ± 0.15
+- GNN static − structural greedy: +0.11 ± 0.16
