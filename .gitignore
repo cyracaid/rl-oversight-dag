@@ -27,3 +27,6 @@ __pycache__/
 # ===== triage_bench: data stays outside, only code + aggregates in =====
 triage_bench/data/
 triage_bench/**/*.rds
+
+# receipt logs stay out of the repo (they reference reviewed items)
+triage_bench/outputs/*.jsonl

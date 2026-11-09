@@ -54,16 +54,19 @@ python3 triage_bench/run_ceiling.py      # the three bounds (coverage / type / p
 python3 triage_bench/run_unflagged.py    # the corrections the queue never sees
 python3 triage_bench/run_belief_queue.py # belief greedy inside the M4-only block
 python3 triage_bench/run_field_queue.py  # field-scoped review: half the reads
+python3 triage_bench/run_audit_demo.py  # receipts -> cost model -> recall per minute
 ```
 
 Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,
 `participant.json`, `m4_mining.md`, `ceiling.md`, `unflagged.md`,
-`belief_queue.md`, `field_queue.md`, plus `figures/recall_at_k.png`.
+`belief_queue.md`, `field_queue.md`, `audit_demo.md`, plus `figures/recall_at_k.png`.
 
 The one-page argument is [`CEILING.md`](CEILING.md); the paper draft is
 [`SECTION5_CEILING.md`](SECTION5_CEILING.md); the data request for the SciForge
 chain is [`SCIFORGE_ASK.md`](SCIFORGE_ASK.md); the granularity decision memo is
-[`AUDIT_GRANULARITY.md`](AUDIT_GRANULARITY.md).
+[`AUDIT_GRANULARITY.md`](AUDIT_GRANULARITY.md); the receipt schema we would
+write ourselves is [`AUDIT_CHAIN_DESIGN.md`](AUDIT_CHAIN_DESIGN.md) with
+`audit/receipts.py`.
 
 ---
 
@@ -133,9 +136,11 @@ bench/metrics.py       recall@k, precision@k, pid-clustered bootstrap, paired di
 bench/mine_m4.py       grouped CV, permutation tests, univariate rules
 bench/participant.py   participant features, clustering test, participant scoring
 bench/belief_queue.py  Beta-Bernoulli belief over participants, simulated deployment
+audit/receipts.py      review receipt schema, append-only writer, hash-chain check
 run_bench.py           Table 1
 run_m4_mining.py       M4-only headroom
 run_ceiling.py         coverage / type / power bounds
 run_unflagged.py       profile of never-flagged corrections
 run_belief_queue.py    belief greedy inside the M4-only block
+run_audit_demo.py      receipts -> cost model -> recall per minute
 ```

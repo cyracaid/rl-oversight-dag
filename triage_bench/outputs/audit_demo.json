@@ -1,0 +1,39 @@
+{
+  "seconds_per_field_assumed": 30.0,
+  "receipts": 200,
+  "chain_ok": true,
+  "chain_message": "ok",
+  "median_review_seconds": 61.5,
+  "recall_by_minutes": {
+    "30": {
+      "row": 0.0441,
+      "pair": 0.0882
+    },
+    "60": {
+      "row": 0.0882,
+      "pair": 0.25
+    },
+    "120": {
+      "row": 0.25,
+      "pair": 0.6324
+    },
+    "240": {
+      "row": 0.6324,
+      "pair": 0.8382
+    }
+  },
+  "minutes_to_target": {
+    "25pct": {
+      "row": 115.01867394483362,
+      "pair": 57.50933697241681
+    },
+    "50pct": {
+      "row": 195.43376157279184,
+      "pair": 97.71688078639592
+    },
+    "75pct": {
+      "row": 278.6688883153227,
+      "pair": 139.33444415766135
+    }
+  }
+}
