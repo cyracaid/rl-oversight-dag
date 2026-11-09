@@ -4,3 +4,20 @@ Ablation: GNN+REINFORCE under three confidence conditions (3 seeds x 12k ep)
   oracle = conf reveals the true error (upper bound of the signal)
 
   seed 1  normal  1.30
+  seed 1  noise   3.30
+  seed 1  oracle  0.80
+  seed 2  normal  1.95
+  seed 2  noise   5.20
+  seed 2  oracle  0.70
+  seed 3  normal  0.90
+  seed 3  noise   2.85
+  seed 3  oracle  0.65
+
+=======================================================
+condition     mean                    per-seed
+normal        1.38   [1.3, 1.95, 0.9]
+noise         3.78   [3.3, 5.2, 2.85]
+oracle        0.72   [0.8, 0.7, 0.65]
+
+normal - noise = -2.40   (positive → model uses the conf signal)
+oracle - normal = 3.07   (positive → noisy predictor is the bottleneck)
