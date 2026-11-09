@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Scheduling on a Dependency Graph — English</title>
+<script>
+  MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+    background: #fff; color: #1f2328; line-height: 1.7;
+  }
+  .nav {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    background: #0d1117; color: #fff; padding: 10px 20px;
+  }
+  .nav .title { font-weight: 700; font-size: 0.95em; }
+  .nav .title a { color: #fff; text-decoration: none; }
+  .nav .langs { display: flex; gap: 8px; }
+  .nav .langs a {
+    color: #c9d1d9; text-decoration: none; padding: 4px 12px;
+    border-radius: 16px; font-size: 0.88em; border: 1px solid #30363d;
+  }
+  .nav .langs a.here { background: #1a9850; color: #fff; border-color: #1a9850; }
+  .wrap { display: flex; max-width: 1100px; margin: 0 auto; }
+  aside {
+    width: 220px; padding: 24px 16px; border-right: 1px solid #eaeef2;
+    position: sticky; top: 52px; height: calc(100vh - 52px); overflow-y: auto;
+  }
+  aside a {
+    display: block; color: #57606a; text-decoration: none;
+    padding: 6px 10px; border-radius: 6px; font-size: 0.92em; margin: 2px 0;
+  }
+  aside a:hover { background: #f6f8fa; color: #1f2328; }
+  main { flex: 1; padding: 32px 36px; max-width: 780px; }
+  h1 { font-size: 1.7em; margin: 0 0 8px; }
+  h2 { font-size: 1.25em; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+  p { margin: 12px 0; }
+  .lead { font-size: 1.08em; color: #57606a; }
+  .box { background: #f6f8fa; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+  .box.green { background: #e8f5e9; border-left: 4px solid #1a9850; }
+  .box.amber { background: #fff8ec; border-left: 4px solid #fdae61; }
+  figure { margin: 20px 0; text-align: center; }
+  figure img { max-width: 100%; border-radius: 10px; border: 1px solid #eaeef2; }
+  figcaption { font-size: 0.88em; color: #57606a; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.95em; }
+  th, td { padding: 8px 12px; border-bottom: 1px solid #eaeef2; text-align: left; }
+  th { background: #f6f8fa; }
+  td.best { color: #1a9850; font-weight: 700; }
+  code { background: #f6f8fa; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+  .tag { display: inline-block; background: #e8f5e9; color: #1b5e20; border-radius: 12px; padding: 2px 10px; font-size: 0.82em; margin: 2px; }
+  .arch { background: #0d1117; color: #d4d4d4; padding: 16px; border-radius: 10px; overflow-x: auto; font-family: monospace; font-size: 0.8em; line-height: 1.5; white-space: pre; }
+  .other { margin-top: 40px; padding-top: 16px; border-top: 1px solid #eaeef2; }
+  .other a { color: #2a7de1; text-decoration: none; margin-right: 12px; }
+  footer { color: #57606a; font-size: 0.85em; padding: 24px 0 48px; }
+  @media (max-width: 820px) {
+    aside { display: none; }
+    main { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="title"><a href="../">📊 Review Scheduling</a></div>
+  <div class="langs">
+    <a class="here" href="#">English</a>
+    <a href="../ko/">한국어</a>
+    <a href="../zh/">中文</a>
+  </div>
+</nav>
+
+<div class="wrap">
+<aside>
+  <a href="#goal">Goal</a>
+  <a href="#real">Why this is real</a>
+  <a href="#detour">The detour (negative result)</a>
+  <a href="#reframe">Reframe: graph MDP</a>
+  <a href="#math">Math</a>
+  <a href="#results">Results</a>
+  <a href="#ablation">Ablation</a>
+  <a href="#scale">Scale (N=500)</a>
+  <a href="#pipeline">Real pipeline</a>
+  <a href="#related">Related work</a>
+  <a href="#guide">Decision guide</a>
+  <a href="#sciforge">SciForge landing</a>
+  <a href="#team">Team</a>
+  <a href="#verify">Verification</a>
+</aside>
+
+<main>
+
+<h1>Which item should a human review first?</h1>
+<p class="lead">Reinforcement learning for the review layer of a research evidence chain.</p>
+<p>Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).<br>
+Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).</p>
+<p><span class="tag">Machine never stamps</span> <span class="tag">read-only ranking</span> <span class="tag">receipt only on human verdict</span></p>
+
+<h2 id="goal">What we build</h2>
+<p>AI already cleans sleep diaries, labels papers, runs analyses. Its outputs <b>depend on each other</b>: a flipped time becomes a wrong latency, a wrong sleep efficiency, an untrustworthy conclusion.</p>
+<p>A human cannot check everything. We train a <b>read-only RL suggester</b>: which node to review next, so fewer errors reach the conclusion.</p>
+<div class="box green">
+  The machine never stamps. The suggester is a read-only advisor. A review becomes a receipt only when a human records a verdict.
+</div>
+
+<h2 id="real">Why this is real</h2>
+<p>Our lab's sleep-diary data: <b>13,990 records, 237 people</b>, from the one-year EMA collaboration with Maia ten Brink. Humans corrected only <b>75</b> of them (0.54%).</p>
+<p>Those 75 are not scattered — <b>76% are the same mistake</b> (order_error: times written in the wrong order; p &lt; 0.0001).</p>
+<p>The mistake does not stay put. Wrong time → wrong latency → wrong efficiency → wrong conclusion.</p>
+<div class="box amber">
+  That is why "what to review" matters more than "how much." The budget is tiny. Spend it upstream of the 76% type.
+</div>
+
+<h2 id="detour">The detour we took (honest negative result)</h2>
+<p>Our first version was a bandit: "review this item or not," one at a time. Result: <b>a simple threshold beat Q-learning</b> (2.81 vs 3.38).</p>
+<p>Why? Per-item review flattens the graph. RL had nothing non-trivial to learn. With 76% one type, the best policy collapses into an if-rule.</p>
+<div class="box">
+  We did not hide this failure. It is the reason for the reframe.
+</div>
+
+<h2 id="reframe">Reframe: from "review this item?" to "which node next?"</h2>
+<p>Draw the evidence as a directed graph. The agent walks the graph and picks one node to review. A good review changes the downstream.</p>
+<p>This is a real MDP: the state has the graph and the remaining budget; the reward arrives only at the end.</p>
+<div class="arch">
+Front end   highlight-and-ask on diary rows / code / claims  → review traces (not receipts)
+              ↓
+Review layer  GNN / greedy / threshold suggester             → "review these first" (read-only)
+              ↓  human clicks "verdict"
+Back end    SciForge evidence DAG + receipts                 → machine never stamps, append-only
+</div>
+
+<h2 id="math">Math skeleton (the RL-course main course)</h2>
+<p><b>1. Causal propagation (intervention on a DAG).</b> \(X_v \in \{0,1\}\) (1 = correct). For an edge \((u,v)\) with weight \(w_{uv} \sim U(0.5, 1.5)\):</p>
+<p>\[ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad \lambda = 0.8 \]</p>
+<p>Reviewing \(v\) = do\((X_v := 1)\). Causal intervention, not correlation.</p>
+<p><b>2. MDP.</b> State = graph knowledge + remaining budget. Action = next node (or stop). Reward \(r_T = -\#\text{sink errors}\). \(\gamma &lt; 1\).</p>
+<p><b>3. CMDP Lagrangian.</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\). Main method today is GNN + fixed-budget REINFORCE; dual-critic CMDP is in progress.</p>
+<p><b>4. Submodular greedy (1−1/e).</b> On N=500 this greedy takes scale-free graphs from 81 to 3.8.</p>
+<p><b>5. Information-gain reward (in the design, not yet run).</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
+<p><b>6. Policy gradient (main method).</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
+<p>GNN scorer: \( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
+<p><b>7. Worst-of-n.</b> One unreviewed error can invalidate a conclusion (HealthBench). noise worst-of-5 = 5.20, oracle = 0.80.</p>
+
+<h2 id="results">Results (N=80)</h2>
+<p>All numbers are errors that reach a conclusion. Lower is better. AI-generated; teammates to reproduce.</p>
+<div class="figure"><img src="../experiments/results_bar.png" alt="methods">
+  <figcaption>The GNN bar is the 5-seed mean, not the lucky single run of 1.20.</figcaption></div>
+<table>
+  <tr><th>Method</th><th>Sink errors</th></tr>
+  <tr><td>No review</td><td>5.90</td></tr>
+  <tr><td>Confidence threshold</td><td>2.30</td></tr>
+  <tr><td>Structural greedy</td><td>1.80</td></tr>
+  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
+  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
+  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46 (best seed 1.00)</td></tr>
+  <tr><td>DQN</td><td>5.10 (degenerate)</td></tr>
+  <tr><td>Oracle</td><td>0.00</td></tr>
+</table>
+<div class="figure"><img src="../experiments/learning_curves.png" alt="curves">
+  <figcaption>Learning curves: reward climbs from random toward zero.</figcaption></div>
+<div class="box">
+  <p><b>Honestly</b>: GNN mean 1.54 is <b>comparable to</b> structural greedy (1.80) and MLP REINFORCE (1.40). It is not a stable win. Best seed 1.00 shows headroom.</p>
+  <p>DQN degenerates to random — a sparse terminal reward cannot feed a value function. Policy gradient is the right tool here.</p>
+  <p>V1 as a per-item bandit <b>lost to a threshold</b> (2.81 vs Q-learning 3.38). That failure is why we reframed.</p>
+</div>
+
+<h2 id="ablation">Ablation: the remaining error lives in the confidence signal</h2>
+<p>Same GNN, three kinds of confidence:</p>
+<div class="figure"><img src="../experiments/ablation_conf.png" alt="ablation">
+  <figcaption>Destroy the signal → worse than a threshold. Perfect signal → almost zero.</figcaption></div>
+<table>
+  <tr><th>Confidence</th><th>Sink errors</th></tr>
+  <tr><td>Noise (signal destroyed)</td><td>3.78</td></tr>
+  <tr><td>Normal (learned)</td><td>1.38</td></tr>
+  <tr><td>Oracle (true error revealed)</td><td>0.72</td></tr>
+</table>
+<div class="box green">
+  <p><b>Do not keep tuning the scheduler. Invest in the confidence signal.</b> We located where the remaining error lives: the predictor, not the policy.</p>
+  <p>Worst-of-5: GNN 1.90 / noise 5.20 / oracle 0.80. A noisy signal hurts the tail more than the mean.</p>
+</div>
+
+<h2 id="scale">Scale: N = 500, three graph families</h2>
+<p>Same intervention model. Budget 50 (10%). Five seeds. Greedy = influence maximization (not RL).</p>
+<div class="figure"><img src="../experiments/scale500.png" alt="scale">
+  <figcaption>Greedy almost clears every family. Scale-free 81 → 3.8 (95% down).</figcaption></div>
+<table>
+  <tr><th>Family</th><th>No review</th><th>Threshold</th><th>Greedy</th></tr>
+  <tr><td>Modular</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
+  <tr><td>Scale-free (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
+  <tr><td>Sparse (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+</table>
+<div class="box">
+  <p>Random ≈ no review. The confidence threshold is unstable on scale-free graphs (6–76). Hub defense helps but is far from greedy.</p>
+  <p><b>Honest scope:</b> these 500-node numbers are greedy / heuristics, not RL.</p>
+</div>
+
+<h2 id="pipeline">Real sleep-pipeline DAG (N=21)</h2>
+<p>Encoded from splsleep SCHEMA: diary leaves → diffs → SOL/WASO/TST/TIB/SE → validity/conclusion sinks.</p>
+<div class="figure"><img src="../experiments/real_pipeline.png" alt="real pipeline">
+  <figcaption>On our data pipeline today, a calibrated threshold drops conclusion errors from 2.12 to 0.50.</figcaption></div>
+<table>
+  <tr><th>Policy</th><th>Sink errors</th></tr>
+  <tr><td>No review</td><td>2.12</td></tr>
+  <tr><td class="best">Confidence threshold</td><td class="best">0.50</td></tr>
+  <tr><td>Hub</td><td>1.75</td></tr>
+</table>
+<div class="box green">
+  The 500-node result is for when the evidence graph is large. This 21-node result is for our data today.
+</div>
+
+<h2 id="related">Related work</h2>
+<p><b>HealthBench</b> (2025-05) taught us to evaluate with meaningful, trustworthy, non-saturated rubrics and worst-of-n reliability.</p>
+<p><b>BioBasicsBench</b> (OpenAI + Ligo, 2026-11-06) asked whether an agent can read raw wet-lab evidence and know when it does not support a conclusion. Top model 66.7%. Failures: assumption overrides a control; contradictory observations discounted; miscount. Our 76% order_error is the same species.</p>
+<p>Learning to defer: Mozannar & Sontag ICML 2020; FALCON arXiv:2604.00904; SLTD arXiv:2109.06312; Reid et al. arXiv:2409.20489; KL-PBD arXiv:2610.15128; Oversight arXiv:2606.08919. Cascades: Data Cascades CHI 2021; Finkel EMNLP 2006; From Spark to Fire arXiv:2603.04474. Budget + node selection: WS-option arXiv:2502.05537; Mattick arXiv:2310.00112.</p>
+<div class="box">
+  We adopt: meaningful / trustworthy / non-saturated; worst-of-n; partial-credit receipts; error detection as a first-class skill; "evidence cannot support this conclusion" as an action.<br>
+  We add: budgeted sequential review over a dependency graph — they did not build this.
+</div>
+
+<h2 id="guide">Decision guide</h2>
+<table>
+  <tr><th>If you are here</th><th>Use this</th></tr>
+  <tr><td>Confidence well calibrated</td><td>GNN or structural greedy</td></tr>
+  <tr><td>Confidence noisy</td><td><b>Do not use RL</b> — static threshold more robust</td></tr>
+  <tr><td>Tight budget, type-clustered errors</td><td>Structural greedy</td></tr>
+  <tr><td>You can improve the predictor</td><td>Fixing confidence buys more than fixing the policy</td></tr>
+  <tr><td>Large scale-free graph</td><td>Greedy influence maximization</td></tr>
+  <tr><td>Our small pipeline today</td><td>A calibrated threshold</td></tr>
+</table>
+
+<h2 id="sciforge">Landing in SciForge</h2>
+<p>SciForge already has an evidence DAG, human-review receipts, and an audit layer. This project adds a <b>review-priority suggester on top</b>, changing no record-keeping rules.</p>
+<div class="arch">
+Front end   highlight-and-ask on diary rows / code / claims  → review traces (not receipts)
+              ↓
+Review layer  GNN / greedy / threshold suggester             → "review these first" (read-only)
+              ↓  human clicks "verdict"
+Back end    SciForge evidence DAG + receipts                 → machine never stamps, append-only
+</div>
+<p>Phased: (1) offline eval on synthetic + exported de-identified DAG; (2) read-only suggestion next to the review interface; (3) receipt handshake with the evidence-chain owner (郑心).</p>
+
+<h2 id="team">Team</h2>
+<table>
+  <tr><th>Person</th><th>Primary</th></tr>
+  <tr><td>1</td><td>PM + narrative</td></tr>
+  <tr><td>2</td><td>Policy gradient (REINFORCE → PPO-Lagrangian)</td></tr>
+  <tr><td>3</td><td>Environment + GNN + DQN</td></tr>
+  <tr><td>4</td><td>Baselines + controls</td></tr>
+  <tr><td>5 동채하</td><td>Literature + real-data motivation + writing + presenting</td></tr>
+</table>
+<p>Advisors: Maia ten Brink, PhD (Stanford Psychophysiology Lab — sleep data) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab — SciForge).</p>
+<p>동채하's primary is literature, real-data motivation, writing, and presenting. English presenting is fine.</p>
+
+<h2 id="verify">Verification status</h2>
+<p>AI-generated; teammates to reproduce. Checked: citations, real-data numbers (2026-11-09: 13,990 / 237 / 75 / 76%).</p>
+<p>Not checked: every simulation number; simulator design; why no-review differs across tables (5.62 vs 5.90); "no direct precedent" (search again); full texts; GNN multi-seed CI still wide (1.00–1.90); GNN+PPO not converged; dual-critic CMDP not built; SciForge confidence field; consensus/hard split not run.</p>
+
+<footer>
+  Review Scheduling on a Dependency Graph · STA3145 ·
+  <a href="https://github.com/cyracaid/rl-oversight-dag">github.com/cyracaid/rl-oversight-dag</a><br>
+  한국어: <a href="../ko/">../ko/</a> · 中文: <a href="../zh/">../zh/</a>
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>

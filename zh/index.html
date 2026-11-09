@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>依赖图上的审阅调度 — 中文</title>
+<script>
+  MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Noto Sans SC", "Noto Sans", sans-serif;
+    background: #fff; color: #1f2328; line-height: 1.7;
+  }
+  .nav {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    background: #0d1117; color: #fff; padding: 10px 20px;
+  }
+  .nav .title { font-weight: 700; font-size: 0.95em; }
+  .nav .title a { color: #fff; text-decoration: none; }
+  .nav .langs { display: flex; gap: 8px; }
+  .nav .langs a {
+    color: #c9d1d9; text-decoration: none; padding: 4px 12px;
+    border-radius: 16px; font-size: 0.88em; border: 1px solid #30363d;
+  }
+  .nav .langs a.here { background: #1a9850; color: #fff; border-color: #1a9850; }
+  .wrap { display: flex; max-width: 1100px; margin: 0 auto; }
+  aside {
+    width: 220px; padding: 24px 16px; border-right: 1px solid #eaeef2;
+    position: sticky; top: 52px; height: calc(100vh - 52px); overflow-y: auto;
+  }
+  aside a {
+    display: block; color: #57606a; text-decoration: none;
+    padding: 6px 10px; border-radius: 6px; font-size: 0.92em; margin: 2px 0;
+  }
+  aside a:hover { background: #f6f8fa; color: #1f2328; }
+  main { flex: 1; padding: 32px 36px; max-width: 780px; }
+  h1 { font-size: 1.7em; margin: 0 0 8px; }
+  h2 { font-size: 1.25em; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+  p { margin: 12px 0; }
+  .lead { font-size: 1.08em; color: #57606a; }
+  .box { background: #f6f8fa; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+  .box.green { background: #e8f5e9; border-left: 4px solid #1a9850; }
+  .box.amber { background: #fff8ec; border-left: 4px solid #fdae61; }
+  figure { margin: 20px 0; text-align: center; }
+  figure img { max-width: 100%; border-radius: 10px; border: 1px solid #eaeef2; }
+  figcaption { font-size: 0.88em; color: #57606a; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.95em; }
+  th, td { padding: 8px 12px; border-bottom: 1px solid #eaeef2; text-align: left; }
+  th { background: #f6f8fa; }
+  td.best { color: #1a9850; font-weight: 700; }
+  code { background: #f6f8fa; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+  .tag { display: inline-block; background: #e8f5e9; color: #1b5e20; border-radius: 12px; padding: 2px 10px; font-size: 0.82em; margin: 2px; }
+  .arch { background: #0d1117; color: #d4d4d4; padding: 16px; border-radius: 10px; overflow-x: auto; font-family: monospace; font-size: 0.8em; line-height: 1.5; white-space: pre; }
+  footer { color: #57606a; font-size: 0.85em; padding: 24px 0 48px; }
+  @media (max-width: 820px) { aside { display: none; } main { padding: 24px 20px; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="title"><a href="../">📊 审阅调度</a></div>
+  <div class="langs">
+    <a href="../en/">English</a>
+    <a href="../ko/">한국어</a>
+    <a class="here" href="#">中文</a>
+  </div>
+</nav>
+
+<div class="wrap">
+<aside>
+  <a href="#goal">目标</a>
+  <a href="#real">为什么是真的</a>
+  <a href="#detour">弯路（负结果）</a>
+  <a href="#reframe">重构：图 MDP</a>
+  <a href="#math">数学</a>
+  <a href="#results">结果</a>
+  <a href="#ablation">消融</a>
+  <a href="#scale">规模（N=500）</a>
+  <a href="#pipeline">真实管道</a>
+  <a href="#related">相关工作</a>
+  <a href="#guide">决策指南</a>
+  <a href="#sciforge">SciForge 落地</a>
+  <a href="#team">分工</a>
+  <a href="#verify">验证</a>
+</aside>
+
+<main>
+
+<h1>人该先审哪一项？</h1>
+<p class="lead">科研证据链审阅层的强化学习。</p>
+<p>睡眠数据：与 Maia ten Brink（Stanford Psychophysiology Lab）一年 EMA 合作。<br>
+应用：SciForge — Zhangyang Gao（AI4Science, Shanghai AI Lab）开发。</p>
+<p><span class="tag">机器不盖章</span> <span class="tag">只读排序</span> <span class="tag">人点裁决才有收据</span></p>
+
+<h2 id="goal">我们建什么</h2>
+<p>AI 已经在洗睡眠日记、标文献、跑分析。它的输出<b>互相依赖</b>：时间反了，潜伏期错，效率错，结论不可信。</p>
+<p>人不可能全查。我们训一个<b>只读 RL 建议器</b>：下一步审哪个节点，让更少错误走到结论。</p>
+<div class="box green">
+  机器不盖章。建议器是只读顾问。审阅只有人记录裁决时才变成收据。
+</div>
+
+<h2 id="real">为什么这个问题是真的</h2>
+<p>我们实验室的睡眠日记：<b>13,990 条 / 237 人</b>，来自与 Maia ten Brink 一年 EMA 合作。人只改了 <b>75 处</b>（0.54%）。</p>
+<p>这 75 处不散——<b>76% 是同一种错</b>（order_error：时间顺序反了，p &lt; 0.0001）。</p>
+<p>错不待在原地。时间错 → 潜伏期错 → 效率错 → 结论错。</p>
+<div class="box amber">
+  所以「审什么」比「审多少」重要。预算很小，花在 76% 那种错的上游更值。
+</div>
+
+<h2 id="detour">走过的弯路（诚实负结果）</h2>
+<p>第一版是 bandit：一条一条决定审不审。结果：<b>简单阈值赢了 Q-learning</b>（2.81 vs 3.38）。</p>
+<p>为什么？逐项审把图压平。RL 没有非平凡的东西可学。76% 一种类型，最优策略坍缩成 if 规则。</p>
+<div class="box">
+  这个失败没藏。它是重构的理由。
+</div>
+
+<h2 id="reframe">重构：从「审这条吗」到「下一个审哪个」</h2>
+<p>把证据画成有向图。智能体在图上走，选一个节点审。好的审阅会改变下游。</p>
+<p>这是真 MDP：状态有图和剩余预算，奖励最后才来。</p>
+<div class="arch">
+前端   日记行 / 代码 / 论点上划线提问          → 审阅痕迹（不是收据）
+         ↓
+审阅层  GNN / 贪心 / 阈值 建议器              → 「先审这几个」（只读）
+         ↓  人点「裁决」
+后端    SciForge 证据 DAG + 收据              → 机器不盖章，append-only
+</div>
+
+<h2 id="math">数学骨架（RL 课的主菜）</h2>
+<p><b>1. 因果传播（DAG 干预）。</b> \(X_v \in \{0,1\}\)（1=正确）。边 \((u,v)\) 权重 \(w_{uv} \sim U(0.5, 1.5)\)：</p>
+<p>\[ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad \lambda = 0.8 \]</p>
+<p>审 \(v\) = do\((X_v := 1)\)。因果干预，不是相关。</p>
+<p><b>2. MDP。</b> 状态 = 图知识 + 剩余预算。动作 = 下一个节点（或 stop）。奖励 \(r_T = -\#\text{sink 错误}\)。\(\gamma &lt; 1\)。</p>
+<p><b>3. CMDP 拉格朗日。</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\)。今天主方法是 GNN + 固定预算 REINFORCE；双 critic CMDP 在做。</p>
+<p><b>4. 次模贪心 (1−1/e)。</b> N=500 这个贪心把无标度图从 81 到 3.8。</p>
+<p><b>5. 信息增益奖励（设计里，还没跑）。</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
+<p><b>6. 策略梯度（主方法）。</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
+<p>GNN 打分器：\( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
+<p><b>7. worst-of-n。</b> 一个漏审错误能作废结论（HealthBench）。noise worst-of-5 = 5.20，oracle = 0.80。</p>
+
+<h2 id="results">结果（N=80）</h2>
+<p>所有数字是到达结论的错误数。越低越好。AI 生成，组员复现。</p>
+<div class="figure"><img src="../experiments/results_bar.png" alt="methods">
+  <figcaption>GNN 柱是 5 种子均值，不是运气好的单次 1.20。</figcaption></div>
+<table>
+  <tr><th>方法</th><th>sink 错误</th></tr>
+  <tr><td>不审</td><td>5.90</td></tr>
+  <tr><td>置信度阈值</td><td>2.30</td></tr>
+  <tr><td>结构贪心</td><td>1.80</td></tr>
+  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
+  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
+  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46（最佳种子 1.00）</td></tr>
+  <tr><td>DQN</td><td>5.10（退化）</td></tr>
+  <tr><td>Oracle</td><td>0.00</td></tr>
+</table>
+<div class="figure"><img src="../experiments/learning_curves.png" alt="curves">
+  <figcaption>学习曲线：奖励从随机爬向零。</figcaption></div>
+<div class="box">
+  <p><b>诚实</b>：GNN 均值 1.54 与结构贪心（1.80）和 MLP REINFORCE（1.40）<b>相当</b>。不是稳定赢。最佳种子 1.00 有空间。</p>
+  <p>DQN 退化成随机——稀疏终局奖励喂不饱价值函数。所以这里该用策略梯度。</p>
+  <p>第一版 bandit <b>输给阈值</b>（2.81 vs Q 3.38）。那个失败是重构的理由。</p>
+</div>
+
+<h2 id="ablation">消融：剩余误差住在置信度信号里</h2>
+<p>同一个 GNN，三种置信度：</p>
+<div class="figure"><img src="../experiments/ablation_conf.png" alt="ablation">
+  <figcaption>打掉信号 → 比阈值还差。完美信号 → 几乎零。</figcaption></div>
+<table>
+  <tr><th>置信度</th><th>sink 错误</th></tr>
+  <tr><td>噪声（信号毁掉）</td><td>3.78</td></tr>
+  <tr><td>正常（学到的）</td><td>1.38</td></tr>
+  <tr><td>Oracle（真错揭示）</td><td>0.72</td></tr>
+</table>
+<div class="box green">
+  <p><b>别继续卷调度器。把置信度信号做好。</b>我们定位了剩余误差住在哪：预测器，不是策略。</p>
+  <p>worst-of-5：GNN 1.90 / noise 5.20 / oracle 0.80。噪声信号伤尾部甚于均值。</p>
+</div>
+
+<h2 id="scale">规模：N = 500，三种图族</h2>
+<p>同样的干预模型。预算 50（10%）。5 种子。贪心 = 影响最大化（不是 RL）。</p>
+<div class="figure"><img src="../experiments/scale500.png" alt="scale">
+  <figcaption>贪心几乎清空每个图族。无标度 81 → 3.8（降 95%）。</figcaption></div>
+<table>
+  <tr><th>图族</th><th>不审</th><th>阈值</th><th>贪心</th></tr>
+  <tr><td>模块化</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
+  <tr><td>无标度 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
+  <tr><td>稀疏 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+</table>
+<div class="box">
+  <p>随机 ≈ 不审。置信度阈值在无标度图上不稳定（6–76）。hub 防御有帮助但离贪心还远。</p>
+  <p><b>诚实范围：</b>这批 500 节点数字是贪心 / 启发式，不是 RL。</p>
+</div>
+
+<h2 id="pipeline">真实睡眠管道 DAG（N=21）</h2>
+<p>从 splsleep SCHEMA 编码：日记叶子 → 差值 → SOL/WASO/TST/TIB/SE → 有效性/结论 sink。</p>
+<div class="figure"><img src="../experiments/real_pipeline.png" alt="real pipeline">
+  <figcaption>今天的数据管道上，校准阈值把结论错误从 2.12 降到 0.50。</figcaption></div>
+<table>
+  <tr><th>策略</th><th>sink 错误</th></tr>
+  <tr><td>不审</td><td>2.12</td></tr>
+  <tr><td class="best">置信度阈值</td><td class="best">0.50</td></tr>
+  <tr><td>Hub</td><td>1.75</td></tr>
+</table>
+<div class="box green">
+  500 节点的结果是证据图变大时怎么办。这 21 节点的结果是<b>我们今天的数据</b>怎么办。
+</div>
+
+<h2 id="related">相关工作</h2>
+<p><b>HealthBench</b>（2025-05）教我们用有意义、可信、非饱和的 rubric 和 worst-of-n 评。</p>
+<p><b>BioBasicsBench</b>（OpenAI + Ligo，2026-11-06）问 agent 能不能读原始湿实验证据并知道证据何时不足。最强 66.7%。失败：假设压过对照；忽略矛盾观察；数错。我们 76% order_error 是同一物种。</p>
+<p>L2D：Mozannar & Sontag ICML 2020；FALCON arXiv:2604.00904；SLTD arXiv:2109.06312；Reid et al. arXiv:2409.20489；KL-PBD arXiv:2610.15128；Oversight arXiv:2606.08919。级联：Data Cascades CHI 2021；Finkel EMNLP 2006；From Spark to Fire arXiv:2603.04474。预算+选节点：WS-option arXiv:2502.05537；Mattick arXiv:2310.00112。</p>
+<div class="box">
+  采纳：meaningful / trustworthy / non-saturated；worst-of-n；偏学分收据；错误检测一等技能；「证据不足」当动作。<br>
+  加：预算下序贯审阅 + 依赖图——他们没建这个。
+</div>
+
+<h2 id="guide">决策指南</h2>
+<table>
+  <tr><th>如果你在这</th><th>用这个</th></tr>
+  <tr><td>置信度校准好</td><td>GNN 或结构贪心</td></tr>
+  <tr><td>置信度噪声大</td><td><b>别用 RL</b>——静态阈值更稳</td></tr>
+  <tr><td>预算紧、错误按类型聚集</td><td>结构贪心</td></tr>
+  <tr><td>能改进预测器</td><td>改置信度比改策略收益大</td></tr>
+  <tr><td>大无标度图</td><td>贪心影响最大化</td></tr>
+  <tr><td>我们今天的小管道</td><td>校准阈值</td></tr>
+</table>
+
+<h2 id="sciforge">落进 SciForge</h2>
+<p>SciForge 已有证据 DAG、人审收据、审计层。本项目在<b>上面</b>加一个审阅优先级建议器，不改存证规则。</p>
+<div class="arch">
+前端   日记行 / 代码 / 论点上划线提问          → 审阅痕迹（不是收据）
+         ↓
+审阅层  GNN / 贪心 / 阈值 建议器              → 「先审这几个」（只读）
+         ↓  人点「裁决」
+后端    SciForge 证据 DAG + 收据              → 机器不盖章，append-only
+</div>
+<p>分期：(1) 合成图 + 导出脱敏 DAG 离线评；(2) 审阅界面旁只读建议；(3) 和证据链主人（郑心）握手收据字段。</p>
+
+<h2 id="team">分工</h2>
+<table>
+  <tr><th>人</th><th>主责</th></tr>
+  <tr><td>1</td><td>组长 + 叙事</td></tr>
+  <tr><td>2</td><td>策略梯度（REINFORCE → PPO-Lagrangian）</td></tr>
+  <tr><td>3</td><td>环境 + GNN + DQN</td></tr>
+  <tr><td>4</td><td>基线 + 对照</td></tr>
+  <tr><td>5 동채하</td><td>文献 + 真实数据动机 + 写作 + 发表</td></tr>
+</table>
+<p>指导：Maia ten Brink, PhD（Stanford Psychophysiology Lab——睡眠数据）· Zhangyang Gao, PhD（AI4Science, Shanghai AI Lab——SciForge）。</p>
+<p>동채하 主责是文献、真实数据动机、写作、发表。</p>
+
+<h2 id="verify">验证状态</h2>
+<p>AI 生成，组员复现。核对过：引文，真实数据数字（2026-11-09：13,990 / 237 / 75 / 76%）。</p>
+<p>没核对：每个模拟数字；模拟器设计；两张表「不审」不同（5.62 vs 5.90）的原因；「无直接先例」（再搜）；引文全文；GNN 多种子 CI 还宽（1.00–1.90）；GNN+PPO 没收敛；双 critic CMDP 没建；SciForge 置信度字段；共识/困难拆分没跑。</p>
+
+<footer>
+  依赖图上的审阅调度 · STA3145 ·
+  <a href="https://github.com/cyracaid/rl-oversight-dag">github.com/cyracaid/rl-oversight-dag</a><br>
+  English: <a href="../en/">../en/</a> · 한국어: <a href="../ko/">../ko/</a>
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>
