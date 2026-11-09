@@ -24,7 +24,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 SCHEMA = "review.receipt.v1"
-VERDICTS = ("corrected", "accepted", "rejected", "skipped")
+VERDICTS = ("accepted", "corrected", "rejected", "needs_revision", "unresolved", "skipped")
 
 
 def _now() -> str:
@@ -49,6 +49,7 @@ class Receipt:
     opened_at: str | None = None
     submitted_at: str | None = None
     reason_code: str | None = None
+    second_reviewer: str | None = None   # hashed id of the second reader, if any
     event_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     prev: str | None = None
     schema: str = SCHEMA
