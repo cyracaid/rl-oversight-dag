@@ -59,6 +59,7 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 **You own:**
 - the timeline and the risk list, updated weekly;
 - the deck: section order, one message per slide, timing;
+- **the benchmark scan** — keep a running list of benchmarks we could compare against (learning-to-defer, annotation quality, AI4Science evaluation), check what each one actually measures, and decide with Person 5 which we cite and which we deliberately exclude. A reviewer will ask "why not X"; have the answer ready.
 - **the talk, first half** — problem, what we built, the result. Person 5 takes the second half. Rehearse together, twice, with a clock;
 - the submission: file names, PDF export, who sends it.
 
@@ -159,7 +160,7 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 
 **You own:**
 - motivation: 75 corrections / 13,990 rows / 76% one type — plus the caveat that this is the *fix* type, not proof the AI caused it;
-- related work: HealthBench and BioBasicsBench, 3–5 sentences each, with the difference from us;
+- related work: HealthBench and BioBasicsBench, 3–5 sentences each, with the difference from us — Person 1 brings the wider benchmark scan, and you two decide the final list;
 - **keeping the three languages in sync** — Person 1 no longer does this; when a number changes, all three pages change in the same commit;
 - **the talk, second half** — why it matters, related work, what is next — in English, rehearsed with Person 1;
 - the one-page SciForge ask to 郑心 (export fields, receipt fields), and a note of the reply.
