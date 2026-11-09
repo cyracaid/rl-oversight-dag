@@ -24,9 +24,9 @@
 
 ## 1. 五个人分别认领什么
 
-### 1 号 — 组长 / SciForge 联络
+### 1 号 — 组长 / 叙事
 **论文轨认领**：叙事、提案、HealthBench/BioBasics 段、图进 slides。
-**SciForge 轨认领**：SciForge DAG 导出（洞 A）+ 和郑心握手。
+**SciForge 轨认领**：没有。동채하（5 号）负责郑心 / DAG 导出的 ask。
 **不做**：训模型。
 
 **做完长这样**：
@@ -53,7 +53,7 @@
 
 **做完长这样**：
 - 论文：N=500 表复现；N=21 真实管道表复现。
-- 链：`load_sciforge_dag(path)` 能吃 1 号的导出。
+- 链：`load_sciforge_dag(path)` 能吃 5 号的导出。
 
 ---
 
@@ -64,13 +64,13 @@
 
 **做完长这样**：
 - 论文：打乱/压平对照复现；如果洞 B 做了，一行「共识 vs 同意」表。
-- 可选：1 号 SciForge 导出失败才找第三真实集。
+- 可选：5 号 SciForge 导出失败才找第三真实集。
 
 ---
 
 ### 5 号 — 동채하 — 文献、真实数据、写作、发表
 **论文轨认领**：HealthBench + BioBasicsBench 段（已经起草）；睡眠 75 / 13,990 动机；韩文大纲 `presentation_outline_ko.md`；发表（英文可以）。
-**SciForge 轨认领**：把 `EVIDENCE_CHAIN_DESIGN_CN.md` 写成 SciForge 侧的一页 ask，翻译给郑心。
+**SciForge 轨认领**：SciForge 联络——向郑心要 DAG 导出和收据字段；把 `EVIDENCE_CHAIN_DESIGN_CN.md` 写成 SciForge 侧的一页 ask。
 **不做**：变成 RL 理论人。方法是 2、3 号的。
 
 **做完长这样**：
@@ -91,7 +91,7 @@
 | GNN 多种子 CI（1.54 ± 0.46） | 2 号 |
 | GNN+PPO 收敛 | 2 号 |
 | 双 critic CMDP | 2 号 |
-| SciForge 置信度字段 / 图规模 | 1 号 |
+| SciForge 置信度字段 / 图规模 | 5 号 |
 | 共识/困难拆分（27/48） | 5 号 + 4 号 |
 | BestReject = 我们的阈值（说法已删） | 5 号，如果读了全文 |
 | 19% vs 22% 跨文件 | 1 号 |
@@ -104,7 +104,7 @@
 3 号（环境 + 图）  ──►  2 号（RL）  ──►  4 号（对照）
         │                                      │
         ▼                                      ▼
-1 号（SciForge 导出）  ──►  5 号（写 + 发表）
+1 号（叙事）  ──►  5 号（SciForge 联络 + 写 + 发表）
         │                                      │
         └─────────────► 郑心 / Zhangyang Gao ◄─────────┘
 ```
@@ -152,7 +152,7 @@ POST /suggest/review-order
 | 75 条纠错（76% order_error；27/48 共识） | 有 | 5 号（动机 + 洞 B），4 号（拆分评估） |
 | 合成 80 / 500 / 模块化 / BA / ER | 有（代码） | 3 号 |
 | 真实管道 N=21 | 有（手写） | 3 号 |
-| SciForge DAG 导出 | **没有——洞 A** | 1 号去要；3 号消费 |
+| SciForge DAG 导出 | **没有——洞 A** | 5 号去要；3 号消费 |
 | 置信度信号升级 | **没有——洞 D** | 2 号（不是数据集） |
 | CIFAR-10H / BurstGPT / 湿实验图像 | **不要找** | — |
 

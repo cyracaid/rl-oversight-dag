@@ -24,10 +24,10 @@
 
 ## 1. Five claims (each person picks one row)
 
-### Person 1 — 组长 / SciForge liaison
+### Person 1 — 组长 / 叙事
 **Track P (claim):** narrative, proposal, HealthBench/BioBasics section, figures into slides.
-**Track C (claim):** SciForge DAG export (Gap A) + handshake with 郑心.
-**Do not:** train models.
+**Track C (claim):** none. 동채하 (Person 5) owns the 郑心 / DAG-export ask.
+**Do not:** train models. **Do not:** become the SciForge integrator.
 
 **Done when:**
 - Paper: 12-page-equivalent narrative with figures, three-language sync.
@@ -53,7 +53,7 @@
 
 **Done when:**
 - Paper: N=500 table reproduced; N=21 real pipeline table reproduced.
-- Chain: `load_sciforge_dag(path)` works on Person 1's export.
+- Chain: `load_sciforge_dag(path)` works on Person 5's export.
 
 ---
 
@@ -64,13 +64,13 @@
 
 **Done when:**
 - Paper: shuffle/flatten controls reproduced; a one-row "consensus vs agree" table if Gap B is done.
-- Optional: a third real set only if Person 1's SciForge export fails.
+- Optional: a third real set only if Person 5's SciForge export fails.
 
 ---
 
 ### Person 5 — 동채하 — literature, real data, writing, presenting
 **Track P (claim):** HealthBench + BioBasicsBench sections (already drafted); sleep 75 / 13,990 motivation; Korean outline `presentation_outline_ko.md`; presenting (English OK).
-**Track C (claim):** write the SciForge-side one-pager from `EVIDENCE_CHAIN_DESIGN_CN.md`; translate receipt-field questions for 郑心.
+**Track C (claim):** SciForge liaison — ask 郑心 for the DAG export and receipt fields; write the SciForge-side one-pager from `EVIDENCE_CHAIN_DESIGN_CN.md`.
 **Do not:** become the RL theory person. The method is Persons 2–3.
 
 **Done when:**
@@ -91,10 +91,10 @@
 | GNN multi-seed CI (1.54 ± 0.46) | Person 2 |
 | GNN+PPO convergence | Person 2 |
 | Dual-critic CMDP | Person 2 |
-| SciForge confidence field / graph size | Person 1 |
+| SciForge confidence field / graph size | Person 5 |
 | Consensus/hard split (27/48) | Person 5 + Person 4 |
 | BestReject = our threshold (claim dropped) | Person 5, if they read the full paper |
-| 19% vs 22% cross-file | Person 1 |
+| 19% vs 22% cross-file | Person 1 (PM) |
 
 ---
 
@@ -104,9 +104,9 @@
 Person 3 (env + graphs)  ──►  Person 2 (RL)  ──►  Person 4 (controls)
         │                                              │
         ▼                                              ▼
-Person 1 (SciForge export)  ──►  Person 5 (write + present)
+Person 5 (SciForge ask + write)  ──►  郑心 / Zhangyang Gao
         │                                              │
-        └─────────────► 郑心 / Zhangyang Gao ◄─────────┘
+        └─────────────► Person 1 (PM + narrative) ◄────┘
 ```
 
 Critical path: **Person 3's frozen environment** → everyone else. If the environment moves, all numbers move.
@@ -152,7 +152,7 @@ Trying to land in SciForge *before* the paper is how this becomes an unfinished 
 | 75 corrections (76% order_error; 27/48 consensus) | yes | Person 5 (motivation + Gap B), Person 4 (split eval) |
 | Synthetic 80 / 500 / modular / BA / ER | yes (code) | Person 3 |
 | Real pipeline N=21 | yes (hand-encoded) | Person 3 |
-| SciForge DAG export | **no — Gap A** | Person 1 asks; Person 3 consumes |
+| SciForge DAG export | **no — Gap A** | Person 5 asks; Person 3 consumes |
 | Conf-signal upgrade | **no — Gap D** | Person 2 (not a dataset) |
 | CIFAR-10H / BurstGPT / wet-lab images | **do not search** | — |
 

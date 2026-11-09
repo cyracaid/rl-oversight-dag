@@ -73,7 +73,7 @@ We already have more data than we need for the course. The remaining work is **n
 
 | Gap | Who | How | Effort |
 |---|---|---|---|
-| **A. SciForge evidence DAG export** (de-identified) | Person 1 + 郑心 + Zhangyang Gao | ask for a small export of a real project's DAG (nodes, edges, types). If none exists, build a mock from SciForge docs. | 2–3 days |
+| **A. SciForge evidence DAG export** (de-identified) | Person 5 + 郑心 + Zhangyang Gao | ask for a small export of a real project's DAG (nodes, edges, types). If none exists, build a mock from SciForge docs. | 2–3 days |
 | **B. Consensus / Hard split of the 75** | Person 5 (동채하) | already have labels (27 / 48); evaluate the policy on each split. Do not collect new annotations. | 1 day |
 | **C. Optional third real set** | Person 4 — **only if** A fails | literature-labeling errors, another EMA set, or OpenNeuro / OpenML human-annotation data. **Do not download CIFAR-10H** unless the professor asks for an image proxy. | skip unless needed |
 | **D. Confidence signal improvement** (the ablation said this is the lever) | Person 2 | better conf: calibration, ensemble, or a small predictor on diary features. This is the X-factor, not a new dataset. | 2–3 days |
@@ -92,11 +92,11 @@ We already have more data than we need for the course. The remaining work is **n
 
 | Person | Primary work | Data they own |
 |---|---|---|
-| **1** | PM + narrative + SciForge liaison (郑心 / Zhangyang Gao) | SciForge DAG export (Gap A) |
+| **1** | PM + narrative | proposal + timeline |
 | **2** | Policy gradient / GNN / confidence-signal upgrade | confidence ablation (Gap D); no new dataset |
 | **3** | Environment + GNN + DQN + scale (N=500) | synthetic generators (already done) |
 | **4** | Baselines + controls + optional third dataset | Gap C only if A fails; else controls |
-| **5 동채하** | Literature + real-data motivation + writing + presenting | sleep 75 / 13,990 (already have); Gap B consensus/hard |
+| **5 동채하** | Literature + real-data motivation + writing + presenting + SciForge liaison | sleep 75 / 13,990 (already have); Gap B; Gap A ask |
 
 **Maia ten Brink** = data source + domain sanity-check on the sleep DAG. Not an RL method advisor.
 **Zhangyang Gao** = SciForge landing + whether the formulation fits the platform. The AI method is the course project.
