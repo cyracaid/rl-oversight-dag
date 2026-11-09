@@ -73,7 +73,9 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 
 ## Document index (every page, rendered)
 
-Every link below is the rendered GitHub Pages version — nothing here opens raw markdown in the browser.
+**Start here:** the evidence-chain design, then the implementation spec. Everything below is a
+rendered page — no link opens raw markdown in the browser. Plans (`RL_PLAN`, `TRACKS`,
+`GENERALIZATION_PLAN`) are working documents, not results; `PLAN.html` is their visual summary.
 
 | Document | English | 한국어 | 中文 |
 |---|---|---|---|
@@ -86,6 +88,10 @@ Every link below is the rendered GitHub Pages version — nothing here opens raw
 | SciForge proposal | [proposal_sciforge_en](https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_en.html) | — | — |
 | Slide outline | [presentation_outline](https://cyracaid.github.io/rl-oversight-dag/presentation_outline.html) | [presentation_outline_ko](https://cyracaid.github.io/rl-oversight-dag/presentation_outline_ko.html) | — |
 | Meeting one-pager | [HTML (tabs)](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.html) · [PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_en.pdf) | [PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_ko.pdf) | [PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_zh.pdf) |
+| Experiment plan (gates, diagnostics) | [RL_PLAN](https://cyracaid.github.io/rl-oversight-dag/RL_PLAN.html) | — | — |
+| Course vs SciForge split | [TRACKS](https://cyracaid.github.io/rl-oversight-dag/TRACKS.html) | — | — |
+| Generalization work packages | [GENERALIZATION_PLAN](https://cyracaid.github.io/rl-oversight-dag/GENERALIZATION_PLAN.html) | — | — |
+| Visual work plan (HTML) | [PLAN.html](https://cyracaid.github.io/rl-oversight-dag/PLAN.html) | — | — |
 | Illustrated talk | [talk.html](https://cyracaid.github.io/rl-oversight-dag/talk.html) | [talk.html](https://cyracaid.github.io/rl-oversight-dag/talk.html) | [talk.html](https://cyracaid.github.io/rl-oversight-dag/talk.html) |
 
 The same index is on the site landing page: <https://cyracaid.github.io/rl-oversight-dag/#documents>.

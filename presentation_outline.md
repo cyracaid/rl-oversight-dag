@@ -14,7 +14,7 @@ layout: default
 - 5 members + course name
 
 ## Slide 2 — Motivation
-- Fact 1: AI errors are not random — they cluster by type (real data: order_error = 76%, p < 0.0001)
+- Fact 1: the corrections are not random — they cluster by type (real data: order_error = 76%, p < 0.0001). Say "corrections to automated output": the file records the fix type, not whether the participant or the parser caused it.
 - Fact 2: unreviewed errors are reused downstream, surfacing only at the conclusion (graph propagation)
 - Say: *what* to review matters more than *how much*
 

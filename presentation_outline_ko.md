@@ -16,7 +16,7 @@ layout: default
 - 지도: Maia ten Brink (Stanford Psychophysiology Lab, 수면 데이터) · Zhangyang Gao (AI4Science, Shanghai AI Lab, SciForge)
 
 ## 슬라이드 2 — 동기
-- 사실 1: AI 오류는 무작위가 아니라 유형별로 뭉친다 (실데이터: order_error = 76%, p < 0.0001)
+- 사실 1: 교정은 무작위가 아니라 유형별로 뭉친다 (실데이터: order_error = 76%, p < 0.0001). "자동 출력에 대한 교정"이라고 말할 것 — 파일은 수정 유형만 기록하고, 참가자 입력 오류인지 파서 오류인지는 기록하지 않는다.
 - 사실 2: 검토 안 한 오류는 하류에서 재사용되고, 결론에서야 드러난다 (그래프 전파)
 - 말: "얼마나 검토하느냐"보다 "무엇을 검토하느냐"가 더 중요하다
 

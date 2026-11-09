@@ -10,7 +10,7 @@
 
 | Claim | Evidence today | Status |
 |---|---|---|
-| Belief-conditioned GNN + REINFORCE performs best | one run, seeds not fixed | **unverified — WP1** |
+| Belief-conditioned GNN + REINFORCE performs best | **no artifact in `experiments/` as of 2026-11-09**: the committed GNN runs are static and observed (observed already carries the belief posterior) and both lose to belief greedy, 1.56 vs 1.14 | **unsupported — WP1 must produce the run before anyone cites it** |
 | Belief greedy beats static/observed GNN on held-out graphs | 200 graphs, paired CI (+0.42 ± 0.15) | verified in-repo, needs rerun by a second person |
 | Type partition explains most of the real queue's recall | 1,048 flags, 68 labels | verified in-repo, single lab |
 
