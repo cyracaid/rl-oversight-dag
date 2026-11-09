@@ -1,0 +1,36 @@
+{
+  "narrow_unflagged": {
+    "n": 7,
+    "by_error_type": {
+      "(unlabeled)": 3,
+      "sleep_awake_equal_error": 2,
+      "awake_getup_diff_error": 1,
+      "order_error": 1
+    },
+    "by_column": {
+      "time_awake_corrected": 6,
+      "time_sleep_corrected": 1
+    },
+    "by_correction_type": {
+      "(none)": 5,
+      "set_awake_to_getup": 1,
+      "swap_awake_getup": 1
+    },
+    "by_audit_decision": {
+      "AUTO_PASS": 6,
+      "absent": 1
+    }
+  },
+  "broad_unflagged": {
+    "n": 17,
+    "by_has_correction": {
+      "manual": 17
+    }
+  },
+  "awake_equals_getup_rule": {
+    "rows": 507,
+    "corrected_inside": 33,
+    "precision": 0.0651,
+    "catches_unflagged": 5
+  }
+}

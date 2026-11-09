@@ -20,7 +20,7 @@ from bench.load import describe, load_queue, load_rows
 from bench.participant import (FEATURES, build_features, overdispersion,
                                participant_auc, scores_for)
 from bench.metrics import bootstrap_paired_diff, bootstrap_recall_ci, precision_at_k
-from bench.policies import score_all
+from bench.policies import score_all, type_partition_scores
 
 
 def main() -> None:
@@ -41,6 +41,7 @@ def main() -> None:
 
     ks = [10, 25, 50, 100, 200, 400, 800]
     scores = score_all(queue)
+    scores["type_partition"] = type_partition_scores(queue)
     pf = build_features(queue, rows)
     for name in FEATURES:
         scores[f"pid:{name}"] = scores_for(queue, pf, name)
@@ -92,7 +93,8 @@ def main() -> None:
         "| policy | R@50 | R@100 | R@200 | R@400 | P@100 | 95% CI R@100 |",
         "|---|---:|---:|---:|---:|---:|---|",
     ]
-    order = ["queue_order", "random", "rule_count", "m1_first", "m1_then_sol_gap", "oracle"]
+    order = ["queue_order", "random", "rule_count", "m1_first", "type_partition",
+             "m1_then_sol_gap", "oracle"]
     for name in order:
         if name not in curves:
             continue
@@ -152,7 +154,7 @@ def main() -> None:
 
         fig, ax = plt.subplots(figsize=(6, 4))
         for name in ["queue_order", "random", "rule_count", "m1_first",
-                     "pid:m1_density", "oracle"]:
+                     "type_partition", "pid:m1_density", "oracle"]:
             ax.plot(ks, [curves[name][k] for k in ks], marker="o", label=name)
         ax.set_xlabel("review budget k (items)")
         ax.set_ylabel("recall of human-confirmed errors")

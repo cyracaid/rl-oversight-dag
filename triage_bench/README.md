@@ -50,11 +50,16 @@ Key: `(pid, day_num, row_id)`. Two label definitions are reported, never mixed:
 ```bash
 python3 triage_bench/run_bench.py        # Table 1: recall@k + CI + figure
 python3 triage_bench/run_m4_mining.py    # the remaining headroom, or its absence
+python3 triage_bench/run_ceiling.py      # the three bounds (coverage / type / power)
+python3 triage_bench/run_unflagged.py    # the corrections the queue never sees
+python3 triage_bench/run_belief_queue.py # belief greedy inside the M4-only block
 ```
 
-Outputs: `outputs/table1.md`, `outputs/recall_at_k.json`,
-`outputs/queue_summary.json`, `outputs/m4_mining.md`, `outputs/m4_mining.json`,
-`figures/recall_at_k.png`.
+Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,
+`participant.json`, `m4_mining.md`, `ceiling.md`, `unflagged.md`,
+`belief_queue.md`, plus `figures/recall_at_k.png`.
+
+The one-page argument is [`CEILING.md`](CEILING.md).
 
 ---
 
@@ -78,7 +83,24 @@ costs ~15 reviews.
 - **Errors cluster inside participants** (variance/mean 2.00 vs label-shuffle null 1.10, p = 0.0005; one participant carries 7 errors).
 - Inside that block, a participant-grouped CV model reaches **AUC 0.467** (worse than chance; permutation p = 0.53). The best fixed single feature (`sleepperiod_minutes`) has AUC 0.78 (family-wise p = 0.010) but yields P@100 = 3% — 3 errors per 100 reviews.
 - Ranking *participants* by M1 density reaches 91.2% at k=400, but the paired difference against the row-level rule is **not significant** (@400 +7.3% [−8.6%, +10.0%], @200 −1.5% [−11.4%, +6.8%]).
-- 7–8 corrections are **never flagged at all**, so no ranking policy can reach them.
+- 7 corrections (narrow) / 17 (broad) are **never flagged at all**, so no ranking policy can reach them.
+
+### The ceiling (see `CEILING.md`)
+
+| bound | value |
+|---|---|
+| coverage, narrow (in queue / all corrections) | 65 / 72 = **90.3%** |
+| coverage, broad | 68 / 85 = **80.0%** |
+| type-only ceiling @k=100 / @k=140 | 61.8% / **83.8%** |
+| detectable difference with this sample | **~10pp or larger** |
+
+- **84% is the ceiling, not a victory.** No type-only policy can exceed it,
+  because M4-only rows are exchangeable at a 1.2% rate.
+- **Three escapes failed:** within-M4 features (AUC 0.467), adaptive belief over
+  participants (P@200 1.5% vs 1.24%), and one extra rule `awake == getup`
+  (6.5% precision = base rate).
+- **17 broad corrections were never flagged** (7 in the narrow set), and 6 of
+  those 7 target `time_awake` — a detector blind spot, not a ranking miss.
 
 ### What this means (and what it forbids claiming)
 
@@ -97,11 +119,16 @@ costs ~15 reviews.
 ## Files
 
 ```
-bench/config.py      paths, seeds, and the refuse-to-run-inside-repo guard
-bench/load.py        join queue + labels + features; label columns dropped
-bench/policies.py    queue order / random / rule count / M1-first / oracle
-bench/metrics.py     recall@k, precision@k, pid-clustered bootstrap CI
-bench/mine_m4.py     grouped CV, permutation tests, univariate rules
-run_bench.py         Table 1
-run_m4_mining.py     M4-only headroom
+bench/config.py        paths, seeds, and the refuse-to-run-inside-repo guard
+bench/load.py          join queue + labels + features; label columns dropped
+bench/policies.py      queue order / random / rule count / M1-first / type partition / oracle
+bench/metrics.py       recall@k, precision@k, pid-clustered bootstrap, paired diff
+bench/mine_m4.py       grouped CV, permutation tests, univariate rules
+bench/participant.py   participant features, clustering test, participant scoring
+bench/belief_queue.py  Beta-Bernoulli belief over participants, simulated deployment
+run_bench.py           Table 1
+run_m4_mining.py       M4-only headroom
+run_ceiling.py         coverage / type / power bounds
+run_unflagged.py       profile of never-flagged corrections
+run_belief_queue.py    belief greedy inside the M4-only block
 ```

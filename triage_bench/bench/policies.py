@@ -44,3 +44,27 @@ def score_all(queue: pd.DataFrame) -> dict[str, np.ndarray]:
     scores = {name: fn(queue) for name, fn in POLICIES.items()}
     scores[RANDOM_NAME] = random_scores(queue)
     return scores
+
+
+
+def type_partition_scores(queue: pd.DataFrame) -> np.ndarray:
+    """Four-way type partition, ordered by observed positive rate.
+
+    M1-only (42.7%) > M1+M4 (35.1%) > M4-only (1.2%) > other (0.0%). The rates are
+    read off this queue; a deployable version estimates them on another cohort
+    (the ordering is stable under leave-one-participant-out -- see run_ceiling.py).
+    Ties fall back to queue order.
+    """
+    group = _type_group(queue)
+    order = {"M1": 3.0, "M1+M4": 2.0, "M4": 1.0, "other": 0.0}
+    return group.map(order).to_numpy(float)
+
+
+def _type_group(queue: pd.DataFrame) -> pd.Series:
+    m1 = queue["m1"].astype(bool)
+    m4 = queue["m4"].astype(bool)
+    group = pd.Series("other", index=queue.index, dtype=object)
+    group[m4] = "M4"
+    group[m1] = "M1"
+    group[m1 & m4] = "M1+M4"
+    return group
