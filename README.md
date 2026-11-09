@@ -15,6 +15,7 @@
 
 **Implementation spec (build from this):**
 [English `IMPLEMENTATION_SPEC.md`](IMPLEMENTATION_SPEC.md) ·
+[한국어 `IMPLEMENTATION_SPEC_KO.md`](IMPLEMENTATION_SPEC_KO.md) ·
 [中文 `IMPLEMENTATION_SPEC_CN.md`](IMPLEMENTATION_SPEC_CN.md)
 
 Repo: https://github.com/cyracaid/rl-oversight-dag
