@@ -287,18 +287,7 @@ A reviewer can ask "is this just FALCON on a graph" and get: FALCON has no error
 
 ---
 
-## 11. Decisions this design asks of others
-
-| Who | Decision |
-|---|---|
-| Maia ten Brink, PhD | bandit → MDP reframe; synthetic main experiment; real data as motivation only; evidence-chain boundaries; sleep-pipeline DAG |
-| Zhangyang Gao, PhD | RL method stack (GNN + REINFORCE/PPO; CMDP dual critic); whether a synthetic main experiment is acceptable for an RL course |
-| 郑心 (evidence-chain owner) | may suggester output enter the audit chain; receipt fields; does a node have confidence |
-| Teammates | own the Section 8 checks; pick dual-critic CMDP **or** GNN-at-scale, not both badly |
-
----
-
-## 12. File map (what lives where)
+## 11. File map (what lives where)
 
 | Path | Role |
 |---|---|

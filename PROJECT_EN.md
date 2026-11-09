@@ -301,8 +301,6 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 **AI4Science positioning.** This suggester is the **review layer of a research evidence chain**: front end (highlight-and-ask on code) produces review traces; the middle (this policy) decides where finite human attention goes first; the back end (SciForge DAG + receipts) guarantees the machine never stamps. Together they answer: **when AI assists research, where should finite human attention be spent.**
 
-**Decisions needed.** Professor: bandit → MDP direction and a synthetic main experiment. Evidence-chain owner: may suggester output enter the audit chain. Teammates: Section 12 division.
-
 ## 12. Verification status
 
 **Checked:** citations against abstracts; Section 7 numbers against `experiments/final_table.md`; real-data numbers recomputed 2026-11-09.
@@ -329,7 +327,6 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 | 3 | Environment + value-based (DQN) + GNN scorer | 2 | env module + GNN results |
 | 4 | Baselines + controls | 2 | comparison table + shuffle/flatten |
 | 5 (동채하) | Narrative + 郑心 liaison + literature synthesis + writing + presenting (English) | 1 | related work + motivation + slides |
-
 
 | Date | Milestone | Owner |
 |---|---|---|

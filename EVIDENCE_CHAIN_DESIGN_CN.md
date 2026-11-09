@@ -287,18 +287,7 @@ OpenAI 的两个 everyday-science 基准是哲学先例，不是调度先例。
 
 ---
 
-## 11. 这个设计请别人拍板的事
-
-| 谁 | 拍什么 |
-|---|---|
-| Maia ten Brink, PhD | bandit → MDP 重构；合成主实验；真实数据只作动机；证据链边界；睡眠管道 DAG |
-| Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab) | RL 方法栈（GNN + REINFORCE/PPO；CMDP 双 critic）；RL 课上合成主实验是否接受 |
-| 郑心（证据链主人） | 建议器输出能否进审计链；收据字段；节点有没有置信度 |
-| 组员 | 认领第 8 节的检查；选双 critic CMDP **或** GNN 上规模，别两个都做砸 |
-
----
-
-## 12. 文件住哪
+## 11. 文件住哪
 
 | 路径 | 角色 |
 |---|---|
