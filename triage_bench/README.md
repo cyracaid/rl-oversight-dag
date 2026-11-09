@@ -59,7 +59,9 @@ Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,
 `participant.json`, `m4_mining.md`, `ceiling.md`, `unflagged.md`,
 `belief_queue.md`, plus `figures/recall_at_k.png`.
 
-The one-page argument is [`CEILING.md`](CEILING.md).
+The one-page argument is [`CEILING.md`](CEILING.md); the paper draft is
+[`SECTION5_CEILING.md`](SECTION5_CEILING.md); the data request for the SciForge
+chain is [`SCIFORGE_ASK.md`](SCIFORGE_ASK.md).
 
 ---
 
