@@ -24,6 +24,22 @@ exactly what belief greedy sees. Everything else unchanged (GNN scorer, REINFORC
 Run this before anything else. It costs ~30 minutes of compute and it sets the
 structure of the entire deliverable.
 
+> **Correction (2026-11-09, before anyone spends the 30 minutes).** This exact
+> experiment has already been run. The "observed state" variant in
+> `experiments/rl_gnn_multiseed.py` already feeds `P(base error)`, `P(error)`,
+> `reviewed`, `flagged` and the budget fraction, refreshed after every review.
+> Held-out (n=200, paired): **1.56 vs 1.56** static, **−0.00 ± 0.08**; both lose to
+> belief greedy by **+0.42 ± 0.15**. The posterior is not the missing piece.
+>
+> What is still untested is narrower, and it is the actual G0:
+> **(a) the one-step value** `gain(i)` that `belief.py:best_action` argmaxes — the
+> policy sees the belief, not the value it should compare against;
+> **(b)** credit assignment under a terminal-only reward over 16 steps;
+> **(c)** the regime where the greedy's model is wrong — that is the only place
+> learning has an information advantage over a planner.
+>
+> Pre-registered gate criteria: `PROPOSAL_COURSE.md` §8.
+
 ---
 
 ## 1. MDP, stated once
