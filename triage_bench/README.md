@@ -62,7 +62,8 @@ Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,
 
 The one-page argument is [`CEILING.md`](CEILING.md); the paper draft is
 [`SECTION5_CEILING.md`](SECTION5_CEILING.md); the data request for the SciForge
-chain is [`SCIFORGE_ASK.md`](SCIFORGE_ASK.md).
+chain is [`SCIFORGE_ASK.md`](SCIFORGE_ASK.md); the granularity decision memo is
+[`AUDIT_GRANULARITY.md`](AUDIT_GRANULARITY.md).
 
 ---
 
