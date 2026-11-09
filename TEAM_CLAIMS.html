@@ -67,7 +67,7 @@
   <p>第一条真实数据：睡眠日记（Maia ten Brink，Stanford）。第二个目标：SciForge（Zhangyang Gao，上海 AI Lab）。</p>
 </div>
 
-<h2>先看这七个词</h2>
+<h2>先看这些词</h2>
 <table>
   <tr><th>词</th><th>大白话</th></tr>
   <tr><td><b>belief greedy</b></td><td>要打败的那条简单规则："先审最能减少下游错误的节点"</td></tr>
@@ -77,6 +77,10 @@
   <tr><td><b>N=21</b></td><td>我们真实实验室流程（21 步），不是合成图</td></tr>
   <tr><td><b>shuffle / flatten</b></td><td>把图结构破坏掉的对照。优势活下来，才说明是图在起作用</td></tr>
   <tr><td><b>Gap A–D</b></td><td>缺的四样：SciForge 导出、共识标签、第三数据集、更好的置信度信号</td></tr>
+  <tr><td><b>N=500，三种形状</b></td><td>500 节点合成图：模块化（成簇）、无标度（几个 hub）、随机。看规模变大还成不成立</td></tr>
+  <tr><td><b>27/48 拆分</b></td><td>75 条纠错里 27 条多人一致、48 条单人标注；两半都要报</td></tr>
+  <tr><td><b>失配</b></td><td>故意把模型假设弄错（边概率、漂移、漏检 30%），看谁活得下来</td></tr>
+  <tr><td><b>信用分配</b></td><td>16 次审阅里哪一次该为最终分数负责；奖励只在最后给</td></tr>
 </table>
 
 <h2>两条线</h2>
@@ -95,9 +99,9 @@
   <tr><th>人</th><th>你负责</th><th>做到什么算完</th><th>别做</th></tr>
   <tr>
     <td><b>1 号</b></td>
-    <td>时间线、提案、幻灯片、三语版本一致</td>
-    <td>12 页正文 + 图；幻灯片排练过；PDF 里没有旧数字</td>
-    <td>训模型；别当 SciForge 集成工程师</td>
+    <td>时间线、幻灯片、talk 前半段、提交（三语同步归 5 号）</td>
+    <td>时间线存在；两位发表人各排练两次并计时；提交清单完成</td>
+    <td>训模型；管 SciForge 集成；做三语同步</td>
   </tr>
   <tr>
     <td><b>2 号</b></td>
@@ -119,26 +123,26 @@
   </tr>
   <tr>
     <td class="best"><b>5 동채하</b></td>
-    <td class="best">动机（75 条纠错）、相关工作、向郑心提要求、英文发表</td>
-    <td class="best">相关工作一节 + 动机一页 + 一页 SciForge 需求 + 排练一次</td>
-    <td class="best">变成 RL 理论负责人（方法是 2、3 号）</td>
+    <td class="best">动机（75 条）、相关工作、三语同步、talk 后半段、郑心联络</td>
+    <td class="best">四样都在，且后半段排练过</td>
+    <td class="best">变成 RL 理论负责人</td>
   </tr>
 </table>
 
 <h2>每个人：目的 / 难点 / 原则</h2>
 <table>
   <tr><th>人</th><th>目的</th><th>难点</th><th>最重要的一条原则</th></tr>
-  <tr><td><b>1 号</b></td><td>论文按时发，数字还是真的</td><td>不产数字，却要对所有数字负责；三语比一語漂得快</td><td>一个数字、一个脚本、一个来源</td></tr>
+  <tr><td><b>1 号</b></td><td>论文和 talk 按时交付，数字还是真的</td><td>不产数字，却要为所有数字和整场 talk 负责</td><td>一个数字、一个脚本、一个来源</td></tr>
   <tr><td><b>2 号</b></td><td>搞清学习能不能赢规则，赢了输了都拿证据</td><td>对手是带模型的规划器；后验已经喂过；奖励只在最后</td><td>先写判定线，再跑；只认配对 5 seeds</td></tr>
   <tr><td><b>3 号</b></td><td>一个冻结的模拟器，所有数字从它出来</td><td>在关键路径上，一动所有表都得动</td><td>任何改动 = 新 tag + 全量重跑</td></tr>
   <tr><td><b>4 号</b></td><td>比较公平到评审没法一句话打发</td><td>会杀死自己结果的对照，做起来像认输</td><td>对照失败也是信息，写进摘要不是附录</td></tr>
-  <tr><td class="best"><b>5 동채하</b></td><td class="best">让不做 RL 的读者听懂，SciForge 的门别关</td><td class="best">75 条容易说过头；SciForge 的节奏在别人手里</td><td class="best">没有 caveat 的数字不上幻灯片</td></tr>
+  <tr><td class="best"><b>5 동채하</b></td><td class="best">让不做 RL 的读者听懂，SciForge 的门别关</td><td class="best">75 条容易说过头；三语会漂；SciForge 节奏在别人手里</td><td class="best">没有 caveat 的数字不上幻灯片</td></tr>
 </table>
 
 <div class="box amber">
   <p><b>本周各自的第一件事</b></p>
   <ul>
-    <li>1 号：把 11/09 → 11/23 的时间线做成一页，标出谁卡在谁身上。</li>
+    <li>1 号：做一页时间线 + 幻灯片骨架，和 5 号排一次 talk 分工。</li>
     <li>2 号：跑 gate——把 <code>gain(i)</code> 加进特征，5 seeds、200 张 held-out、配对比较。</li>
     <li>3 号：冻结三个脚本，把「审阅只清自己的错误」写进代码注释。</li>
     <li>4 号：在 held-out 上跑完五个基线，配对 CI。</li>
@@ -194,11 +198,11 @@
 <h2>开会时每个人能说出的一句话</h2>
 <table>
   <tr><th>人</th><th>那句话</th></tr>
-  <tr><td>1</td><td>「时间线和提案是我。동채하负责证据链设计和郑心那边。」</td></tr>
+  <tr><td>1</td><td>「我管时间线、幻灯片和 talk 前半段。동채하管证据链、三语和 talk 后半段。」</td></tr>
   <tr><td>2</td><td>「学到的策略 1.56，简单规则 1.14。消融说瓶颈在信号。我要么补上差距，要么写清楚为什么补不上。」</td></tr>
   <tr><td>3</td><td>「环境是我冻结的。图一动，所有数字都动。」</td></tr>
   <tr><td>4</td><td>「基线和对照是我。shuffle 和 flatten 杀不掉优势，优势才是真的。」</td></tr>
-  <tr><td class="best">5 동채하</td><td class="best">「叙事、郑心那边、文献、真实数据动机、英文发表都是我。」</td></tr>
+  <tr><td class="best">5 동채하</td><td class="best">「叙事、三语同步、文献、郑心联络、真实数据动机和 talk 后半段是我。」</td></tr>
 </table>
 
 <div class="box">

@@ -14,7 +14,7 @@ permalink: /TEAM_CLAIMS_EN.html
 
 ---
 
-## Read this first: seven words
+## Read this first: the words
 
 | Word | Plain meaning |
 |---|---|
@@ -25,6 +25,10 @@ permalink: /TEAM_CLAIMS_EN.html
 | **N=21** | our real lab pipeline (21 steps), not a synthetic graph |
 | **shuffle / flatten** | controls that destroy the graph. If our advantage survives them, the graph is doing the work |
 | **Gap A / B / C / D** | the four things we do not have: SciForge export (A), consensus labels (B), a third dataset (C), a better confidence signal (D) |
+| **N=500, three shapes** | 500-node synthetic graphs: modular (clusters), scale-free (a few hubs), random. Checks whether the method survives scale. |
+| **27/48 split** | of the 75 corrections, 27 were agreed by more than one annotator, 48 by one. Results are reported on both halves. |
+| **misspecification** | we deliberately give the model wrong assumptions — wrong edge probabilities, drifting type rates, 30% missed errors — and see who survives. |
+| **credit assignment** | deciding which of the 16 review actions deserves credit for the final score. Terminal reward makes this hard. |
 
 ---
 
@@ -43,26 +47,26 @@ permalink: /TEAM_CLAIMS_EN.html
 
 ## 1. Who owns what
 
-Every row has the same fields: **goal** (why it exists), **this week**, **you own**, **hard part**, **principles** (the rules that keep it honest), **done when**, **don't**.
+Every row: **goal** → **this week** → **you own** → **hard part** → **principles** → **done when** → **don't**.
 
-### Person 1 — PM / narrative
-**Goal:** the paper ships on 11/23 with numbers that are still true, and no reader finds two versions that disagree.
+### Person 1 — PM + co-presenter
+**Goal:** the paper and the talk ship on 11/23 with numbers that are still true.
 
-**This week:** put the timeline on one page and mark who is blocked on whom.
+**This week:** one-page timeline (who does what, who is blocked) and a slide skeleton.
 
 **You own:**
-- the timeline, updated weekly — who is doing what, where it is stuck;
-- the proposal and the deck;
-- three-language sync;
-- chasing stale numbers out of slides and PDFs.
+- the timeline and the risk list, updated weekly;
+- the deck: section order, one message per slide, timing;
+- **the talk, first half** — problem, what we built, the result. Person 5 takes the second half. Rehearse together, twice, with a clock;
+- the submission: file names, PDF export, who sends it.
 
-**Hard part:** you control no number yourself — every number belongs to someone else, and a nicer story is always available. Three languages drift faster than one.
+**Hard part:** you produce no number yourself — every number belongs to someone else, and a nicer story is always available.
 
-**Principles:** one number, one script, one source; anything not reproduced goes in the limits section, not the abstract; never edit a table by hand; change all three languages in the same commit.
+**Principles:** one number, one script, one source; unreproduced results go in limits, not the abstract; never edit a table by hand.
 
-**Done when:** the 12-page narrative with figures exists, the deck is rehearsed twice with timing, and no old number survives.
+**Done when:** the timeline exists, both presenters have rehearsed twice with timing, and the submission checklist is done.
 
-**Don't:** train models; become the SciForge integrator.
+**Don't:** train models; own the SciForge integration; keep the three languages in sync — that is Person 5's.
 
 ### Person 2 — policy and confidence signal
 **Goal:** find out whether the learned policy can beat the rule, and say which — with evidence either way.
@@ -70,15 +74,16 @@ Every row has the same fields: **goal** (why it exists), **this week**, **you ow
 **This week:** run the gate — add `gain(i)` to the node features, 5 seeds, 200 held-out graphs, paired.
 
 **You own:**
-- the gate and its stop rule (n-step / actor-critic with `gain` as baseline, then stop and write the result);
-- the confidence signal: calibration or a small predictor; measure noise 3.78 / normal 1.38 / oracle 0.72;
-- the misspecification conditions: edge probabilities ±50%, type rates drifting, reviewer miss rate 30%;
-- one paragraph on *why* the gap exists.
+- **the gate.** One experiment decides the project. `gain(i)` is the value the rule maximises: how many downstream errors a review of node *i* is expected to cut. The policy currently sees "how likely is this node wrong", not "how much is it worth reviewing".
+- **the decision after the gate.** If the gap closes, the gap was a missing feature. If it does not, it is credit assignment. Then try n-step / actor-critic with `gain` as the baseline; if we are still ≥ 0.20 behind, stop and write why. Do not start a fourth variant.
+- **the confidence signal.** The number that says how much we trust a node's verdict. The ablation says this is the lever: noise 3.78 / normal 1.38 / oracle 0.72.
+- **the misspecification tests.** Break the model on purpose — edge probabilities off by ±50%, type rates drifting over time, reviewer missing 30% of errors. This is where a learned policy could beat a rule that trusts the model.
+- **one paragraph** on why the gap exists.
 
 **Hard part:**
 - the rule is a planner with the model, not a heuristic;
-- the easy explanation is already spent — the belief posterior is in the state and changed nothing (−0.00 ± 0.08);
-- reward is terminal over 16 steps, so credit is hard;
+- the easy explanation is spent: the belief posterior is already in the state and changed nothing (−0.00 ± 0.08);
+- reward arrives only at the end, after 16 reviews — that is the credit-assignment problem;
 - the signal sets the ceiling (0.72 oracle / 1.38 normal);
 - seeds disagree (1.51 ± 0.41), so one run proves nothing.
 
@@ -94,14 +99,15 @@ Every row has the same fields: **goal** (why it exists), **this week**, **you ow
 **This week:** freeze the three scripts and write the intervention rule into the code comments.
 
 **You own:**
-- `spike_active_selection.py`, `graph_scale.py`, `real_pipeline_graph.py` — frozen;
-- the rule "a review clears only the node's own error; errors inherited from upstream survive" (pinned by 5 tests);
-- reproducing the N=500 three-family table and the N=21 table;
-- one command that regenerates the main tables.
+- the three scripts, frozen: `spike_active_selection.py` (the simulator), `graph_scale.py` (large synthetic graphs), `real_pipeline_graph.py` (the real pipeline);
+- **the N=500 table.** 500-node synthetic graphs in three shapes — modular (clusters), scale-free (a few hubs), random. It answers: does the method still work when the graph is six times larger than the main setting?
+- **the N=21 table.** Our real lab pipeline, 21 steps, budget 8. It answers: what happens on our own data? No review 2.12, threshold 0.50.
+- **what "reproduce" means.** Someone else, from a clean clone and one command, gets the same numbers — not "it ran on my laptop".
+- the rule "a review clears only the node's own error; errors inherited from upstream survive" (pinned by 5 tests).
 
 **Hard part:** the environment is the critical path — if it moves, every table moves. The intervention semantics is easy to get wrong: the docs said the opposite in 8 places before the audit.
 
-**Principles:** freeze before the paper weeks; any change gets a new tag and a full rerun; tests before prose; the simulator is the source of truth, not the paper.
+**Principles:** freeze before the paper weeks; any change gets a new tag and a full rerun; tests before prose; the simulator is the truth, not the paper.
 
 **Done when:** the reproduction log and a tagged commit exist.
 
@@ -113,10 +119,12 @@ Every row has the same fields: **goal** (why it exists), **this week**, **you ow
 **This week:** run the five baselines on the held-out graphs with paired CIs.
 
 **You own:**
-- threshold / structural greedy / hub / no-review / random on every graph family, 5 seeds;
-- the shuffle and flatten controls;
-- worst-of-n next to the mean;
-- the 27/48 split, if Person 5 hands over the labels.
+- the five baselines — confidence threshold, structural greedy, hub, no-review, random — on every graph shape, 5 seeds;
+- **the controls.**
+  - *flatten*: remove the graph and treat every node as independent. If our advantage disappears, it came from the graph — which is the claim.
+  - *shuffle*: rewire the edges at random. If the advantage survives, it was not using the real structure.
+- **worst-of-n**: the worst seed, not just the average — one unreviewed error can invalidate a conclusion.
+- **the 27/48 split.** Of the 75 corrections, 27 were agreed by more than one annotator and 48 by a single one. Evaluate on both halves; if the policy only works on the single-annotator half, say so.
 
 **Hard part:** controls that kill our own result feel like losing; a control that passes proves little, and one that fails is information.
 
@@ -126,22 +134,23 @@ Every row has the same fields: **goal** (why it exists), **this week**, **you ow
 
 **Don't:** download CIFAR-10H or BurstGPT.
 
-### Person 5 — 동채하 — narrative, SciForge liaison, literature, presenting
+### Person 5 — 동채하 — narrative, languages, SciForge, co-presenter
 **Goal:** make the problem land for a reader who does not do RL, and keep the SciForge door open without delaying the paper.
 
-**This week:** write the motivation slide with the three real numbers.
+**This week:** the motivation slide with the three real numbers.
 
 **You own:**
 - motivation: 75 corrections / 13,990 rows / 76% one type — plus the caveat that this is the *fix* type, not proof the AI caused it;
 - related work: HealthBench and BioBasicsBench, 3–5 sentences each, with the difference from us;
-- the one-page SciForge ask to 郑心 (export fields, receipt fields), and a note of the reply;
-- the Korean outline, one rehearsal, and presenting in English.
+- **keeping the three languages in sync** — Person 1 no longer does this; when a number changes, all three pages change in the same commit;
+- **the talk, second half** — why it matters, related work, what is next — in English, rehearsed with Person 1;
+- the one-page SciForge ask to 郑心 (export fields, receipt fields), and a note of the reply.
 
-**Hard part:** the 75 corrections are easy to over-claim — they record the fix, not who caused it; and the SciForge ask runs on someone else's schedule.
+**Hard part:** the 75 corrections are easy to over-claim — they record the fix, not who caused it; the SciForge ask runs on someone else's schedule; three languages drift.
 
-**Principles:** no number without its caveat; the partner decides, we ask; never promise an integration date.
+**Principles:** no number without its caveat; the partner decides, we ask; never promise an integration date; change all three languages in one commit.
 
-**Done when:** those four artefacts exist.
+**Done when:** those artefacts exist and the second half is rehearsed.
 
 **Don't:** become the RL theory person.
 ---
