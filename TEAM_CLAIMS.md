@@ -47,72 +47,102 @@ Every row has the same fields: **goal** (why it exists), **this week**, **you ow
 
 ### Person 1 — PM / narrative
 **Goal:** the paper ships on 11/23 with numbers that are still true, and no reader finds two versions that disagree.
+
 **This week:** put the timeline on one page and mark who is blocked on whom.
+
 **You own:**
 - the timeline, updated weekly — who is doing what, where it is stuck;
 - the proposal and the deck;
 - three-language sync;
 - chasing stale numbers out of slides and PDFs.
+
 **Hard part:** you control no number yourself — every number belongs to someone else, and a nicer story is always available. Three languages drift faster than one.
+
 **Principles:** one number, one script, one source; anything not reproduced goes in the limits section, not the abstract; never edit a table by hand; change all three languages in the same commit.
+
 **Done when:** the 12-page narrative with figures exists, the deck is rehearsed twice with timing, and no old number survives.
+
 **Don't:** train models; become the SciForge integrator.
 
 ### Person 2 — policy and confidence signal
 **Goal:** find out whether the learned policy can beat the rule, and say which — with evidence either way.
+
 **This week:** run the gate — add `gain(i)` to the node features, 5 seeds, 200 held-out graphs, paired.
+
 **You own:**
 - the gate and its stop rule (n-step / actor-critic with `gain` as baseline, then stop and write the result);
 - the confidence signal: calibration or a small predictor; measure noise 3.78 / normal 1.38 / oracle 0.72;
 - the misspecification conditions: edge probabilities ±50%, type rates drifting, reviewer miss rate 30%;
 - one paragraph on *why* the gap exists.
+
 **Hard part:**
 - the rule is a planner with the model, not a heuristic;
 - the easy explanation is already spent — the belief posterior is in the state and changed nothing (−0.00 ± 0.08);
 - reward is terminal over 16 steps, so credit is hard;
 - the signal sets the ceiling (0.72 oracle / 1.38 normal);
 - seeds disagree (1.51 ± 0.41), so one run proves nothing.
+
 **Principles:** write the bar down before running; paired held-out with 5 seeds only; a miss is a result, not a failure; never tune on held-out.
+
 **Done when:** a paired table plus that paragraph, and code that reruns from a clean clone.
+
 **Don't:** tune DQN until it looks like a win; touch SciForge code.
 
 ### Person 3 — environment and graphs
 **Goal:** one frozen simulator that every other number comes from.
+
 **This week:** freeze the three scripts and write the intervention rule into the code comments.
+
 **You own:**
 - `spike_active_selection.py`, `graph_scale.py`, `real_pipeline_graph.py` — frozen;
 - the rule "a review clears only the node's own error; errors inherited from upstream survive" (pinned by 5 tests);
 - reproducing the N=500 three-family table and the N=21 table;
 - one command that regenerates the main tables.
+
 **Hard part:** the environment is the critical path — if it moves, every table moves. The intervention semantics is easy to get wrong: the docs said the opposite in 8 places before the audit.
+
 **Principles:** freeze before the paper weeks; any change gets a new tag and a full rerun; tests before prose; the simulator is the source of truth, not the paper.
+
 **Done when:** the reproduction log and a tagged commit exist.
+
 **Don't:** add a new graph family during the paper weeks.
 
 ### Person 4 — baselines and controls
 **Goal:** a comparison fair enough that a reviewer cannot dismiss it.
+
 **This week:** run the five baselines on the held-out graphs with paired CIs.
+
 **You own:**
 - threshold / structural greedy / hub / no-review / random on every graph family, 5 seeds;
 - the shuffle and flatten controls;
 - worst-of-n next to the mean;
 - the 27/48 split, if Person 5 hands over the labels.
+
 **Hard part:** controls that kill our own result feel like losing; a control that passes proves little, and one that fails is information.
+
 **Principles:** same graphs, same randomness, paired; report worst-of-n; if a control removes the advantage, it goes in the abstract, not the appendix.
+
 **Done when:** the control table and a note on what each control rules out.
+
 **Don't:** download CIFAR-10H or BurstGPT.
 
 ### Person 5 — 동채하 — narrative, SciForge liaison, literature, presenting
 **Goal:** make the problem land for a reader who does not do RL, and keep the SciForge door open without delaying the paper.
+
 **This week:** write the motivation slide with the three real numbers.
+
 **You own:**
 - motivation: 75 corrections / 13,990 rows / 76% one type — plus the caveat that this is the *fix* type, not proof the AI caused it;
 - related work: HealthBench and BioBasicsBench, 3–5 sentences each, with the difference from us;
 - the one-page SciForge ask to 郑心 (export fields, receipt fields), and a note of the reply;
 - the Korean outline, one rehearsal, and presenting in English.
+
 **Hard part:** the 75 corrections are easy to over-claim — they record the fix, not who caused it; and the SciForge ask runs on someone else's schedule.
+
 **Principles:** no number without its caveat; the partner decides, we ask; never promise an integration date.
+
 **Done when:** those four artefacts exist.
+
 **Don't:** become the RL theory person.
 ---
 
