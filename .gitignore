@@ -1,0 +1,13 @@
+# ===== 红线：内部真实数据，绝不提交 =====
+*.rds
+*.csv
+data/
+data-raw/
+
+# ===== Python =====
+__pycache__/
+*.pyc
+*.pyo
+
+# ===== 系统文件 =====
+.DS_Store
