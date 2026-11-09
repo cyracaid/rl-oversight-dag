@@ -80,17 +80,17 @@ The node scorer is a **GNN**: each node's (type, confidence, downstream influenc
 
 ### 5.1 Mathematical formalization (scaled experiments)
 
-Let the evidence graph be a DAG \(G=(V,E)\). Node \(v\)'s true state \(X_v \in \{0,1\}\) (1 = correct).
+Let the evidence graph be a DAG $G=(V,E)$. Node $v$'s true state $X_v \in \{0,1\}$ (1 = correct).
 
-**Causal propagation.** For an edge \((u,v)\) with dependency weight \(w_{uv}\):
+**Causal propagation.** For an edge $(u,v)$ with dependency weight $w_{uv}$:
 
-\[
+$$
 P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda \, w_{uv}),
-\]
+$$
 
-with infection coefficient \(\lambda\) and \(w_{uv}\sim U(0.5, 1.5)\). A review of node \(v\) is a **causal intervention**: force \(X_v = 1\), cutting outgoing infection on that edge.
+with infection coefficient $\lambda$ and $w_{uv}\sim U(0.5, 1.5)$. A review of node $v$ is a **causal intervention**: force $X_v = 1$, cutting outgoing infection on that edge.
 
-**Heavy-tailed types.** Base error rates follow a Zipf law \(p_t \propto t^{-s}\) mapped into \([0.02, 0.40]\): a few deadly types cause most crashes (the 76% `order_error` analogue at scale).
+**Heavy-tailed types.** Base error rates follow a Zipf law $p_t \propto t^{-s}$ mapped into $[0.02, 0.40]$: a few deadly types cause most crashes (the 76% `order_error` analogue at scale).
 
 **Scaled graphs (N = 500, budget = 50 ≈ 10%).**
 - *Modular*: 10 clusters × 50 nodes; intra-cluster propagation high, inter-cluster only via interface nodes.
@@ -99,20 +99,20 @@ with infection coefficient \(\lambda\) and \(w_{uv}\sim U(0.5, 1.5)\). A review 
 
 On scale-free graphs, reviewing the few hubs blocks most propagation — the same reason hub defense works on real networks.
 
-**Information-gain view of the reward.** Instead of only \(-\#\text{sink errors}\), one can write
+**Information-gain view of the reward.** Instead of only $-\#\text{sink errors}$, one can write
 
-\[
+$$
 R = \alpha \, \Delta H_v - \beta \, \mathrm{Cost}(v), \qquad
 \Delta H_v = H(\text{conclusion}) - H(\text{conclusion} \mid \text{review } v),
-\]
+$$
 
 i.e. remove the most uncertainty with the fewest reviews. Our belief greedy is a Monte-Carlo proxy for this: under a particle-filter belief, pick the node with the largest expected drop in sink errors, then update the belief with the review outcome.
 
-**CMDP.** Maximize correctness \(J(\pi)\) subject to \(C(\pi) \le B\):
+**CMDP.** Maximize correctness $J(\pi)$ subject to $C(\pi) \le B$:
 
-\[
+$$
 \max_\pi \min_{\lambda \ge 0} \mathcal{L}(\pi,\lambda) = J(\pi) + \lambda\,(B - C(\pi)).
-\]
+$$
 
 **Adaptive greedy.** Choosing the review that most reduces *expected* reachable sink errors, and re-planning after each observed outcome, is adaptive greedy in the sense of adaptive submodularity (Golovin & Krause 2011). Our **belief greedy** implements it with a particle filter (`experiments/belief.py`) that sees only structure, edge probabilities, calibrated confidence and review outcomes. It is the deployable baseline a learned policy must beat. The same rule applied to the *true* error state is the **oracle greedy**: a ceiling, not a policy.
 

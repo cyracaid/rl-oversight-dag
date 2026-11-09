@@ -106,11 +106,11 @@ and — on this queue — it is barely a ranking problem either: the residual si
 
 | element | definition |
 |---|---|
-| state \(s_t\) | per node: type, calibrated confidence, sink reach, reviewed?, flagged?, \(P(\text{base error})\), \(P(\text{error})\) from the particle filter; plus remaining budget |
-| action \(a_t\) | review an unreviewed node (and, in the CMDP variant, stop) |
-| transition | reviewing reveals an error with probability \(p_{catch}\); a fix removes the base error and recomputes propagation |
-| reward | terminal only: \(-\#\{\text{sink errors}\}\) (CMDP variant: cost per review, Lagrange multiplier) |
-| horizon / discount | \(H = B\) (budget, 16 in the main setting); \(\gamma < 1\) to bias early upstream reviews |
+| state $s_t$ | per node: type, calibrated confidence, sink reach, reviewed?, flagged?, $P(\text{base error})$, $P(\text{error})$ from the particle filter; plus remaining budget |
+| action $a_t$ | review an unreviewed node (and, in the CMDP variant, stop) |
+| transition | reviewing reveals an error with probability $p_{catch}$; a fix removes the base error and recomputes propagation |
+| reward | terminal only: $-\#\{\text{sink errors}\}$ (CMDP variant: cost per review, Lagrange multiplier) |
+| horizon / discount | $H = B$ (budget, 16 in the main setting); $\gamma < 1$ to bias early upstream reviews |
 
 Belief: a particle filter (1,024 particles) over base errors and edge coins; it updates on every
 review outcome and is the only error-state information a deployable policy gets

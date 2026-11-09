@@ -16,14 +16,14 @@ Desktop `강화학습/` is classic Sutton & Barto. Our project uses those tools 
 | Course week | What the class teaches | What we do with it |
 |---|---|---|
 | W1–2 Bandit, explore–exploit, regret | Multi-armed / contextual bandit, no state, immediate feedback | **V1 bandit** — honest negative result: threshold 2.81 beats Q-learning 3.38. The bandit *flattens the graph*. This is why we need an MDP. |
-| W2 Finite MDP \((S,A,R,p,\gamma)\) | Five-tuple, Bellman, delayed return | **The reframe.** State = graph knowledge + budget. Action = next node. Reward delayed to the conclusion. Sparse, delayed — the thing bandit cannot do. |
+| W2 Finite MDP $(S,A,R,p,\gamma)$ | Five-tuple, Bellman, delayed return | **The reframe.** State = graph knowledge + budget. Action = next node. Reward delayed to the conclusion. Sparse, delayed — the thing bandit cannot do. |
 | W3 DP (policy eval, value iteration) | Bellman as a linear system; sweep | We can add policy-evaluation / value-iteration as a *small-graph* baseline (N=21 real pipeline is tabular-sized). Not yet run. |
-| W4 Monte Carlo | First-visit MC, episode returns | **GNN + REINFORCE uses MC returns** \(G_t\). Already the main method. |
+| W4 Monte Carlo | First-visit MC, episode returns | **GNN + REINFORCE uses MC returns** $G_t$. Already the main method. |
 | W5 TD, Q-learning | Bootstrap, off-policy | **V1 Q-learning** (negative) and **DQN** (degenerate control). Both are teaching points, not the main method. |
 | W6 n-step / bootstrap | n-step MC/TD, eligibility | Optional: n-step REINFORCE if terminal-only credit is too sparse. Not required. |
 | W7 VAE / DDPM | Generative models | **Not used.** Different module. Do not force it in. |
 | W8 Function approximation, control | Linear / neural value & policy, DQN | **MLP scorer** (preliminary) and **DQN control**. GNN is the upgrade. |
-| W9 Policy gradient I | REINFORCE, \(\nabla J = E[\nabla \log \pi \cdot A]\) | **Main learned method.** Runs. Held-out 1.56; loses to deployable belief greedy (1.14), paired gap +0.42 ± 0.15. |
+| W9 Policy gradient I | REINFORCE, $\nabla J = E[\nabla \log \pi \cdot A]$ | **Main learned method.** Runs. Held-out 1.56; loses to deployable belief greedy (1.14), paired gap +0.42 ± 0.15. |
 
 **Course-project sentence for the professor:**
 

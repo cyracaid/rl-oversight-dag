@@ -17,14 +17,14 @@ layout: default
 | 课程周 | 课教什么 | 我们拿来做什么 |
 |---|---|---|
 | W1–2 Bandit、探索–利用、regret | 多臂 / contextual bandit，无状态，即时反馈 | **V1 bandit**——诚实负结果：阈值 2.81 赢 Q-learning 3.38。bandit *把图压平了*。这就是为什么要 MDP。 |
-| W2 有限 MDP \((S,A,R,p,\gamma)\) | 五元组、Bellman、延迟回报 | **重构。** 状态 = 图知识 + 预算。动作 = 下一个节点。奖励延迟到结论。稀疏、延迟——bandit 做不到的事。 |
+| W2 有限 MDP $(S,A,R,p,\gamma)$ | 五元组、Bellman、延迟回报 | **重构。** 状态 = 图知识 + 预算。动作 = 下一个节点。奖励延迟到结论。稀疏、延迟——bandit 做不到的事。 |
 | W3 DP（策略评估、价值迭代） | Bellman 线性方程组；sweep | 可以在 N=21 真实管道上加策略评估 / 价值迭代当小图基线（表格大小刚好）。还没跑。 |
-| W4 蒙特卡洛 | 首访 MC、episode 回报 | **GNN + REINFORCE 用 MC 回报** \(G_t\)。已经是主方法。 |
+| W4 蒙特卡洛 | 首访 MC、episode 回报 | **GNN + REINFORCE 用 MC 回报** $G_t$。已经是主方法。 |
 | W5 TD、Q-learning | 自举、off-policy | **V1 Q-learning**（负结果）和 **DQN**（退化对照）。都是教学点，不是主方法。 |
 | W6 n-step / 自举 | n-step MC/TD、资格迹 | 可选：如果终局-only 信用太稀，加 n-step REINFORCE。不必须。 |
 | W7 VAE / DDPM | 生成模型 | **不用。** 不同模块。别硬塞进 proposal。 |
 | W8 函数近似、control | 线性 / 神经价值与策略，DQN | **MLP 打分器**（初版）和 **DQN 对照**。GNN 是升级。 |
-| W9 策略梯度 I | REINFORCE，\(\nabla J = E[\nabla \log \pi \cdot A]\) | **主学习方法。** 在跑。留出集 1.56；输给可部署信念贪心（1.14），配对差 +0.42 ± 0.15。 |
+| W9 策略梯度 I | REINFORCE，$\nabla J = E[\nabla \log \pi \cdot A]$ | **主学习方法。** 在跑。留出集 1.56；输给可部署信念贪心（1.14），配对差 +0.42 ± 0.15。 |
 
 **给教授的一句话：**
 

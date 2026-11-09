@@ -58,7 +58,7 @@ This document is the design of that layer — architecture, math, what we have a
 
 ## 2. The evidence chain, formally
 
-A finite DAG \(G = (V, E)\). Each node \(v\) has:
+A finite DAG $G = (V, E)$. Each node $v$ has:
 
 | Field | Type | Source |
 |---|---|---|
@@ -66,22 +66,22 @@ A finite DAG \(G = (V, E)\). Each node \(v\) has:
 | `confidence` | [0,1] | node field if SciForge has one (**unconfirmed**); else a pipeline score |
 | `downstream influence` | \|sinks reachable from v\| | computed on the DAG |
 | `reviewed` | {0,1} | receipt exists or not |
-| true state \(X_v \in \{0,1\}\) | 1 = correct | environment only; **never a policy feature** |
+| true state $X_v \in \{0,1\}$ | 1 = correct | environment only; **never a policy feature** |
 
-Sinks = conclusion nodes. A **sink error** is a conclusion node with \(X_v = 0\) at the end of an episode.
+Sinks = conclusion nodes. A **sink error** is a conclusion node with $X_v = 0$ at the end of an episode.
 
 **Edges that propagate errors:** `derived_from`, `supports`.
 **Edges that do not:** `contradicts` (a contradiction is a relation, not an infection).
 
-**Causal propagation** along \((u,v)\), weight \(w_{uv} \sim U(0.5, 1.5)\):
+**Causal propagation** along $(u,v)$, weight $w_{uv} \sim U(0.5, 1.5)$:
 
-\[
+$$
 P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \qquad \lambda = 0.8 \text{ (synthetic)} \;\; 0.9 \text{ (real pipeline)}
-\]
+$$
 
-**A review is a causal intervention:** force \(X_v = 1\). If the reviewer catches the error (probability `P_catch = 0.9`), descendants are recomputed. Otherwise the error stays.
+**A review is a causal intervention:** force $X_v = 1$. If the reviewer catches the error (probability `P_catch = 0.9`), descendants are recomputed. Otherwise the error stays.
 
-**Types are heavy-tailed.** Real 75-correction file: 76% `order_error`. Synthetic: Zipf \(p_t \propto t^{-1.2}\) mapped into \([0.02, 0.40]\). Real pipeline: `order_error` 0.35/node, then the other correction types.
+**Types are heavy-tailed.** Real 75-correction file: 76% `order_error`. Synthetic: Zipf $p_t \propto t^{-1.2}$ mapped into $[0.02, 0.40]$. Real pipeline: `order_error` 0.35/node, then the other correction types.
 
 ---
 
@@ -93,17 +93,17 @@ Sparse, delayed reward. Not a bandit (v1 was; it lost).
 |---|---|
 | State | belief over the hidden error state: per node (type, confidence, downstream influence, reviewed?, flagged?, posterior P(error)) + remaining budget. The posterior is a particle filter (`experiments/belief.py`) updated after every review outcome; the true state is never a feature |
 | Action | choose the next node to review, or STOP |
-| Transition | review = do\(X_v := 1\); recompute downstream |
-| Reward | terminal \(r_T = -\#\{\text{sink errors}\}\) |
+| Transition | review = do$X_v := 1$; recompute downstream |
+| Reward | terminal $r_T = -\#\{\text{sink errors}\}$ |
 | γ | < 1 (early upstream review is worth more) |
 
 **Budget as a CMDP** (formal; naive implementation failed — see §7):
 
-\[
+$$
 \max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))
-\]
+$$
 
-**Information-gain alternative** (not yet run): \(R = \alpha \Delta H_v - \beta\,\mathrm{Cost}(v)\).
+**Information-gain alternative** (not yet run): $R = \alpha \Delta H_v - \beta\,\mathrm{Cost}(v)$.
 
 **Two greedies, never to be confused:**
 
