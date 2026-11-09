@@ -60,6 +60,7 @@
 | oracle (true error revealed) | 0.72 |
 - Figure: `ablation_conf.png`
 - Say: (1) the model uses the signal — destroy it and RL is *worse* than a static threshold. (2) The noisy predictor is the bottleneck, not the scheduler — **do not keep tuning the policy; invest in the confidence signal.** We located where the remaining error lives.
+- Reliability (HealthBench worst-of-n): one unreviewed error can invalidate a conclusion. Worst-of-5: GNN 1.90, noise 5.20, oracle 0.80 — **a noisy signal hurts the tail more than the mean.**
 
 ## Slide 9 — Controls (anti-self-fulfilling)
 - Shuffle errors (break clustering) → advantage gone; flatten graph (break propagation) → advantage gone

@@ -150,6 +150,8 @@ Diagnosis: per-item review flattens the graph, and with one type at 76%, the opt
 **AI4Science positioning (the point of the whole proposal).**
 This suggester is not an isolated RL toy — it is the **review layer of a research evidence chain**. The front end (the team's "highlight-and-ask on code" tool) produces review traces; the middle (this suggester) uses RL to decide where finite human attention should go first; the back end (SciForge's evidence DAG + human-review receipts) guarantees the machine never stamps and everything is append-only. Together they answer one AI4Science question: **when AI assists research, where should finite human attention be spent.**
 
+**Evaluation design, after HealthBench (OpenAI, 2025).** Three principles: *meaningful* (sink errors on a real pipeline), *trustworthy* (75 human corrections, 27 consensus / 48 agree; machine never stamps), *non-saturated* (even oracle confidence leaves 0.72, because reviewer miss rate is 10%). Report **worst-of-n** next to the mean: one unreviewed error can invalidate a conclusion, and a noisy confidence signal hurts the tail more than the mean (worst-of-5: noise 5.20 vs oracle 0.80). Next step, not done: split consensus-verified vs single-annotator errors (our Consensus / Hard).
+
 **Decisions needed from others:**
 - Professor: whether the bandit → MDP direction and a synthetic main experiment are acceptable in scope.
 - Evidence-chain owner (Zhenxing): whether suggester output may be recorded in the audit chain, and the receipt fields.
