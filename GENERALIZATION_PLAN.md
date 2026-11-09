@@ -46,12 +46,22 @@ the method earns its keep.
 
 ## 2. Work packages
 
-### WP1 — Verify the belief-conditioned result · **Person 2**
-- **Input:** current `experiments/rl_gnn_multiseed.py`, `experiments/belief.py`.
-- **Do:** rerun belief-conditioned vs static vs observed vs belief greedy, 5 training
-  seeds, 200 held-out graphs, paired bootstrap; publish the per-seed numbers.
-- **Acceptance:** one script, one table, CIs; the claim either survives or it does not.
-- **If it fails:** that is Option 2 material — hand the diagnostics (below) to WP4.
+### WP1 — Verify the belief result, and test its assumption · **Person 2**
+- **Input:** `experiments/rl_gnn_multiseed.py`, `experiments/belief.py`.
+- **Arm A (verification).** belief-conditioned vs static vs observed vs belief greedy,
+  5 training seeds, 200 held-out graphs, paired bootstrap, per-seed numbers published.
+- **Arm B (misspecification).** Belief greedy is *model-based*: it assumes the
+  propagation probability and the confidence calibration are right. Perturb exactly
+  that — λ scaled by 0.5 and 2.0, and the confidence posterior shifted — then rerun
+  the same four policies on the same held-out graphs. This is the one condition in
+  which a learned policy can legitimately win, so it decides whether the paper's
+  claim is "belief wins" or "belief wins *when the model is right*".
+- **Acceptance:** two tables with CIs. Arm A decides Option 1 / Option 2; Arm B says
+  how much the winner depends on a correct model.
+- **Why both, now:** they share the training pipeline; the second arm costs one extra
+  sweep, not a new project. Testing only Arm A leaves the obvious reviewer question
+  ("what if your model is wrong?") unanswered.
+- **If Arm A fails:** that is Option 2 material — hand the diagnostics (below) to WP4.
 
 ### WP2 — Freeze the environment and build the G1 adapter · **Person 3**
 - **Do:** freeze the synthetic generator (no changes after this point); write

@@ -11,7 +11,7 @@
 | | **Track A — STA3145 (RL course)** | **Track B — SciForge / AI4Science** |
 |---|---|---|
 | Question | When does a learned review policy beat a model-based one on a dependency graph? | How should a real evidence chain record and prioritise human review? |
-| Data | Synthetic DAGs (80 / 500), **open** transfer sets (KAIST, GO) | SciForge evidence queue + review receipts; sleep queue as the worked example |
+| Data | Synthetic DAGs (80 / 500), **open** transfer sets (KAIST, GO) | SciForge **audit chain** (review receipts); sleep queue as the worked example |
 | Method | REINFORCE / PPO / DQN / CMDP, GNN scorer, belief-conditioned RL; belief greedy as the model-based baseline | Receipt schema, audit-chain granularity, review-cost model |
 | Claim | Either "belief-conditioned PG wins" or "PG loses for a stated, testable reason" | "Review scheduling is information-bound; here is the ceiling and the cost" |
 | Deliverable | Course paper + talk, 11/23 | Design docs → offline evaluation → (later) Nature Communications |
@@ -20,6 +20,12 @@
 
 **Shared, and owned by A:** the synthetic environments, the ceiling analysis, the
 evaluation protocol. B reuses them; B does not fork them.
+
+**Status note on the DAG (2026-11-09).** SciForge's code still ships
+`packages/domains/evidence-dag`, but the product surface was de-emphasised: a
+September commit removed the DAG design docs and demos, and the chain owner says the
+DAG is "not necessary". **Track B therefore depends on the audit chain, not the
+graph.** Nothing in A depends on either.
 
 ---
 

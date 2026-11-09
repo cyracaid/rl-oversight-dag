@@ -102,6 +102,7 @@
   <div class="card">
     <p>我们实验室睡眠日记：<b>13,990 条 / 237 人</b>。人只改了 <b>75 处</b>（0.54%）。</p>
     <p>这 75 处 <b>76% 是同一种错</b>（order_error，p&lt;0.0001）。</p>
+    <p class="plain"><b>这 76% 是什么、不是什么。</b>这 75 处是<b>参与者填表时的录入错误</b>，不是 AI 犯的错；发现它们的是规则引擎（M1–M7），其中 84 行还被自动改正。57/75 = 76%（8 行无标签；27 条双人共识 / 48 条单人）。p&lt;0.0001 说的是「错误高度集中在同一类型」，<b>不是</b>「模型很差」，也<b>不是</b>模型之间的比较。样本只有 75 条、单实验室——它是<b>描述性</b>动机，不是效应量。</p>
     <p>错不会待在原地：时间错 → 潜伏期错 → 效率错 → 结论错。</p>
   </div>
   <div class="story">「审多少」不如「审什么」。预算只有一点点，花在 76% 那种错的上游更值。</div>
@@ -265,6 +266,7 @@
   <div class="card">
     <p>Our lab's sleep-diary data: <b>13,990 records, 237 people</b>. Humans corrected only <b>75</b> (0.54%).</p>
     <p>Those 75 are not scattered — <b>76% are the same mistake</b> (order_error: times in the wrong order).</p>
+    <p class="plain"><b>What 76% is, and is not.</b> The 75 are <b>participant data-entry mistakes</b>, not AI errors. A rule engine (M1–M7) detects them, and 84 rows were auto-corrected. 57/75 = 76% (8 unlabelled; 27 double-coded by consensus, 48 single). p&lt;0.0001 says errors <b>cluster in one type</b> — not that the model performs badly, and not a model comparison. n = 75, one lab: a <b>descriptive</b> motivation, not an effect size.</p>
     <p>The mistake does not stay put. Wrong time → wrong latency → wrong efficiency → wrong conclusion.</p>
   </div>
   <div class="story">"What to review" matters more than "how much." The budget is tiny. Spend it upstream of the 76% type.</div>
@@ -428,6 +430,7 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <div class="card">
     <p>우리 실험실 수면 일기: <b>13,990 기록, 237명</b>. 사람이 고친 것은 <b>75건</b>(0.54%)입니다.</p>
     <p>그 75건은 흩어져 있지 않습니다 — <b>76%가 같은 실수</b>(order_error: 시간 순서 반대)입니다.</p>
+    <p class="plain"><b>76%가 무엇이고 무엇이 아닌가.</b>그 75건은 <b>참가자가 입력할 때 낸 실수</b>이며 AI의 오류가 아닙니다. 규칙 엔진(M1–M7)이 찾아내고 84행은 자동 수정되었습니다. 57/75 = 76% (8건 무라벨, 27건 합의 · 48건 단일). p&lt;0.0001은 오류가 <b>한 유형에 몰려 있다</b>는 뜻이며, 모델 성능이 나쁘다는 주장도 모델 간 비교도 아닙니다. n=75, 단일 실험실: <b>서술적</b> 동기이지 효과 크기가 아닙니다.</p>
     <p>실수는 제자리에 머물지 않습니다. 시간이 틀리면 → 잠복기가 틀리고 → 효율이 틀리고 → 결론이 틀립니다.</p>
   </div>
   <div class="story">"얼마나 검토하느냐"보다 "무엇을 검토하느냐"가 중요합니다. 예산은 작습니다. 76% 유형의 상류에 쓰는 것이 값집니다.</div>

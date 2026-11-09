@@ -282,6 +282,11 @@ belief greedy sees. Everything else unchanged.</p>
 {table(["G0 result", "Reading", "Course claim"],
        [["RL ≥ belief greedy (CI excludes 0)", "the loss was representation", "<b>Option 1</b> — RL is the method"],
         ["RL < belief greedy", "the loss is credit assignment", "<b>Option 2</b> — the analysis is the result"]])}
+<p><b>Arm B — the assumption test.</b> Belief greedy is model-based: it assumes the propagation
+probability and the confidence calibration are correct. Perturb exactly those (λ × 0.5 and × 2.0,
+confidence shifted), rerun the same four policies on the same graphs. If belief greedy degrades and
+RL does not, RL has a niche; if both degrade, the model is the advantage; if belief greedy is
+robust, the "information beats the learner" claim gets stronger. Same sweep, one extra axis.</p>
 
 <h2>2. MDP, stated once</h2>
 {table(["Element", "Definition"],
@@ -352,6 +357,10 @@ R["ko"] = f"""
 {table(["G0 결과", "해석", "과정 주장"],
        [["RL ≥ belief greedy (CI가 0 제외)", "손실은 표현 문제", "<b>Option 1</b> — RL이 방법"],
         ["RL < belief greedy", "손실은 크레딧 할당", "<b>Option 2</b> — 분석이 결과"]])}
+<p><b>Arm B — 가정 시험.</b> belief greedy는 모델 기반이다: 전파 확률과 신뢰도 보정이 맞다고 가정한다.
+바로 그 둘을 흔들고(λ × 0.5, × 2.0, 신뢰도 이동) 같은 네 정책을 같은 그래프에서 재실행한다.
+belief가 무너지고 RL이 버티면 RL에 생태계가 생기고, 둘 다 무너지면 승리는 모델의 것이며,
+belief가 견고하면 "정보 > 학습기" 주장이 더 강해진다. 같은 스윕, 축 하나 추가.</p>
 
 <h2>2. MDP</h2>
 {table(["요소", "정의"],
@@ -422,6 +431,10 @@ R["zh"] = f"""
 {table(["G0 结果", "解释", "课程主张"],
        [["RL ≥ belief greedy（CI 排除 0）", "之前输是表示问题", "<b>Option 1</b> — RL 是方法"],
         ["RL < belief greedy", "输是信用分配", "<b>Option 2</b> — 分析即结果"]])}
+<p><b>Arm B —— 假设检验。</b>belief greedy 是模型基的：它假设传播概率与置信度校准都是对的。
+把这两个恰好弄错（λ × 0.5、× 2.0，置信度平移），同四条策略在同一批图上重跑。
+belief 崩而 RL 不崩 → RL 有生态位；两者一起崩 → 赢的是模型；belief 稳 → 「信息 &gt; 学习器」更硬。
+同一次 sweep，多一个轴。</p>
 
 <h2>2. MDP</h2>
 {table(["要素", "定义"],

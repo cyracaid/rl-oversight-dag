@@ -7,7 +7,7 @@
 
 ---
 
-## 0. The one experiment that decides the paper: G0
+## 0. The one experiment that decides the paper: G0 (two arms)
 
 **Question.** Is the RL gap a *state-representation* problem or a *credit-assignment* problem?
 
@@ -23,6 +23,20 @@ exactly what belief greedy sees. Everything else unchanged (GNN scorer, REINFORC
 
 Run this before anything else. It costs ~30 minutes of compute and it sets the
 structure of the entire deliverable.
+
+**Arm B — the assumption test (same sweep, one extra axis).** Belief greedy is
+model-based: it assumes the propagation probability and the confidence calibration
+are correct. Perturb exactly those (λ × 0.5 and × 2.0; confidence shifted by a
+calibration offset), then rerun the same four policies on the same held-out graphs.
+
+| Arm B result | Reading |
+|---|---|
+| belief greedy degrades, RL does not | RL has a niche: it does not need a correct model |
+| both degrade together | the advantage is the *model*, not the optimizer — say so |
+| belief greedy is robust | strengthens the "information > learner" conclusion |
+
+Arm A answers "does RL lose?"; Arm B answers "would RL win if the model were wrong?" —
+the only question a reviewer will ask after Arm A.
 
 > **Correction (2026-11-09, before anyone spends the 30 minutes).** This exact
 > experiment has already been run. The "observed state" variant in

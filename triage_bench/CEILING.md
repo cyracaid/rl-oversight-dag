@@ -118,8 +118,9 @@ Only one of these, and each is a different paper:
 
 - **New observations** (cross-field consistency, participant trajectory, source
   documents). This is the detector paper.
-- **A second queue** from SciForge where errors are claims, not timestamps, and
-  the DAG is real. That is the transfer test.
+- **A second queue** from SciForge where errors are claims, not timestamps. The
+  graph is optional now (the DAG is de-emphasised there); the audit chain is what
+  matters.
 - **Field-level review**: measured here. It does not raise the recall ceiling,
   but it halves the reading cost of the order block (96.6% coverage with 2 of 4
   fields). A cost-normalised paper is a different paper: recall per field-read,

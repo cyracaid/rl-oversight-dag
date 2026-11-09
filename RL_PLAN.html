@@ -81,6 +81,11 @@
 <p>Give the policy the belief posterior (marginal, entropy, reviewed mask) so it sees exactly what
 belief greedy sees. Everything else unchanged.</p>
 <table class=""><tr><th>G0 result</th><th>Reading</th><th>Course claim</th></tr><tr><td>RL ≥ belief greedy (CI excludes 0)</td><td>the loss was representation</td><td><b>Option 1</b> — RL is the method</td></tr><tr><td>RL < belief greedy</td><td>the loss is credit assignment</td><td><b>Option 2</b> — the analysis is the result</td></tr></table>
+<p><b>Arm B — the assumption test.</b> Belief greedy is model-based: it assumes the propagation
+probability and the confidence calibration are correct. Perturb exactly those (λ × 0.5 and × 2.0,
+confidence shifted), rerun the same four policies on the same graphs. If belief greedy degrades and
+RL does not, RL has a niche; if both degrade, the model is the advantage; if belief greedy is
+robust, the "information beats the learner" claim gets stronger. Same sweep, one extra axis.</p>
 
 <h2>2. MDP, stated once</h2>
 <table class=""><tr><th>Element</th><th>Definition</th></tr><tr><td>State</td><td>per node: type, confidence, downstream count, reviewed mask, budget left; <b>belief variant adds</b> posterior marginal and entropy</td></tr><tr><td>Action</td><td>pick an unreviewed node, or stop</td></tr><tr><td>Transition</td><td>review → observation (flagged w.p. <code>p_catch</code>) → fix only at the source; recompute descendants</td></tr><tr><td>Reward</td><td>terminal only: −(# wrong sinks). Variants: potential shaping, n-step</td></tr><tr><td>Horizon</td><td>budget B (80-node: 16), γ &lt; 1</td></tr></table>
@@ -121,6 +126,10 @@ cannot, and the information control reported.</p>
 <h2>1. G0 — 논문의 방향을 결정하는 실험</h2>
 <p>정책에 belief 사후분포(주변확률, 엔트로피, 검토 마스크)를 준다. belief greedy가 보는 것과 동일하게.</p>
 <table class=""><tr><th>G0 결과</th><th>해석</th><th>과정 주장</th></tr><tr><td>RL ≥ belief greedy (CI가 0 제외)</td><td>손실은 표현 문제</td><td><b>Option 1</b> — RL이 방법</td></tr><tr><td>RL < belief greedy</td><td>손실은 크레딧 할당</td><td><b>Option 2</b> — 분석이 결과</td></tr></table>
+<p><b>Arm B — 가정 시험.</b> belief greedy는 모델 기반이다: 전파 확률과 신뢰도 보정이 맞다고 가정한다.
+바로 그 둘을 흔들고(λ × 0.5, × 2.0, 신뢰도 이동) 같은 네 정책을 같은 그래프에서 재실행한다.
+belief가 무너지고 RL이 버티면 RL에 생태계가 생기고, 둘 다 무너지면 승리는 모델의 것이며,
+belief가 견고하면 "정보 > 학습기" 주장이 더 강해진다. 같은 스윕, 축 하나 추가.</p>
 
 <h2>2. MDP</h2>
 <table class=""><tr><th>요소</th><th>정의</th></tr><tr><td>상태</td><td>노드별: 타입, 신뢰도, 하류 수, 검토 마스크, 남은 예산; <b>belief 변형은</b> 사후 주변확률과 엔트로피 추가</td></tr><tr><td>행동</td><td>미검토 노드 선택 또는 종료</td></tr><tr><td>전이</td><td>검토 → 관측(<code>p_catch</code>로 flagged) → 원인 노드만 수정; 하류 재계산</td></tr><tr><td>보상</td><td>종료 시점만: −(잘못된 sink 수). 변형: potential shaping, n-step</td></tr><tr><td>지평</td><td>예산 B (80노드: 16), γ &lt; 1</td></tr></table>
@@ -161,6 +170,10 @@ cannot, and the information control reported.</p>
 <h2>1. G0 —— 决定整篇写法的实验</h2>
 <p>把 belief 后验（边际概率、熵、已审掩码）喂给策略，让它看到的和 belief greedy 完全一样。</p>
 <table class=""><tr><th>G0 结果</th><th>解释</th><th>课程主张</th></tr><tr><td>RL ≥ belief greedy（CI 排除 0）</td><td>之前输是表示问题</td><td><b>Option 1</b> — RL 是方法</td></tr><tr><td>RL < belief greedy</td><td>输是信用分配</td><td><b>Option 2</b> — 分析即结果</td></tr></table>
+<p><b>Arm B —— 假设检验。</b>belief greedy 是模型基的：它假设传播概率与置信度校准都是对的。
+把这两个恰好弄错（λ × 0.5、× 2.0，置信度平移），同四条策略在同一批图上重跑。
+belief 崩而 RL 不崩 → RL 有生态位；两者一起崩 → 赢的是模型；belief 稳 → 「信息 &gt; 学习器」更硬。
+同一次 sweep，多一个轴。</p>
 
 <h2>2. MDP</h2>
 <table class=""><tr><th>要素</th><th>定义</th></tr><tr><td>状态</td><td>每节点：类型、置信度、下游数、已审掩码、剩余预算；<b>belief 变体加</b>后验边际与熵</td></tr><tr><td>行动</td><td>选未审节点，或停止</td></tr><tr><td>转移</td><td>审阅 → 观测（以 <code>p_catch</code> 报错）→ 只修源头；重算下游</td></tr><tr><td>奖励</td><td>仅终局：−（错误 sink 数）。变体：potential shaping、n-step</td></tr><tr><td>时间跨度</td><td>预算 B（80 节点：16），γ &lt; 1</td></tr></table>
