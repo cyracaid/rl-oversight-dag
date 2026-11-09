@@ -1,7 +1,7 @@
 # Review Scheduling on a Dependency Graph — Project Document (English)
 
 > STA3145 Reinforcement Learning · Group project · Deepened 2026-11-09
-> Companion Chinese version: `PROJECT_CN.md`
+> Companion versions: 한국어 `PROJECT_KO.md` · 中文 `PROJECT_CN.md`
 > Repo: https://github.com/cyracaid/rl-oversight-dag
 
 **Verification status.** Experiment code and numbers were produced by an AI agent and have not been independently re-run by teammates. Unverified items are in Section 12.
