@@ -108,6 +108,18 @@ permalink: /TEAM_CLAIMS_EN.html
 
 **Don't:** become the RL theory person.
 
+
+### Why Person 2's row is the hard one
+
+1. **The rule is not a dumb baseline.** belief greedy computes the exact expected reduction for every candidate node, using the posterior, and re-plans after each review. Beating it means beating a one-step planner that has the model.
+2. **The easy fix is already spent.** We already gave the policy the belief posterior (`P(base error)`, `P(error)`, reviewed, flagged, budget). Result: −0.00 ± 0.08 against the static version. "It just needs the belief" is no longer an explanation.
+3. **Credit assignment.** Reward arrives only at the end, after 16 reviews. A review that prevents a downstream error looks exactly like one that does nothing until the episode ends — this is why n-step / actor-critic is on the list.
+4. **The signal sets the ceiling.** With oracle confidence the best result is still 0.72 errors; with normal confidence it is 1.38. A better policy cannot beat the ceiling its signal sets.
+5. **Variance.** Training seeds disagree (1.51 ± 0.41). A single run can look like a win or a loss; only paired held-out runs over 5 seeds count.
+6. **The honest answer may be "no".** The deliverable is either a gap below zero, or a written reason it is not. The second is a real result, and it is harder to write than a number.
+
+What success looks like: a paired held-out table plus one paragraph a reviewer cannot dismiss.
+
 ---
 
 ## 2. What the paper looks like
