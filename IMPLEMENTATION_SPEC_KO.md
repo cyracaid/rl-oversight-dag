@@ -114,8 +114,15 @@ conf = sigmoid(logit)
 | `deidentified_intervalvars_forCD_111325.rds` | 13,990행 / 237명 | 동기 카운트만 (N, 237) | 커밋 금지, agent에게 통째로 금지 |
 | `manual_error_correction_updated.csv` | 75건 정정; order_error 57/75 = 76%; 27 합의 / 48 동의 | 유형 비율, 합의/하드 분할(계획) | 커밋 금지; 문서는 요약 숫자만 |
 | 합성 DAG | 코드 생성 | 모든 RL과 규모 실험 | — |
+| KAIST HRV 일기 (Figshare 28509740, CC BY) | 1,372행 / 49명; `adapt_kaist.R` 이미 있음 | 전이 (5+3) | 임계값 튜닝 |
+| Manchester 일기 | `adapt_manchester.R` 이미 있음 | 전이 (5+3) | 임계값 튜닝 |
+| GO MF 슬라이스 | 노드=GO MF 항(본래 DAG), AI=IEA, 사람=biocurator; 부모 항 하나 ~500–2,000 | **팀원 검색 (5+4)** — 이 문서가 검색하지 않음 | 단백질 기능 예측 |
 
 **75건 전처리:** `error_type`과 `agreement_cd_mtb` 세기; 행 버리지 않기; 무라벨 8행 따로 보고. **누출:** 75건으로 정책을 피팅하지 않는다; 유형 비율과 실제 파이프라인 DAG를 정한다.
+
+**전이 방법:** Figshare 28509740 받기 → `Rscript adapt_kaist.R` → 같은 DAG 모양(시간 잎)에 우리 유형 비율 주입 → 무검토 / 임계값 / 탐욕 / GNN. **같은 GNN 가중치 무재학습(진 transfer)** vs **재훈련(domain adaptation)** 둘 다 보고. 성공: 임계값 또는 탐욕이 무검토를 이긴다. 재훈련만 이기고 얼린 GNN이 못 이기면 transfer이 아니라고 직설.
+
+**GO MF 슬라이스는 팀원 검색 (5+4), 이 주의 KAIST 실행이 아니다.** GO-annotation 검토 스케줄링 선행연구 먼저 검색; 있으면 수면+SciForge에 남고 말한다.
 
 **합성 train / val / test:** 시드 1–5 훈련, 시드 1–16 평가(모든 정책同一 평가 시드). i.i.d. 그래프라 시간 분할 불필요. 실제 트레이스 확장 시 `pid` 60/20/20, 같은 참가자가 집합을 건너지 않게.
 
@@ -319,7 +326,7 @@ Hidden 32, lr 0.003 / 0.001, 12k–20k 에피소드, tabular 변체 conf_bins = 
 | 2 | 정책 경사 (REINFORCE → PPO-Lagrangian) + 신뢰도 신호 업그레이드 | PG / PPO / CMDP / 소거 | 갭 D (conf, 데이터셋 아님) |
 | 3 | 환경 + GNN + DQN + 규모 (N=500) | GNN 노드 선택 / 세 족 | 합성 (이미 있음) |
 | 4 | 베이스라인 + 섞기/평평화 대조 + HealthBench / BioBasicsBench | 그 두 벤치마크 | 갭 C, 갭 A 실패 시에만 |
-| 5 동채하 | 내러티브 + 郑心联络 + 집필 + 영어 발표 | Data Cascades / 오류 전파 / 종합 | 수면 75 / 13,990; 갭 B |
+| 5 동채하 | 내러티브 + 郑心联络 + GO 검색 + 문헌 종합 + 집필 + 영어 발표 | Data Cascades / 오류 전파 / 종합 | 수면 75 / 13,990; 갭 B; 갭 A ask |
 
 **코드 배치 (대부분 이미 참):**
 

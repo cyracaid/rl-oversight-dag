@@ -68,7 +68,7 @@
 
 ---
 
-### Person 5 — 동채하 — literature, real data, writing, presenting
+### Person 5 — 동채하 — narrative, 郑心 liaison, GO search, literature, writing, presenting (English)
 **Track P (claim):** HealthBench + BioBasicsBench sections (already drafted); sleep 75 / 13,990 motivation; Korean outline `presentation_outline_ko.md`; presenting (English OK).
 **Track C (claim):** SciForge liaison — ask 郑心 for the DAG export and receipt fields; write the SciForge-side one-pager from `EVIDENCE_CHAIN_DESIGN_CN.md`.
 **Do not:** become the RL theory person. The method is Persons 2–3.
@@ -178,4 +178,4 @@ Default (if nobody swaps): the table in §1.
 | 2 | "Policy gradient with a GNN scorer is the main method. The ablation says the confidence signal, not the scheduler, is the remaining error. I will either fix the signal or report that we did not." |
 | 3 | "I own the environment. If the graph moves, every number moves. I will freeze it and reproduce the tables." |
 | 4 | "I own the baselines and the controls. If shuffle and flatten kill the advantage, the advantage is real. If they do not, we say so." |
-| 5 동채하 | "I own related work, the real-data motivation, and the slides. I will put HealthBench and BioBasicsBench next to our results, and I will present in English if that is the language of the room." |
+| 5 동채하 | "I own the narrative, the 郑心 ask, the GO search, the real-data motivation, and I present in English. HealthBench and BioBasicsBench sit next to our results." |
