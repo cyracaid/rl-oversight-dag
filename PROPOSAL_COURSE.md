@@ -146,7 +146,7 @@ pay", not "can we fit a policy".
 |---|---|---|
 | synthetic main | N≈80, budget 16, 80-node graphs | 200 held-out graphs (1000–1199), 5 training seeds × 20k episodes, **paired per graph** on the same catch-randomness stream |
 | synthetic scaled | N=500, budget 50 (10%), modular / BA / ER | heuristics + belief greedy; RL not yet trained at this scale (stated as a limit) |
-| real pipeline DAG | N=21, budget 8 | 8 seeds, threshold vs belief greedy vs no-review |
+| real pipeline DAG | N=21, budget 8 | 8 seeds, threshold vs hub vs random vs no-review (belief greedy not run at this size) |
 | real review queue | 1,048 flags / 68 positives | recall@k with participant-clustered bootstrap; **no simulator** |
 | reliability | — | worst-of-n next to the mean; paired CIs; seed spread |
 
@@ -156,7 +156,7 @@ Every number must be reproducible from a script; tables are generated, never han
 
 ## 7. What we have so far
 
-Held-out (n=200, paired):
+### 7.1 Synthetic main result (held-out, n=200, paired)
 
 | policy | mean sink errors | 95% CI |
 |---|---:|---:|
@@ -167,10 +167,57 @@ Held-out (n=200, paired):
 | GNN + REINFORCE (static) | 1.56 | ± 0.29 |
 | GNN + REINFORCE (observed) | 1.56 | ± 0.15 |
 
-Bottleneck ablation (synthetic, graph setting): confidence **noise 3.78 / normal 1.38 / oracle
-0.72** — the signal, not the policy, is the binding constraint. On the real queue the same shape
-appears: type-only ceiling 83.8%; 17 corrections never flagged; within the residual block a
-grouped model reaches AUC 0.467 (no headroom).
+### 7.2 Real data — already run (aggregate only; no row-level data in the repo)
+
+**(a) The lab's own pipeline.** Encoded from the splsleep SCHEMA: N=21 nodes, budget 8, λ=0.9,
+8 seeds, error types matched to the 75 corrections.
+
+| policy | sink errors |
+|---|---:|
+| no review | 2.12 |
+| random | 1.88 |
+| hub (highest child count) | 1.75 |
+| **calibrated confidence threshold** | **0.50** |
+
+This is the application result: on the *actual* pipeline a threshold nearly clears conclusion
+errors. It also says the 21-node graph is tabular-sized — value iteration is still an unrun
+baseline we can add.
+
+**(b) The real review queue.** 1,048 flagged rows, 68 human-confirmed errors (6.5% precision),
+participant-clustered bootstrap:
+
+| policy | R@50 | R@100 | R@200 | R@400 |
+|---|---:|---:|---:|---:|
+| the pipeline's own order | 4.4% | 5.9% | 13.2% | 23.5% |
+| random | 4.4% | 11.8% | 19.1% | 39.7% |
+| one rule: M1-bearing flags first | 23.5% | 54.4% | **83.8%** | 83.8% |
+| oracle (needs the labels) | 73.5% | 100% | 100% | 100% |
+
+The pipeline's own order is **worse than random** at k=400. One type rule reaches 84% of all
+reachable errors in 13% of the queue — and that is the **type-only ceiling**, not a victory: no
+type-only policy can pass it, because the remaining block is exchangeable at 1.2%. Ranking
+participants reaches 91.2% at k=400 but is not significantly better than the row rule
+(+7.3% [−8.6%, +10.0%]). Errors do cluster inside participants (variance/mean 1.998 vs a
+label-shuffle null of 1.097, p = 0.0005; 203 participants, 46 with at least one error, max 7).
+
+**(c) The 75 corrections — what the real errors look like.**
+
+| | value |
+|---|---|
+| corrections | 75 rows (72 unique keys); 0.54% of 13,990 |
+| agreement | 27 consensus / 48 single-annotator |
+| dominant type | `order_error` 57/75 = **76%** (entropy 0.612, p < 0.0001) |
+| what that type is | timestamps in an impossible order (get-up before wake, AM/PM slip, 24h wrap) |
+
+**Caveat (§2.3):** the file records the *type of fix*, not whether the participant or the parser
+produced the bad value. Say "corrections to automated output", not "AI errors".
+
+### 7.3 Bottleneck ablation
+
+Confidence **noise 3.78 / normal 1.38 / oracle 0.72** — the signal, not the policy, is the
+binding constraint. The real queue shows the same shape: the ceiling is type information, 17
+corrections are never flagged at all, and inside the residual block a grouped model reaches
+AUC 0.467 (no headroom).
 
 **Current honest reading:** the learned policy loses to a model-based greedy; the posterior is
 already in its state; the remaining error mass is in the signal/detector.
