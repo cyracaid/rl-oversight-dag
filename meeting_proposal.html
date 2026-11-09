@@ -3,444 +3,588 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meeting Proposal — 证据链审阅层 (中文 / English / 한국어)</title>
+<title>Meeting Proposal — 证据链审阅层</title>
 <script>
   MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
   :root {
-    --bg: #fbf7f0; --ink: #2b2b2b; --green: #1a9850; --blue: #2a7de1;
-    --card: #fff; --muted: #5a5a5a; --line: #e8dcc8;
+    --bg: #faf8f5; --ink: #2c2c2c; --accent: #1a9850; --blue: #2a7de1;
+    --card: #fff; --muted: #666;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "PingFang SC", "Noto Sans KR", "Helvetica Neue", sans-serif;
-    line-height: 1.65;
+    font-family: "PingFang SC", "Noto Sans KR", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7;
   }
-  .page { max-width: 900px; margin: 0 auto; padding: 28px 20px 48px; }
-  h1 { font-size: 1.5em; margin: 0 0 4px; }
-  h2 { font-size: 1.12em; margin: 20px 0 8px; color: #1b5e20;
-       border-bottom: 2px solid var(--line); padding-bottom: 4px; }
-  .sub { color: var(--muted); font-size: 0.9em; margin-bottom: 12px; }
-  .box {
-    background: var(--card); border: 1px solid var(--line);
-    border-radius: 10px; padding: 12px 16px; margin: 10px 0;
+  header {
+    padding: 36px 24px 24px; text-align: center;
+    background: linear-gradient(180deg, #e8f5e9 0%, var(--bg) 100%);
   }
-  .green { color: var(--green); font-weight: 700; }
-  .fig { background: #fff; border-radius: 10px; padding: 8px;
-         border: 1px solid var(--line); margin: 10px 0; text-align: center; }
-  .fig img { max-width: 100%; height: auto; border-radius: 6px; }
-  .fig figcaption { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
-  table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 0.92em; }
-  th, td { padding: 6px 10px; border-bottom: 1px solid #eee; text-align: left; }
-  th { background: #f3ede0; }
-  td.best { color: var(--green); font-weight: 700; }
-  ul { margin: 6px 0; padding-left: 18px; }
-  li { margin: 3px 0; }
-  .ask { background: #fff4e0; border-left: 4px solid #fdae61;
-         padding: 10px 14px; border-radius: 8px; margin: 10px 0; }
+  header h1 { font-size: 1.6em; margin: 0 0 6px; }
+  header p { color: var(--muted); margin: 4px 0; }
+  .lang-tabs { display: flex; justify-content: center; gap: 8px; margin: 14px 0 0; }
+  .lang-tabs button {
+    border: 1px solid #ccc; background: #fff; padding: 8px 20px;
+    border-radius: 20px; cursor: pointer; font-size: 0.95em;
+  }
+  .lang-tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  main { max-width: 880px; margin: 0 auto; padding: 20px 16px 56px; }
+  section { margin: 32px 0; }
+  h2 { font-size: 1.28em; border-left: 4px solid var(--accent); padding-left: 12px; margin: 0 0 14px; }
+  h2 .num { color: var(--accent); margin-right: 6px; }
+  .card {
+    background: var(--card); border-radius: 12px; padding: 18px 22px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin: 14px 0;
+  }
+  .figure {
+    background: #fff; border-radius: 12px; padding: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin: 16px 0; text-align: center;
+  }
+  .figure img { max-width: 100%; height: auto; border-radius: 8px; }
+  .figure figcaption { font-size: 0.88em; color: var(--muted); margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; background: #fff; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.95em; }
+  th { background: #f0f7f0; font-weight: 600; }
+  td.best { color: var(--accent); font-weight: 700; }
+  .story {
+    font-size: 1.02em; padding: 14px 18px; background: #fff8ec;
+    border-radius: 12px; border-left: 4px solid #fdae61; margin: 14px 0;
+  }
+  .plain { padding: 10px 16px; background: #eef6ee; border-radius: 10px; margin: 10px 0; }
+  .arch {
+    font-family: monospace; white-space: pre; overflow-x: auto;
+    background: #1e1e1e; color: #d4d4d4; padding: 14px; border-radius: 10px;
+    font-size: 0.78em; line-height: 1.5;
+  }
+  .lang-block { display: none; }
+  .lang-block.show { display: block; }
+  footer { text-align: center; color: var(--muted); font-size: 0.85em; padding: 28px 16px; border-top: 1px solid #eee; }
+  a { color: var(--blue); }
+  ul { padding-left: 20px; } li { margin: 4px 0; }
   .tag { display: inline-block; background: #e8f5e9; color: #1b5e20;
          border-radius: 12px; padding: 2px 10px; font-size: 0.8em; margin: 2px; }
-  .say { font-style: italic; }
-  .lang-h { font-size: 0.85em; color: var(--muted); letter-spacing: 1px;
-            text-transform: uppercase; margin: 18px 0 6px; }
+  .ask { background: #fff4e0; border-left: 4px solid #fdae61; padding: 10px 14px; border-radius: 8px; margin: 10px 0; }
 </style>
 </head>
 <body>
-<div class="page">
 
-<h1>证据链上，人该先审哪一项？</h1>
-<div class="sub">
-  STA3145 强化学习 · 小组提案（开会用）<br>
-  数据：与 Maia ten Brink（Stanford Psychophysiology Lab）一年 EMA 合作<br>
-  应用：SciForge（Zhangyang Gao 开发，AI4Science, Shanghai AI Lab）<br>
-  2026-11-09 · 5 人小组
-</div>
+<header>
+  <h1>该先审哪一项？ / Which item first? / 어느 항목 먼저?</h1>
+  <p>STA3145 Reinforcement Learning · Group project · 2026-11</p>
+  <p>Sleep data: 1-year EMA with Maia ten Brink (Stanford Psychophysiology Lab) · Application: SciForge (Zhangyang Gao, AI4Science, Shanghai AI Lab)</p>
+  <div class="lang-tabs">
+    <button class="active" onclick="setLang('zh', this)">中文</button>
+    <button onclick="setLang('en', this)">English</button>
+    <button onclick="setLang('ko', this)">한국어</button>
+  </div>
+</header>
 
-<!-- ================= 中文 ================= -->
-<div class="lang-h">中文</div>
+<main>
 
-<h2>我们要做什么</h2>
-<div class="box">
-  <p>AI 已经在帮实验室洗睡眠日记、标文献、跑分析。它产出的一条条结果<b>互相依赖</b>：时间写反了，睡眠潜伏期就错，睡眠效率就错，结论就不可信。</p>
-  <p>人不可能全查。我们用强化学习学一个<b>只读建议器</b>：下一步该审哪个节点，让更少的错误走到结论。</p>
-  <p><span class="tag">机器不盖章</span> <span class="tag">只读排序</span> <span class="tag">人点裁决才有收据</span></p>
-</div>
+<!-- ===== 中文 ===== -->
+<div class="lang-block show" id="lang-zh">
 
-<h2>数学骨架（RL 课的主菜）</h2>
-<div class="box">
-  <p><b>1. 因果传播（DAG 上的干预）</b></p>
-  <p>节点真实状态 \(X_v \in \{0,1\}\)（1=正确）。沿边 \((u,v)\)：</p>
-  <p>\[ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad w_{uv}\sim U(0.5,1.5),\ \lambda=0.8 \]</p>
-  <p>审节点 \(v\) = do\((X_v := 1)\)，切断出边传染。<b>这是因果干预，不是相关。</b></p>
-  <p><b>2. MDP</b></p>
-  <p>\(\mathcal{S}\) = 图知识（type, conf, 下游影响, 已审否）+ 剩余预算；\(\mathcal{A}\) = 选下一个节点（或 stop）；\(\mathcal{P}\) = 审后重算下游；\(r_T = -\#\text{sink errors}\)；\(\gamma &lt; 1\)。</p>
-  <p><b>3. CMDP 拉格朗日（预算不是倒计时）</b></p>
-  <p>\[ \max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi)) \]</p>
-  <p>主方法现在是 GNN + 固定预算 REINFORCE；CMDP 双 critic 在做。</p>
-  <p><b>4. 次模贪心 (1−1/e)</b></p>
-  <p>选最能让可达 sink 错误下降的审阅是单调次模最大化。贪心保证最优干预集的 63%。N=500 上这个贪心把无标度图 81→3.8。</p>
-  <p><b>5. 信息增益奖励（设计里，还没跑）</b></p>
-  <p>\[ R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v) \]</p>
-  <p><b>6. 策略梯度（主方法）</b></p>
-  <p>\[ \nabla_\theta J(\pi_\theta) = \mathbb{E}_{\pi}\big[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t \big], \quad A_t = G_t - b(s_t) \]</p>
-  <p>GNN 打分器：\( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \tfrac{1}{|N(v)|}\textstyle\sum_{u\in N(v)} x_u ) \)</p>
-  <p><b>7. 可靠性 worst-of-n</b></p>
-  <p>一个漏审能作废结论（HealthBench）。noise worst-of-5 = 5.20，oracle = 0.80。</p>
-</div>
+<section>
+  <h2><span class="num">0</span>一句话</h2>
+  <div class="card">
+    <p>AI 帮实验室洗日记、标文献、跑分析。结果<b>互相依赖</b>：时间反了，潜伏期错，效率错，结论不可信。</p>
+    <p>人不可能全查。我们用 RL 学一个<b>只读建议器</b>：下一步审哪个节点，让更少错误走到结论。</p>
+    <p><span class="tag">机器不盖章</span> <span class="tag">只读排序</span> <span class="tag">人点裁决才有收据</span></p>
+  </div>
+</section>
 
-<h2>为什么这不是编的</h2>
-<div class="box">
-  <p>我们自己的数据：<b>13,990 条 / 237 人</b>，人改了 <b>75 处</b>（0.54%）。这 75 处里 <b>76% 是同一种错</b>（order_error，p&lt;0.0001）。</p>
-  <p>错误率低，所以全审不划算；错误高度聚集，所以「审哪个」比「审多少」重要。</p>
-</div>
+<section>
+  <h2><span class="num">1</span>为什么是真的</h2>
+  <div class="card">
+    <p>我们实验室睡眠日记：<b>13,990 条 / 237 人</b>。人只改了 <b>75 处</b>（0.54%）。</p>
+    <p>这 75 处 <b>76% 是同一种错</b>（order_error，p&lt;0.0001）。</p>
+    <p>错不会待在原地：时间错 → 潜伏期错 → 效率错 → 结论错。</p>
+  </div>
+  <div class="story">「审多少」不如「审什么」。预算只有一点点，花在 76% 那种错的上游更值。</div>
+</section>
 
-<h2>我们已经跑出来的（AI 生成，待组员复现）</h2>
-<p>第一版做成逐条 bandit，<b>输给了阈值</b>（2.81 vs Q-learning 3.38）。诊断：把依赖图压平了，RL 没东西可学。</p>
-<p>重构成「图上主动选节点」之后：</p>
+<section>
+  <h2><span class="num">2</span>走过的弯路</h2>
+  <div class="card">
+    <p>第一版做成逐条 bandit。<b>阈值赢了 Q-learning</b>（2.81 vs 3.38）。</p>
+    <p>原因：逐条审把依赖图压平了，RL 没东西可学。76% 一种错，最优策略退化成 if 规则。</p>
+    <p class="plain">这个失败没藏，它是重构的理由。</p>
+  </div>
+</section>
 
-<div class="fig">
-  <img src="experiments/results_bar.png" alt="80-node results">
-  <figcaption>80 节点：GNN 均值 1.54 ± 0.46（最佳种子 1.00），和贪心相当，好于阈值。DQN 退化。</figcaption>
-</div>
+<section>
+  <h2><span class="num">3</span>重构：下一个审哪个</h2>
+  <div class="card">
+    <p>证据画成有向图。智能体每步选一个节点审。审对了下游跟着变。</p>
+    <p>真 MDP：状态有图和剩余预算，奖励只在最后。</p>
+  </div>
+  <div class="arch">
+前端   划线提问 / 日记行审阅         → 审阅痕迹（不是收据）
+         ↓
+审阅层  GNN / 贪心 / 阈值 建议器      → 「先审这几个」（只读）
+         ↓  人点「裁决」
+后端    SciForge 证据 DAG + 收据       → 机器不盖章，append-only
+  </div>
+</section>
 
-<table>
-  <tr><th>方法</th><th>结论错误（80 节点）</th></tr>
-  <tr><td>不审</td><td>5.90</td></tr>
-  <tr><td>置信度阈值</td><td>2.30</td></tr>
-  <tr><td>结构贪心</td><td>1.80</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
-  <tr><td>DQN</td><td>5.10（退化）</td></tr>
-  <tr><td>Oracle</td><td>0.00</td></tr>
-</table>
+<section>
+  <h2><span class="num">4</span>结果</h2>
+  <p>数字 = 到达结论的错误数，越低越好。</p>
+  <div class="figure"><img src="experiments/results_bar.png" alt="methods">
+    <figcaption>80 节点。GNN 是 5 种子均值，不是单次最好的 1.20。</figcaption></div>
+  <table>
+    <tr><th>方法</th><th>结论错误</th></tr>
+    <tr><td>不审</td><td>5.90</td></tr>
+    <tr><td>置信度阈值</td><td>2.30</td></tr>
+    <tr><td>结构贪心</td><td>1.80</td></tr>
+    <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
+    <tr><td>PPO (MLP)</td><td>1.60</td></tr>
+    <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
+    <tr><td>DQN</td><td>5.10（退化）</td></tr>
+    <tr><td>Oracle</td><td>0.00</td></tr>
+  </table>
+  <div class="figure"><img src="experiments/learning_curves.png" alt="curves">
+    <figcaption>学习曲线：奖励从随机（约 −9）爬向 0。</figcaption></div>
+  <div class="card">
+    <p><b>诚实</b>：GNN 均值 1.54 和贪心（1.80）、MLP REINFORCE（1.40）<b>相当</b>，不是稳定碾压。最佳种子 1.00 有空间，要看多种子。</p>
+    <p>DQN 退化——稀疏终局奖励喂不饱价值函数。<b>这里该用策略梯度</b>。</p>
+  </div>
+</section>
 
-<div class="fig">
-  <img src="experiments/learning_curves.png" alt="learning curves">
-  <figcaption>学习曲线：奖励从随机（约 −9）爬到接近 0。</figcaption>
-</div>
+<section>
+  <h2><span class="num">5</span>消融：剩下的误差在置信度里</h2>
+  <p>同样 GNN，换三种置信度：</p>
+  <div class="figure"><img src="experiments/ablation_conf.png" alt="ablation">
+    <figcaption>打掉信号 → 比阈值还差；完美信号 → 0.72。瓶颈在预测器，不在调度器。</figcaption></div>
+  <table>
+    <tr><th>置信度</th><th>结论错误</th></tr>
+    <tr><td>噪声</td><td>3.78</td></tr>
+    <tr><td>正常</td><td>1.38</td></tr>
+    <tr><td>上帝视角</td><td>0.72</td></tr>
+  </table>
+  <div class="story">别卷调度算法。<b>把置信度信号做好，收益更大。</b>剩余误差住在预测器里。</div>
+</section>
 
-<div class="fig">
-  <img src="experiments/ablation_conf.png" alt="ablation">
-  <figcaption>消融：打掉置信度信号 → 比阈值还差；给完美信号 → 0.72。剩下的误差住在预测器里，不在策略里。</figcaption>
-</div>
+<section>
+  <h2><span class="num">6</span>放大：500 节点</h2>
+  <p>三种 500 节点图：模块化、无标度（少数 hub）、稀疏随机。预算 50（10%）。</p>
+  <div class="figure"><img src="experiments/scale500.png" alt="scale">
+    <figcaption>贪心影响最大化几乎清空三种图。无标度 81 → 3.8（降 95%）。</figcaption></div>
+  <table>
+    <tr><th>图族</th><th>不审</th><th>阈值</th><th>贪心</th></tr>
+    <tr><td>模块化</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
+    <tr><td>无标度 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
+    <tr><td>稀疏 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+  </table>
+  <div class="card"><b>诚实</b>：这批 500 节点数字是<b>贪心启发式，不是 RL</b>。说明问题在规模下依然有趣，贪心是必须打赢的基线。</div>
+</section>
 
-<table>
-  <tr><th>喂什么置信度</th><th>结论错误</th></tr>
-  <tr><td>噪声（信号毁掉）</td><td>3.78</td></tr>
-  <tr><td>正常（学到的信号）</td><td>1.38</td></tr>
-  <tr><td>上帝视角（真错）</td><td>0.72</td></tr>
-</table>
+<section>
+  <h2><span class="num">7</span>我们自己的管道</h2>
+  <p>splsleep SCHEMA 编成 21 节点真图：原始时间 → 差值 → SOL/WASO/TST/效率 → 结论。</p>
+  <div class="figure"><img src="experiments/real_pipeline.png" alt="real pipeline">
+    <figcaption>今天的数据管道上，校准阈值把结论错误从 2.12 降到 0.50。</figcaption></div>
+  <table>
+    <tr><th>策略</th><th>结论错误</th></tr>
+    <tr><td>不审</td><td>2.12</td></tr>
+    <tr><td class="best">置信度阈值</td><td class="best">0.50</td></tr>
+    <tr><td>hub</td><td>1.75</td></tr>
+  </table>
+  <div class="story">500 节点说「图变大怎么办」。这 21 节点说<b>今天的数据怎么办</b>：校准阈值就够。</div>
+</section>
 
-<div class="fig">
-  <img src="experiments/scale500.png" alt="scale 500">
-  <figcaption>放大到 500 节点（模块化 / 无标度 / 稀疏）：贪心影响最大化 81→3.8（无标度）。这批是贪心，不是 RL。</figcaption>
-</div>
+<section>
+  <h2><span class="num">8</span>OpenAI 两个基准</h2>
+  <div class="card">
+    <p><b>HealthBench</b>：医生 rubric + worst-of-n + 共识/Hard。<b>BioBasicsBench</b>：原始湿实验证据 + 错误检测 + 「证据不足」。失败模式：<b>假设压过对照</b>，和我们 76% order_error 同一物种。</p>
+    <p>采纳：偏学分收据、错误检测当一等技能、「证据不足」当显式动作。</p>
+    <p>加的：预算、依赖图、延迟到结论的惩罚。<b>他们没建。</b></p>
+  </div>
+</section>
 
-<table>
-  <tr><th>图族</th><th>不审</th><th>阈值</th><th>贪心</th></tr>
-  <tr><td>模块化</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-  <tr><td>无标度 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-  <tr><td>稀疏 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
-</table>
+<section>
+  <h2><span class="num">9</span>决策指南</h2>
+  <table>
+    <tr><th>情况</th><th>用什么</th></tr>
+    <tr><td>置信度校准好</td><td>GNN 或结构贪心</td></tr>
+    <tr><td>置信度噪声大</td><td><b>别用 RL</b>，静态阈值更稳</td></tr>
+    <tr><td>预算紧、错误按类型聚集</td><td>结构贪心</td></tr>
+    <tr><td>能改进预测器</td><td>改置信度比改策略收益大</td></tr>
+    <tr><td>图很大、无标度</td><td>贪心影响最大化</td></tr>
+    <tr><td>今天的小管道</td><td>校准阈值</td></tr>
+  </table>
+</section>
 
-<div class="fig">
-  <img src="experiments/real_pipeline.png" alt="real pipeline">
-  <figcaption>真实睡眠管道（N=21，从 SCHEMA 编码）：阈值 2.12 → 0.50。今天的数据今天就能用。</figcaption>
-</div>
+<section>
+  <h2><span class="num">10</span>机器不盖章</h2>
+  <div class="card">
+    <ul>
+      <li>建议器<b>只读</b>证据图，输出排序。</li>
+      <li>人点「裁决」才产生收据。</li>
+      <li>建议永远不自动变裁决。</li>
+      <li>原始 RDS / CSV <b>不进 git</b>。</li>
+    </ul>
+  </div>
+</section>
 
-<table>
-  <tr><th>策略</th><th>结论错误</th></tr>
-  <tr><td>不审</td><td>2.12</td></tr>
-  <tr><td>随机</td><td>1.88</td></tr>
-  <tr><td>hub</td><td>1.75</td></tr>
-  <tr><td class="best">置信度阈值</td><td class="best">0.50</td></tr>
-</table>
-
-<h2>和 OpenAI 两个基准的关系</h2>
-<div class="box">
-  <p><b>HealthBench</b>（医生 rubric + worst-of-n + 共识/Hard 拆分）教我们怎么评。<b>BioBasicsBench</b>（原始湿实验证据 + 错误检测 + 「证据不足」）教我们 everyday science 的失败长什么样——假设压过对照，和我们 76% order_error 同一物种。</p>
-  <p>我们采纳：偏学分收据、错误检测当一等技能、「证据不足」当显式动作、三轮评审。</p>
-  <p>我们加的：预算、依赖图、延迟到结论的惩罚。<b>他们没建这个。</b></p>
-</div>
-
-<h2>决策指南</h2>
-<table>
-  <tr><th>如果你在什么情况</th><th>用什么</th></tr>
-  <tr><td>置信度信号校准得好</td><td>GNN 或结构贪心都行</td></tr>
-  <tr><td>置信度噪声大</td><td><b>别用 RL</b>，静态阈值更稳</td></tr>
-  <tr><td>预算紧、错误按类型聚集</td><td>结构贪心（便宜、强）</td></tr>
-  <tr><td>能改进预测器</td><td>改置信度比改策略收益大</td></tr>
-  <tr><td>图很大、无标度</td><td>贪心影响最大化（守 hub）</td></tr>
-  <tr><td>就是我们今天的小管道</td><td>校准阈值</td></tr>
-</table>
-
-<h2>边界（从 SciForge 继承，不放松）</h2>
-<div class="box">
-  <ul>
-    <li>建议器<b>只读</b>证据图，输出排序。</li>
-    <li>人点「裁决」才产生收据。</li>
-    <li>建议永远不会自动变成裁决。</li>
-    <li>原始 RDS / CSV <b>永不进 git</b>。</li>
-  </ul>
-</div>
-
-<h2>请两位博士拍板</h2>
-<div class="ask">
-  <p><b>Maia ten Brink</b>：睡眠 EMA 数据只做动机可以吗？真实管道 DAG（N=21）这样编码对不对？证据链边界这样划可以吗？</p>
-  <p><b>Zhangyang Gao</b>：第一版 bandit 输了、重构成图上 MDP、主实验用合成图 + 真实管道小图——这个方向和范围，对 SciForge / RL 课可以吗？GNN + REINFORCE 已经跑，CMDP 软预算 naive 失败，下一步做双 critic 还是先不做？</p>
-</div>
-
-<h2>四周排期（如果今天方向定下来）</h2>
-<table>
-  <tr><th>周</th><th>做什么</th><th>谁</th></tr>
-  <tr><td>W1 ~11/12</td><td>冻结环境 + 基线；复现 GNN 多种子</td><td>3, 4</td></tr>
-  <tr><td>W2 ~11/19</td><td>双 critic CMDP 或 GNN 上 200 节点；方法表</td><td>2, 3</td></tr>
-  <tr><td>W3 ~11/26</td><td>对照 + 曲线 + 共识/困难拆分 + related work 定稿</td><td>4, 5</td></tr>
-  <tr><td>W4 ~12/03</td><td>幻灯片 + 排练 ≥2 次</td><td>5, 全体</td></tr>
-</table>
-
-<h2>分工（草）</h2>
-<div class="box">
-  <p>指导：Maia ten Brink, PhD（睡眠数据 / 证据链边界）· Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab)</p>
-  <ul>
-    <li><b>1</b> 组长 + 叙事整合</li>
-    <li><b>2</b> 策略梯度（REINFORCE → PPO-Lagrangian）</li>
-    <li><b>3</b> 环境 + GNN + DQN</li>
-    <li><b>4</b> 基线 + 对照实验</li>
-    <li><b>5 동채하</b> 文献 + 真实数据动机 + 写作 + 发表</li>
-  </ul>
-</div>
-
-<h2>如果被问「为什么不直接用阈值」</h2>
-<div class="box">
-  <p class="say">「阈值看不到图。结构贪心（用图）已经比阈值少 22%，证明图有价值；RL 再压 20%。而且消融说剩下的误差在置信度信号里——所以下一步是改信号，不是继续卷策略。」</p>
-</div>
-
-<!-- ================= ENGLISH ================= -->
-<div class="lang-h">English</div>
-
-<h1>Which item on the evidence chain should a human review first?</h1>
-<div class="sub">
-  STA3145 Reinforcement Learning · Group proposal (meeting one-pager)<br>
-  Sleep data: 1-year EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab)<br>
-  Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab)<br>
-  2026-11-09 · 5-person team
-</div>
-
-<h2>What we build</h2>
-<div class="box">
-  <p>AI already cleans sleep diaries, labels papers, runs analyses. Its outputs <b>depend on each other</b>: a flipped time becomes a wrong latency, a wrong sleep efficiency, an untrustworthy conclusion.</p>
-  <p>A human cannot check everything. We train a <b>read-only RL suggester</b>: which node to review next, so fewer errors reach the conclusion.</p>
-  <p><span class="tag">Machine never stamps</span> <span class="tag">read-only ranking</span> <span class="tag">receipt only on human verdict</span></p>
-</div>
-
-<h2>Math skeleton (the RL-course main course)</h2>
-<div class="box">
-  <p><b>1. Causal propagation (intervention on a DAG)</b></p>
-  <p>\[ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad w_{uv}\sim U(0.5,1.5),\ \lambda=0.8 \]</p>
-  <p>Reviewing \(v\) = do\((X_v := 1)\). Causal intervention, not correlation.</p>
-  <p><b>2. MDP.</b> \(\mathcal{S}\) = graph knowledge + remaining budget; \(\mathcal{A}\) = next node (or stop); \(r_T = -\#\text{sink errors}\); \(\gamma &lt; 1\).</p>
-  <p><b>3. CMDP Lagrangian.</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\). Main method today is GNN + fixed-budget REINFORCE; dual-critic CMDP is in progress.</p>
-  <p><b>4. Submodular greedy (1−1/e).</b> On N=500 this greedy takes scale-free graphs from 81 to 3.8.</p>
-  <p><b>5. Information-gain reward (in the design, not yet run).</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
-  <p><b>6. Policy gradient (main method).</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
-  <p>GNN scorer: \( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
-  <p><b>7. Worst-of-n.</b> One unreviewed error can invalidate a conclusion (HealthBench). noise worst-of-5 = 5.20, oracle = 0.80.</p>
-</div>
-
-<h2>Why this is not made up</h2>
-<div class="box">
-  <p>Our own data: <b>13,990 records / 237 people</b>, 75 human corrections (0.54%). Of those 75, <b>76% are one type</b> (order_error, p&lt;0.0001).</p>
-  <p>Low error rate → reviewing everything is wasteful. High clustering → <b>which to review</b> matters more than <b>how many</b>.</p>
-</div>
-
-<h2>What we already ran (AI-generated, teammates to reproduce)</h2>
-<p>V1 as a per-item bandit <b>lost to a threshold</b> (2.81 vs Q-learning 3.38). Diagnosis: flattening the graph leaves RL nothing to learn.</p>
-<p>After reframing as active node selection:</p>
-
-<table>
-  <tr><th>Method</th><th>Sink errors (N=80)</th></tr>
-  <tr><td>No review</td><td>5.90</td></tr>
-  <tr><td>Confidence threshold</td><td>2.30</td></tr>
-  <tr><td>Structural greedy</td><td>1.80</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
-  <tr><td>DQN</td><td>5.10 (degenerate)</td></tr>
-  <tr><td>Oracle</td><td>0.00</td></tr>
-</table>
-
-<table>
-  <tr><th>Family (N=500, greedy)</th><th>No review</th><th>Threshold</th><th>Greedy</th></tr>
-  <tr><td>Modular</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-  <tr><td>Scale-free (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-  <tr><td>Sparse (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
-</table>
-
-<table>
-  <tr><th>Real pipeline (N=21)</th><th>Sink errors</th></tr>
-  <tr><td>No review</td><td>2.12</td></tr>
-  <tr><td class="best">Confidence threshold</td><td class="best">0.50</td></tr>
-</table>
-
-<h2>Boundaries (inherited from SciForge)</h2>
-<div class="box">
-  <ul>
-    <li>Suggester is <b>read-only</b> on the evidence graph.</li>
-    <li>A receipt exists only when a human clicks "verdict."</li>
-    <li>Raw RDS / CSV <b>never enters git</b>.</li>
-  </ul>
-</div>
-
-<h2>Ask the two PhDs</h2>
-<div class="ask">
-  <p><b>Maia ten Brink</b>: Is it OK that sleep EMA data is motivation only? Is the N=21 real pipeline DAG encoded correctly? Are the evidence-chain boundaries right?</p>
-  <p><b>Zhangyang Gao</b>: V1 bandit lost; we reframed to a graph MDP; main experiment is synthetic + a small real pipeline. Is this direction OK for SciForge / the RL course? GNN + REINFORCE already runs; naive CMDP fails; dual critic next, or wait?</p>
-</div>
-
-<h2>Four-week plan</h2>
-<table>
-  <tr><th>Week</th><th>Build</th><th>Who</th></tr>
-  <tr><td>W1 ~11/12</td><td>Freeze env + baselines; reproduce GNN multi-seed</td><td>3, 4</td></tr>
-  <tr><td>W2 ~11/19</td><td>Dual-critic CMDP or GNN on 200 nodes; method table</td><td>2, 3</td></tr>
-  <tr><td>W3 ~11/26</td><td>Controls + curves + consensus/hard split + related work</td><td>4, 5</td></tr>
-  <tr><td>W4 ~12/03</td><td>Slides + ≥2 rehearsals</td><td>5, all</td></tr>
-</table>
-
-<h2>Team (draft)</h2>
-<div class="box">
-  <p>Advisors: Maia ten Brink, PhD (sleep data / evidence-chain boundaries) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab)</p>
-  <ul>
-    <li><b>1</b> PM + narrative</li>
-    <li><b>2</b> Policy gradient (REINFORCE → PPO-Lagrangian)</li>
-    <li><b>3</b> Environment + GNN + DQN</li>
-    <li><b>4</b> Baselines + controls</li>
-    <li><b>5 동채하</b> Literature + real-data motivation + writing + presenting</li>
-  </ul>
-</div>
-
-<h2>If asked "why not just the threshold"</h2>
-<div class="box">
-  <p class="say">"The threshold cannot see the graph. Structural greedy (which uses the graph) already beats the threshold by 22%, proving the graph has value; RL adds another 20%. The ablation says the remaining error lives in the confidence signal — so the next step is the signal, not more policy tuning."</p>
-</div>
-
-<!-- ================= 한국어 ================= -->
-<div class="lang-h">한국어</div>
-
-<h1>증거 사슬 위에서, 사람은 어느 항목을 먼저 검토해야 하는가?</h1>
-<div class="sub">
-  STA3145 강화학습 · 팀 제안 (회의용)<br>
-  수면 데이터: Maia ten Brink(Stanford Psychophysiology Lab)와 1년 협업 EMA<br>
-  응용 대상: SciForge(Zhangyang Gao 개발, AI4Science, Shanghai AI Lab)<br>
-  2026-11-09 · 5인 팀
-</div>
-
-<h2>우리가 만드는 것</h2>
-<div class="box">
-  <p>AI가 이미 수면 일기를 정제하고, 문헌에 라벨을 달고, 분석을 돌립니다. 그 출력은 <b>서로 의존</b>합니다: 시간이 반대로 쓰이면 잠복기가 틀리고, 수면 효율이 틀리고, 결론이 믿을 수 없게 됩니다.</p>
-  <p>사람이 전부 확인할 수는 없습니다. 강화학습으로 <b>읽기 전용 제안기</b>를 학습합니다: 다음에 어떤 노드를 검토할지, 결론에 도달하는 오류를 줄이기 위해서.</p>
-  <p><span class="tag">기계는 도장을 찍지 않음</span> <span class="tag">읽기 전용 순위</span> <span class="tag">사람이 판정해야 영수증</span></p>
-</div>
-
-<h2>수학 골격 (RL 수업의 메인)</h2>
-<div class="box">
-  <p><b>1. 인과 전파 (DAG 개입)</b></p>
-  <p>\[ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad w_{uv}\sim U(0.5,1.5),\ \lambda=0.8 \]</p>
-  <p>노드 \(v\) 검토 = do\((X_v := 1)\). 인과 개입이지 상관이 아닙니다.</p>
-  <p><b>2. MDP.</b> \(\mathcal{S}\) = 그래프 지식 + 잔여 예산; \(\mathcal{A}\) = 다음 노드(또는 stop); \(r_T = -\#\text{sink 오류}\); \(\gamma &lt; 1\).</p>
-  <p><b>3. CMDP 라그랑지안.</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\). 오늘 주 방법은 GNN + 고정 예산 REINFORCE; 이중 critic CMDP는 진행 중.</p>
-  <p><b>4. 준모듈러 탐욕 (1−1/e).</b> N=500에서 이 탐욕은 스케일프리 그래프를 81 → 3.8으로 만듭니다.</p>
-  <p><b>5. 정보 이득 보상 (설계, 아직 미실행).</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
-  <p><b>6. 정책 경사 (주 방법).</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
-  <p>GNN 점수기: \( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
-  <p><b>7. worst-of-n.</b> 검토 안 된 오류 하나가 결론을 무효화할 수 있습니다(HealthBench). noise worst-of-5 = 5.20, oracle = 0.80.</p>
-</div>
-
-<h2>이것이 만들어진 게 아닌 이유</h2>
-<div class="box">
-  <p>우리 데이터: <b>13,990 기록 / 237명</b>, 75건 사람 정정(0.54%). 그 75건 중 <b>76%가 한 유형</b>(order_error, p&lt;0.0001).</p>
-  <p>오류율이 낮아 전체 검토는 비효율적입니다. 오류가 강하게 뭉쳐 있어 <b>무엇을 검토하느냐</b>가 <b>얼마나 검토하느냐</b>보다 중요합니다.</p>
-</div>
-
-<h2>이미 실행된 것 (AI 생성, 팀원 재현 필요)</h2>
-<p>1판 밴딧은 <b>임계값에 졌습니다</b> (2.81 vs Q-러닝 3.38). 진단: 항목별 검토는 그래프를 평평하게 만듭니다.</p>
-<p>그래프 위 능동적 노드 선택으로 재구성한 뒤:</p>
-
-<table>
-  <tr><th>방법</th><th>sink 오류 (N=80)</th></tr>
-  <tr><td>무검토</td><td>5.90</td></tr>
-  <tr><td>신뢰도 임계값</td><td>2.30</td></tr>
-  <tr><td>구조적 그리디</td><td>1.80</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
-  <tr><td>DQN</td><td>5.10 (퇴화)</td></tr>
-  <tr><td>Oracle</td><td>0.00</td></tr>
-</table>
-
-<table>
-  <tr><th>족 (N=500, 탐욕)</th><th>무검토</th><th>임계값</th><th>탐욕</th></tr>
-  <tr><td>모듈형</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-  <tr><td>스케일프리 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-  <tr><td>희소 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
-</table>
-
-<table>
-  <tr><th>실제 파이프라인 (N=21)</th><th>sink 오류</th></tr>
-  <tr><td>무검토</td><td>2.12</td></tr>
-  <tr><td class="best">신뢰도 임계값</td><td class="best">0.50</td></tr>
-</table>
-
-<h2>경계 (SciForge에서 상속)</h2>
-<div class="box">
-  <ul>
-    <li>제안기는 증거 그래프를 <b>읽기 전용</b>으로 봅니다.</li>
-    <li>사람이 "판정"을 클릭해야 영수증이 됩니다.</li>
-    <li>원시 RDS / CSV는 <b>git에 들어가지 않습니다</b>.</li>
-  </ul>
-</div>
-
-<h2>두 박사에게 묻습니다</h2>
-<div class="ask">
-  <p><b>Maia ten Brink</b>: 수면 EMA 데이터가 동기로만 쓰여도 되나요? N=21 실제 파이프라인 DAG 인코딩이 맞나요? 증거 사슬 경계가 맞나요?</p>
-  <p><b>Zhangyang Gao</b>: 1판 밴딧이 졌고, 그래프 MDP로 재구성했고, 주요 실험은 합성 + 작은 실제 파이프라인입니다. 이 방향이 SciForge / RL 수업에 맞나요? GNN + REINFORCE는 이미 돌아가고, naive CMDP는 실패했습니다. 이중 critic을 다음에 만들까요, 기다릴까요?</p>
-</div>
-
-<h2>4주 계획</h2>
-<table>
-  <tr><th>주</th><th>만드는 것</th><th>누구</th></tr>
-  <tr><td>W1 ~11/12</td><td>환경 + 베이스라인 고정; GNN 다중 시드 재현</td><td>3, 4</td></tr>
-  <tr><td>W2 ~11/19</td><td>이중 critic CMDP 또는 200노드 GNN; 방법 표</td><td>2, 3</td></tr>
-  <tr><td>W3 ~11/26</td><td>대조 + 곡선 + 합의/하드 분할 + 관련 연구</td><td>4, 5</td></tr>
-  <tr><td>W4 ~12/03</td><td>슬라이드 + 리허설 ≥2회</td><td>5, 전체</td></tr>
-</table>
-
-<h2>팀 (초안)</h2>
-<div class="box">
-  <p>지도: Maia ten Brink, PhD (수면 데이터 / 증거 사슬 경계) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab)</p>
-  <ul>
-    <li><b>1</b> PM + 내러티브</li>
-    <li><b>2</b> 정책 경사 (REINFORCE → PPO-Lagrangian)</li>
-    <li><b>3</b> 환경 + GNN + DQN</li>
-    <li><b>4</b> 베이스라인 + 대조</li>
-    <li><b>5 동채하</b> 문헌 + 실데이터 동기 + 집필 + 발표</li>
-  </ul>
-</div>
-
-<h2>"왜 바로 임계값을 안 쓰나요"라고 물으면</h2>
-<div class="box">
-  <p class="say">"임계값은 그래프를 못 봅니다. 그래프를 쓰는 탐욕이 이미 임계값보다 22% 낫다는 걸 증명했고, RL이 추가로 20% 더 줄입니다. 그리고 소거는 남은 오류가 신뢰도 신호에 있다고 말합니다 — 다음 단계는 정책이 아니라 신호입니다."</p>
-</div>
-
-<div class="sub" style="margin-top:24px">
-  자세한 버전: PROJECT_EN.md · PROJECT_KO.md · PROJECT_CN.md · IMPLEMENTATION_SPEC.md · _KO.md · _CN.md · EVIDENCE_CHAIN_DESIGN.md · _CN.md<br>
-  코드와 그림: github.com/cyracaid/rl-oversight-dag
-</div>
+<section>
+  <h2><span class="num">11</span>分工</h2>
+  <div class="card">
+    <p>指导：Maia ten Brink, PhD（睡眠数据 / 证据链边界）· Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab)</p>
+    <ul>
+      <li><b>1</b> 组长 + 叙事</li>
+      <li><b>2</b> 策略梯度（REINFORCE → PPO-Lagrangian）</li>
+      <li><b>3</b> 环境 + GNN + DQN</li>
+      <li><b>4</b> 基线 + 对照</li>
+      <li><b>5 동채하</b> 文献 + 真实数据动机 + 写作 + 发表</li>
+    </ul>
+  </div>
+</section>
 
 </div>
+
+<!-- ===== English ===== -->
+<div class="lang-block" id="lang-en">
+
+<section>
+  <h2><span class="num">0</span>One sentence</h2>
+  <div class="card">
+    <p>AI already cleans diaries, labels papers, runs analyses. Outputs <b>depend on each other</b>: a flipped time becomes a wrong latency, a wrong efficiency, an untrustworthy conclusion.</p>
+    <p>A human cannot check everything. We train a <b>read-only RL suggester</b>: which node to review next, so fewer errors reach the conclusion.</p>
+    <p><span class="tag">Machine never stamps</span> <span class="tag">read-only ranking</span> <span class="tag">receipt only on human verdict</span></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">1</span>Why this is real</h2>
+  <div class="card">
+    <p>Our lab's sleep-diary data: <b>13,990 records, 237 people</b>. Humans corrected only <b>75</b> (0.54%).</p>
+    <p>Those 75 are not scattered — <b>76% are the same mistake</b> (order_error: times in the wrong order).</p>
+    <p>The mistake does not stay put. Wrong time → wrong latency → wrong efficiency → wrong conclusion.</p>
+  </div>
+  <div class="story">"What to review" matters more than "how much." The budget is tiny. Spend it upstream of the 76% type.</div>
+</section>
+
+<section>
+  <h2><span class="num">2</span>The detour (honest)</h2>
+  <div class="card">
+    <p>First version: a bandit, one item at a time. Result: <b>a simple threshold beat Q-learning</b> (2.81 vs 3.38).</p>
+    <p>Why? Per-item review flattens the graph. RL had nothing non-trivial to learn. With 76% one type, the best policy collapses into an if-rule.</p>
+    <p class="plain">We did not hide this failure. It is the reason for the reframe.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">3</span>Reframe: which node next?</h2>
+  <div class="card">
+    <p>Draw the evidence as a directed graph. The agent walks it and picks one node to review. A good review changes the downstream.</p>
+    <p>This is a real MDP: the state has the graph and remaining budget; the reward arrives only at the end.</p>
+  </div>
+  <div class="arch">
+Front end   highlight-and-ask on diary rows / code / claims  → review traces (not receipts)
+              ↓
+Review layer  GNN / greedy / threshold suggester             → "review these first" (read-only)
+              ↓  human clicks "verdict"
+Back end    SciForge evidence DAG + receipts                 → machine never stamps, append-only
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">4</span>Results</h2>
+  <p>All numbers are errors that reach a conclusion. Lower is better.</p>
+  <div class="figure"><img src="experiments/results_bar.png" alt="methods">
+    <figcaption>80-node graph. The GNN bar is the multi-seed mean, not the lucky single run of 1.20.</figcaption></div>
+  <table>
+    <tr><th>Method</th><th>Sink errors</th></tr>
+    <tr><td>No review</td><td>5.90</td></tr>
+    <tr><td>Confidence threshold</td><td>2.30</td></tr>
+    <tr><td>Structural greedy</td><td>1.80</td></tr>
+    <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
+    <tr><td>PPO (MLP)</td><td>1.60</td></tr>
+    <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
+    <tr><td>DQN</td><td>5.10 (degenerate)</td></tr>
+    <tr><td>Oracle</td><td>0.00</td></tr>
+  </table>
+  <div class="figure"><img src="experiments/learning_curves.png" alt="curves">
+    <figcaption>Learning curves: reward climbs from random (about −9) toward zero.</figcaption></div>
+  <div class="card">
+    <p><b>Honestly</b>: GNN mean 1.54 is <b>comparable to</b> structural greedy (1.80) and MLP REINFORCE (1.40). Not a stable win. Best seed 1.00 shows headroom.</p>
+    <p>DQN degenerates to random — sparse terminal reward cannot feed a value function. Policy gradient is the right tool here.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">5</span>Ablation: remaining error lives in the confidence signal</h2>
+  <p>Same GNN, three kinds of confidence:</p>
+  <div class="figure"><img src="experiments/ablation_conf.png" alt="ablation">
+    <figcaption>Destroy the signal → worse than a threshold. Perfect signal → almost zero. Bottleneck is the predictor, not the scheduler.</figcaption></div>
+  <table>
+    <tr><th>Confidence</th><th>Sink errors</th></tr>
+    <tr><td>Noise</td><td>3.78</td></tr>
+    <tr><td>Normal</td><td>1.38</td></tr>
+    <tr><td>Oracle</td><td>0.72</td></tr>
+  </table>
+  <div class="story">Stop tuning the scheduler. <b>Invest in the confidence signal.</b> We located where the remaining error lives.</div>
+</section>
+
+<section>
+  <h2><span class="num">6</span>Bigger graph: 500 nodes</h2>
+  <p>Three 500-node graphs: modular, scale-free, sparse random. Budget 50 (10%).</p>
+  <div class="figure"><img src="experiments/scale500.png" alt="scale">
+    <figcaption>Greedy influence maximization almost clears every family. Scale-free 81 → 3.8 (95% down).</figcaption></div>
+  <table>
+    <tr><th>Family</th><th>No review</th><th>Threshold</th><th>Greedy</th></tr>
+    <tr><td>Modular</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
+    <tr><td>Scale-free (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
+    <tr><td>Sparse (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+  </table>
+  <div class="card"><b>Honestly</b>: these are <b>greedy heuristics, not RL</b>. The problem is still interesting at scale; greedy is the baseline any learned policy must beat.</div>
+</section>
+
+<section>
+  <h2><span class="num">7</span>Our own pipeline</h2>
+  <p>splsleep SCHEMA as a 21-node graph: raw times → differences → SOL/WASO/TST/efficiency → conclusions.</p>
+  <div class="figure"><img src="experiments/real_pipeline.png" alt="real pipeline">
+    <figcaption>On our data pipeline today, a calibrated threshold drops conclusion errors from 2.12 to 0.50.</figcaption></div>
+  <table>
+    <tr><th>Policy</th><th>Sink errors</th></tr>
+    <tr><td>No review</td><td>2.12</td></tr>
+    <tr><td class="best">Confidence threshold</td><td class="best">0.50</td></tr>
+    <tr><td>Hub</td><td>1.75</td></tr>
+  </table>
+  <div class="story">500-node result = when the evidence graph is large. This 21-node result = <b>our data today</b>: a calibrated threshold is enough.</div>
+</section>
+
+<section>
+  <h2><span class="num">8</span>OpenAI's two benchmarks</h2>
+  <div class="card">
+    <p><b>HealthBench</b>: physician rubrics + worst-of-n + consensus/hard split.<b>BioBasicsBench</b>: raw wet-lab evidence + error detection + "evidence is not enough." Failure mode: <b>assumption overrides a control</b> — same species as our 76% order_error.</p>
+    <p>Adopt: partial-credit receipts, error detection as a first-class skill, "evidence is not enough" as an action.</p>
+    <p>Add: budget, dependency graph, penalty delayed to the conclusion. <b>They did not build this.</b></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">9</span>Decision guide</h2>
+  <table>
+    <tr><th>If you are here</th><th>Use this</th></tr>
+    <tr><td>Confidence well calibrated</td><td>GNN or structural greedy</td></tr>
+    <tr><td>Confidence noisy</td><td><b>Do not use RL</b> — static threshold more robust</td></tr>
+    <tr><td>Tight budget, type-clustered errors</td><td>Structural greedy</td></tr>
+    <tr><td>You can improve the predictor</td><td>Fixing confidence buys more than fixing the policy</td></tr>
+    <tr><td>Large scale-free graph</td><td>Greedy influence maximization</td></tr>
+    <tr><td>Our small pipeline today</td><td>A calibrated threshold</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span class="num">10</span>Machine never stamps</h2>
+  <div class="card">
+    <ul>
+      <li>Suggester is <b>read-only</b>. It outputs a ranking.</li>
+      <li>A receipt exists only when a human clicks "verdict."</li>
+      <li>A suggestion never becomes a verdict automatically.</li>
+      <li>Raw RDS / CSV <b>never enters git</b>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">11</span>Team</h2>
+  <div class="card">
+    <p>Advisors: Maia ten Brink, PhD (sleep data / graph boundaries) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab)</p>
+    <ul>
+      <li><b>1</b> PM + narrative</li>
+      <li><b>2</b> Policy gradient (REINFORCE → PPO-Lagrangian)</li>
+      <li><b>3</b> Environment + GNN + DQN</li>
+      <li><b>4</b> Baselines + controls</li>
+      <li><b>5 동채하</b> Literature + real-data motivation + writing + presenting</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<!-- ===== 한국어 ===== -->
+<div class="lang-block" id="lang-ko">
+
+<section>
+  <h2><span class="num">0</span>한 문장</h2>
+  <div class="card">
+    <p>AI가 이미 일기를 정제하고, 문헌에 라벨을 달고, 분석을 돌립니다. 출력은 <b>서로 의존</b>합니다: 시간이 반대로 쓰이면 잠복기가 틀리고, 수면 효율이 틀리고, 결론이 믿을 수 없게 됩니다.</p>
+    <p>사람이 전부 확인할 수는 없습니다. 강화학습으로 <b>읽기 전용 제안기</b>를 학습합니다: 다음에 어떤 노드를 검토할지, 결론에 도달하는 오류를 줄이기 위해서.</p>
+    <p><span class="tag">기계는 도장을 찍지 않음</span> <span class="tag">읽기 전용 순위</span> <span class="tag">사람이 판정해야 영수증</span></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">1</span>왜 진짜 문제인가</h2>
+  <div class="card">
+    <p>우리 실험실 수면 일기: <b>13,990 기록, 237명</b>. 사람이 고친 것은 <b>75건</b>(0.54%)입니다.</p>
+    <p>그 75건은 흩어져 있지 않습니다 — <b>76%가 같은 실수</b>(order_error: 시간 순서 반대)입니다.</p>
+    <p>실수는 제자리에 머물지 않습니다. 시간이 틀리면 → 잠복기가 틀리고 → 효율이 틀리고 → 결론이 틀립니다.</p>
+  </div>
+  <div class="story">"얼마나 검토하느냐"보다 "무엇을 검토하느냐"가 중요합니다. 예산은 작습니다. 76% 유형의 상류에 쓰는 것이 값집니다.</div>
+</section>
+
+<section>
+  <h2><span class="num">2</span>돌아간 길 (솔직하게)</h2>
+  <div class="card">
+    <p>첫 버전은 밴딧이었습니다. 결과: <b>간단한 임계값이 Q-러닝을 이겼습니다</b> (2.81 vs 3.38).</p>
+    <p>이유: 항목별 검토는 그래프를 평평하게 만듭니다. 76%가 한 유형이라 최적 정책은 if-규칙으로 무너집니다.</p>
+    <p class="plain">이 실패를 숨기지 않았습니다. 재구성의 이유입니다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">3</span>재구성: 다음 노드는?</h2>
+  <div class="card">
+    <p>증거를 방향 그래프로 그립니다. 에이전트가 걷고 노드를 하나 골라 검토합니다. 좋은 검토는 하류를 바꿉니다.</p>
+    <p>진짜 MDP입니다: 상태에 그래프와 남은 예산, 보상은 마지막에 옵니다.</p>
+  </div>
+  <div class="arch">
+Front end   일기 행 / 코드 / 주장에 하이라이트-질문     → 검토 흔적 (영수증 아님)
+              ↓
+Review layer  GNN / 탐욕 / 임계값 제안기                → "이것 먼저 검토" (읽기 전용)
+              ↓  사람이 "판정" 클릭
+Back end    SciForge 증거 DAG + 영수증                  → 기계 도장 없음, append-only
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">4</span>결과</h2>
+  <p>수치는 결론에 도달한 오류 수입니다. 낮을수록 좋습니다.</p>
+  <div class="figure"><img src="experiments/results_bar.png" alt="methods">
+    <figcaption>80노드. 초록 GNN 막대는 다중 시드 평균이지 운 좋은 단일 1.20이 아닙니다.</figcaption></div>
+  <table>
+    <tr><th>방법</th><th>sink 오류</th></tr>
+    <tr><td>무검토</td><td>5.90</td></tr>
+    <tr><td>신뢰도 임계값</td><td>2.30</td></tr>
+    <tr><td>구조적 그리디</td><td>1.80</td></tr>
+    <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
+    <tr><td>PPO (MLP)</td><td>1.60</td></tr>
+    <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
+    <tr><td>DQN</td><td>5.10 (퇴화)</td></tr>
+    <tr><td>Oracle</td><td>0.00</td></tr>
+  </table>
+  <div class="figure"><img src="experiments/learning_curves.png" alt="curves">
+    <figcaption>학습 곡선: 보상이 무작위(약 −9)에서 0 근처로 올라갑니다.</figcaption></div>
+  <div class="card">
+    <p><b>솔직히</b>: GNN 평균 1.54는 구조적 그리디(1.80)와 MLP REINFORCE(1.40)와 <b>비슷합니다</b>. 안정적 승리가 아닙니다. 최고 시드 1.00이 여지를 보입니다.</p>
+    <p>DQN은 무작위로 퇴화합니다 — 희소 종료 보상은 가치 함수를 못 먹입니다. 그래서 <b>정책 경사가 맞는 도구</b>입니다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">5</span>소거: 남은 오류는 신뢰도 신호 안에 있습니다</h2>
+  <p>같은 GNN, 세 가지 신뢰도:</p>
+  <div class="figure"><img src="experiments/ablation_conf.png" alt="ablation">
+    <figcaption>신호 파괴 → 임계값보다 나쁩니다. 완벽한 신호 → 거의 0. 병목은 예측기지 스케줄러가 아닙니다.</figcaption></div>
+  <table>
+    <tr><th>신뢰도</th><th>sink 오류</th></tr>
+    <tr><td>잡음</td><td>3.78</td></tr>
+    <tr><td>정상</td><td>1.38</td></tr>
+    <tr><td>oracle</td><td>0.72</td></tr>
+  </table>
+  <div class="story">스케줄러를 계속 다듬지 마세요. <b>신뢰도 신호에 투자하세요.</b> 남은 오류는 예측기에 있습니다.</div>
+</section>
+
+<section>
+  <h2><span class="num">6</span>그래프 키우기: 500 노드</h2>
+  <p>세 가지 500노드 그래프: 모듈형, 스케일프리, 희소 무작위. 예산 50(10%).</p>
+  <div class="figure"><img src="experiments/scale500.png" alt="scale">
+    <figcaption>탐욕 영향 최대화는 모든 족에서 결론 오류를 거의 비웁니다. 스케일프리 81 → 3.8 (95% 감소).</figcaption></div>
+  <table>
+    <tr><th>족</th><th>무검토</th><th>임계값</th><th>탐욕</th></tr>
+    <tr><td>모듈형</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
+    <tr><td>스케일프리 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
+    <tr><td>희소 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+  </table>
+  <div class="card"><b>솔직히</b>: 이 500노드 수치는 <b>탐욕 휴리스틱이지 RL이 아닙니다</b>. 문제가 규모에서도 흥미롭다는 것, 탐욕이 베이스라인이라는 것.</div>
+</section>
+
+<section>
+  <h2><span class="num">7</span>우리 파이프라인</h2>
+  <p>splsleep SCHEMA를 21노드 그래프로: 원시 시간 → 차이 → SOL/WASO/TST/효율 → 결론.</p>
+  <div class="figure"><img src="experiments/real_pipeline.png" alt="real pipeline">
+    <figcaption>오늘 데이터 파이프라인에서 보정된 임계값이 2.12 → 0.50으로 줄입니다.</figcaption></div>
+  <table>
+    <tr><th>정책</th><th>sink 오류</th></tr>
+    <tr><td>무검토</td><td>2.12</td></tr>
+    <tr><td class="best">신뢰도 임계값</td><td class="best">0.50</td></tr>
+    <tr><td>허브</td><td>1.75</td></tr>
+  </table>
+  <div class="story">500노드는 그래프가 클 때의 이야기. 이 21노드는 <b>오늘 우리 데이터</b>의 이야기입니다: 보정된 임계값이면 충분합니다.</div>
+</section>
+
+<section>
+  <h2><span class="num">8</span>OpenAI 두 벤치마크</h2>
+  <div class="card">
+    <p><b>HealthBench</b>: 의사 rubric + worst-of-n + 합의/하드.<b>BioBasicsBench</b>: 원시 습식 증거 + 오류 탐지 + "증거 부족." 실패: <b>가정이 대조를 이김</b> — 76% order_error와 같은 종.</p>
+    <p>채택: 부분 점수 영수증, 오류 탐지 1급 기술, "증거 부족" 명시적 행동.</p>
+    <p>더하는 것: 예산, 의존성 그래프, 결론까지 지연된 벌점. <b>그들이 만들지 않았습니다.</b></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">9</span>결정 가이드</h2>
+  <table>
+    <tr><th>상황</th><th>사용</th></tr>
+    <tr><td>신뢰도 잘 보정</td><td>GNN 또는 구조적 그리디</td></tr>
+    <tr><td>신뢰도 잡음</td><td><b>RL 금지</b> — 정적 임계값 더 강건</td></tr>
+    <tr><td>예산 타이트, 유형 군집</td><td>구조적 그리디</td></tr>
+    <tr><td>예측기 개선 가능</td><td>신뢰도 보정이 정책 개선보다 이득</td></tr>
+    <tr><td>큰 스케일프리 그래프</td><td>탐욕 영향 최대화</td></tr>
+    <tr><td>오늘의 작은 파이프라인</td><td>보정된 임계값</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span class="num">10</span>기계는 도장을 찍지 않습니다</h2>
+  <div class="card">
+    <ul>
+      <li>제안기는 증거 그래프를 <b>읽기 전용</b>으로 봅니다.</li>
+      <li>사람이 "판정"을 클릭해야 영수증이 됩니다.</li>
+      <li>제안이 자동으로 판정이 되지 않습니다.</li>
+      <li>원시 RDS / CSV는 <b>git에 들어가지 않습니다</b>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">11</span>팀</h2>
+  <div class="card">
+    <p>지도: Maia ten Brink, PhD (수면 데이터 / 그래프 경계) · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab)</p>
+    <ul>
+      <li><b>1</b> PM + 내러티브</li>
+      <li><b>2</b> 정책 경사 (REINFORCE → PPO-Lagrangian)</li>
+      <li><b>3</b> 환경 + GNN + DQN</li>
+      <li><b>4</b> 베이스라인 + 대조</li>
+      <li><b>5 동채하</b> 문헌 + 실데이터 동기 + 집필 + 발표</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+</main>
+
+<footer>
+  Review Scheduling on a Dependency Graph · STA3145 ·
+  <a href="https://github.com/cyracaid/rl-oversight-dag">github.com/cyracaid/rl-oversight-dag</a>
+</footer>
+
+<script>
+function setLang(lang, btn) {
+  document.querySelectorAll('.lang-block').forEach(el => el.classList.remove('show'));
+  document.getElementById('lang-' + lang).classList.add('show');
+  document.querySelectorAll('.lang-tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+
 </body>
 </html>

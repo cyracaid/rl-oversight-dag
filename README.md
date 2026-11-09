@@ -9,9 +9,11 @@
 [Evidence-chain design (EN)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.md) ·
 [证据链设计 (中文)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.md)
 
-**Meeting one-pager (humanized + math, 中文 / EN / 한국어, click to open):**
-[meeting_proposal.html](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.html) ·
-[meeting_proposal.pdf](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.pdf) ·
+**Meeting one-pager (humanized + math, click to open):**
+[中文 PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_zh.pdf) ·
+[English PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_en.pdf) ·
+[한국어 PDF](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal_ko.pdf) ·
+[HTML 三语切换](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.html) ·
 [illustrated talk page](https://cyracaid.github.io/rl-oversight-dag/index.html)
 
 **Full narrative (pick your language):**
@@ -38,7 +40,8 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | `presentation_outline.md` / `presentation_outline_ko.md` | EN / KO | slides |
 | `IMPLEMENTATION_SPEC.md` / `_KO.md` / `_CN.md` | EN / KO / CN | build constants |
 | `index.html` | ZH / EN / KO | humanized illustrated talk page |
-| `meeting_proposal.html` / `.pdf` | ZH / EN / KO | one-page meeting handout (trilingual, math + figures) |
+| `meeting_proposal.html` | ZH / EN / KO tabs | humanized meeting handout |
+| `meeting_proposal_zh.pdf` / `_en.pdf` / `_ko.pdf` | ZH / EN / KO | printable one-pagers |
 | `experiments/` | code | every number |
 
 **SciForge (AI4Science, Shanghai AI Lab, developed by Zhangyang Gao)** — the evidence-chain review layer, applied to sleep data from the one-year collaboration with Maia ten Brink (Stanford Psychophysiology Lab):
