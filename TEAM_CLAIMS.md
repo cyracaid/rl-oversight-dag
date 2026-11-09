@@ -268,18 +268,28 @@ Nothing counts as verified until the named person reruns it.
 
 ---
 
-## 5. Who waits for whom
+## 5. Who waits for whom — the prerequisite timeline
 
-```
-Person 3 (environment)  →  Person 2 (policy)  →  Person 4 (controls)
-        │
-        └── Person 5 (SciForge ask, writing)  →  郑心 / Zhangyang Gao
+| # | Prerequisite (owner) | Due | What it unblocks | Hand-off |
+|---|---|---|---|---|
+| 1 | Freeze the simulator and the graphs (P3) | 11/10 | P2's gate; P4's baselines | tag + the one-line rule |
+| 2 | Gate run with `gain(i)` (P2) | 11/11 | the A/B decision; P1's slides | paired table |
+| 3 | **A/B decision** (P1 + P2) | 11/11, 18:00 | P2's branch; P4's final control set | one-page memo |
+| 4 | Baselines + shuffle/flatten (P4) | 11/13 | the comparison section and the appendix | control table |
+| 5 | Confidence signal (P2) | 11/14 | the limits section; Option A conditions | ablation table |
+| 6 | N=500 and N=21 reproduction (P3) | 11/12 | the scale and real-data sections | reproduction log |
+| 7 | Motivation numbers (P5) | 11/10 | the motivation slide | three numbers + caveat |
+| 8 | Related work (P5) | 11/13 | the second half of the talk | section draft |
+| 9 | SciForge ask (P5 → 郑心) | sent 11/11, reply by 11/18 | Track C only — never the paper | one-pager + one-line reply |
+| 10 | Three-language sync (P5) | after every change | the submission | same-commit updates |
+| 11 | Slides with real numbers (P1) | 11/13 | rehearsal 1 | deck v1 |
+| 12 | **Numbers frozen** (everyone) | 11/14 | rehearsals 2–3 | tag + frozen tables |
 
-Person 1 collects the timeline in parallel.
-```
+**Critical path:** 1 → 2 → 3 → 4 → 12 → 11 → 11/23. If any of those slips a day, the talk slips a day.
 
-**Critical path:** Person 3's frozen environment. If it moves, every number moves.
+**What has slack:** the SciForge ask (9) can arrive as late as 11/18 and nothing in the paper moves. Related work (8) can slip to 11/15 without touching a number.
 
+**What must not slip:** the environment freeze (1) and the gate (2). Everything downstream is a function of those two dates.
 ---
 
 ## 6. Data: what exists and what is missing
