@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-最终可视化 —— 用已确认的最终数字直接出图（不重新训练）。
+"""Final figures and table, generated from confirmed numbers (no retraining).
 
-数字来源：spike / rl_methods_compare / GNN 固定预算 REINFORCE（20000 ep 确认 1.20）。
-输出：final_table.md, results_bar.png, learning_curves.png
+Outputs final_table.md, results_bar.png, learning_curves.png.
 """
 import os
 import matplotlib

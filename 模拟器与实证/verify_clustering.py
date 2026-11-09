@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-真实数据聚集验证：错误是否"按类型聚集"（§2 事实一）
+"""Real-data check: do errors cluster by type?
 
-用团队自己的 splsleep 睡眠问卷人工纠错数据，检验两条：
-  1) 错误类型（error_type / correction_type）是否显著非均匀 —— 若错误是"随机"的，
-     各类型应大致均匀；若"聚集"，少数类型应占大头。
-  2) 人工审计 disposition（keep vs correct 等）是否随字段（field）显著变化 ——
-     即"错误率按字段/类型"是否成立。
-
-方法：卡方统计量 + 蒙特卡洛置换 p 值（无第三方依赖，小样本精确）。
-注意：样本小（<100 行），结果只作方向性证据，不作强结论。
+Uses the internal sleep-research error-correction records. Skips automatically
+when the local data file is missing (Core Principle 3).
 """
 import csv
 import collections

@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Spike：依赖图上"主动选节点审查"能否赢过"按置信度阈值"？
+"""Spike: does active node selection on a dependency graph beat a confidence threshold?
 
-修复了原模拟器的 bug：原版审查一个节点后只把 err[i] 设 False，没有重算下游，
-导致"修正上游阻断下游传播"没生效。这里改成：
-  - base[i] = 节点自身错误（按类型聚集）
-  - 每条边 (p->i) 预采样一个传播硬币 coins[(p,i)]
-  - err = compute_err(base)：err[i] = base[i] OR (任一父 p 且 coins 为真)
-  - 审查节点 i：若 err[i] 且抓到(p_catch)，令 base[i]=False，然后**重算 err**（下游自动解除）
-
-问题（生死判据）：主动选节点（用图结构）能否赢过"按置信度阈值"？
-  - 关键假设：审"扇出大（下游 sink 多）的上游节点"比审"低置信度但无下游的节点"更值。
+Fixes a bug in the earlier simulator: reviewing a node now recomputes downstream,
+so a fixed upstream node stops error propagation. Answers the go/no-go question of
+whether graph structure has independent value beyond confidence.
 """
 import random
 import collections

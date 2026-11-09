@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-RL 方法对比：REINFORCE / PPO / DQN，在依赖图主动选节点 MDP 上。
-
-共享环境（来自 spike_active_selection）：依赖图 + 类型聚集错误 + 传播 + 稀疏终端奖励。
-三种 RL 方法 + 两个基线对比，导出学习曲线与结果柱状图 PNG。
+"""RL method comparison: REINFORCE / PPO / DQN with an MLP node scorer,
+on the active-node-selection MDP over a dependency graph.
 """
 import numpy as np
 import math

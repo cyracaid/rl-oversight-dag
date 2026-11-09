@@ -1,25 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-依赖图传播审查调度模拟器 —— 把"结尾惩罚"弱代理换成真结构。
+"""First version: per-item pass/review (bandit) on a dependency graph.
 
-模型（对应文档 §2 两个事实）：
-  事实一 错误按类型聚集：每种 type 有独立基础出错率 p_type[t]（少数类型高错误率）。
-  事实二 错误沿依赖图往下游传播：条目间是 DAG 依赖，上游错误以概率 p_prop 传到
-         下游；未审查的错误"在结论（sink）处才暴露"。
-  目标：在固定审查预算下，让到达 sink 的错误最少。
-
-策略（对应文档 §3 的对比 + 批评要求的"按类型校准阈值"基线）：
-  ReviewNone        完全不审查
-  Random            随机审 R 个
-  ThresholdPerType  按类型分别校准置信度阈值（BestReject 式，只用 type+conf，看不到图）
-  LearnedQ          tabular Q-learning，状态含 (type, conf, budget, 下游后代数)，
-                    学到"审上游高后代节点"以吃到延迟终端奖励
-  (上限) 无预算全审  审查所有条目（p_catch<1 仍有残余），天花板参考
-
-防"模拟器自证"的两个对照：
-  - shuffle_errors（打乱错误，破坏类型聚集）→ 学习策略优势应消失
-  - flatten（摊平依赖图，破坏传播）        → 学习策略相对阈值的优势应消失
+Replaces the weak "penalty at the end + same-type bonus" proxy with a real
+dependency-graph propagation structure. This is the negative result that motivates
+the reframe to active node selection.
 """
 import math
 import random

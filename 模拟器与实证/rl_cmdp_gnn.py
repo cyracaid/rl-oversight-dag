@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-CMDP + PPO-Lagrangian + GNN —— 依赖图审查调度的升级版（提案第 3 节方法）
+"""Upgraded method (proposal Section 3): CMDP + PPO-Lagrangian + GNN.
 
-升级点：
-  1. GNN 节点打分器：1 层消息传递（子→父聚合下游特征），替代 MLP。
-  2. CMDP：审查预算从"固定 R 个"改成软约束 coverage ∈ [d_l, d_u]。
-  3. PPO-Lagrangian：策略梯度 + 对偶乘子 λ_u/λ_l 上升，自动控制审查量。
-  4. 显式 "stop" 动作：策略学"审到哪一步就停"。
-
-奖励：稀疏终端 = −(结论 sink 错误数)；成本 = 审查节点数。
+Upgrades over the MLP scorer:
+  1. GNN node scorer: one message-passing layer (child -> parent aggregation).
+  2. CMDP: the review budget becomes a soft coverage constraint in [d_l, d_u].
+  3. PPO-Lagrangian: policy gradient + dual multipliers lambda_u / lambda_l.
+  4. Explicit "stop" action so the policy learns when to stop reviewing.
+Naive version: the stop-action credit assignment is too coarse and underperforms.
 """
 import torch
 import torch.nn.functional as F

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-GNN + REINFORCE（固定预算）多种子复现 —— 确认 1.20 的可靠性。
+"""Multi-seed reproduction of GNN + REINFORCE (fixed budget).
 
-5 个训练种子 × 20000 ep，各自在 16 个评估种子上取均值，报 mean ± 95% CI。
+Trains over 5 seeds x 20k episodes, evaluates on 16 eval seeds, reports
+mean +/- 95% CI, to confirm the single-run 1.20 result.
 """
 import torch
 import random
