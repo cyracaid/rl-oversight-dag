@@ -1,6 +1,8 @@
 # Review Scheduling on a Dependency Graph
 
 > STA3145 Reinforcement Learning · Group project. Under a limited review budget, we use RL to learn which node of a dependency graph to review, so that fewer errors reach the final conclusion.
+>
+> Supervisors: Maia ten Brink, PhD & Zhangyang Gao, PhD
 
 **Start here — one synthesized design document:**
 [Evidence-chain design (EN)](EVIDENCE_CHAIN_DESIGN.md) ·
@@ -16,6 +18,31 @@
 [中文 `IMPLEMENTATION_SPEC_CN.md`](IMPLEMENTATION_SPEC_CN.md)
 
 Repo: https://github.com/cyracaid/rl-oversight-dag
+
+---
+
+## What this repo is for (two audiences)
+
+**Yonsei RL course (STA3145)** — the assignment, the talk, the synthetic + 80-node RL experiments:
+
+| File | Language | For |
+|---|---|---|
+| `PROJECT_EN.md` / `PROJECT_KO.md` / `PROJECT_CN.md` | EN / KO / CN | course narrative |
+| `presentation_outline.md` | EN | slides |
+| `IMPLEMENTATION_SPEC.md` / `_CN.md` | EN / CN | build constants |
+| `index.html` | ZH / EN / KO | humanized illustrated talk page |
+| `experiments/` | code | every number |
+
+**SciForge / AI4Science (lab, Maia ten Brink + Zhangyang Gao)** — the evidence-chain review layer, the real sleep pipeline:
+
+| File | Language | For |
+|---|---|---|
+| `proposal_sciforge_en.md` | EN | SciForge-shaped proposal |
+| `EVIDENCE_CHAIN_DESIGN.md` / `_CN.md` | EN / CN | architecture, boundaries, landing plan |
+| `experiments/real_pipeline_graph.py` | code | N=21 real SCHEMA DAG |
+| `experiments/verify_clustering.py` | code | 75-correction clustering (skips if data missing) |
+
+**Local only, never commit:** raw `*.rds` / `*.csv`; anyone else's proposal; long Chinese literature notes (`延迟惩罚审查调度_文献调研/`).
 
 ---
 

@@ -1,6 +1,7 @@
 # 의존성 그래프 위 검토 스케줄링 — 프로젝트 문서 (한국어)
 
 > STA3145 강화학습 · 팀 프로젝트 · 심화판 2026-11-09
+> 지도교수: Maia ten Brink, PhD (증거 사슬 / 수면 데이터) · Zhangyang Gao, PhD (AI / RL)
 > 영어판: `PROJECT_EN.md` · 중국어판: `PROJECT_CN.md`
 > 저장소: https://github.com/cyracaid/rl-oversight-dag
 

@@ -267,7 +267,8 @@ A reviewer can ask "is this just FALCON on a graph" and get: FALCON has no error
 
 | Who | Decision |
 |---|---|
-| Professor | bandit → MDP reframe; synthetic main experiment; real data as motivation only |
+| Maia ten Brink, PhD | bandit → MDP reframe; synthetic main experiment; real data as motivation only; evidence-chain boundaries; sleep-pipeline DAG |
+| Zhangyang Gao, PhD | RL method stack (GNN + REINFORCE/PPO; CMDP dual critic); whether a synthetic main experiment is acceptable for an RL course |
 | Zhenxing (evidence-chain owner) | may suggester output enter the audit chain; receipt fields; does a node have confidence |
 | Teammates | own the Section 8 checks; pick dual-critic CMDP **or** GNN-at-scale, not both badly |
 | 동채하 | presenting language: English if allowed, else backend (literature / simulation / data) |

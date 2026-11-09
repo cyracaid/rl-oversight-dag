@@ -1,6 +1,7 @@
 # Proposal (Final): Review Scheduling on a Dependency Graph under Budget — an AI4Science application for SciForge
 
 Team course project proposal · STA3145 Reinforcement Learning · Deepened version 2026-11-09
+Supervised by Maia ten Brink, PhD (evidence chain / sleep data) · Zhangyang Gao, PhD (AI / RL)
 > This version restates the proposal inside SciForge's evidence chain and merges all second-round results (GNN scorer, CMDP soft budget, the 76% correction, and the 2026 literature). Sections 3 and 9 are new for SciForge.
 
 **Verification status**: the experiment code and results were produced by an AI agent and have not been independently checked. Unverified items are in Section 8.
@@ -182,6 +183,7 @@ This suggester is not an isolated RL toy — it is the **review layer of a resea
 **Evaluation design, after HealthBench (OpenAI, 2025).** Three principles: *meaningful* (sink errors on a real pipeline), *trustworthy* (75 human corrections, 27 consensus / 48 agree; machine never stamps), *non-saturated* (even oracle confidence leaves 0.72, because reviewer miss rate is 10%). Report **worst-of-n** next to the mean: one unreviewed error can invalidate a conclusion, and a noisy confidence signal hurts the tail more than the mean (worst-of-5: noise 5.20 vs oracle 0.80). Next step, not done: split consensus-verified vs single-annotator errors (our Consensus / Hard).
 
 **Decisions needed from others:**
-- Professor: whether the bandit → MDP direction and a synthetic main experiment are acceptable in scope.
+- Maia ten Brink, PhD: whether the bandit → MDP direction, the real sleep data as motivation, and the evidence-chain boundaries are acceptable.
+- Zhangyang Gao, PhD: whether the RL method stack (GNN + REINFORCE/PPO; CMDP dual critic) and a synthetic main experiment are acceptable for an RL course.
 - Evidence-chain owner (Zhenxing): whether suggester output may be recorded in the audit chain, and the receipt fields.
 - Teammates: the division of the Section 8 verification items.

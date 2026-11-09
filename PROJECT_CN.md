@@ -1,6 +1,7 @@
 # 依赖图上的审阅调度 —— 项目文档（中文版）
 
 > STA3145 强化学习 · 小组项目 · 深化版 2026-11-09
+> 导师：Maia ten Brink, PhD（证据链 / 睡眠数据）· 高张阳, PhD（AI / RL）
 > 对应版本：English `PROJECT_EN.md` · 한국어 `PROJECT_KO.md`
 > 仓库：https://github.com/cyracaid/rl-oversight-dag
 

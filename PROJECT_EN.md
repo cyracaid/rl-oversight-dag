@@ -1,6 +1,7 @@
 # Review Scheduling on a Dependency Graph — Project Document (English)
 
 > STA3145 Reinforcement Learning · Group project · Deepened 2026-11-09
+> Supervisors: Maia ten Brink, PhD (evidence chain / sleep data) · Zhangyang Gao, PhD (AI / RL)
 > Companion versions: 한국어 `PROJECT_KO.md` · 中文 `PROJECT_CN.md`
 > Repo: https://github.com/cyracaid/rl-oversight-dag
 
