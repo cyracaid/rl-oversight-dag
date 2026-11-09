@@ -114,6 +114,7 @@ i.e. remove the most uncertainty with the fewest reviews. Our greedy baseline is
 
 - **Real data (motivation, internal, never committed).** `deidentified_intervalvars_forCD_111325.rds` = **13,990 rows / 237 participants** of daily sleep logs. **75 corrections (0.54%)**, of which `order_error` = **57/75 = 76%** (the old 85.1% was 57/67, 8 rows unlabeled), entropy 0.612, p < 0.0001. Per SciForge raw-data protection, the CSV never enters git and is never handed whole to an agent.
 - **Synthetic graph (main experiments).** ≈80 nodes, type-clustered errors, downstream propagation. Scaled: **N=500** modular / BA / ER, greedy 81→3.8 on scale-free. **Transfer (specified, not yet run):** KAIST HRV diary (1,372 rows / 49 adults, Figshare 28509740, CC BY) and Manchester diary — adapt scripts in `splsleep/validation/external/`. Frozen GNN vs retrained GNN, both reported.
+- **Broader-bio (specified, teammates to search):** GO molecular-function slice — nodes = GO MF terms (a real DAG), items = gene-term annotations, AI = IEA, human = biocurator. Same review-scheduling task, broader bio. **Not protein-function prediction.** Search first whether GO-annotation review scheduling already exists.
 - **Controls.** Shuffle which items are wrong → advantage disappears. Flatten the graph → advantage disappears. The advantage comes from clustering + propagation, not a rigged simulator.
 
 ## 7. Results so far
@@ -258,6 +259,8 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 **For the talk.** HealthBench asked whether an LLM reply meets physician standards on a real health conversation. We ask where finite human attention should go first over a chain of dependent AI outputs. They taught the field to evaluate with meaningful, trustworthy, non-saturated rubrics and worst-of-n reliability. We apply those lessons to a problem they do not solve: scheduling that attention over a dependency graph. Their grading signal is exactly the kind of confidence signal our ablation says is the bottleneck — improving the signal buys more than improving the policy.
 
 **BioBasicsBench (OpenAI + Ligo, 2026-11-06) is the everyday-science sibling.** 100 wet-lab tasks on raw evidence (gels, plates, microscopy); top model 66.7%; failures are assumption-overrides-control, discounted contradictions, miscounts. Our 76% `order_error` is the same species (a familiar time-order assumption overrides the recorded timestamps). Adopt: partial-credit rubrics on receipts, error detection as a first-class skill, and an explicit "evidence cannot support this conclusion" action. We add what they did not build: budgeted sequential review over a dependency graph.
+
+**Broader-bio (specified, teammates to search):** GO molecular-function slice — nodes = GO MF terms (a real DAG), items = gene-term annotations, AI = IEA, human = biocurator. Same review-scheduling task, broader bio. Not protein-function prediction. Search first whether GO-annotation review scheduling already exists.
 
 ## 10. Differentiation, limits, feasibility
 
