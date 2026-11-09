@@ -30,6 +30,29 @@
 
 ---
 
+## 1b. 仓库现状（我实际查了 `AGI4Sci/SciForge_client`）
+
+| 组件 | 记了什么 | 能不能当「审阅事件」 |
+|---|---|---|
+| `knowledge-net`（net） | 阅读记录封存为 Artifact Version（`note.commit`），自身 schema **无时间字段** | 版本本身有 `createdAt` + `actor`，但那是**提交笔记**，不是审阅证据 |
+| `artifact-versions` | 每个版本 `createdAt`、`actor`、不可变 `versionId`/`contentDigest` | 只有「谁在什么时候创建」，**没有 verdict、没有 duration、没有字段** |
+| `evidence-dag` | producer-receipt（待处理 / 投递回执）、closure、snapshot | 是**管道生产**回执，不是**人审**回执 |
+| `user-decisions` | 请求/答复合约，Host 有界重放回执 | 源码里没有 `requestedAt`/`resolvedAt` 字段 |
+
+结论：**今天能拿到的是「序列」，拿不到「人时」。** 顺序（谁先谁后、谁做的）可以从 `createdAt + actor` 重建；每项花多久、看的是哪个字段，仓库里没有。
+
+所以最小改动不是「加一整套审计链」，而是**在提交那一刻多记三个值**：
+
+1. `field_path`（或界面高亮位置自动带出）；
+2. `opened_at`（打开该条目的时间）；
+3. `submitted_at`（提交判决的时间）。
+
+三者都落在已有的 version / producer-receipt 上，不新增服务、不改权限模型。
+
+如果没有这三项，我们仍然能做的：用相邻两次 `createdAt` 的差当**弱成本代理**，并明确标注它测的是「到下一次提交的间隔」，不是「本次审阅耗时」。
+
+---
+
 ## 2. 我们手上的证据（都来自真实数据，不是模拟）
 
 在一年的睡眠日记管道上（13,990 行、1,048 个待审项、75 条人工纠错）：
