@@ -106,7 +106,7 @@ Person 3 (env + graphs)  ──►  Person 2 (RL)  ──►  Person 4 (controls
         ▼                                              ▼
 Person 5 (SciForge ask + write)  ──►  郑心 / Zhangyang Gao
         │                                              │
-        └─────────────► Person 1 (PM + narrative) ◄────┘
+        └─────────────► Person 1 (PM + timeline) ◄────┘
 ```
 
 Critical path: **Person 3's frozen environment** → everyone else. If the environment moves, all numbers move.
@@ -174,7 +174,7 @@ Default (if nobody swaps): the table in §1.
 
 | Person | The sentence |
 |---|---|
-| 1 | "The suggester is a read-only layer on the evidence chain. It never stamps. I will get a DAG export or a mock." |
+| 1 | "I keep the timeline and the proposal. 동채하 owns the evidence-chain design and the 郑心 ask." |
 | 2 | "Policy gradient with a GNN scorer is the main method. The ablation says the confidence signal, not the scheduler, is the remaining error. I will either fix the signal or report that we did not." |
 | 3 | "I own the environment. If the graph moves, every number moves. I will freeze it and reproduce the tables." |
 | 4 | "I own the baselines and the controls. If shuffle and flatten kill the advantage, the advantage is real. If they do not, we say so." |

@@ -92,11 +92,11 @@ We already have more data than we need for the course. The remaining work is **n
 
 | Person | Primary work | Data they own |
 |---|---|---|
-| **1** | PM + narrative | proposal + timeline |
+| **1** | PM + timeline + L2D classics | proposal + timeline |
 | **2** | Policy gradient / GNN / confidence-signal upgrade | confidence ablation (Gap D); no new dataset |
 | **3** | Environment + GNN + DQN + scale (N=500) | synthetic generators (already done) |
 | **4** | Baselines + controls + optional third dataset | Gap C only if A fails; else controls |
-| **5 동채하** | Literature + real-data motivation + writing + presenting + SciForge liaison | sleep 75 / 13,990 (already have); Gap B; Gap A ask |
+| **5 동채하** | Narrative + 郑心 liaison + literature synthesis + writing + presenting (English) | sleep 75 / 13,990; Gap B; Gap A ask |
 
 **Maia ten Brink** = data source + domain sanity-check on the sleep DAG. Not an RL method advisor.
 **Zhangyang Gao** = SciForge landing + whether the formulation fits the platform. The AI method is the course project.

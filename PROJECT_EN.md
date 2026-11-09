@@ -300,11 +300,11 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 | Member | Primary | Backup | Deliverable |
 |---|---|---|---|
-| 1 | PM + narrative | all | proposal + timeline |
+| 1 | PM + timeline + L2D classics (Mozannar / FALCON / SLTD) | proposal + timeline |
 | 2 | Policy gradient (REINFORCE → PPO-Lagrangian) | 3 | code + learning curves |
 | 3 | Environment + value-based (DQN) + GNN scorer | 2 | env module + GNN results |
 | 4 | Baselines + controls | 2 | comparison table + shuffle/flatten |
-| 5 (동채하) | Literature + real-data motivation + writing (+ English presenting if allowed) | 1 | related work + motivation + slides |
+| 5 (동채하) | Narrative + 郑心 liaison + literature synthesis + writing + presenting (English) | 1 | related work + motivation + slides |
 
 
 | Date | Milestone | Owner |
