@@ -204,6 +204,19 @@ Figure: `scale500.png`. Script: `graph_scale.py`.
 
 **Honest scope:** these 500-node numbers are **greedy / heuristics, not RL**. RL on this scale has not been trained. The scientific claim is: the problem is interesting at scale, greedy is a strong (1−1/e)-style baseline, and any learned policy must beat it — which the 80-node GNN, even at its best seed, does not yet do on this larger stage.
 
+## 8c. Real sleep-pipeline DAG (application)
+
+Encoded from splsleep SCHEMA (`real_pipeline_graph.py`): raw diary leaves → pairwise diffs → SOL/WASO/TST/TIB/SE → validity/conclusion sinks. N=21, budget 8, λ=0.9, types matched to the 75 corrections. 8 seeds:
+
+| policy | sink errors |
+|---|---|
+| no review | 2.12 |
+| random | 1.88 |
+| **conf threshold** | **0.50** |
+| hub | 1.75 |
+
+On the *actual* lab pipeline, a calibrated confidence threshold nearly clears conclusion errors. The 500-node result says what to do when the evidence graph is large; this 21-node result says what to do on our data today.
+
 ## 9. Related work
 
 - **Learning to defer:** Mozannar & Sontag (ICML 2020); FALCON (arXiv:2604.00904, closest components, no graph propagation); SLTD (arXiv:2109.06312); Reid et al. (arXiv:2409.20489); KL-PBD (arXiv:2610.15128); Oversight Has a Capacity (arXiv:2606.08919, closest scheduling framing, flat trajectories); Too Much of the Same (arXiv:2608.28050, class bias ↔ our 76% clustering).

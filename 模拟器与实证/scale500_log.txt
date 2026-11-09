@@ -1,0 +1,31 @@
+========================================================================
+Scaled experiments: N=500, budget=50 (10%), λ=0.8, Zipf s=1.2
+P_type (deadly→mild): [np.float64(0.174), np.float64(0.087), np.float64(0.061), np.float64(0.049), np.float64(0.042), np.float64(0.038), np.float64(0.035), np.float64(0.033), np.float64(0.031), np.float64(0.03)]
+Seeds: [1, 2, 3, 4, 5], MC trials folded into coins/propagation
+========================================================================
+  modular  seed 1  no= 28  rand= 28  thr=  4  hub= 20  greedy=  2  edges=765  max_deg=10
+  modular  seed 2  no= 24  rand= 23  thr= 11  hub= 21  greedy=  2  edges=755  max_deg=9
+  modular  seed 3  no= 24  rand= 22  thr= 10  hub= 18  greedy=  0  edges=751  max_deg=11
+  modular  seed 4  no=  8  rand=  6  thr=  2  hub=  8  greedy=  1  edges=755  max_deg=10
+  modular  seed 5  no= 36  rand= 34  thr= 16  hub= 28  greedy=  5  edges=737  max_deg=8
+  ba       seed 1  no= 86  rand= 86  thr= 76  hub= 34  greedy=  5  edges=1491  max_deg=67
+  ba       seed 2  no= 26  rand= 21  thr= 10  hub= 26  greedy=  0  edges=1491  max_deg=60
+  ba       seed 3  no= 66  rand= 66  thr= 47  hub= 39  greedy= 10  edges=1491  max_deg=66
+  ba       seed 4  no=126  rand=126  thr=  6  hub=126  greedy=  2  edges=1491  max_deg=57
+  ba       seed 5  no= 99  rand= 97  thr= 10  hub= 44  greedy=  2  edges=1491  max_deg=64
+  er       seed 1  no= 44  rand= 44  thr=  7  hub= 32  greedy=  2  edges=1870  max_deg=14
+  er       seed 2  no= 49  rand= 49  thr= 17  hub= 37  greedy=  4  edges=1881  max_deg=15
+  er       seed 3  no= 55  rand= 55  thr= 43  hub= 40  greedy= 12  edges=1935  max_deg=15
+  er       seed 4  no= 27  rand= 24  thr=  0  hub= 27  greedy=  0  edges=1818  max_deg=12
+  er       seed 5  no= 38  rand= 38  thr= 15  hub= 37  greedy= 23  edges=1880  max_deg=12
+
+========================================================================
+family       no_review      random   threshold         hub      greedy
+modular          24.00       22.60        8.60       19.00        2.00
+ba               80.60       79.20       29.80       53.80        3.80
+er               42.60       42.00       16.40       34.60        8.20
+
+meta (last seed): {'modular': {'n_err_base': 33, 'n_sinks': 187, 'n_edges': 737, 'max_deg': 8}, 'ba': {'n_err_base': 30, 'n_sinks': 212, 'n_edges': 1491, 'max_deg': 64}, 'er': {'n_err_base': 31, 'n_sinks': 61, 'n_edges': 1880, 'max_deg': 12}}
+elapsed 0.7s
+
+wrote scale500_table.md
