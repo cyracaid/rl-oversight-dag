@@ -109,16 +109,73 @@ Only if WP1 fails:
 
 ---
 
-## 4. Order of execution
+## 4. Dependencies: the honest version
+
+The packages are **not independent**. Only two are (WP5 and the reading half of
+WP3). Everything else sits on one chain, and pretending otherwise is how five
+people produce five incompatible tables.
+
+### 4.1 The real dependency graph
 
 ```
-WP1 (verify)  ──►  decision: Option 1 or Option 2
-      │                     │
-      │                     └──► WP4 (diagnostics) if Option 2
-      ▼
-WP2 (freeze + G1) ──► WP5 (datasets) ──► G2 (GO)
-                              │
-WP3 (models) ─────────────────┘
+WP0 protocol + harness ──► everything (but it is 2 days, not a blocker)
+        │
+WP2 freeze env ──► WP1 verify ──► decision ──► WP4 diagnostics (only if Option 2)
+        │                              │
+        │                              └──► paper tables
+        ├──► WP3 implement (survey can start day 1)
+        └──► WP5 adapter schema ◄──► WP5 dataset survey (survey is independent)
 ```
 
-WP1 and WP2 start now, in parallel. WP5 runs alongside and does not block either.
+| Package | Blocked by | Blocks |
+|---|---|---|
+| WP0 protocol | — | all |
+| WP2 freeze | WP0 (metric definitions) | WP1, WP3 impl, WP4, G1/G2 |
+| WP1 verify | WP2 | the Option 1/2 decision, WP4 |
+| WP4 diagnostics | WP1 + decision | — |
+| WP3 survey | — | — |
+| WP3 impl | WP2 + WP0 | — |
+| WP5 survey | — | — |
+| WP5 adapter | WP2's item schema | G1 |
+| G2 (GO) | WP5 adapter + WP2 | — |
+
+**Critical path:** WP0 → WP2 → WP1 → decision → (WP4) → paper. WP5 feeds the
+transfer rungs but does not block the course deliverable.
+
+### 4.2 The single choke point
+
+**WP2's freeze.** If the simulator changes after verification, every number
+invalidates. So the freeze is a tagged commit plus a rule: *any change to the
+environment is a new version and re-runs every table.* Nothing else in the plan
+matters if this rule is broken.
+
+### 4.3 Contracts that make parallelism safe
+
+Parallelism is bought with interfaces, not independence:
+
+| Contract | Owner | Consumers | Freeze by |
+|---|---|---|---|
+| `eval.py` — one recall/CI implementation, imported by everyone | WP0 | WP1, WP3, WP4, WP5 | day 2 |
+| Item schema for a transfer dataset (unit, type, label, edge, cost) | WP2 + WP5 | WP5 adapter, G1, G2 | day 2 |
+| Environment version tag + seed protocol | WP2 | all experiments | day 2 |
+| Table template (columns, CI rule, script path) | WP0 | every report | day 2 |
+
+Two people writing evaluation code is the most likely source of divergent
+numbers. One file, one owner.
+
+### 4.4 Day-level sequence
+
+| Day | Person 1 | Person 2 | Person 3 | Person 4 | Person 5 |
+|---|---|---|---|---|---|
+| 1–2 | protocol + `eval.py` | read code, prep belief features on a branch | freeze env, tag | survey models | survey datasets |
+| 2 | publish contracts | — | agree item schema with P5 | — | agree item schema with P3 |
+| 3–5 | review tables | **WP1 verification** | adapter skeleton | pick 2 models | verify licences/loads |
+| 5 | — | **decision gate** | — | — | — |
+| 6–8 | paper skeleton | Option 1: tighten seeds / Option 2: hand off | G1 adapter done | WP4 diagnostics | G1 data ready |
+
+### 4.5 What goes wrong if we ignore this
+
+- **Env changes mid-verification** → P2's table contradicts P3's, nobody knows which is right.
+- **Two eval scripts** → recall computed on different denominators; the discrepancy surfaces in the last week.
+- **Adapter built before the schema is agreed** → P5's dataset needs a field the simulator cannot express, and the env changes after freeze.
+- **P4 implements before the env is frozen** → baselines run on an old graph family and are silently incomparable.
