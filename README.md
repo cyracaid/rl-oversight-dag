@@ -5,6 +5,8 @@
 > Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
+**New here?** [One-page reading guide](https://cyracaid.github.io/rl-oversight-dag/READING.html) — who should read which document, five plain words, and what to skip. (中文速览在文末。)
+
 **Who does what (visual, EN / 한국어 / 中文):** [PLAN.html](PLAN.html) — dependency graph, 8-day schedule, four interfaces, three gates. Built from one source: `python3 tools/build_plan.py`. Text version: [GENERALIZATION_PLAN.md](GENERALIZATION_PLAN.md).
 
 **Two stages — Stage 1 we decide, Stage 2 is SciForge's system:** [TRACKS.md](TRACKS.md)
