@@ -23,11 +23,11 @@ AI (a classifier, an LLM annotator, a diary-cleaning pipeline) produces a chain 
 
 **Research questions**
 
-- **RQ1.** Does a learned policy (REINFORCE / PPO / GNN scorer) beat the best *fixed* rule (per-type calibrated threshold, structural greedy) on mean sink errors?
+- **RQ1.** Does a learned policy (REINFORCE / PPO / GNN scorer) beat the best *fixed* rule (per-type calibrated threshold, structural greedy) and the deployable **belief greedy** (adaptive greedy on a particle-filter belief) on mean sink errors?
 - **RQ2.** Does the advantage depend on graph family (modular / scale-free / sparse / real pipeline), budget, and confidence-signal quality?
 - **RQ3.** When RL does *not* win, can we locate the remaining error (policy vs predictor vs reviewer miss rate)?
 
-**Already run (AI agent, unreproduced):** 80-node reframe (bandit negative result; GNN mean 1.54 ± 0.46); ablation (noise 3.78 / normal 1.38 / oracle 0.72); N=500 greedy baselines; real-pipeline threshold 2.12 → 0.50. This spec is what teammates run to reproduce and extend those numbers.
+**Already run (AI agent, unreproduced):** 80-node reframe (bandit negative result; on 200 held-out graphs belief greedy 1.14 beats GNN 1.56, paired gap +0.42 ± 0.15); ablation (noise 3.78 / normal 1.38 / oracle 0.72); N=500 heuristics (belief greedy vs oracle greedy); real-pipeline threshold 2.12 → 0.50. This spec is what teammates run to reproduce and extend those numbers.
 
 ---
 
@@ -146,13 +146,20 @@ r_T = -sink_errors(err)
 
 ### 4.2 State (GNN scorer, 80-node main)
 
-Per node feature vector `F[i] ∈ R^{K+2}`:
+Per node feature vector, recomputed after every review (`rl_gnn_multiseed.py`, variant `observed`, `F[i] ∈ R^{K+7}`):
 
 ```
 F[i, 0:K]   = one-hot(type_i)
 F[i, K]     = conf_i
 F[i, K+1]   = log1p(sink_reach_i) / log1p(N)
+F[i, K+2]   = belief P(base error at i)      # particle filter, belief.py
+F[i, K+3]   = belief P(i is wrong)           # includes propagated errors
+F[i, K+4]   = reviewed_i
+F[i, K+5]   = flagged_i                      # reviewer saw an error at i
+F[i, K+6]   = remaining budget / R
 ```
+
+Variant `static` keeps only the first K+2 columns, computed once per episode (the original method). The true error state is never a feature.
 
 GNN layer (1 message-passing, child → parent):
 
@@ -206,15 +213,16 @@ Implement as a Monte-Carlo proxy: `ΔH_v ≈ (sink errors before − after) / n_
 | Optimizer | Adam | `rl_cmdp_gnn.py` / 80-node isolated run |
 | Learning rate | 0.003 | same |
 | Hidden | 32 | same |
-| Episodes | 20000 (the 1.20 run) / 12000 (the 2.05 run) — **use 20000** | training-sensitive |
+| Episodes | 20000 | training-sensitive (a 12000-episode run was worse) |
 | Temperature | `max(0.3, 2.0 · 0.9993^ep)` | same |
 | Baseline | EMA `0.95·old + 0.05·r` | same |
 | Budget | 16 | 20% of 80 |
 | P_catch | 0.9 | same |
-| Train seeds | 1, 2, 3, 4, 5 | multi-seed script |
-| Eval seeds | 1..16 (`CFG["seeds"]`) | same |
+| Train seeds | 1, 2, 3, 4, 5 (`torch.manual_seed(seed)`) | multi-seed script |
+| Eval seeds | legacy 1..20 (`CFG["seeds"]`); held-out 1000..1199, paired | same |
+| Belief particles | 1024 (fewer collapse after a few flags) | `belief.py` |
 
-**Multi-seed result (already run):** per-seed `[1.85, 1.60, 1.35, 1.00, 1.90]`, mean **1.54**, std 0.37, 95% CI **[1.08, 2.00]** (t_{0.025,4}=2.776). Do not cite 1.20 without this CI.
+**Multi-seed result (already run, `final_table.md`):** held-out means — threshold 1.41 ± 0.25, structural greedy 1.45 ± 0.22, **belief greedy 1.14 ± 0.20**, GNN static 1.56 ± 0.29, GNN observed 1.56 ± 0.15. Paired: GNN observed − belief greedy = +0.42 ± 0.15; observed − static = −0.00 ± 0.08. Legacy seeds 1–20: GNN static 1.51 ± 0.41, observed 1.68 ± 0.56.
 
 ### 5.2 GNN + PPO (not in the main table)
 
@@ -222,15 +230,15 @@ lr 0.001, clip 0.2, epochs 2–3, 8k–20k episodes — **has not converged (~5.
 
 ### 5.3 CMDP naive (negative result, keep as ablation)
 
-PPO-Lagrangian + STOP + coverage ∈ [8, 16]. lr 0.003, α_λ 8e-4, λ clip 2.0, 20k episodes. Result **4.85**. Diagnosis: one terminal return for the whole trajectory cannot credit the STOP decision. Next implementation, if anyone builds it: **separate reward-critic and cost-critic** (FALCON style), GAE for both, then Lagrangian on the cost advantage. Do not call 4.85 "RL fails"; call it "our naive CMDP fails."
+PPO-Lagrangian + STOP + coverage ∈ [8, 16]. lr 0.003, α_λ 8e-4, λ clip 2.0, 20k episodes. Result **2.15** with `torch.manual_seed(1)` (an unseeded earlier run gave 4.85). Diagnosis: one terminal return for the whole trajectory cannot credit the STOP decision. Next implementation, if anyone builds it: **separate reward-critic and cost-critic** (FALCON style), GAE for both, then Lagrangian on the cost advantage. Do not call 4.85 "RL fails"; call it "our naive CMDP fails."
 
 ### 5.4 DQN (control)
 
-MLP Q-network on (ctx, features), replay 20k, target update 200, γ=0.98, ε 1.0→0.05. Result **5.10** on 80-node active selection. Keep as the value-based control. Do not tune it into a win — the degeneracy is the teaching point.
+MLP Q-network on (ctx, features), replay 20k, target update 200, γ=0.98, ε 1.0→0.05. Result **5.05** on 80-node active selection. Keep as the value-based control. Do not tune it into a win — the degeneracy is the teaching point.
 
 ### 5.5 MLP REINFORCE / PPO (preliminary 80-node)
 
-Hidden 32, lr 0.003 / 0.001, 12k–20k episodes, conf_bins = 8 for the tabular variants. Results 1.40 / 1.60. These are the bridge from the bandit negative result to the GNN upgrade.
+Hidden 32, lr 0.003 / 0.001, 12k–20k episodes, conf_bins = 8 for the tabular variants. Results 1.60 / 1.35. These are the bridge from the bandit negative result to the GNN upgrade.
 
 ---
 
@@ -242,26 +250,27 @@ Hidden 32, lr 0.003 / 0.001, 12k–20k episodes, conf_bins = 8 for the tabular v
 | Random | uniform R nodes | attention without a rule |
 | Confidence threshold | review the R lowest-conf nodes | static, ignores the graph |
 | Hub | review the R highest out-degree / children | topology prior, ignores conf |
-| Structural greedy | each step, pick the currently erroneous node that most reduces sink errors | (1−1/e)-style influence maximization |
-| Oracle conf | GNN or greedy with true `X_v` in the features | signal ceiling |
-| **GNN + REINFORCE** | learned scorer, fixed budget | **main method** |
-| Oracle SJF / true-error greedy | know `X_v`, review truly wrong nodes in greedy order | unrealistic ceiling |
+| Structural greedy | rank by (1 − conf) × (1 + sink reach), take top R | static, hand-crafted |
+| **Belief greedy** | each step, pick the node with the largest expected sink-error drop under the particle belief; update the belief with the outcome | **deployable baseline to beat** (adaptive greedy) |
+| Oracle conf | GNN with true `X_v` in the features | signal ceiling |
+| GNN + REINFORCE | learned scorer, fixed budget, static or observed state | main learned method |
+| Oracle greedy | same step rule as belief greedy, on the true `X_v` | unrealistic ceiling |
 
 **Hard rules for a fair comparison**
 
-1. Same evaluation seeds, same graph seeds, same coins.
+1. Same evaluation seeds, same graph seeds, same coins, same catch-randomness stream (paired).
 2. Same budget R.
 3. Same P_catch.
-4. Greedy and oracle are marked separately from the learned policies.
+4. Anything that reads the true `X_v` is labelled oracle and kept apart from deployable policies.
 5. If a policy uses validation data to pick a threshold, every policy gets the same tuning budget.
 
 **Already-run N=500 means (5 seeds, budget 50, λ=0.8):**
 
-| family | no review | random | threshold | hub | greedy |
-|---|---|---|---|---|---|
-| modular | 24.0 | 22.6 | 8.6 | 19.0 | **2.0** |
-| BA | 80.6 | 79.2 | 29.8 | 53.8 | **3.8** |
-| ER | 42.6 | 42.0 | 16.4 | 34.6 | **8.2** |
+| family | no review | random | threshold | hub | **belief greedy** | oracle greedy |
+|---|---|---|---|---|---|---|
+| modular | 24.0 | 22.6 | 9.2 | 21.0 | **8.4** | 2.0 |
+| BA | 80.6 | 78.2 | 37.6 | 29.2 | **12.8** | 3.6 |
+| ER | 42.6 | 42.0 | 21.4 | 34.0 | **19.2** | 7.8 |
 
 Real pipeline (8 seeds, budget 8, λ=0.9): no review 2.12, random 1.88, hub 1.75, **threshold 0.50**.
 
@@ -273,19 +282,19 @@ Real pipeline (8 seeds, budget 8, λ=0.9): no review 2.12, random 1.88, hub 1.75
 |---|---|---|
 | Mean sink errors | primary | the objective |
 | Worst-of-n | max over train seeds on the shared eval set | one unreviewed error can invalidate a conclusion (HealthBench lens) |
-| 95% CI | t-distribution over train seeds | GNN 1.54 ± 0.46 already computed |
+| 95% CI | t over train seeds (GNN); t over held-out graphs (baselines, paired differences) | see `final_table.md` |
 | P99 sink errors | if n_sinks is large enough (500-node) | tail, not just mean |
 | Ablation gap | normal − noise; normal − oracle | is the signal used; is the predictor the ceiling |
-| Graph-family gap | greedy − threshold on BA vs ER | does topology change the best rule |
+| Graph-family gap | belief greedy − threshold on BA vs ER | does topology change the best rule |
 | Reviewer miss | 1 − P_catch = 0.1 residual | non-saturation |
 
-**Do not claim a win if** the CI of the learned policy includes the greedy mean. Current honest sentence: *GNN mean 1.54 is comparable to structural greedy (1.80) and MLP REINFORCE (1.40); best seed 1.00 shows headroom; the ablation says the confidence signal, not the scheduler, is the remaining error.*
+**Do not claim a win unless** the paired CI of (learned − belief greedy) is below zero. Current honest sentence: *Deployable belief greedy beats our GNN on 200 held-out graphs (+0.42 ± 0.15); giving the GNN review outcomes did not help; the ablation says the confidence signal, not the scheduler, is the remaining error.*
 
 **Must-show figures (same spirit as the LLM spec's four figures):**
 
 1. Method-comparison bars (all families / all policies) — `results_bar.png`, `scale500.png`
 2. Ablation bars (noise / normal / oracle) — `ablation_conf.png`
-3. Learning curves — `learning_curves.png`
+3. Learning curves — `learning_curves.png` (real training logs, plotted by `rl_final.py`)
 4. Real-pipeline bars — `real_pipeline.png`
 5. (add if time) GNN attention / chosen-node heatmap by layer and type
 
@@ -310,7 +319,7 @@ Run each control with the *same* trained policy and the *same* eval seeds. Do no
 | Week | Build | Done looks like |
 |---|---|---|
 | 1 | Freeze `spike_active_selection.py` + `graph_scale.py` + `real_pipeline_graph.py`; reproduce: bandit negative (threshold 2.81 > Q 3.38), GNN multi-seed CI, N=500 table, real-pipeline table | numbers in `experiments/` match this spec's tables within seed noise |
-| 2 | Dual-critic CMDP (FALCON-style) **or** GNN+REINFORCE on N=500 subsample (e.g. 200 nodes) — pick one, do not do both badly | either "CMDP beats naive 4.85" or "GNN at 200 nodes" |
+| 2 | Dual-critic CMDP (FALCON-style) **or** GNN+REINFORCE on N=500 subsample (e.g. 200 nodes) — pick one, do not do both badly | either "CMDP beats naive 2.15" or "GNN at 200 nodes" |
 | 3 | Consensus/hard split of the 75 (27/48); ablation on each; controls on N=500 | two-row table: consensus vs agree |
 | 4 | Slides from `presentation_outline.md` with the four/five figures embedded; ≥2 rehearsals | talk |
 
@@ -333,9 +342,9 @@ The N=500 families test **structure and scale**, not **domain transfer**. A revi
 2. `Rscript adapt_kaist.R sleep_diary.csv kaist_adapted.csv`
 3. Build the same N-node DAG on KAIST timestamps (time_bed / sleep / awake / getup) — same SCHEMA shape, different participants.
 4. Inject our type rates (76% order_error analogue + others).
-5. Run no-review / threshold / greedy / GNN. **Same GNN weights, no retrain** (true transfer) **and** a retrained GNN (domain adaptation). Report both.
+5. Run no-review / threshold / belief greedy / GNN. **Same GNN weights, no retrain** (true transfer) **and** a retrained GNN (domain adaptation). Report both.
 
-**Success:** threshold or greedy beats no-review on KAIST/Manchester. If only retrained GNN wins and frozen GNN does not, that is domain adaptation, not transfer — say so.
+**Success:** threshold or belief greedy beats no-review on KAIST/Manchester. If only retrained GNN wins and frozen GNN does not, that is domain adaptation, not transfer — say so.
 
 **Do not** collect a new wet-lab set. Do not revive CIFAR-10H unless asked.
 
@@ -355,7 +364,8 @@ The N=500 families test **structure and scale**, not **domain transfer**. A revi
 
 ```
 experiments/
-  spike_active_selection.py   # 80-node env + greedy/threshold
+  belief.py                   # confidence model + particle-filter belief
+  spike_active_selection.py   # 80-node env + threshold / structural / belief greedy
   graph_scale.py              # N=500 modular/BA/ER
   real_pipeline_graph.py      # N=21 SCHEMA DAG
   rl_active_selection.py      # REINFORCE on active selection (early)
@@ -376,13 +386,13 @@ Do not add a new method without a new file and a new seed protocol.
 
 | Difficulty | Response |
 |---|---|
-| GNN does not stably beat greedy at N=500 | Report it. The 500-node claim is *greedy nearly clears the graph*; RL at that scale is future work. Do not force a win. |
-| GNN 1.20 vs 1.54 CI includes greedy 1.80 | The claim is "comparable, high variance, best seed 1.00 shows headroom." The ablation (conf is the bottleneck) is the X-factor, not "RL wins." |
-| Dual-critic CMDP still fails | Report the naive 4.85 and the reason (terminal-only credit). Cite FALCON as the recipe we did not finish. |
+| GNN does not beat belief greedy | Already the case at N=80. Report it. The claim is *a deployable belief greedy is the bar*; beating it (e.g. under a misspecified belief) is the open RL problem. Do not force a win. |
+| Someone cites the old "greedy 95%" | That was oracle greedy (reads true errors). Deployable number: BA 80.6 → 12.8 (84%). |
+| Dual-critic CMDP still fails | Report the naive 2.15 (4.85 unseeded) and the reason (terminal-only credit). Cite FALCON as the recipe we did not finish. |
 | Real pipeline is too small (N=21) for GNN | That is fine. It is the application-value table, not the RL table. Threshold 0.50 is the result. |
 | Consensus/hard split has only 27 consensus rows | Report as a split of the motivation data, not as a powered experiment. |
 | Reviewer miss 10% means we never reach 0 | Non-saturation. Say so. Next lever is P_catch / review quality, not the scheduler. |
-| Teammate cannot reproduce 1.54 | Re-run `rl_gnn_multiseed.py`; if the CI moves, update every doc. Never hand-edit a table. |
+| Teammate cannot reproduce `final_table.md` | Re-run `rl_gnn_multiseed.py`, `rl_methods_compare.py`, `rl_cmdp_gnn.py`, then `rl_final.py`; if numbers move, update every doc. Never hand-edit a table. |
 
 **Information-leakage checklist (run before every table):**
 
@@ -412,8 +422,8 @@ The LLM spec (BurstGPT + Llama KV + PPO weights) is a tighter *systems* sandbox.
 1. A **negative result with a diagnosis** (bandit loses because the graph is flattened);
 2. An **ablation that locates the remaining error** in the predictor, not the policy;
 3. **Scale + topology** (BA hubs, modular clusters, real SCHEMA DAG);
-4. **Honest multi-seed** (1.54 ± 0.46, not a cherry-picked 1.20);
-5. **A decision guide** (noisy conf → do not use RL; large scale-free → greedy hubs; our real pipeline → threshold);
+4. **Honest held-out comparison** (belief greedy beats the GNN, paired, 200 unseen graphs);
+5. **A decision guide** (noisy conf → do not use RL; large scale-free → belief greedy; our real pipeline → threshold);
 6. **Three-language project documents** a teammate can actually read.
 
 That is the A+ version. It is not "we beat PPO on BurstGPT." It is "we used the same implementation discipline on a problem that spec does not touch, and we did not hide the failures."

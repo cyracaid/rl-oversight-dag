@@ -124,7 +124,7 @@
 <div class="arch">
 前端   日记行 / 代码 / 论点上划线提问          → 审阅痕迹（不是收据）
          ↓
-审阅层  GNN / 贪心 / 阈值 建议器              → 「先审这几个」（只读）
+审阅层  信念贪心 / GNN / 阈值 建议器             → 「先审这几个」（只读）
          ↓  人点「裁决」
 后端    SciForge 证据 DAG + 收据              → 机器不盖章，append-only
 </div>
@@ -135,31 +135,32 @@
 <p>审 \(v\) = do\((X_v := 1)\)。因果干预，不是相关。</p>
 <p><b>2. MDP。</b> 状态 = 图知识 + 剩余预算。动作 = 下一个节点（或 stop）。奖励 \(r_T = -\#\text{sink 错误}\)。\(\gamma &lt; 1\)。</p>
 <p><b>3. CMDP 拉格朗日。</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\)。今天主方法是 GNN + 固定预算 REINFORCE；双 critic CMDP 在做。</p>
-<p><b>4. 次模贪心 (1−1/e)。</b> N=500 这个贪心把无标度图从 81 到 3.8。</p>
+<p><b>4. 信念上的自适应贪心。</b> 粒子滤波跟踪哪些节点可能是错的；每步审期望结论错误下降最大的节点，再用审查结果更新信念。N=500 无标度图上从 81 降到 12.8。同样的规则用在真实错误上（oracle）能到 3.6，但真实策略看不到真值。</p>
 <p><b>5. 信息增益奖励（设计里，还没跑）。</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
 <p><b>6. 策略梯度（主方法）。</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
 <p>GNN 打分器：\( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
-<p><b>7. worst-of-n。</b> 一个漏审错误能作废结论（HealthBench）。noise worst-of-5 = 5.20，oracle = 0.80。</p>
+<p><b>7. worst-of-n。</b> 一个漏审错误能作废结论（HealthBench）。3 个种子中最差：noise 5.20，oracle 0.80。</p>
 
 <h2 id="results">结果（N=80）</h2>
 <p>所有数字是到达结论的错误数。越低越好。AI 生成，组员复现。</p>
 <div class="figure"><img src="../experiments/results_bar.png" alt="methods">
-  <figcaption>GNN 柱是 5 种子均值，不是运气好的单次 1.20。</figcaption></div>
+  <figcaption>200 张没见过的图，每个策略用同一张图、同一条随机流，95% CI。</figcaption></div>
 <table>
   <tr><th>方法</th><th>sink 错误</th></tr>
   <tr><td>不审</td><td>5.90</td></tr>
   <tr><td>置信度阈值</td><td>2.30</td></tr>
   <tr><td>结构贪心</td><td>1.80</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46（最佳种子 1.00）</td></tr>
-  <tr><td>DQN</td><td>5.10（退化）</td></tr>
+  <tr><td class="best">信念贪心（自适应，可部署）</td><td class="best">0.85</td></tr>
+  <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
+  <tr><td>PPO (MLP)</td><td>1.35</td></tr>
+  <tr><td>GNN + REINFORCE，静态 / 带观测 state</td><td>1.51 ± 0.41 / 1.68 ± 0.56</td></tr>
+  <tr><td>DQN</td><td>5.05（退化）</td></tr>
   <tr><td>Oracle</td><td>0.00</td></tr>
 </table>
 <div class="figure"><img src="../experiments/learning_curves.png" alt="curves">
-  <figcaption>学习曲线：奖励从随机爬向零。</figcaption></div>
+  <figcaption>真实训练日志：GNN 每 500 局的 sink 错误（各 5 个种子），以及 MLP 打分器。</figcaption></div>
 <div class="box">
-  <p><b>诚实</b>：GNN 均值 1.54 与结构贪心（1.80）和 MLP REINFORCE（1.40）<b>相当</b>。不是稳定赢。最佳种子 1.00 有空间。</p>
+  <p>上表用的是种子 1–20，后来发现是容易的图。<b>在 200 张没见过的图上</b>：阈值 1.41，结构贪心 1.45，<b>信念贪心 1.14</b>，GNN 1.56。可部署的信念贪心打赢所有学到的策略（GNN − 信念贪心 = +0.42 ± 0.15），把审查结果喂给 GNN 也没帮助。</p>
   <p>DQN 退化成随机——稀疏终局奖励喂不饱价值函数。所以这里该用策略梯度。</p>
   <p>第一版 bandit <b>输给阈值</b>（2.81 vs Q 3.38）。那个失败是重构的理由。</p>
 </div>
@@ -176,22 +177,22 @@
 </table>
 <div class="box green">
   <p><b>别继续卷调度器。把置信度信号做好。</b>我们定位了剩余误差住在哪：预测器，不是策略。</p>
-  <p>worst-of-5：GNN 1.90 / noise 5.20 / oracle 0.80。噪声信号伤尾部甚于均值。</p>
+  <p>3 个种子中最差：normal 1.95 / noise 5.20 / oracle 0.80。噪声信号伤尾部甚于均值。</p>
 </div>
 
 <h2 id="scale">规模：N = 500，三种图族</h2>
-<p>同样的干预模型。预算 50（10%）。5 种子。贪心 = 影响最大化（不是 RL）。</p>
+<p>同样的干预模型。预算 50（10%）。5 种子。每个策略回放同一条随机流。信念贪心可部署；oracle 贪心读真实错误（只作天花板）。不是 RL。</p>
 <div class="figure"><img src="../experiments/scale500.png" alt="scale">
-  <figcaption>贪心几乎清空每个图族。无标度 81 → 3.8（降 95%）。</figcaption></div>
+  <figcaption>信念贪心把无标度错误从 81 降到 12.8（降 84%）。旧的「降 95%」是 oracle。</figcaption></div>
 <table>
-  <tr><th>图族</th><th>不审</th><th>阈值</th><th>贪心</th></tr>
-  <tr><td>模块化</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-  <tr><td>无标度 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-  <tr><td>稀疏 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+  <tr><th>图族</th><th>不审</th><th>阈值</th><th>信念贪心</th><th>oracle 贪心</th></tr>
+  <tr><td>模块化</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
+  <tr><td>无标度 (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
+  <tr><td>稀疏 (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
 </table>
 <div class="box">
-  <p>随机 ≈ 不审。置信度阈值在无标度图上不稳定（6–76）。hub 防御有帮助但离贪心还远。</p>
-  <p><b>诚实范围：</b>这批 500 节点数字是贪心 / 启发式，不是 RL。</p>
+  <p>随机 ≈ 不审。置信度阈值在无标度图上不稳定（6–76）。hub 防御有帮助但离信念贪心还远。模块化和稀疏图上信念贪心只比阈值好一点。</p>
+  <p><b>诚实范围：</b>这批 500 节点数字是启发式，不是 RL。</p>
 </div>
 
 <h2 id="pipeline">真实睡眠管道 DAG（N=21）</h2>
@@ -220,11 +221,11 @@
 <h2 id="guide">决策指南</h2>
 <table>
   <tr><th>如果你在这</th><th>用这个</th></tr>
-  <tr><td>置信度校准好</td><td>GNN 或结构贪心</td></tr>
+  <tr><td>置信度校准好、图已知</td><td>信念贪心</td></tr>
   <tr><td>置信度噪声大</td><td><b>别用 RL</b>——静态阈值更稳</td></tr>
-  <tr><td>预算紧、错误按类型聚集</td><td>结构贪心</td></tr>
+  <tr><td>没有信念模型</td><td>置信度阈值（没见过的图上 ≈ 结构贪心，更简单）</td></tr>
   <tr><td>能改进预测器</td><td>改置信度比改策略收益大</td></tr>
-  <tr><td>大无标度图</td><td>贪心影响最大化</td></tr>
+  <tr><td>大无标度图</td><td>信念贪心</td></tr>
   <tr><td>我们今天的小管道</td><td>校准阈值</td></tr>
 </table>
 
@@ -233,7 +234,7 @@
 <div class="arch">
 前端   日记行 / 代码 / 论点上划线提问          → 审阅痕迹（不是收据）
          ↓
-审阅层  GNN / 贪心 / 阈值 建议器              → 「先审这几个」（只读）
+审阅层  信念贪心 / GNN / 阈值 建议器             → 「先审这几个」（只读）
          ↓  人点「裁决」
 后端    SciForge 证据 DAG + 收据              → 机器不盖章，append-only
 </div>
@@ -253,7 +254,7 @@
 
 <h2 id="verify">验证状态</h2>
 <p>AI 生成，组员复现。核对过：引文，真实数据数字（2026-11-09：13,990 / 237 / 75 / 76%）。</p>
-<p>没核对：每个模拟数字；模拟器设计；两张表「不审」不同（5.62 vs 5.90）的原因；「无直接先例」（再搜）；引文全文；GNN 多种子 CI 还宽（1.00–1.90）；GNN+PPO 没收敛；双 critic CMDP 没建；SciForge 置信度字段；共识/困难拆分没跑。</p>
+<p>没核对：每个模拟数字；模拟器设计；两张表「不审」不同（5.62 vs 5.90）的原因；「无直接先例」（再搜）；引文全文；模型设错时的信念贪心；GNN+PPO 没收敛；双 critic CMDP 没建；SciForge 置信度字段；共识/困难拆分没跑。</p>
 
 <footer>
   依赖图上的审阅调度 · STA3145 ·

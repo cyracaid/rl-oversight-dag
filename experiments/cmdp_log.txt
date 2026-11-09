@@ -1,0 +1,27 @@
+======================================================================
+CMDP + PPO-Lagrangian + GNN（升级版方法）
+======================================================================
+N=80 预算软约束 coverage∈[8,16]  GNN(1层消息传递)
+  ep      0  G= -8.60  reviews=52  lam_u=0.13 lam_l=0.00
+  ep   1000  G= -7.00  reviews= 7  lam_u=2.00 lam_l=2.00
+  ep   2000  G= -9.00  reviews=18  lam_u=2.00 lam_l=2.00
+  ep   3000  G= -5.00  reviews=16  lam_u=2.00 lam_l=2.00
+  ep   4000  G= -3.00  reviews=15  lam_u=2.00 lam_l=2.00
+  ep   5000  G= -4.00  reviews=14  lam_u=2.00 lam_l=2.00
+  ep   6000  G= -5.00  reviews=13  lam_u=2.00 lam_l=2.00
+  ep   7000  G=-12.00  reviews=10  lam_u=2.00 lam_l=2.00
+  ep   8000  G= -6.00  reviews=13  lam_u=2.00 lam_l=2.00
+  ep   9000  G=-17.00  reviews=22  lam_u=2.00 lam_l=2.00
+  ep  10000  G= -7.00  reviews=14  lam_u=2.00 lam_l=2.00
+  ep  11000  G= -1.00  reviews=16  lam_u=2.00 lam_l=2.00
+  ep  12000  G= -3.00  reviews=11  lam_u=2.00 lam_l=2.00
+  ep  13000  G= -5.00  reviews=15  lam_u=2.00 lam_l=2.00
+  ep  14000  G= -3.00  reviews=14  lam_u=2.00 lam_l=2.00
+  ep  15000  G=-10.00  reviews= 5  lam_u=2.00 lam_l=2.00
+  ep  16000  G= -6.00  reviews=14  lam_u=2.00 lam_l=2.00
+  ep  17000  G= -1.00  reviews=12  lam_u=2.00 lam_l=2.00
+  ep  18000  G= -1.00  reviews=13  lam_u=2.00 lam_l=2.00
+  ep  19000  G= -4.00  reviews=11  lam_u=2.00 lam_l=2.00
+
+CMDP+PPO-Lagrangian+GNN（种子 1-20）sink 错误数 = 2.15
+已导出：cmdp_result.json（总表由 rl_final.py 生成）

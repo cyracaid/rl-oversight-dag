@@ -41,12 +41,12 @@ layout: default
 ---
 
 ### Person 2 — Policy gradient / confidence signal
-**Track P (claim):** GNN + REINFORCE multi-seed (already mean 1.54 ± 0.46); PPO-Lagrangian / dual-critic CMDP (naive 4.85 is the thing to fix); confidence-signal upgrade (Gap D — the ablation said this is the lever).
+**Track P (claim):** a learned policy that beats deployable belief greedy (currently GNN − belief greedy = +0.42 ± 0.15 on held-out graphs; try a deeper GNN, per-step credit, or a misspecified belief model where belief greedy should degrade); PPO-Lagrangian / dual-critic CMDP (naive 2.15 is the thing to fix); confidence-signal upgrade (Gap D — the ablation said this is the lever).
 **Track C (claim):** none before W3. After the paper, port the scorer as a read-only endpoint.
 **Do not:** touch SciForge integration; do not tune DQN into a win.
 
 **Done when:**
-- Paper: multi-seed CI tighter than ±0.46, or an honest updated CI; either dual-critic beats naive 4.85, or a written reason it still fails.
+- Paper: a learned policy whose paired held-out gap to belief greedy is below zero, or a written reason it is not; either dual-critic beats naive 2.15, or a written reason it still fails.
 - Signal: a better conf (calibration / small predictor) that closes part of the oracle−normal gap (0.72 vs 1.38).
 
 ---
@@ -93,13 +93,13 @@ layout: default
 | Simulator design / why no-review 5.62 vs 5.90 | Person 3 |
 | "No direct precedent" — search again | Person 5 |
 | Full texts of cited papers | Person 5 |
-| GNN multi-seed CI (1.54 ± 0.46) | Person 2 |
+| GNN vs belief greedy; belief greedy under misspecification | Person 2 |
 | GNN+PPO convergence | Person 2 |
 | Dual-critic CMDP | Person 2 |
 | SciForge confidence field / graph size | Person 5 |
 | Consensus/hard split (27/48) | Person 5 + Person 4 |
 | BestReject = our threshold (claim dropped) | Person 5, if they read the full paper |
-| 19% vs 22% cross-file | Person 1 (PM) |
+| Stale numbers in slides / PDFs (old 1.54, "95%") | Person 1 (PM) |
 
 ---
 

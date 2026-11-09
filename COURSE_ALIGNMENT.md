@@ -23,7 +23,7 @@ Desktop `강화학습/` is classic Sutton & Barto. Our project uses those tools 
 | W6 n-step / bootstrap | n-step MC/TD, eligibility | Optional: n-step REINFORCE if terminal-only credit is too sparse. Not required. |
 | W7 VAE / DDPM | Generative models | **Not used.** Different module. Do not force it in. |
 | W8 Function approximation, control | Linear / neural value & policy, DQN | **MLP scorer** (preliminary) and **DQN control**. GNN is the upgrade. |
-| W9 Policy gradient I | REINFORCE, \(\nabla J = E[\nabla \log \pi \cdot A]\) | **Main method.** Already runs. Mean 1.54 ± 0.46. |
+| W9 Policy gradient I | REINFORCE, \(\nabla J = E[\nabla \log \pi \cdot A]\) | **Main learned method.** Runs. Held-out 1.56; loses to deployable belief greedy (1.14), paired gap +0.42 ± 0.15. |
 
 **Course-project sentence for the professor:**
 
@@ -121,9 +121,9 @@ We already have more data than we need for the course. The remaining work is **n
 | Policy gradient theorem, REINFORCE, baseline | Slide 7 |
 | PPO clip + importance sampling | Slide 7 / 8 |
 | CMDP + Lagrangian | Slide 7 (in progress) |
-| Exploration annealing, multi-seed, CI | Slide 8: 1.54 ± 0.46 |
+| Exploration annealing, multi-seed, paired held-out CI | Slide 8: GNN − belief greedy = +0.42 ± 0.15 |
 | Worst-of-n reliability | Slide 8b |
-| Influence maximization (1−1/e) | Slide 8c |
+| Adaptive greedy / influence maximization; belief (particle filter) | Slide 8c |
 | Information gain | Slide 7 math |
 
 **Do not put VAE / DDPM on a slide.** That week is a different module.

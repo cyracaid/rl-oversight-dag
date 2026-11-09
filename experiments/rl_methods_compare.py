@@ -3,12 +3,10 @@
 """RL method comparison: REINFORCE / PPO / DQN with an MLP node scorer,
 on the active-node-selection MDP over a dependency graph.
 """
+import json
 import numpy as np
 import math
 import random
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import spike_active_selection as SP
 
 K = SP.CFG["K"]
@@ -18,11 +16,6 @@ D = K + 2
 HIDDEN = 32
 SEEDS = SP.CFG["seeds"]
 
-# 基线数字（来自 spike / bandit 脚本，硬编码为参考线）
-THRESHOLD = 2.30
-STRUCT_GREEDY = 1.80
-NO_REVIEW = 5.90
-ORACLE = 0.00
 
 
 def feats(nodes, conf, sink_reach):
@@ -301,38 +294,11 @@ def evaluate_dqn(f, seeds=SEEDS):
     return sum(vals) / len(vals)
 
 
-def plot(curves, results, outdir):
-    # 学习曲线
-    plt.figure(figsize=(7, 4.5))
-    for name, hist in curves.items():
-        xs = [x for x, _ in hist]
-        ys = [y for _, y in hist]
-        plt.plot(xs, ys, label=name, linewidth=1.5)
-    plt.xlabel("episode"); plt.ylabel("baseline reward (higher=better)")
-    plt.title("Learning curves (active node selection on dependency graph)")
-    plt.legend(); plt.grid(alpha=0.3); plt.tight_layout()
-    plt.savefig(f"{outdir}/learning_curves.png", dpi=130)
-    plt.close()
-
-    # 结果柱状图
-    names = list(results.keys())
-    vals = list(results.values())
-    plt.figure(figsize=(8, 4.5))
-    colors = ["#888888" if n in ("No review", "Conf threshold", "Structural greedy", "Oracle")
-              else "#2a7de1" for n in names]
-    bars = plt.bar(names, vals, color=colors)
-    for b, v in zip(bars, vals):
-        plt.text(b.get_x() + b.get_width() / 2, v + 0.08, f"{v:.2f}",
-                 ha="center", va="bottom", fontsize=8)
-    plt.ylabel("avg sink errors (lower=better)"); plt.title("Review scheduling: method comparison")
-    plt.xticks(rotation=15, ha="right"); plt.tight_layout()
-    plt.savefig(f"{outdir}/results_bar.png", dpi=130)
-    plt.close()
-
-
 def main():
     import os
     outdir = os.path.dirname(os.path.abspath(__file__))
+    np.random.seed(0)      # exploration / catch draws use the global generators
+    random.seed(0)         # DQN replay sampling
 
     print("训练 REINFORCE ...")
     pr, hr = train_reinforce()
@@ -345,23 +311,20 @@ def main():
     ev_pp = evaluate(pp)
     ev_dq = evaluate_dqn(dqn_policy(q))
 
-    results = {
-        "No review": NO_REVIEW,
-        "Conf threshold": THRESHOLD,
-        "Structural greedy": STRUCT_GREEDY,
-        "REINFORCE": ev_pr,
-        "PPO": ev_pp,
-        "DQN": ev_dq,
-        "Oracle": ORACLE,
-    }
+    results = {"REINFORCE (MLP)": ev_pr, "PPO (MLP)": ev_pp, "DQN": ev_dq}
     print("\n" + "=" * 60)
-    print("方法对比（平均 sink 错误数，越低越好）")
+    print("方法对比（平均 sink 错误数，种子 1-20，静态 state）")
     print("=" * 60)
     for k, v in results.items():
         print(f"  {k:<20}{v:.2f}")
-
-    plot({"REINFORCE": hr, "PPO": hp, "DQN": hq}, results, outdir)
-    print("\n已导出：learning_curves.png, results_bar.png")
+    out = {"eval_seeds": SEEDS, "results": results,
+           "curves": {"REINFORCE (MLP)": hr, "PPO (MLP)": hp, "DQN": hq},
+           "curve_kind": {"REINFORCE (MLP)": "EMA baseline reward",
+                          "PPO (MLP)": "EMA baseline reward",
+                          "DQN": "terminal reward"}}
+    with open(os.path.join(outdir, "methods_compare.json"), "w") as f:
+        json.dump(out, f, indent=1)
+    print("\n已导出：methods_compare.json（图和总表由 rl_final.py 生成）")
     print("（DQN 目标为折扣 MC 回传，非标准 TD 目标网络——见代码注释）")
 
 

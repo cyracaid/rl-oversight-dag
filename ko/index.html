@@ -124,7 +124,7 @@
 <div class="arch">
 프론트   일기 행 / 코드 / 주장에 하이라이트-질문     → 검토 흔적 (영수증 아님)
            ↓
-검토층    GNN / 탐욕 / 임계값 제안기                → "이것 먼저 검토" (읽기 전용)
+검토층    신념 그리디 / GNN / 임계값 제안기              → "이것 먼저 검토" (읽기 전용)
            ↓  사람이 "판정" 클릭
 백엔드    SciForge 증거 DAG + 영수증                → 기계 도장 없음, append-only
 </div>
@@ -135,31 +135,32 @@
 <p>노드 \(v\) 검토 = do\((X_v := 1)\). 인과 개입이지 상관이 아닙니다.</p>
 <p><b>2. MDP.</b> 상태 = 그래프 지식 + 잔여 예산. 행동 = 다음 노드(또는 stop). 보상 \(r_T = -\#\text{sink 오류}\). \(\gamma &lt; 1\).</p>
 <p><b>3. CMDP 라그랑지안.</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\). 오늘 주 방법은 GNN + 고정 예산 REINFORCE; 이중 critic CMDP는 진행 중.</p>
-<p><b>4. 준모듈러 탐욕 (1−1/e).</b> N=500에서 이 탐욕은 스케일프리 그래프를 81 → 3.8으로 만듭니다.</p>
+<p><b>4. 신념 위의 적응형 그리디.</b> 파티클 필터가 어떤 노드가 틀렸을지 추적하고, 매 단계 결론 오류의 기대 감소가 가장 큰 노드를 검토한 뒤 검토 결과로 신념을 갱신합니다. N=500 스케일프리에서 81 → 12.8. 같은 규칙을 실제 오류에 쓰면(오라클) 3.6이지만, 실제 정책은 참값을 볼 수 없습니다.</p>
 <p><b>5. 정보 이득 보상 (설계, 아직 미실행).</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
 <p><b>6. 정책 경사 (주 방법).</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
 <p>GNN 점수기: \( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
-<p><b>7. worst-of-n.</b> 검토 안 된 오류 하나가 결론을 무효화할 수 있습니다(HealthBench). noise worst-of-5 = 5.20, oracle = 0.80.</p>
+<p><b>7. worst-of-n.</b> 검토 안 된 오류 하나가 결론을 무효화할 수 있습니다(HealthBench). 시드 3개 중 최악: noise 5.20, oracle 0.80.</p>
 
 <h2 id="results">결과 (N=80)</h2>
 <p>모든 수치는 결론에 도달한 오류 수입니다. 낮을수록 좋습니다. AI 생성, 팀원 재현 필요.</p>
 <div class="figure"><img src="../experiments/results_bar.png" alt="methods">
-  <figcaption>초록 GNN 막대는 5시드 평균이지 운 좋은 단일 1.20이 아닙니다.</figcaption></div>
+  <figcaption>처음 보는 그래프 200개, 모든 정책이 같은 그래프와 같은 난수 흐름, 95% CI.</figcaption></div>
 <table>
   <tr><th>방법</th><th>sink 오류</th></tr>
   <tr><td>무검토</td><td>5.90</td></tr>
   <tr><td>신뢰도 임계값</td><td>2.30</td></tr>
   <tr><td>구조적 그리디</td><td>1.80</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46 (최고 시드 1.00)</td></tr>
-  <tr><td>DQN</td><td>5.10 (퇴화)</td></tr>
+  <tr><td class="best">신념 그리디 (적응형, 배포 가능)</td><td class="best">0.85</td></tr>
+  <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
+  <tr><td>PPO (MLP)</td><td>1.35</td></tr>
+  <tr><td>GNN + REINFORCE, 정적 / 관측 상태</td><td>1.51 ± 0.41 / 1.68 ± 0.56</td></tr>
+  <tr><td>DQN</td><td>5.05 (퇴화)</td></tr>
   <tr><td>Oracle</td><td>0.00</td></tr>
 </table>
 <div class="figure"><img src="../experiments/learning_curves.png" alt="curves">
-  <figcaption>학습 곡선: 보상이 무작위에서 0 근처로 올라갑니다.</figcaption></div>
+  <figcaption>실제 훈련 로그: GNN의 500 에피소드 구간별 sink 오류(각 5 시드)와 MLP 점수기.</figcaption></div>
 <div class="box">
-  <p><b>솔직히</b>: GNN 평균 1.54는 구조적 그리디(1.80)와 MLP REINFORCE(1.40)와 <b>비슷합니다</b>. 안정적인 승리가 아닙니다. 최고 시드 1.00이 여지를 보입니다.</p>
+  <p>위 표는 시드 1–20이며 쉬운 그래프로 드러났습니다. <b>처음 보는 그래프 200개</b>에서: 임계값 1.41, 구조적 그리디 1.45, <b>신념 그리디 1.14</b>, GNN 1.56. 배포 가능한 신념 그리디가 모든 학습 정책을 이기고(GNN − 신념 그리디 = +0.42 ± 0.15), GNN에 검토 결과를 넣어도 도움이 안 됐습니다.</p>
   <p>DQN은 무작위로 퇴화합니다 — 희소 종료 보상은 가치 함수를 못 먹입니다. 그래서 <b>정책 경사가 맞는 도구</b>입니다.</p>
   <p>1판 밴딧은 <b>임계값에 졌습니다</b> (2.81 vs Q-러닝 3.38). 그 실패가 재구성의 이유입니다.</p>
 </div>
@@ -176,22 +177,22 @@
 </table>
 <div class="box green">
   <p><b>스케줄러를 계속 다듬지 마세요. 신뢰도 신호에 투자하세요.</b> 남은 오류는 예측기에 있습니다.</p>
-  <p>worst-of-5: GNN 1.90 / noise 5.20 / oracle 0.80. 잡음 신호는 평균보다 꼬리를 더 아프게 합니다.</p>
+  <p>최악 시드(3개 중): normal 1.95 / noise 5.20 / oracle 0.80. 잡음 신호는 평균보다 꼬리를 더 아프게 합니다.</p>
 </div>
 
 <h2 id="scale">규모: N = 500, 세 그래프 족</h2>
-<p>같은 개입 모델. 예산 50(10%). 5 시드. 탐욕 = 영향 최대화(RL 아님).</p>
+<p>같은 개입 모델. 예산 50(10%). 5 시드. 모든 정책이 같은 난수 흐름을 재생합니다. 신념 그리디는 배포 가능, 오라클 그리디는 실제 오류를 읽는 상한입니다. RL 아님.</p>
 <div class="figure"><img src="../experiments/scale500.png" alt="scale">
-  <figcaption>탐욕이 모든 족을 거의 비웁니다. 스케일프리 81 → 3.8 (95% 감소).</figcaption></div>
+  <figcaption>신념 그리디가 스케일프리 오류를 81 → 12.8로 줄입니다(84% 감소). 예전 "95%"는 오라클이었습니다.</figcaption></div>
 <table>
-  <tr><th>족</th><th>무검토</th><th>임계값</th><th>탐욕</th></tr>
-  <tr><td>모듈형</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-  <tr><td>스케일프리 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-  <tr><td>희소 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+  <tr><th>족</th><th>무검토</th><th>임계값</th><th>신념 그리디</th><th>오라클 그리디</th></tr>
+  <tr><td>모듈형</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
+  <tr><td>스케일프리 (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
+  <tr><td>희소 (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
 </table>
 <div class="box">
-  <p>무작위 ≈ 무검토. 신뢰도 임계값은 스케일프리에서 불안정합니다(6–76). 허브 방어는 도움이 되지만 탐욕에는 못 미칩니다.</p>
-  <p><b>정직한 범위:</b> 이 500노드 수치는 탐욕 / 휴리스틱이지 RL이 아닙니다.</p>
+  <p>무작위 ≈ 무검토. 신뢰도 임계값은 스케일프리에서 불안정합니다(6–76). 허브 방어는 도움이 되지만 신념 그리디에는 못 미칩니다. 모듈형과 희소 그래프에서 신념 그리디는 임계값보다 조금 나을 뿐입니다.</p>
+  <p><b>정직한 범위:</b> 이 500노드 수치는 휴리스틱이지 RL이 아닙니다.</p>
 </div>
 
 <h2 id="pipeline">실제 수면 파이프라인 DAG (N=21)</h2>
@@ -220,11 +221,11 @@
 <h2 id="guide">결정 가이드</h2>
 <table>
   <tr><th>상황</th><th>사용</th></tr>
-  <tr><td>신뢰도 잘 보정</td><td>GNN 또는 구조적 그리디</td></tr>
+  <tr><td>신뢰도 잘 보정, 그래프 앎</td><td>신념 그리디</td></tr>
   <tr><td>신뢰도 잡음</td><td><b>RL 금지</b> — 정적 임계값 더 강건</td></tr>
-  <tr><td>예산 타이트, 유형 군집 오류</td><td>구조적 그리디</td></tr>
+  <tr><td>신념 모델 없음</td><td>신뢰도 임계값 (처음 보는 그래프에서 구조적 그리디와 비슷, 더 단순)</td></tr>
   <tr><td>예측기 개선 가능</td><td>신뢰도 보정이 정책 개선보다 이득</td></tr>
-  <tr><td>큰 스케일프리 그래프</td><td>탐욕 영향 최대화</td></tr>
+  <tr><td>큰 스케일프리 그래프</td><td>신념 그리디</td></tr>
   <tr><td>오늘의 작은 파이프라인</td><td>보정된 임계값</td></tr>
 </table>
 
@@ -233,7 +234,7 @@
 <div class="arch">
 프론트   일기 행 / 코드 / 주장에 하이라이트-질문     → 검토 흔적 (영수증 아님)
            ↓
-검토층    GNN / 탐욕 / 임계값 제안기                → "이것 먼저 검토" (읽기 전용)
+검토층    신념 그리디 / GNN / 임계값 제안기              → "이것 먼저 검토" (읽기 전용)
            ↓  사람이 "판정" 클릭
 백엔드    SciForge 증거 DAG + 영수증                → 기계 도장 없음, append-only
 </div>
@@ -253,7 +254,7 @@
 
 <h2 id="verify">검증 상태</h2>
 <p>AI 생성, 팀원 재현 필요. 확인: 인용, 실데이터 수치(2026-11-09: 13,990 / 237 / 75 / 76%).</p>
-<p>미확인: 모든 시뮬레이션 수치; 시뮬레이터 설계; 표 간 무검토 차이(5.62 vs 5.90); "직접 선례 없음"(다시 검색); 논문 전문; GNN 다중 시드 CI 아직 넓음(1.00–1.90); GNN+PPO 미수렴; 이중 critic CMDP 미구축; SciForge 신뢰도 필드; 합의/하드 분할 미실행.</p>
+<p>미확인: 모든 시뮬레이션 수치; 시뮬레이터 설계; 표 간 무검토 차이(5.62 vs 5.90); "직접 선례 없음"(다시 검색); 논문 전문; 모델이 틀렸을 때의 신념 그리디; GNN+PPO 미수렴; 이중 critic CMDP 미구축; SciForge 신뢰도 필드; 합의/하드 분할 미실행.</p>
 
 <footer>
   의존성 그래프 위 검토 스케줄링 · STA3145 ·

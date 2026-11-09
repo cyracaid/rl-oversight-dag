@@ -107,7 +107,7 @@
   <p><b>不训练</b>：底层分类器、LLM、视觉模型、splsleep R 包。它们是冻结环境。</p>
 </div>
 <div class="box amber">
-  <p><b>RQ1</b> 学到的策略（GNN + REINFORCE / PPO）能不能打赢最好的固定规则（按类型校准阈值、结构贪心）？<br>
+  <p><b>RQ1</b> 学到的策略（GNN + REINFORCE / PPO）能不能打赢最好的固定规则（按类型校准阈值、结构贪心）和可部署的信念贪心（粒子滤波信念上的自适应贪心）？<br>
   <b>RQ2</b> 优势依不依赖图族（模块化 / BA / ER / 真实管道）、预算、置信度信号质量？<br>
   <b>RQ3</b> RL 没赢的时候，剩余误差住在哪（策略 vs 预测器 vs 审阅者漏检率）？</p>
 </div>
@@ -150,13 +150,13 @@
 <h2 id="mdp">MDP</h2>
 <table>
   <tr><th>要素</th><th>定义</th></tr>
-  <tr><td>状态</td><td>每节点：type one-hot、conf、log1p(sink_reach)/log1p(N)、reviewed? + 剩余预算</td></tr>
+  <tr><td>状态</td><td>每节点：type one-hot、conf、log1p(sink_reach)/log1p(N)、reviewed?、flagged?、信念 P(源头错) 与 P(错)（粒子滤波，每审一次更新）+ 剩余预算；真 X_v 永远不是特征</td></tr>
   <tr><td>动作</td><td>选下一个未审节点（固定预算主方法没有 stop）</td></tr>
   <tr><td>转移</td><td>审 = do(X_v:=1)，P_catch=0.9 修正，重算下游</td></tr>
   <tr><td>奖励</td><td>r_T = −sink 错误数（稀疏终局）</td></tr>
   <tr><td>γ</td><td>&lt;1；REINFORCE MC 直接用终局</td></tr>
 </table>
-<p><b>CMDP</b>（形式化；naive 4.85 失败留作消融）：max min J(π) + λ(B − C(π))。d_u=16, d_l=8。</p>
+<p><b>CMDP</b>（形式化；naive 2.15，对种子敏感，留作消融）：max min J(π) + λ(B − C(π))。d_u=16, d_l=8。</p>
 
 <h2 id="train">训练配置（实际用的数）</h2>
 <table>
@@ -164,18 +164,19 @@
   <tr><td>优化器</td><td>Adam</td><td>rl_cmdp_gnn.py</td></tr>
   <tr><td>lr</td><td>0.003</td><td>同</td></tr>
   <tr><td>Hidden</td><td>32</td><td>同</td></tr>
-  <tr><td>Episodes</td><td>20000（1.20 那次）/ 12000（2.05）——<b>用 20000</b></td><td>训练量敏感</td></tr>
+  <tr><td>Episodes</td><td>20000（12000 那次更差）</td><td>训练量敏感</td></tr>
   <tr><td>温度</td><td>max(0.3, 2.0·0.9993^ep)</td><td>同</td></tr>
   <tr><td>Baseline</td><td>EMA 0.95/0.05</td><td>同</td></tr>
   <tr><td>预算</td><td>16 / 80</td><td>同</td></tr>
   <tr><td>P_catch</td><td>0.9</td><td>同</td></tr>
-  <tr><td>训练种子</td><td>1,2,3,4,5</td><td>多种子脚本</td></tr>
-  <tr><td>评估种子</td><td>1..16</td><td>同</td></tr>
+  <tr><td>训练种子</td><td>1,2,3,4,5（torch.manual_seed）</td><td>多种子脚本</td></tr>
+  <tr><td>评估种子</td><td>旧 1..20；留出 1000..1199，配对</td><td>同</td></tr>
+  <tr><td>信念粒子数</td><td>1024</td><td>belief.py</td></tr>
 </table>
-<p><b>多种子已跑</b>：[1.85, 1.60, 1.35, 1.00, 1.90]，mean <b>1.54</b>，std 0.37，95% CI <b>[1.08, 2.00]</b>。别脱离 CI 引 1.20。</p>
+<p><b>多种子已跑（final_table.md）</b>：留出集——阈值 1.41 ± 0.25，结构贪心 1.45 ± 0.22，<b>信念贪心 1.14 ± 0.20</b>，GNN 静态 1.56 ± 0.29，GNN 带观测 1.56 ± 0.15。配对：GNN 带观测 − 信念贪心 = <b>+0.42 ± 0.15</b>；带观测 − 静态 = −0.00 ± 0.08。带观测 state = 静态特征 + 每审一次更新的信念 P(源头错)、P(错)、已审、被标出、剩余预算。</p>
 <p><b>GNN+PPO</b> 未收敛（~5.60），不进主表。</p>
-<p><b>CMDP naive</b>：STOP + coverage [8,16]，λ clip 2.0，α_λ 8e-4，20k ep。<b>4.85 失败</b>。诊断：终局一个回报给不了 STOP 记功。下一版 = FALCON 式奖励 critic + 成本 critic。别叫「RL 失败」，叫「我们的 naive CMDP 失败」。</p>
-<p><b>DQN 对照</b>：5.10 退化。别调赢——退化是教学点。</p>
+<p><b>CMDP naive</b>：STOP + coverage [8,16]，λ clip 2.0，α_λ 8e-4，20k ep。<b>2.15</b>（固定种子；未播种时 4.85）。诊断：终局一个回报给不了 STOP 记功。下一版 = FALCON 式奖励 critic + 成本 critic。别叫「RL 失败」，叫「我们的 naive CMDP 失败」。</p>
+<p><b>DQN 对照</b>：5.05 退化。别调赢——退化是教学点。</p>
 
 <h2 id="policies">对比策略（每个图族都跑）</h2>
 <table>
@@ -184,23 +185,24 @@
   <tr><td>随机</td><td>均匀 R 节点</td></tr>
   <tr><td>置信度阈值</td><td>conf 最低 R 个</td></tr>
   <tr><td>Hub</td><td>出度 / 孩子数最高 R 个</td></tr>
-  <tr><td>结构贪心</td><td>每步选当前错误节点中最能减 sink 错误的；(1−1/e) 风格</td></tr>
+  <tr><td>结构贪心</td><td>按 (1 − conf) × (1 + sink 可达数) 取前 R；静态</td></tr>
+  <tr><td class="best">信念贪心</td><td class="best">每步选粒子信念下期望 sink 错误下降最大的节点，审完更新信念；要打赢的可部署基线</td></tr>
   <tr><td>Oracle conf</td><td>特征里放真 X_v</td></tr>
-  <tr><td class="best">GNN + REINFORCE</td><td class="best">学到的打分器</td></tr>
-  <tr><td>Oracle 贪心</td><td>知 X_v，真错贪心</td></tr>
+  <tr><td>GNN + REINFORCE</td><td>学到的打分器，静态或带观测 state</td></tr>
+  <tr><td>Oracle 贪心</td><td>同信念贪心的选法，但用真 X_v；只作天花板</td></tr>
 </table>
-<p><b>公平铁律</b>：同评估种子、同图种子、同 coins、同预算、同 P_catch。Oracle 分开标。有策略用验证集调阈值，所有策略给同样调参预算。</p>
+<p><b>公平铁律</b>：同评估种子、同图种子、同 coins、同 catch 随机流（配对）、同预算、同 P_catch。任何读真 X_v 的都标 Oracle、分开放。有策略用验证集调阈值，所有策略给同样调参预算。</p>
 
 <h2 id="metrics">指标</h2>
 <table>
   <tr><th>指标</th><th>为什么</th></tr>
   <tr><td>Mean sink 错误</td><td>主指标</td></tr>
   <tr><td>Worst-of-n</td><td>一个漏审能作废结论</td></tr>
-  <tr><td>95% CI</td><td>GNN 1.54 ± 0.46 已算</td></tr>
+  <tr><td>95% CI</td><td>GNN 用训练种子；基线和配对差用留出图；见 final_table.md</td></tr>
   <tr><td>消融差距</td><td>normal−noise；normal−oracle</td></tr>
-  <tr><td>图族差距</td><td>贪心−阈值 on BA vs ER</td></tr>
+  <tr><td>图族差距</td><td>信念贪心−阈值 on BA vs ER</td></tr>
 </table>
-<p><b>CI 包住贪心均值时不要声称赢</b>。当前句子：GNN mean 1.54 与贪心 1.80 和 MLP 1.40 相当；最佳种子 1.00 有空间；消融说剩余误差在置信度信号。</p>
+<p><b>除非（学到的 − 信念贪心）的配对 CI 整个低于 0，否则不要声称赢</b>。当前句子：200 张留出图上可部署信念贪心打赢我们的 GNN（+0.42 ± 0.15）；加观测没帮助；消融说剩余误差在置信度信号。</p>
 <p><b>必出图</b>：results_bar / ablation_conf / scale500 / learning_curves / real_pipeline。</p>
 
 <h2 id="controls">对照（破坏结构）</h2>
@@ -227,7 +229,7 @@
 <div class="box amber">
   <p><b>GO 不是蛋白功能预测</b>。GO Bench / Swiss-Prot L2D 是另一篇论文。我们的任务是审阅调度：IEA 是 AI 输出，biocurator 是人，GO 是图。</p>
   <p><b>组员先搜</b>「GO annotation review scheduling / L2D on GO」有没有人做过。搜到一样的不抢；搜到相近的写 related work；没搜到 GO MF 切片就是第二个实例。</p>
-  <p><b>成功</b>：阈值或贪心在新图上赢不审。冻结 GNN vs 重训 GNN 都报。只有重训赢 = domain adaptation 不是 transfer，直说。</p>
+  <p><b>成功</b>：阈值或信念贪心在新图上赢不审。冻结 GNN vs 重训 GNN 都报。只有重训赢 = domain adaptation 不是 transfer，直说。</p>
 </div>
 
 <h2 id="team">谁负责什么</h2>
@@ -255,12 +257,12 @@
 <h2 id="diff">预期困难</h2>
 <table>
   <tr><th>困难</th><th>应对</th></tr>
-  <tr><td>GNN 在 N=500 打不过贪心</td><td>报告。500 的主张是贪心几乎清空图；那个尺度的 RL 是 future work</td></tr>
-  <tr><td>GNN 1.20 CI 包住贪心 1.80</td><td>主张「相当、高方差、最佳种子 1.00」。X-factor 是消融</td></tr>
-  <tr><td>双 critic 还是失败</td><td>报 naive 4.85 和原因。引 FALCON 当没做完的配方</td></tr>
+  <tr><td>GNN 打不赢信念贪心</td><td>N=80 已经如此。报告。打赢它（比如信念模型设错时）是开放的 RL 问题</td></tr>
+  <tr><td>有人引用旧「贪心降 95%」</td><td>那是 oracle 贪心。可部署：BA 80.6 → 12.8（降 84%）</td></tr>
+  <tr><td>双 critic 还是失败</td><td>报 naive 2.15（未播种 4.85）和原因。引 FALCON 当没做完的配方</td></tr>
   <tr><td>真实管道太小喂不动 GNN</td><td>应用价值表，不是 RL 表。阈值 0.50 就是结果</td></tr>
   <tr><td>GO 搜到一样的</td><td>留睡眠+SciForge，related work 写不抢 GO 功能预测</td></tr>
-  <tr><td>组员复现不出 1.54</td><td>重跑 rl_gnn_multiseed.py；CI 动了更新每个文档。不许手改表</td></tr>
+  <tr><td>组员复现不出 final_table.md</td><td>重跑 rl_gnn_multiseed.py、rl_methods_compare.py、rl_cmdp_gnn.py，再跑 rl_final.py；数字动了更新每个文档。不许手改表</td></tr>
 </table>
 
 <footer>

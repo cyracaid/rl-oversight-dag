@@ -141,12 +141,12 @@ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad \lambda = 0.8 \text
 | 置信度阈值 | 2.30 | 强静态 |
 | 结构贪心 | 1.80 | 静态启发式 |
 | **信念贪心（自适应，可部署）** | **0.85** | **最强可部署策略** |
-| REINFORCE（MLP） | 1.40 | 初版 |
-| PPO（MLP） | 1.60 | 初版 |
+| REINFORCE（MLP） | 1.60 | 初版 |
+| PPO（MLP） | 1.35 | 初版 |
 | GNN + REINFORCE（静态 state） | 1.51 ± 0.41 | 没打赢信念贪心 |
 | GNN + REINFORCE（带观测 state） | 1.68 ± 0.56 | 没打赢信念贪心 |
-| DQN | 5.10（退化） | 对照 |
-| CMDP 软预算（naive） | 4.85 | 开放问题 |
+| DQN | 5.05（退化） | 对照 |
+| CMDP 软预算（naive） | 2.15 | 开放问题 |
 | Oracle | 0.00 | 天花板 |
 
 GNN 打分器：1 层消息传递，子→父聚合，H=32，照 Mattick et al.（arXiv:2310.00112）。上表来自 `spike_active_selection.py` 和 `rl_gnn_multiseed.py`，种子 1–20。这 20 张图比平均水平容易；做比较请用下面的留出集表。
@@ -175,7 +175,7 @@ GNN 打分器：1 层消息传递，子→父聚合，H=32，照 Mattick et al.�
 
 **别继续卷策略。把置信度信号做好。** 调度器已经够用；预测器定了天花板。这是 talk 的 X-factor。
 
-worst-of-5（HealthBench）：GNN 1.90 / noise 5.20 / oracle 0.80。噪声信号伤尾部甚于均值。
+3 个种子中最差（HealthBench worst-of-n 视角；`rl_ablation.py`）：normal 1.95 / noise 5.20 / oracle 0.80。噪声信号伤尾部甚于均值。
 
 ### 5.5 规模：N = 500，三种图族
 
@@ -254,8 +254,8 @@ OpenAI 的两个 everyday-science 基准是哲学先例，不是调度先例。
 4. 引文全文。
 5. GNN vs 信念贪心：200 张留出图上信念贪心赢 0.42 ± 0.15。信念贪心假设置信度模型和边概率完全已知；把它当可部署策略的上限之前，先在模型设错的条件下测一遍。
 6. GNN + PPO 没收敛（~5.60）。
-7. 双 critic CMDP 没建（naive 4.85）。
-8. 跨文件 19% vs 22%（1.80 → 1.40 是 22.2%）。
+7. 双 critic CMDP 没建（naive 固定种子 2.15；未播种 4.85）。
+8. 信念贪心假设置信度模型和边概率完全已知；在模型设错时重跑。
 9. SciForge：节点有没有置信度字段；真实图规模 / 边类型。
 10. 共识 / 困难拆分（27 / 48）——标签有，评估没跑。
 11. BestReject（arXiv:2409.20489）= 我们的校准阈值——此说法因未验证已删。

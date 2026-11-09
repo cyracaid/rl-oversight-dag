@@ -1,0 +1,15 @@
+/private/tmp/claude-501/-Users-sloblucyra--claude-spares-spare-QUdSxn/1dc35a57-00c0-4efe-8e1f-5e8da1cc4d9f/scratchpad/repo/rl-oversight-dag/experiments/rl_methods_compare.py:56: RuntimeWarning: invalid value encountered in multiply
+  dz1 = da1 * (1 - self.a1 ** 2)
+训练 REINFORCE ...
+训练 PPO ...
+训练 DQN ...
+
+============================================================
+方法对比（平均 sink 错误数，种子 1-20，静态 state）
+============================================================
+  REINFORCE (MLP)     1.60
+  PPO (MLP)           1.35
+  DQN                 5.05
+
+已导出：methods_compare.json（图和总表由 rl_final.py 生成）
+（DQN 目标为折扣 MC 回传，非标准 TD 目标网络——见代码注释）

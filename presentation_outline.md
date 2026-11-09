@@ -48,14 +48,16 @@ layout: default
 | No review | 5.90 |
 | Confidence threshold | 2.30 |
 | Structural greedy | 1.80 |
-| REINFORCE (MLP) | 1.40 |
-| PPO (MLP) | 1.60 |
-| **GNN + REINFORCE** | **1.54 ± 0.46 (5 seeds)** |
-| DQN (value-based) | 5.10 (degenerate) |
-| CMDP soft-budget (naive) | 4.85 ⏳ |
+| **Belief greedy (adaptive, deployable)** | **0.85** |
+| REINFORCE (MLP) | 1.60 |
+| PPO (MLP) | 1.35 |
+| GNN + REINFORCE, static / observed state | 1.51 ± 0.41 / 1.68 ± 0.56 (5 seeds) |
+| DQN (value-based) | 5.05 (degenerate) |
+| CMDP soft-budget (naive) | 2.15 |
 | Oracle (upper) | 0.00 |
 - Figures: `results_bar.png` + `learning_curves.png`
-- Say: the GNN scorer's mean is comparable to structural greedy (1.54 vs 1.80) and beats the threshold (2.30); single best seed hits 1.00; **DQN degenerates** — under a sparse terminal reward a value function gets no per-step credit, which is exactly why policy gradient is the right tool here
+- Held-out, paired (200 unseen graphs): threshold 1.41, structural greedy 1.45, **belief greedy 1.14**, GNN 1.56 (static) / 1.56 (observed). GNN − belief greedy = +0.42 ± 0.15.
+- Say: the seeds-1–20 table is on easy graphs; on unseen graphs a deployable belief greedy beats every learned policy, and giving the GNN its review outcomes did not help; **DQN degenerates** — under a sparse terminal reward a value function gets no per-step credit, which is exactly why policy gradient is the right tool here
 
 ## Slide 8b — Ablation: the confidence signal is the bottleneck
 | Condition | mean |
@@ -65,16 +67,16 @@ layout: default
 | oracle (true error revealed) | 0.72 |
 - Figure: `ablation_conf.png`
 - Say: (1) the model uses the signal — destroy it and RL is *worse* than a static threshold. (2) The noisy predictor is the bottleneck, not the scheduler — **do not keep tuning the policy; invest in the confidence signal.** We located where the remaining error lives.
-- Reliability (HealthBench worst-of-n): one unreviewed error can invalidate a conclusion. Worst-of-5: GNN 1.90, noise 5.20, oracle 0.80 — **a noisy signal hurts the tail more than the mean.**
+- Reliability (HealthBench worst-of-n): one unreviewed error can invalidate a conclusion. Worst seed of 3: normal 1.95, noise 5.20, oracle 0.80 — **a noisy signal hurts the tail more than the mean.**
 
 ## Slide 8c — Scale: N=500, three graph families
-| family | no | threshold | greedy |
-|---|---|---|---|
-| modular | 24 | 8.6 | **2.0** |
-| scale-free (BA) | 81 | 30 | **3.8** |
-| sparse (ER) | 43 | 16 | **8.2** |
+| family | no | threshold | **belief greedy** | oracle greedy |
+|---|---|---|---|---|
+| modular | 24 | 9.2 | **8.4** | 2.0 |
+| scale-free (BA) | 81 | 38 | **12.8** | 3.6 |
+| sparse (ER) | 43 | 21 | **19.2** | 7.8 |
 - Figure: `scale500.png`
-- Say: greedy influence maximization (1−1/e style) nearly clears every family; random ≈ no review; threshold unstable on scale-free. **These are heuristics, not RL** — any learned policy must beat this. Math: P(X_v=0|X_u=0)=1−e^(−λw); CMDP Lagrangian; Zipf types.
+- Say: deployable belief greedy cuts scale-free errors by 84% (threshold 53%); on modular/ER it is only slightly better than the threshold. Oracle greedy reads the true errors — a ceiling, not a policy (the old "95%" was this). Random ≈ no review; threshold unstable on scale-free. **These are heuristics, not RL** — any learned policy must beat belief greedy. Math: P(X_v=0|X_u=0)=1−e^(−λw); CMDP Lagrangian; Zipf types.
 
 ## Slide 9 — Controls (anti-self-fulfilling)
 - Shuffle errors (break clustering) → advantage gone; flatten graph (break propagation) → advantage gone
@@ -86,8 +88,8 @@ layout: default
 
 ## Slide 11 — AI4Science positioning + conclusion
 - This is the **review layer of a research evidence chain**: front-end review tool → RL suggester → SciForge evidence DAG (machine never stamps, append-only)
-- Conclusion: flatten the problem and RL loses; give RL the graph, and policy gradient wins
-- Limits: synthetic data, small graph, single-run GNN; future: GNN at scale, real evidence graph
+- Conclusion: flatten the problem and RL loses; give the scheduler the graph and a belief, and adaptive greedy wins; our GNN does not beat it yet
+- Limits: synthetic data, small graph, belief greedy assumes a known model; future: beat belief greedy under a misspecified model, GNN at scale, real evidence graph
 
 ## Slide 12 — Roles + Q&A
 - 5-person role table
@@ -97,7 +99,7 @@ layout: default
 
 ## Likely Q&A (top 5)
 
-1. **"Why not just the per-type threshold?"** → the threshold cannot see graph structure; graph-aware greedy beats it by 22%, proving the graph has value; RL adds ~33% more.
+1. **"Why not just the per-type threshold?"** → the threshold cannot see graph structure; deployable belief greedy beats it (held-out 1.14 vs 1.41; scale-free N=500 12.8 vs 37.6), proving the graph has value. Our RL does not beat belief greedy yet.
 2. **"Real gain or a tuned artifact?"** → shuffle-errors / flatten-graph kill the advantage, proving it is not rigged.
 3. **"Difference from learning-to-defer?"** → L2D defers per item independently (bandit); we select nodes on a graph (MDP + sparse delayed reward).
 4. **"Meaningful at this scale?"** → admit the limitation; it is a methodology demo, extendable to a real evidence graph and GNN at scale.

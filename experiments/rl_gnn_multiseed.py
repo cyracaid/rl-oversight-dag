@@ -18,8 +18,10 @@ Evaluation
 Baselines on the same held-out graphs: conf threshold, structural greedy,
 belief greedy (deployable adaptive greedy on the same belief).
 
-Writes gnn_multiseed_result.txt and gnn_vs_greedy_table.md.
+Writes gnn_results.json (all numbers + learning curves, read by rl_final.py)
+and gnn_vs_greedy_table.md.
 """
+import json
 import math
 import random
 from concurrent.futures import ProcessPoolExecutor
@@ -38,6 +40,7 @@ TRAIN_SEEDS = [1, 2, 3, 4, 5]
 N_EPISODES = 20000
 DIM = {"static": K + 2, "observed": K + 7}
 T_975 = {4: 2.776, 199: 1.972}
+CURVE_EVERY = 500          # learning curve: mean sink errors over each 500-episode window
 
 
 def build_env(rng, belief_seed, with_belief):
@@ -103,6 +106,7 @@ def train(variant, seed, n_ep=N_EPISODES, lr=0.003):
     opt = torch.optim.Adam(policy.parameters(), lr=lr)
     baseline = 0.0
     rng = random.Random(seed)
+    curve, window = [], []
     for ep in range(n_ep):
         temp = max(0.3, 2.0 * (0.9993 ** ep))
         sink_err, logps = run_episode(policy, variant, rng, belief_seed=seed * 10**6 + ep,
@@ -111,7 +115,11 @@ def train(variant, seed, n_ep=N_EPISODES, lr=0.003):
         baseline = 0.95 * baseline + 0.05 * r
         loss = -(r - baseline) * torch.stack(logps).sum()
         opt.zero_grad(); loss.backward(); opt.step()
-    return policy
+        window.append(sink_err)
+        if len(window) == CURVE_EVERY:
+            curve.append((ep + 1, sum(window) / CURVE_EVERY))
+            window = []
+    return policy, curve
 
 
 def eval_gnn(policy, variant, seeds):
@@ -141,9 +149,9 @@ def eval_baselines(seeds):
 
 def job(variant, seed):
     torch.set_num_threads(1)
-    policy = train(variant, seed)
+    policy, curve = train(variant, seed)
     return variant, seed, eval_gnn(policy, variant, LEGACY_SEEDS), \
-        eval_gnn(policy, variant, HELDOUT_SEEDS)
+        eval_gnn(policy, variant, HELDOUT_SEEDS), curve
 
 
 def mean_ci(xs):
@@ -155,10 +163,11 @@ def mean_ci(xs):
 
 def main():
     jobs = [(v, s) for v in DIM for s in TRAIN_SEEDS]
-    res = {}
+    res, curves = {}, {}
     with ProcessPoolExecutor(max_workers=min(len(jobs), 8)) as ex:
-        for variant, seed, legacy, held in ex.map(job, *zip(*jobs)):
+        for variant, seed, legacy, held, curve in ex.map(job, *zip(*jobs)):
             res[(variant, seed)] = (legacy, held)
+            curves[(variant, seed)] = curve
             print(f"  {variant:<9} seed {seed}: legacy {sum(legacy)/len(legacy):.2f}  "
                   f"held-out {sum(held)/len(held):.2f}", flush=True)
     base = eval_baselines(HELDOUT_SEEDS)
@@ -170,11 +179,16 @@ def main():
              "",
              "| policy | legacy seeds 1-20 | held-out mean | 95% CI |",
              "|---|---:|---:|---:|"]
-    txt = []
+    out = {"config": {"N": N, "budget": R, "train_seeds": TRAIN_SEEDS,
+                      "episodes": N_EPISODES, "legacy_seeds": LEGACY_SEEDS,
+                      "heldout_seeds": [HELDOUT_SEEDS[0], HELDOUT_SEEDS[-1]],
+                      "particles": SP.CFG["n_particles"], "curve_every": CURVE_EVERY},
+           "baselines": {}, "gnn": {}, "paired": {}}
     for name in base:
         m, _, ci = mean_ci(base[name])
         lg = sum(base_legacy[name]) / len(LEGACY_SEEDS)
         lines.append(f"| {name} | {lg:.2f} | {m:.2f} | ± {ci:.2f} |")
+        out["baselines"][name] = {"legacy_mean": lg, "heldout_mean": m, "heldout_ci95": ci}
     per_graph = {}
     for v in DIM:
         legacy_means = [sum(res[(v, s)][0]) / len(LEGACY_SEEDS) for s in TRAIN_SEEDS]
@@ -183,9 +197,10 @@ def main():
         hm, _, hci = mean_ci(held_means)
         lines.append(f"| GNN + REINFORCE ({v} state) | {lm:.2f} ± {lci:.2f} | {hm:.2f} "
                      f"| ± {hci:.2f} (over training seeds) |")
-        txt.append(f"{v}: legacy_per_seed={[round(x, 2) for x in legacy_means]} "
-                   f"legacy_mean={lm:.3f} ci95={lci:.3f} "
-                   f"heldout_per_seed={[round(x, 3) for x in held_means]} heldout_mean={hm:.3f}")
+        out["gnn"][v] = {"legacy_per_seed": legacy_means, "legacy_mean": lm,
+                         "legacy_ci95": lci, "heldout_per_seed": held_means,
+                         "heldout_mean": hm, "heldout_ci95": hci,
+                         "curves": [curves[(v, s)] for s in TRAIN_SEEDS]}
         per_graph[v] = [sum(res[(v, s)][1][g] for s in TRAIN_SEEDS) / len(TRAIN_SEEDS)
                         for g in range(len(HELDOUT_SEEDS))]
 
@@ -198,12 +213,12 @@ def main():
     for a, xa, b, xb in pairs:
         m, _, ci = mean_ci([p - q for p, q in zip(xa, xb)])
         lines.append(f"- {a} − {b}: {m:+.2f} ± {ci:.2f}")
-        txt.append(f"paired {a} - {b}: {m:+.3f} ci95={ci:.3f}")
+        out["paired"][f"{a} - {b}"] = {"mean": m, "ci95": ci}
 
     with open("gnn_vs_greedy_table.md", "w") as f:
         f.write("\n".join(lines) + "\n")
-    with open("gnn_multiseed_result.txt", "w") as f:
-        f.write("\n".join(txt) + "\n")
+    with open("gnn_results.json", "w") as f:
+        json.dump(out, f, indent=1)
     print("\n".join(lines))
 
 

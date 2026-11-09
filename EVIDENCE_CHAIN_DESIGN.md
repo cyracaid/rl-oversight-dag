@@ -141,12 +141,12 @@ Threshold 2.81 beats tabular Q-learning 3.38. Diagnosis: per-item review flatten
 | Confidence threshold | 2.30 | strong static |
 | Structural greedy | 1.80 | static heuristic |
 | **Belief greedy (adaptive, deployable)** | **0.85** | **strongest deployable policy** |
-| REINFORCE (MLP) | 1.40 | preliminary |
-| PPO (MLP) | 1.60 | preliminary |
+| REINFORCE (MLP) | 1.60 | preliminary |
+| PPO (MLP) | 1.35 | preliminary |
 | GNN + REINFORCE (static state) | 1.51 ± 0.41 | does not beat belief greedy |
 | GNN + REINFORCE (observed state) | 1.68 ± 0.56 | does not beat belief greedy |
-| DQN | 5.10 (degenerate) | control |
-| CMDP soft budget (naive) | 4.85 | open problem |
+| DQN | 5.05 (degenerate) | control |
+| CMDP soft budget (naive) | 2.15 | open problem |
 | Oracle | 0.00 | ceiling |
 
 GNN scorer: 1-layer message passing, child→parent aggregation, H=32, following Mattick et al. (arXiv:2310.00112). Rows above come from `spike_active_selection.py` and `rl_gnn_multiseed.py` on seeds 1–20. Those 20 graphs are easier than average; use the held-out table below for comparisons.
@@ -175,7 +175,7 @@ Reading: (1) the static-state GNN could only learn a fixed ranking; giving it th
 
 **Do not keep tuning the policy. Invest in the confidence signal.** The scheduler is already good enough; the predictor sets the ceiling. This is the X-factor of the talk.
 
-Worst-of-5 (HealthBench): GNN 1.90 / noise 5.20 / oracle 0.80. A noisy signal hurts the tail more than the mean.
+Worst seed of 3 (HealthBench worst-of-n lens; `rl_ablation.py`): normal 1.95 / noise 5.20 / oracle 0.80. A noisy signal hurts the tail more than the mean.
 
 ### 5.5 Scale: N = 500, three graph families
 
@@ -254,8 +254,8 @@ Each ingredient exists. The combination does not (we did not find it).
 4. Full texts of cited papers.
 5. GNN vs belief greedy: belief greedy wins by 0.42 ± 0.15 on 200 held-out graphs. Belief greedy assumes the confidence model and edge probabilities are known exactly; test it under misspecification before treating it as an upper bound for deployable policies.
 6. GNN + PPO not converged (~5.60).
-7. Dual-critic CMDP not built (naive 4.85).
-8. Cross-file 19% vs 22% (1.80 → 1.40 is 22.2%).
+7. Dual-critic CMDP not built (naive 2.15 with a fixed seed; 4.85 unseeded).
+8. Belief greedy assumes the confidence model and edge probabilities are known exactly; rerun it under misspecification.
 9. SciForge: confidence field on nodes; real graph size / edge types.
 10. Consensus / Hard split (27 / 48) — labels exist, evaluation not run.
 11. BestReject (arXiv:2409.20489) = our calibrated threshold — claim dropped as unverified.

@@ -9,6 +9,7 @@ Upgrades over the MLP scorer:
   4. Explicit "stop" action so the policy learns when to stop reviewing.
 Naive version: the stop-action credit assignment is too coarse and underperforms.
 """
+import json
 import torch
 import torch.nn.functional as F
 import math
@@ -107,6 +108,7 @@ def rollout(policy, nodes, topo, coins, sinks, base, F, A, rng, greedy=False, te
 
 
 def train():
+    torch.manual_seed(1)
     policy = GNNPolicy()
     opt = torch.optim.Adam(policy.parameters(), lr=0.003)
     lam_u, lam_l = 0.1, 0.0
@@ -154,19 +156,12 @@ def main():
     policy, hist = train()
     err = evaluate(policy)
     print()
-    print(f"{'方法':<26}{'sink错误数':>12}")
-    print(f"{'置信度阈值(spike)':<26}{2.30:>12.2f}")
-    print(f"{'结构贪心(spike)':<26}{1.80:>12.2f}")
-    print(f"{'REINFORCE(旧,MLP)':<26}{1.40:>12.2f}")
-    print(f"{'PPO(旧,MLP)':<26}{1.60:>12.2f}")
-    print(f"{'CMDP+PPO-Lagrangian+GNN(新)':<26}{err:>12.2f}")
-    print()
-    if err < 1.40:
-        print(f"→ 升级版压过旧 REINFORCE {1.40 - err:.2f} 个错误 ✅")
-    elif err < 1.60:
-        print(f"→ 升级版压过旧 PPO，略逊 REINFORCE")
-    else:
-        print(f"→ 升级版尚未超过旧版（可能需调参），诚实报告")
+    print(f"CMDP+PPO-Lagrangian+GNN（种子 1-20）sink 错误数 = {err:.2f}")
+    with open("cmdp_result.json", "w") as f:
+        json.dump({"eval_seeds": SEEDS, "sink_errors": err,
+                   "train_log": [list(h) for h in hist]}, f, indent=1)
+    print("已导出：cmdp_result.json（总表由 rl_final.py 生成）")
+
 
 if __name__ == "__main__":
     main()

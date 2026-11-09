@@ -24,7 +24,7 @@ layout: default
 | W6 n-step / 自举 | n-step MC/TD、资格迹 | 可选：如果终局-only 信用太稀，加 n-step REINFORCE。不必须。 |
 | W7 VAE / DDPM | 生成模型 | **不用。** 不同模块。别硬塞进 proposal。 |
 | W8 函数近似、control | 线性 / 神经价值与策略，DQN | **MLP 打分器**（初版）和 **DQN 对照**。GNN 是升级。 |
-| W9 策略梯度 I | REINFORCE，\(\nabla J = E[\nabla \log \pi \cdot A]\) | **主方法。** 已经在跑。mean 1.54 ± 0.46。 |
+| W9 策略梯度 I | REINFORCE，\(\nabla J = E[\nabla \log \pi \cdot A]\) | **主学习方法。** 在跑。留出集 1.56；输给可部署信念贪心（1.14），配对差 +0.42 ± 0.15。 |
 
 **给教授的一句话：**
 
@@ -122,9 +122,9 @@ layout: default
 | 策略梯度定理、REINFORCE、baseline | Slide 7 |
 | PPO clip + 重要性采样 | Slide 7 / 8 |
 | CMDP + 拉格朗日 | Slide 7（在做） |
-| 探索退火、多种子、CI | Slide 8：1.54 ± 0.46 |
+| 探索退火、多种子、留出集配对 CI | Slide 8：GNN − 信念贪心 = +0.42 ± 0.15 |
 | Worst-of-n 可靠性 | Slide 8b |
-| 影响最大化 (1−1/e) | Slide 8c |
+| 自适应贪心 / 影响最大化；信念（粒子滤波） | Slide 8c |
 | 信息增益 | Slide 7 数学 |
 
 **别把 VAE / DDPM 放 slide。** 那一周是另一个模块。

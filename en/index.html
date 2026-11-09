@@ -129,7 +129,7 @@ Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 <div class="arch">
 Front end   highlight-and-ask on diary rows / code / claims  → review traces (not receipts)
               ↓
-Review layer  GNN / greedy / threshold suggester             → "review these first" (read-only)
+Review layer  belief greedy / GNN / threshold                → "review these first" (read-only)
               ↓  human clicks "verdict"
 Back end    SciForge evidence DAG + receipts                 → machine never stamps, append-only
 </div>
@@ -140,31 +140,32 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
 <p>Reviewing \(v\) = do\((X_v := 1)\). Causal intervention, not correlation.</p>
 <p><b>2. MDP.</b> State = graph knowledge + remaining budget. Action = next node (or stop). Reward \(r_T = -\#\text{sink errors}\). \(\gamma &lt; 1\).</p>
 <p><b>3. CMDP Lagrangian.</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\). Main method today is GNN + fixed-budget REINFORCE; dual-critic CMDP is in progress.</p>
-<p><b>4. Submodular greedy (1−1/e).</b> On N=500 this greedy takes scale-free graphs from 81 to 3.8.</p>
+<p><b>4. Adaptive greedy on a belief.</b> A particle filter tracks which nodes are likely wrong; each step reviews the node with the largest expected drop in conclusion errors, then updates the belief with what the reviewer found. On N=500 scale-free graphs it goes from 81 to 12.8. The same rule on the true errors (oracle) reaches 3.6, but no real policy can see the truth.</p>
 <p><b>5. Information-gain reward (in the design, not yet run).</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
 <p><b>6. Policy gradient (main method).</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
 <p>GNN scorer: \( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
-<p><b>7. Worst-of-n.</b> One unreviewed error can invalidate a conclusion (HealthBench). noise worst-of-5 = 5.20, oracle = 0.80.</p>
+<p><b>7. Worst-of-n.</b> One unreviewed error can invalidate a conclusion (HealthBench). Worst of 3 seeds: noise 5.20, oracle 0.80.</p>
 
 <h2 id="results">Results (N=80)</h2>
 <p>All numbers are errors that reach a conclusion. Lower is better. AI-generated; teammates to reproduce.</p>
 <div class="figure"><img src="../experiments/results_bar.png" alt="methods">
-  <figcaption>The GNN bar is the 5-seed mean, not the lucky single run of 1.20.</figcaption></div>
+  <figcaption>200 unseen graphs, every policy on the same graph and the same random stream, 95% CI.</figcaption></div>
 <table>
   <tr><th>Method</th><th>Sink errors</th></tr>
   <tr><td>No review</td><td>5.90</td></tr>
   <tr><td>Confidence threshold</td><td>2.30</td></tr>
   <tr><td>Structural greedy</td><td>1.80</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-  <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46 (best seed 1.00)</td></tr>
-  <tr><td>DQN</td><td>5.10 (degenerate)</td></tr>
+  <tr><td class="best">Belief greedy (adaptive, deployable)</td><td class="best">0.85</td></tr>
+  <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
+  <tr><td>PPO (MLP)</td><td>1.35</td></tr>
+  <tr><td>GNN + REINFORCE, static / observed state</td><td>1.51 ± 0.41 / 1.68 ± 0.56</td></tr>
+  <tr><td>DQN</td><td>5.05 (degenerate)</td></tr>
   <tr><td>Oracle</td><td>0.00</td></tr>
 </table>
 <div class="figure"><img src="../experiments/learning_curves.png" alt="curves">
-  <figcaption>Learning curves: reward climbs from random toward zero.</figcaption></div>
+  <figcaption>Real training logs: sink errors per 500-episode window for the GNN (5 seeds each), and the MLP scorers.</figcaption></div>
 <div class="box">
-  <p><b>Honestly</b>: GNN mean 1.54 is <b>comparable to</b> structural greedy (1.80) and MLP REINFORCE (1.40). It is not a stable win. Best seed 1.00 shows headroom.</p>
+  <p>The table above uses seeds 1–20, which turned out to be easy graphs. <b>On 200 unseen graphs</b>: threshold 1.41, structural greedy 1.45, <b>belief greedy 1.14</b>, GNN 1.56. The deployable belief greedy beats every learned policy (GNN − belief greedy = +0.42 ± 0.15), and giving the GNN its review outcomes did not help.</p>
   <p>DQN degenerates to random — a sparse terminal reward cannot feed a value function. Policy gradient is the right tool here.</p>
   <p>V1 as a per-item bandit <b>lost to a threshold</b> (2.81 vs Q-learning 3.38). That failure is why we reframed.</p>
 </div>
@@ -181,22 +182,22 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
 </table>
 <div class="box green">
   <p><b>Do not keep tuning the scheduler. Invest in the confidence signal.</b> We located where the remaining error lives: the predictor, not the policy.</p>
-  <p>Worst-of-5: GNN 1.90 / noise 5.20 / oracle 0.80. A noisy signal hurts the tail more than the mean.</p>
+  <p>Worst of 3 seeds: normal 1.95 / noise 5.20 / oracle 0.80. A noisy signal hurts the tail more than the mean.</p>
 </div>
 
 <h2 id="scale">Scale: N = 500, three graph families</h2>
-<p>Same intervention model. Budget 50 (10%). Five seeds. Greedy = influence maximization (not RL).</p>
+<p>Same intervention model. Budget 50 (10%). Five seeds. Every policy replays the same random stream. Belief greedy is deployable; oracle greedy reads the true errors (ceiling only). Not RL.</p>
 <div class="figure"><img src="../experiments/scale500.png" alt="scale">
-  <figcaption>Greedy almost clears every family. Scale-free 81 → 3.8 (95% down).</figcaption></div>
+  <figcaption>Belief greedy cuts scale-free errors 81 → 12.8 (84% down). The old "95%" was the oracle.</figcaption></div>
 <table>
-  <tr><th>Family</th><th>No review</th><th>Threshold</th><th>Greedy</th></tr>
-  <tr><td>Modular</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-  <tr><td>Scale-free (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-  <tr><td>Sparse (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+  <tr><th>Family</th><th>No review</th><th>Threshold</th><th>Belief greedy</th><th>Oracle greedy</th></tr>
+  <tr><td>Modular</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
+  <tr><td>Scale-free (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
+  <tr><td>Sparse (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
 </table>
 <div class="box">
-  <p>Random ≈ no review. The confidence threshold is unstable on scale-free graphs (6–76). Hub defense helps but is far from greedy.</p>
-  <p><b>Honest scope:</b> these 500-node numbers are greedy / heuristics, not RL.</p>
+  <p>Random ≈ no review. The confidence threshold is unstable on scale-free graphs (6–76). Hub defense helps but is far from belief greedy. On modular and sparse graphs belief greedy is only slightly better than the threshold.</p>
+  <p><b>Honest scope:</b> these 500-node numbers are heuristics, not RL.</p>
 </div>
 
 <h2 id="pipeline">Real sleep-pipeline DAG (N=21)</h2>
@@ -225,11 +226,11 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
 <h2 id="guide">Decision guide</h2>
 <table>
   <tr><th>If you are here</th><th>Use this</th></tr>
-  <tr><td>Confidence well calibrated</td><td>GNN or structural greedy</td></tr>
+  <tr><td>Confidence well calibrated, graph known</td><td>Belief greedy</td></tr>
   <tr><td>Confidence noisy</td><td><b>Do not use RL</b> — static threshold more robust</td></tr>
-  <tr><td>Tight budget, type-clustered errors</td><td>Structural greedy</td></tr>
+  <tr><td>No belief model available</td><td>Confidence threshold (≈ structural greedy on unseen graphs, simpler)</td></tr>
   <tr><td>You can improve the predictor</td><td>Fixing confidence buys more than fixing the policy</td></tr>
-  <tr><td>Large scale-free graph</td><td>Greedy influence maximization</td></tr>
+  <tr><td>Large scale-free graph</td><td>Belief greedy</td></tr>
   <tr><td>Our small pipeline today</td><td>A calibrated threshold</td></tr>
 </table>
 
@@ -238,7 +239,7 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
 <div class="arch">
 Front end   highlight-and-ask on diary rows / code / claims  → review traces (not receipts)
               ↓
-Review layer  GNN / greedy / threshold suggester             → "review these first" (read-only)
+Review layer  belief greedy / GNN / threshold                → "review these first" (read-only)
               ↓  human clicks "verdict"
 Back end    SciForge evidence DAG + receipts                 → machine never stamps, append-only
 </div>
@@ -258,7 +259,7 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
 
 <h2 id="verify">Verification status</h2>
 <p>AI-generated; teammates to reproduce. Checked: citations, real-data numbers (2026-11-09: 13,990 / 237 / 75 / 76%).</p>
-<p>Not checked: every simulation number; simulator design; why no-review differs across tables (5.62 vs 5.90); "no direct precedent" (search again); full texts; GNN multi-seed CI still wide (1.00–1.90); GNN+PPO not converged; dual-critic CMDP not built; SciForge confidence field; consensus/hard split not run.</p>
+<p>Not checked: every simulation number; simulator design; why no-review differs across tables (5.62 vs 5.90); "no direct precedent" (search again); full texts; belief greedy under a misspecified model; GNN+PPO not converged; dual-critic CMDP not built; SciForge confidence field; consensus/hard split not run.</p>
 
 <footer>
   Review Scheduling on a Dependency Graph · STA3145 ·

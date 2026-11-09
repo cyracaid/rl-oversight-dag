@@ -124,7 +124,7 @@
   <div class="arch">
 前端   划线提问 / 日记行审阅         → 审阅痕迹（不是收据）
          ↓
-审阅层  GNN / 贪心 / 阈值 建议器      → 「先审这几个」（只读）
+审阅层  信念贪心 / GNN / 阈值 建议器     → 「先审这几个」（只读）
          ↓  人点「裁决」
 后端    SciForge 证据 DAG + 收据       → 机器不盖章，append-only
   </div>
@@ -134,22 +134,23 @@
   <h2>4 结果</h2>
   <p>数字 = 到达结论的错误数，越低越好。</p>
   <div class="figure"><img src="experiments/results_bar.png" alt="methods">
-    <figcaption>80 节点。GNN 是 5 种子均值，不是单次最好的 1.20。</figcaption></div>
+    <figcaption>200 张没见过的图，配对比较，95% CI。可部署的信念贪心打赢两种 GNN。</figcaption></div>
   <table>
     <tr><th>方法</th><th>结论错误</th></tr>
     <tr><td>不审</td><td>5.90</td></tr>
     <tr><td>置信度阈值</td><td>2.30</td></tr>
     <tr><td>结构贪心</td><td>1.80</td></tr>
-    <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-    <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-    <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
-    <tr><td>DQN</td><td>5.10（退化）</td></tr>
+    <tr><td class="best">信念贪心（自适应，可部署）</td><td class="best">0.85</td></tr>
+    <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
+    <tr><td>PPO (MLP)</td><td>1.35</td></tr>
+    <tr><td>GNN + REINFORCE（静态 / 带观测 state）</td><td>1.51 / 1.68</td></tr>
+    <tr><td>DQN</td><td>5.05（退化）</td></tr>
     <tr><td>Oracle</td><td>0.00</td></tr>
   </table>
   <div class="figure"><img src="experiments/learning_curves.png" alt="curves">
-    <figcaption>学习曲线：奖励从随机（约 −9）爬向 0。</figcaption></div>
+    <figcaption>真实训练日志：GNN 每 500 局的 sink 错误（各 5 个种子），以及 MLP 打分器。</figcaption></div>
   <div class="card">
-    <p><b>诚实</b>：GNN 均值 1.54 和贪心（1.80）、MLP REINFORCE（1.40）<b>相当</b>，不是稳定碾压。最佳种子 1.00 有空间，要看多种子。</p>
+    <p><b>诚实</b>：上表是种子 1–20，偏容易。200 张没见过的图上：阈值 1.41、结构贪心 1.45、<b>信念贪心 1.14</b>、GNN 1.56。可部署的信念贪心打赢所有学到的策略（差 0.42 ± 0.15），给 GNN 加审查结果也没帮助。</p>
     <p>DQN 退化——稀疏终局奖励喂不饱价值函数。<b>这里该用策略梯度</b>。</p>
   </div>
 </section>
@@ -172,15 +173,15 @@
   <h2>6 放大：500 节点</h2>
   <p>三种 500 节点图：模块化、无标度（少数 hub 连一堆普通节点）、稀疏随机图。预算 50（10%）。</p>
   <div class="figure"><img src="experiments/scale500.png" alt="scale">
-    <figcaption>贪心影响最大化在三种图上都几乎清空结论错误。无标度图上 81 → 3.8（降 95%）。</figcaption></div>
+    <figcaption>可部署的信念贪心把无标度图的结论错误从 81 降到 12.8（降 84%）。旧的「降 95%」是读真值的 oracle 贪心。</figcaption></div>
   <table>
-    <tr><th>图族</th><th>不审</th><th>阈值</th><th>贪心</th></tr>
-    <tr><td>模块化</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-    <tr><td>无标度 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-    <tr><td>稀疏 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+    <tr><th>图族</th><th>不审</th><th>阈值</th><th>信念贪心</th><th>oracle 贪心</th></tr>
+    <tr><td>模块化</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
+    <tr><td>无标度 (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
+    <tr><td>稀疏 (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
   </table>
   <div class="card">
-    <p><b>诚实说</b>：这批 500 节点的数字是<b>贪心启发式，不是 RL</b>。说明问题在规模下依然有趣，贪心是必须打赢的基线。</p>
+    <p><b>诚实说</b>：这批 500 节点的数字是<b>启发式，不是 RL</b>。模块化和稀疏图上信念贪心只比阈值好一点。学到的策略必须打赢的是信念贪心，不是 oracle。</p>
   </div>
 </section>
 
@@ -212,11 +213,11 @@
   <h2>9 决策指南</h2>
   <table>
     <tr><th>如果你在什么情况</th><th>用什么</th></tr>
-    <tr><td>置信度信号校准得好</td><td>GNN 或结构贪心都行</td></tr>
+    <tr><td>置信度校准好、图已知</td><td>信念贪心</td></tr>
     <tr><td>置信度噪声大</td><td><b>别用 RL</b>，静态阈值更稳</td></tr>
-    <tr><td>预算紧、错误按类型聚集</td><td>结构贪心（便宜、强）</td></tr>
+    <tr><td>没有信念模型</td><td>置信度阈值（没见过的图上 ≈ 结构贪心，更简单）</td></tr>
     <tr><td>能改进预测器</td><td>改置信度比改策略收益大</td></tr>
-    <tr><td>图很大、无标度</td><td>贪心影响最大化（守 hub）</td></tr>
+    <tr><td>图很大、无标度</td><td>信念贪心</td></tr>
     <tr><td>就是我们今天的小管道</td><td>校准阈值</td></tr>
   </table>
 </section>
@@ -289,7 +290,7 @@
   <div class="arch">
 Front end   highlight-and-ask on diary rows / code / claims  → review traces (not receipts)
               ↓
-Review layer  GNN / greedy / threshold suggester             → "review these first" (read-only)
+Review layer  belief greedy / GNN / threshold                → "review these first" (read-only)
               ↓  human clicks "verdict"
 Back end    SciForge evidence DAG + receipts                 → machine never stamps, append-only
   </div>
@@ -299,22 +300,23 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <h2>4 Results</h2>
   <p>All numbers are errors that reach a conclusion. Lower is better.</p>
   <div class="figure"><img src="experiments/results_bar.png" alt="methods">
-    <figcaption>80-node graph. The GNN bar is the 5-seed mean, not the lucky single run of 1.20.</figcaption></div>
+    <figcaption>200 unseen graphs, paired, 95% CI. Deployable belief greedy beats both GNN variants.</figcaption></div>
   <table>
     <tr><th>Method</th><th>Sink errors</th></tr>
     <tr><td>No review</td><td>5.90</td></tr>
     <tr><td>Confidence threshold</td><td>2.30</td></tr>
     <tr><td>Structural greedy</td><td>1.80</td></tr>
-    <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-    <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-    <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
-    <tr><td>DQN</td><td>5.10 (degenerate)</td></tr>
+    <tr><td class="best">Belief greedy (adaptive, deployable)</td><td class="best">0.85</td></tr>
+    <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
+    <tr><td>PPO (MLP)</td><td>1.35</td></tr>
+    <tr><td>GNN + REINFORCE (static / observed state)</td><td>1.51 / 1.68</td></tr>
+    <tr><td>DQN</td><td>5.05 (degenerate)</td></tr>
     <tr><td>Oracle</td><td>0.00</td></tr>
   </table>
   <div class="figure"><img src="experiments/learning_curves.png" alt="curves">
-    <figcaption>Learning curves: reward climbs from random (about −9) toward zero.</figcaption></div>
+    <figcaption>Real training logs: sink errors per 500-episode window for the GNN (5 seeds each), and the MLP scorers.</figcaption></div>
   <div class="card">
-    <p><b>Honestly</b>: GNN mean 1.54 is <b>comparable to</b> structural greedy (1.80) and MLP REINFORCE (1.40). It is not a stable win. Best seed 1.00 shows headroom, but it takes multiple seeds.</p>
+    <p><b>Honestly</b>: the table above is seeds 1–20, which are easy graphs. On 200 unseen graphs: threshold 1.41, structural greedy 1.45, <b>belief greedy 1.14</b>, GNN 1.56. The deployable belief greedy beats every learned policy (gap 0.42 ± 0.15), and giving the GNN its review outcomes did not help.</p>
     <p>DQN degenerates to random — a sparse terminal reward cannot feed a value function. Policy gradient is the right tool here.</p>
   </div>
 </section>
@@ -337,14 +339,14 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <h2>6 Making the graph bigger: 500 nodes</h2>
   <p>Three 500-node graphs: modular, scale-free, sparse random. Budget 50 (10%).</p>
   <div class="figure"><img src="experiments/scale500.png" alt="scale">
-    <figcaption>Greedy influence maximization almost clears conclusion errors on every family. Scale-free 81 → 3.8 (95% down).</figcaption></div>
+    <figcaption>Deployable belief greedy cuts scale-free conclusion errors 81 → 12.8 (84% down). The old "95%" was the oracle greedy, which reads the true errors.</figcaption></div>
   <table>
-    <tr><th>Family</th><th>No review</th><th>Threshold</th><th>Greedy</th></tr>
-    <tr><td>Modular</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-    <tr><td>Scale-free (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-    <tr><td>Sparse (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+    <tr><th>Family</th><th>No review</th><th>Threshold</th><th>Belief greedy</th><th>Oracle greedy</th></tr>
+    <tr><td>Modular</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
+    <tr><td>Scale-free (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
+    <tr><td>Sparse (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
   </table>
-  <div class="card"><b>Honestly</b>: these 500-node numbers are <b>greedy heuristics, not RL</b>. The problem is still interesting at scale; greedy is the baseline any learned policy must beat.</div>
+  <div class="card"><b>Honestly</b>: these 500-node numbers are <b>heuristics, not RL</b>. On modular and sparse graphs belief greedy is only slightly better than the threshold. Any learned policy must beat belief greedy, not the oracle.</div>
 </section>
 
 <section>
@@ -375,11 +377,11 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <h2>9 When to use which rule</h2>
   <table>
     <tr><th>If you are here</th><th>Use this</th></tr>
-    <tr><td>Confidence well calibrated</td><td>GNN or structural greedy — both fine</td></tr>
+    <tr><td>Confidence well calibrated, graph known</td><td>Belief greedy</td></tr>
     <tr><td>Confidence noisy</td><td><b>Do not use RL</b> — a static threshold is more robust</td></tr>
-    <tr><td>Tight budget, type-clustered errors</td><td>Structural greedy (cheap and strong)</td></tr>
+    <tr><td>No belief model available</td><td>Confidence threshold (≈ structural greedy on unseen graphs, simpler)</td></tr>
     <tr><td>You can improve the predictor</td><td>Fixing confidence buys more than fixing the policy</td></tr>
-    <tr><td>Large scale-free graph</td><td>Greedy influence maximization</td></tr>
+    <tr><td>Large scale-free graph</td><td>Belief greedy</td></tr>
     <tr><td>Our small pipeline today</td><td>A calibrated threshold</td></tr>
   </table>
 </section>
@@ -452,7 +454,7 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <div class="arch">
 프론트   일기 행 / 코드 / 주장에 하이라이트-질문     → 검토 흔적 (영수증 아님)
            ↓
-검토층    GNN / 탐욕 / 임계값 제안기                → "이것 먼저 검토" (읽기 전용)
+검토층    신념 그리디 / GNN / 임계값 제안기              → "이것 먼저 검토" (읽기 전용)
            ↓  사람이 "판정" 클릭
 백엔드    SciForge 증거 DAG + 영수증                → 기계 도장 없음, append-only
   </div>
@@ -462,22 +464,23 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <h2>4 결과</h2>
   <p>모든 수치는 결론에 도달한 오류 수입니다. 낮을수록 좋습니다.</p>
   <div class="figure"><img src="experiments/results_bar.png" alt="methods">
-    <figcaption>80노드. 초록 GNN 막대는 다중 시드 평균이지 운 좋은 단일 1.20이 아닙니다.</figcaption></div>
+    <figcaption>처음 보는 그래프 200개, 쌍대 비교, 95% CI. 배포 가능한 신념 그리디가 두 GNN을 모두 이깁니다.</figcaption></div>
   <table>
     <tr><th>방법</th><th>sink 오류</th></tr>
     <tr><td>무검토</td><td>5.90</td></tr>
     <tr><td>신뢰도 임계값</td><td>2.30</td></tr>
     <tr><td>구조적 그리디</td><td>1.80</td></tr>
-    <tr><td>REINFORCE (MLP)</td><td>1.40</td></tr>
-    <tr><td>PPO (MLP)</td><td>1.60</td></tr>
-    <tr><td class="best">GNN + REINFORCE</td><td class="best">1.54 ± 0.46</td></tr>
-    <tr><td>DQN</td><td>5.10 (퇴화)</td></tr>
+    <tr><td class="best">신념 그리디 (적응형, 배포 가능)</td><td class="best">0.85</td></tr>
+    <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
+    <tr><td>PPO (MLP)</td><td>1.35</td></tr>
+    <tr><td>GNN + REINFORCE (정적 / 관측 상태)</td><td>1.51 / 1.68</td></tr>
+    <tr><td>DQN</td><td>5.05 (퇴화)</td></tr>
     <tr><td>Oracle</td><td>0.00</td></tr>
   </table>
   <div class="figure"><img src="experiments/learning_curves.png" alt="curves">
-    <figcaption>학습 곡선: 보상이 무작위(약 −9)에서 0 근처로 올라갑니다.</figcaption></div>
+    <figcaption>실제 훈련 로그: GNN의 500 에피소드 구간별 sink 오류(각 5 시드)와 MLP 점수기.</figcaption></div>
   <div class="card">
-    <p><b>솔직히</b>: GNN 평균 1.54는 구조적 그리디(1.80)와 MLP REINFORCE(1.40)와 <b>비슷합니다</b>. 안정적인 승리가 아닙니다. 최고 시드 1.00이 여지를 보입니다. 다중 시드가 필요합니다.</p>
+    <p><b>솔직히</b>: 위 표는 시드 1–20으로 쉬운 그래프입니다. 처음 보는 그래프 200개에서: 임계값 1.41, 구조적 그리디 1.45, <b>신념 그리디 1.14</b>, GNN 1.56. 배포 가능한 신념 그리디가 모든 학습 정책을 이기고(차이 0.42 ± 0.15), GNN에 검토 결과를 넣어도 도움이 안 됐습니다.</p>
     <p>DQN은 무작위로 퇴화합니다 — 희소 종료 보상은 가치 함수를 못 먹입니다. 그래서 <b>정책 경사가 맞는 도구</b>입니다.</p>
   </div>
 </section>
@@ -500,14 +503,14 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <h2>6 그래프 키우기: 500 노드</h2>
   <p>세 가지 500노드 그래프: 모듈형, 스케일프리, 희소 무작위. 예산 50(10%).</p>
   <div class="figure"><img src="experiments/scale500.png" alt="scale">
-    <figcaption>탐욕 영향 최대화는 모든 족에서 결론 오류를 거의 비웁니다. 스케일프리 81 → 3.8 (95% 감소).</figcaption></div>
+    <figcaption>배포 가능한 신념 그리디가 스케일프리 결론 오류를 81 → 12.8로 줄입니다(84% 감소). 예전 "95%"는 실제 오류를 읽는 오라클 그리디였습니다.</figcaption></div>
   <table>
-    <tr><th>족</th><th>무검토</th><th>임계값</th><th>탐욕</th></tr>
-    <tr><td>모듈형</td><td>24.0</td><td>8.6</td><td class="best">2.0</td></tr>
-    <tr><td>스케일프리 (BA)</td><td>80.6</td><td>29.8</td><td class="best">3.8</td></tr>
-    <tr><td>희소 (ER)</td><td>42.6</td><td>16.4</td><td class="best">8.2</td></tr>
+    <tr><th>족</th><th>무검토</th><th>임계값</th><th>신념 그리디</th><th>오라클 그리디</th></tr>
+    <tr><td>모듈형</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
+    <tr><td>스케일프리 (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
+    <tr><td>희소 (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
   </table>
-  <div class="card"><b>솔직히</b>: 이 500노드 수치는 <b>탐욕 휴리스틱이지 RL이 아닙니다</b>. 문제가 규모에서도 여전히 흥미롭다는 것, 탐욕이 베이스라인이라는 것.</div>
+  <div class="card"><b>솔직히</b>: 이 500노드 수치는 <b>휴리스틱이지 RL이 아닙니다</b>. 모듈형과 희소 그래프에서 신념 그리디는 임계값보다 조금 나을 뿐입니다. 학습 정책은 오라클이 아니라 신념 그리디를 이겨야 합니다.</div>
 </section>
 
 <section>
@@ -537,11 +540,11 @@ Back end    SciForge evidence DAG + receipts                 → machine never s
   <h2>9 결정 가이드</h2>
   <table>
     <tr><th>상황</th><th>사용</th></tr>
-    <tr><td>신뢰도 잘 보정</td><td>GNN 또는 구조적 그리디</td></tr>
+    <tr><td>신뢰도 잘 보정, 그래프 앎</td><td>신념 그리디</td></tr>
     <tr><td>신뢰도 잡음</td><td><b>RL 금지</b> — 정적 임계값 더 강건</td></tr>
-    <tr><td>예산 타이트, 유형 군집 오류</td><td>구조적 그리디</td></tr>
+    <tr><td>신념 모델 없음</td><td>신뢰도 임계값 (처음 보는 그래프에서 구조적 그리디와 비슷, 더 단순)</td></tr>
     <tr><td>예측기 개선 가능</td><td>신뢰도 보정이 정책 개선보다 이득</td></tr>
-    <tr><td>큰 스케일프리 그래프</td><td>탐욕 영향 최대화</td></tr>
+    <tr><td>큰 스케일프리 그래프</td><td>신념 그리디</td></tr>
     <tr><td>오늘의 작은 파이프라인</td><td>보정된 임계값</td></tr>
   </table>
 </section>

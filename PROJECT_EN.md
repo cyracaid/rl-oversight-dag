@@ -57,7 +57,7 @@ A sequential-decision MDP with sparse, delayed reward — not a bandit.
 
 | Element | Definition |
 |---|---|
-| State | per node: type, confidence, downstream influence, reviewed? + remaining budget |
+| State | per node: type, confidence, downstream influence, reviewed?, flagged?, posterior P(error) (particle filter, updated after every review) + remaining budget |
 | Action | choose next node to review (+ stop) |
 | Transition | reviewing fixes the node, downstream recomputed (propagation cut) |
 | Reward | sparse terminal = −(sink errors) |
@@ -69,11 +69,12 @@ A sequential-decision MDP with sparse, delayed reward — not a bandit.
 |---|---|---|
 | Calibrated per-type threshold | static baseline | 2.30 (graph setting) |
 | Structural greedy (fan-out × likelihood) | hand-crafted heuristic | 1.80 |
+| **Belief greedy (adaptive, particle-filter belief)** | **deployable baseline to beat** | **0.85; held-out 1.14** |
 | Bandit + tabular Q-learning | first version (negative) | loses to the threshold |
-| REINFORCE / PPO (MLP scorer) | preliminary | 1.40 / 1.60 |
-| **GNN scorer + REINFORCE (fixed budget)** | **main method** | **mean 1.54 ± 0.46 (best seed 1.00)** |
-| CMDP + PPO-Lagrangian (soft budget) | upgrade, in progress | naive fails (4.85) |
-| DQN (value-based) | control | 5.10 (degenerate) |
+| REINFORCE / PPO (MLP scorer) | preliminary | 1.60 / 1.35 |
+| GNN scorer + REINFORCE (fixed budget) | main learned method | static state 1.51 ± 0.41, observed state 1.68 ± 0.56; held-out 1.56 — loses to belief greedy |
+| CMDP + PPO-Lagrangian (soft budget) | upgrade, in progress | naive 2.15, seed-sensitive |
+| DQN (value-based) | control | 5.05 (degenerate) |
 
 The node scorer is a **GNN**: each node's (type, confidence, downstream influence) is encoded with its neighborhood, following Mattick et al. (arXiv:2310.00112). The soft-budget extension (FALCON's CMDP + PPO-Lagrangian) is in progress.
 
@@ -105,7 +106,7 @@ R = \alpha \, \Delta H_v - \beta \, \mathrm{Cost}(v), \qquad
 \Delta H_v = H(\text{conclusion}) - H(\text{conclusion} \mid \text{review } v),
 \]
 
-i.e. remove the most uncertainty with the fewest reviews. Our greedy baseline is a Monte-Carlo proxy for this: pick the node that most reduces current sink errors.
+i.e. remove the most uncertainty with the fewest reviews. Our belief greedy is a Monte-Carlo proxy for this: under a particle-filter belief, pick the node with the largest expected drop in sink errors, then update the belief with the review outcome.
 
 **CMDP.** Maximize correctness \(J(\pi)\) subject to \(C(\pi) \le B\):
 
@@ -113,12 +114,12 @@ i.e. remove the most uncertainty with the fewest reviews. Our greedy baseline is
 \max_\pi \min_{\lambda \ge 0} \mathcal{L}(\pi,\lambda) = J(\pi) + \lambda\,(B - C(\pi)).
 \]
 
-**Submodular greedy.** Choosing the review that most reduces reachable sink errors is a monotone submodular maximization (influence-maximization style). Greedy then guarantees \((1-1/e) \approx 63\%\) of the optimal intervention set. We use this greedy as the structural baseline; whether the learned policy beats this theoretically grounded approximation is an empirical question (Section 8 / scaled results).
+**Adaptive greedy.** Choosing the review that most reduces *expected* reachable sink errors, and re-planning after each observed outcome, is adaptive greedy in the sense of adaptive submodularity (Golovin & Krause 2011). Our **belief greedy** implements it with a particle filter (`experiments/belief.py`) that sees only structure, edge probabilities, calibrated confidence and review outcomes. It is the deployable baseline a learned policy must beat. The same rule applied to the *true* error state is the **oracle greedy**: a ceiling, not a policy.
 
 ## 6. Data and controls
 
 - **Real data (motivation, internal, never committed).** `deidentified_intervalvars_forCD_111325.rds` = **13,990 rows / 237 participants** of daily sleep logs. **75 corrections (0.54%)**, of which `order_error` = **57/75 = 76%** (the old 85.1% was 57/67, 8 rows unlabeled), entropy 0.612, p < 0.0001. Per SciForge raw-data protection, the CSV never enters git and is never handed whole to an agent.
-- **Synthetic graph (main experiments).** ≈80 nodes, type-clustered errors, downstream propagation. Scaled: **N=500** modular / BA / ER, greedy 81→3.8 on scale-free. **Transfer (specified, not yet run):** KAIST HRV diary (1,372 rows / 49 adults, Figshare 28509740, CC BY) and Manchester diary — adapt scripts in `splsleep/validation/external/`. Frozen GNN vs retrained GNN, both reported.
+- **Synthetic graph (main experiments).** ≈80 nodes, type-clustered errors, downstream propagation. Scaled: **N=500** modular / BA / ER; deployable belief greedy 80.6→12.8 on scale-free (oracle 3.6). **Transfer (specified, not yet run):** KAIST HRV diary (1,372 rows / 49 adults, Figshare 28509740, CC BY) and Manchester diary — adapt scripts in `splsleep/validation/external/`. Frozen GNN vs retrained GNN, both reported.
 - **Broader-bio (specified, teammates to search):** GO molecular-function slice — nodes = GO MF terms (a real DAG), items = gene-term annotations, AI = IEA, human = biocurator. Same review-scheduling task, broader bio. **Not protein-function prediction.** Search first whether GO-annotation review scheduling already exists.
 - **Controls.** Shuffle which items are wrong → advantage disappears. Flatten the graph → advantage disappears. The advantage comes from clustering + propagation, not a rigged simulator.
 
@@ -141,23 +142,38 @@ Diagnosis: per-item review flattens the graph; with one type at 76%, the optimal
 | No review | 5.90 | traditional |
 | Confidence threshold | 2.30 | traditional |
 | Structural greedy | 1.80 | traditional |
-| REINFORCE (MLP) | 1.40 | ours, preliminary |
-| PPO (MLP) | 1.60 | ours, preliminary |
-| **GNN + REINFORCE** | **1.54 ± 0.46** (best seed 1.00; single-run 1.20 was luck) | ours, upgrade |
-| DQN | 5.10 (degenerate) | control |
-| CMDP soft-budget (naive) | 4.85 | in progress |
+| **Belief greedy (adaptive, deployable)** | **0.85** | **baseline to beat** |
+| REINFORCE (MLP) | 1.60 | ours, preliminary |
+| PPO (MLP) | 1.35 | ours, preliminary |
+| GNN + REINFORCE, static state | 1.51 ± 0.41 | ours |
+| GNN + REINFORCE, observed state | 1.68 ± 0.56 | ours |
+| DQN | 5.05 (degenerate) | control |
+| CMDP soft-budget (naive) | 2.15 | in progress |
 | Oracle | 0.00 | upper bound |
 
-- The graph has value: structural greedy beats the threshold by 22%.
-- GNN mean 1.54 is **comparable to** MLP REINFORCE (1.40) and structural greedy (1.80) — **not a stable win**. Best seed 1.00 shows headroom.
+These are the 20 legacy graphs (seeds 1–20), which turned out easier than average. **Main comparison — 200 held-out graphs, paired** (`experiments/final_table.md`):
+
+| Policy | sink errors (95% CI) |
+|---|---|
+| Confidence threshold | 1.41 ± 0.25 |
+| Structural greedy | 1.45 ± 0.22 |
+| **Belief greedy** | **1.14 ± 0.20** |
+| GNN, static state | 1.56 ± 0.29 |
+| GNN, observed state | 1.56 ± 0.15 |
+
+- **Belief greedy beats every learned policy**: GNN − belief greedy = +0.42 ± 0.15.
+- Giving the GNN its review outcomes did not help (observed − static = −0.00 ± 0.08).
+- On held-out graphs structural greedy ≈ threshold. The old "structure beats the threshold by 22%" only holds on the 20 legacy graphs; graph value shows up through belief greedy instead.
 - DQN degenerates: under sparse terminal reward a value function gets no per-step credit → policy gradient is the right tool.
-- CMDP soft budget, naive, fails (4.85): stop-action credit assignment is too coarse; it needs a FALCON-style dual critic.
+- CMDP soft budget, naive: 2.15 with a fixed seed (an earlier unseeded run gave 4.85). Seed-sensitive and still worse than the fixed-budget GNN; stop-action credit assignment is coarse, a FALCON-style dual critic is the next step.
 
 Figures: `experiments/results_bar.png`, `experiments/learning_curves.png`, `experiments/ablation_conf.png`.
 
 ![Method comparison](experiments/results_bar.png)
 
 ![Learning curves](experiments/learning_curves.png)
+
+Learning curves are real training logs (`rl_gnn_multiseed.py`, `rl_methods_compare.py`), plotted by `rl_final.py`. An earlier version of this figure was a hand-drawn placeholder.
 
 ## 8. Ablation: the confidence signal is the bottleneck
 
@@ -178,11 +194,11 @@ Two system-level insights:
 
 This is a trade-off engineering victory: we did not pretend RL always wins; we located the remaining error.
 
-**Worst-of-n reliability** (one unreviewed error can invalidate a conclusion — HealthBench lens):
+**Worst-of-n reliability** (one unreviewed error can invalidate a conclusion — HealthBench lens; `rl_ablation.py`, 3 training seeds):
 
-| | mean | worst-of-5 |
+| | mean | worst seed (of 3) |
 |---|---|---|
-| GNN + REINFORCE | 1.54 | 1.90 |
+| normal conf | 1.38 | 1.95 |
 | noise conf | 3.78 | 5.20 |
 | oracle conf | 0.72 | 0.80 |
 
@@ -192,20 +208,20 @@ A noisy signal hurts the tail more than the mean (worst − mean: noise 1.42 vs 
 
 | Setting | Use |
 |---|---|
-| Confidence well calibrated | GNN + REINFORCE, or structural greedy — both fine |
+| Confidence well calibrated, graph known | Belief greedy (beats our GNN) |
 | Confidence noisy / uncalibrated | **Do not use RL** — a static threshold is more robust (noise 3.78 > threshold 2.30) |
-| Tight budget, type-clustered errors | Structural greedy is a strong, cheap default |
+| Tight budget, no belief model available | Confidence threshold ≈ structural greedy on unseen graphs; threshold is simpler |
 | You can improve the predictor | Improving conf calibration buys more than improving the policy |
 
 ## 8b. Scaled experiments: N = 500, three graph families
 
-Same intervention model (P(X_v=0 | X_u=0) = 1 − e^(−λw)), Zipf type rates, budget 50 (10%). Five seeds. Policies: no review, random, confidence threshold, hub (highest out-degree), **greedy influence maximization** (each step picks the node that most reduces current sink errors; (1−1/e)-style).
+Same intervention model (P(X_v=0 | X_u=0) = 1 − e^(−λw)), Zipf type rates, budget 50 (10%). Five seeds. Policies: no review, random, confidence threshold, hub (highest out-degree), **belief greedy** (deployable, adaptive), **oracle greedy** (reads the true error state; ceiling only). Every policy replays the same catch-randomness stream.
 
-| family | no review | random | threshold | hub | greedy |
-|---|---|---|---|---|---|
-| modular (10×50) | 24.0 | 22.6 | 8.6 | 19.0 | **2.0** |
-| scale-free (BA) | 80.6 | 79.2 | 29.8 | 53.8 | **3.8** |
-| sparse (ER) | 42.6 | 42.0 | 16.4 | 34.6 | **8.2** |
+| family | no review | random | threshold | hub | **belief greedy** | oracle greedy |
+|---|---|---|---|---|---|---|
+| modular (10×50) | 24.0 | 22.6 | 9.2 | 21.0 | **8.4** | 2.0 |
+| scale-free (BA) | 80.6 | 78.2 | 37.6 | 29.2 | **12.8** | 3.6 |
+| sparse (ER) | 42.6 | 42.0 | 21.4 | 34.0 | **19.2** | 7.8 |
 
 Figure: `experiments/scale500.png`. Script: `graph_scale.py`.
 
@@ -213,12 +229,12 @@ Figure: `experiments/scale500.png`. Script: `graph_scale.py`.
 
 **What the scale says (the X-factor at 500 nodes):**
 
-1. **Greedy influence maximization nearly clears every family** — modular 24→2, scale-free 81→4 (95% reduction), ER 43→8. On the scale-free graph this is the hub-defense story: hold the few hubs, and most propagation is cut.
+1. **Structure pays most on scale-free graphs** — deployable belief greedy cuts sink errors 81→13 (84%), versus 53% for the threshold. On modular and sparse graphs it is only slightly better than the threshold; 5 seeds cannot separate them. The old "95% reduction" was the oracle greedy, which reads the true error state.
 2. **Random ≈ no review** everywhere. Attention without a structure-aware rule does nothing at this scale.
 3. **The confidence threshold is unstable on scale-free graphs** (per-seed 6 to 76). A static rule that ignores topology either wins big or does nothing.
-4. **Hub defense helps on scale-free but is still far from greedy.** Degree is a good prior; current-sink reduction is better.
+4. **Hub defense helps on scale-free but is still far from belief greedy.** Degree is a good prior; expected sink reduction under a belief is better.
 
-**Honest scope:** these 500-node numbers are **greedy / heuristics, not RL**. RL on this scale has not been trained. The scientific claim is: the problem is interesting at scale, greedy is a strong (1−1/e)-style baseline, and any learned policy must beat it — which the 80-node GNN, even at its best seed, does not yet do on this larger stage.
+**Honest scope:** these 500-node numbers are **heuristics, not RL**. RL on this scale has not been trained. The claim is: the problem is interesting at scale, belief greedy is the deployable baseline, and any learned policy must beat it — which our GNN does not do even at 80 nodes.
 
 ## 8c. Real sleep-pipeline DAG (application)
 
@@ -252,7 +268,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 | Human standard | 262 physicians, 48,562 weighted criteria | 75 lab corrections (27 consensus / 48 agree) |
 | What is scored | Quality of an open-ended reply | Allocation of finite attention over a DAG |
 | Error dynamics | Per-reply rubric; no propagation | Errors propagate; penalty delayed to the conclusion |
-| Reliability | worst-of-n | worst-of-5: GNN 1.90 / noise 5.20 / oracle 0.80 |
+| Reliability | worst-of-n | worst seed (of 3): normal 1.95 / noise 5.20 / oracle 0.80 |
 | Consensus / Hard | 3,671 consensus; 1,000 Hard | 27 consensus / 48 agree — split planned, not yet evaluated |
 | Non-saturation | HealthBench Hard still unsolved | even oracle conf leaves 0.72 |
 | RL scheduling | not part of the benchmark | the entire project |
@@ -273,9 +289,9 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 **Experiments add.** An explainable negative result, the reframe that fixes it, a method comparison, controls showing the gain comes from structure, and an ablation locating the remaining error in the confidence signal.
 
-**Limits.** Synthetic main experiments (≈80 nodes; scaled greedy at 500 nodes, RL not yet trained at that scale; KAIST/Manchester transfer specified not run); GNN is multi-seed but high-variance; real data is 75 rows (motivation only); CMDP soft budget not solved.
+**Limits.** Synthetic main experiments (≈80 nodes; scaled heuristics at 500 nodes, RL not yet trained at that scale; KAIST/Manchester transfer specified not run); the GNN loses to deployable belief greedy, and giving it observations did not help; real data is 75 rows (motivation only); CMDP soft budget not solved.
 
-**Feasibility.** Simulator, baselines, REINFORCE, PPO, DQN, GNN scorer already run. Remaining: clean multi-seed reproduction, dual-critic CMDP, slides. Next: larger graphs, the real evidence graph, consensus/hard split.
+**Feasibility.** Simulator, baselines, REINFORCE, PPO, DQN, GNN scorer already run. Remaining: a learned policy that beats belief greedy (e.g. under a misspecified belief model), dual-critic CMDP, slides. Next: larger graphs, the real evidence graph, consensus/hard split.
 
 ## 11. SciForge deployment (phased idea) and AI4Science
 
@@ -289,7 +305,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 ## 12. Verification status
 
-**Checked:** citations against abstracts; Section 7 percentages against the table (22.2%, 11.1%); real-data numbers recomputed 2026-11-09.
+**Checked:** citations against abstracts; Section 7 numbers against `experiments/final_table.md`; real-data numbers recomputed 2026-11-09.
 
 **Not verified — teammates must check:**
 1. All simulation numbers, learning curves, both controls.
@@ -297,8 +313,8 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 3. "No direct precedent" — search again; phrase as "we did not find one."
 4. Full texts of cited papers (we read abstracts only).
 5. Whether BestReject in arXiv:2409.20489 equals our calibrated threshold (claim dropped as unverified).
-6. Cross-file "19%" vs "22%" (1.80 → 1.40 is 22.2%).
-7. GNN multi-seed (done: mean 1.54 ± 0.46) still needs more seeds for a tighter CI.
+6. Belief greedy assumes the confidence model and edge probabilities are known exactly; test it under misspecification.
+7. GNN vs belief greedy on held-out graphs (done: GNN worse by 0.42 ± 0.15); a stronger learner (deeper GNN, per-step credit) is untested.
 8. GNN + PPO convergence.
 9. Dual-critic CMDP.
 10. SciForge: confidence field on nodes; real graph size / edge types.
@@ -340,7 +356,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 12. Roles + Q&A
 
 **Likely Q&A.**
-- Why not the threshold? It cannot see the graph; greedy proves graph value; RL's mean is comparable, best seed better — and the ablation says invest in the signal.
+- Why not the threshold? It cannot see the graph; deployable belief greedy beats it (held-out 1.14 vs 1.41; BA at N=500 12.8 vs 37.6). Our RL does not beat belief greedy yet — and the ablation says invest in the signal.
 - Real gain or tuning? Shuffle/flatten kill the advantage.
 - Difference from L2D? Per-item bandit vs graph node selection (MDP + sparse delayed reward).
 - Scale? Methodology demo; extendable to the real evidence graph.
