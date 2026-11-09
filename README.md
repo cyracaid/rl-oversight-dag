@@ -6,23 +6,23 @@
 > Application: SciForge, developed by Zhangyang Gao (AI4Science).
 
 **Start here — one synthesized design document:**
-[Evidence-chain design (EN)](EVIDENCE_CHAIN_DESIGN.md) ·
-[证据链设计 (中文)](EVIDENCE_CHAIN_DESIGN_CN.md)
+[Evidence-chain design (EN)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.md) ·
+[证据链设计 (中文)](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.md)
 
-**Meeting one-pager (humanized + math):**
-[meeting_proposal.html](meeting_proposal.html) ·
-[meeting_proposal.pdf](meeting_proposal.pdf) ·
-[illustrated talk page](index.html)
+**Meeting one-pager (humanized + math, click to open):**
+[meeting_proposal.html](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.html) ·
+[meeting_proposal.pdf](https://cyracaid.github.io/rl-oversight-dag/meeting_proposal.pdf) ·
+[illustrated talk page](https://cyracaid.github.io/rl-oversight-dag/index.html)
 
 **Full narrative (pick your language):**
-[English `PROJECT_EN.md`](PROJECT_EN.md) ·
-[한국어 `PROJECT_KO.md`](PROJECT_KO.md) ·
-[中文 `PROJECT_CN.md`](PROJECT_CN.md)
+[English `PROJECT_EN.md`](https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.md) ·
+[한국어 `PROJECT_KO.md`](https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.md) ·
+[中文 `PROJECT_CN.md`](https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.md)
 
 **Implementation spec (build from this):**
-[English `IMPLEMENTATION_SPEC.md`](IMPLEMENTATION_SPEC.md) ·
-[한국어 `IMPLEMENTATION_SPEC_KO.md`](IMPLEMENTATION_SPEC_KO.md) ·
-[中文 `IMPLEMENTATION_SPEC_CN.md`](IMPLEMENTATION_SPEC_CN.md)
+[English `IMPLEMENTATION_SPEC.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.md) ·
+[한국어 `IMPLEMENTATION_SPEC_KO.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.md) ·
+[中文 `IMPLEMENTATION_SPEC_CN.md`](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.md)
 
 Repo: https://github.com/cyracaid/rl-oversight-dag
 
