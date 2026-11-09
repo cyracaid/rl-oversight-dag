@@ -53,6 +53,7 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | `meeting_proposal.html` | ZH / EN / KO tabs | humanized meeting handout |
 | `meeting_proposal_zh.pdf` / `_en.pdf` / `_ko.pdf` | ZH / EN / KO | printable one-pagers |
 | `experiments/` | code | every number |
+| `triage_bench/` | code | the **real** review queue: recall@k, no simulator |
 
 **SciForge (AI4Science, Shanghai AI Lab, developed by Zhangyang Gao)** — the evidence-chain review layer, applied to sleep data from the one-year collaboration with Maia ten Brink (Stanford Psychophysiology Lab):
 
@@ -117,6 +118,8 @@ experiments/                    (simulation & experiments)
 | GNN static vs observed state vs belief greedy (held-out, paired) | `python3 rl_gnn_multiseed.py` (~6 min, 8 cores) | No |
 | N=500 heuristics incl. belief vs oracle greedy | `python3 graph_scale.py && python3 plot_scale.py` | No |
 | Real-data clustering | `python3 verify_clustering.py` | **Yes (auto-skips if missing)** |
+| Real queue recall@k (Table 1) | `python3 triage_bench/run_bench.py` | **Yes (auto-skips if missing)** |
+| M4-only headroom | `python3 triage_bench/run_m4_mining.py` | **Yes (auto-skips if missing)** |
 
 Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torch matplotlib`).
 
@@ -138,4 +141,5 @@ Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torc
 - **GNN + PPO has not converged (~5.60)** and is omitted from the main table.
 - **N=500 results are heuristics, not RL.** Deployable belief greedy: BA 12.8 vs threshold 37.6; on modular/ER it is only slightly better than the threshold.
 - **Real-pipeline DAG (N=21): threshold 0.50 vs no-review 2.12** — the application-value result on our actual lab pipeline.
+- **Real review queue (1,048 flags, 68 human-confirmed errors, 6.5% precision):** one rule ("M1-bearing first") reaches **84% of errors in 13% of the queue**; the pipeline's own order is *worse than random*. Inside the remaining 885 M4-only flags a participant-grouped model gets **AUC 0.467** — no headroom, reported as a negative. See `triage_bench/README.md`.
 - All numbers were produced by an AI agent and have not been independently verified; Section 12 of `PROJECT_EN.md` lists the full checklist.

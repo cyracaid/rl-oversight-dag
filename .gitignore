@@ -23,3 +23,7 @@ __pycache__/
 汇总_讨论稿_EN_KO_humanized.md
 提案_角色分工与企划.md
 提案_补充三节_EN_KO.md
+
+# ===== triage_bench: data stays outside, only code + aggregates in =====
+triage_bench/data/
+triage_bench/**/*.rds

@@ -1,0 +1,9 @@
+{
+  "candidates": 1048,
+  "positives_narrow": 65,
+  "positives_broad": 68,
+  "precision": 0.0648854961832061,
+  "positives_m1_only": 44,
+  "positives_m4_only": 11,
+  "positives_both": 13
+}

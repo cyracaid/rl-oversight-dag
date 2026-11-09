@@ -1,0 +1,105 @@
+# triage_bench — the real review queue, not a simulator
+
+`triage_bench` stops asking "would RL schedule reviews well?" and asks the prior
+question: **on the actual review queue, is there anything left to schedule?**
+
+It reads three local files from the sleep project, builds the 1,048-item review
+queue, and measures how many *human-confirmed* errors a policy can surface per
+review spent.
+
+---
+
+## Data policy (read this first)
+
+The input data is IRB-restricted. This directory contains **code and aggregate
+numbers only**.
+
+- Data is read **in place** from `$SPLSLEEP_DATA_DIR` (default `~/Documents/splsleep`).
+- `bench/config.py` **refuses to run** if the data directory resolves inside this repo.
+- `outputs/` holds counts, rates and AUCs. No row-level data, no participant IDs.
+- The repo `.gitignore` already blocks `*.csv` and `*.rds`; keep it that way.
+
+```bash
+export SPLSLEEP_DATA_DIR=~/Documents/splsleep   # optional, this is the default
+```
+
+If the data is absent, both scripts print `data missing` and exit 0 — a fresh
+clone stays runnable, exactly like `verify_clustering.py`.
+
+---
+
+## Inputs
+
+| File | Rows | Role |
+|---|---:|---|
+| `audit_m1_m7_decision.csv` | 13,990 | AI verdict per row; 1,048 `FLAG`s carry rule codes M1–M6 |
+| `manual_error_correction_updated.csv` | 75 | manual corrections (72 unique keys) |
+| `output/cleaned_data_final.csv` | 13,990 | cleaned fields (features only; label columns are dropped) |
+
+Key: `(pid, day_num, row_id)`. Two label definitions are reported, never mixed:
+
+- **narrow** — the 72 unique keys of the correction file (what the README calls 75)
+- **broad** — `human_review == "corrected"` (85 rows, 68 of them inside the queue)
+
+`broad` is the default: "a row a human corrected is a true error."
+
+---
+
+## Run
+
+```bash
+python3 triage_bench/run_bench.py        # Table 1: recall@k + CI + figure
+python3 triage_bench/run_m4_mining.py    # the remaining headroom, or its absence
+```
+
+Outputs: `outputs/table1.md`, `outputs/recall_at_k.json`,
+`outputs/queue_summary.json`, `outputs/m4_mining.md`, `outputs/m4_mining.json`,
+`figures/recall_at_k.png`.
+
+---
+
+## Headline results (generated 2026-11-09, **not yet rerun by a teammate**)
+
+Queue: 1,048 candidates, 68 positives → **6.5% precision**. Measuring one error
+costs ~15 reviews.
+
+| policy | R@50 | R@100 | R@200 | R@400 |
+|---|---:|---:|---:|---:|
+| pipeline queue order | 4.4% | 5.9% | 13.2% | 23.5% |
+| random | 4.4% | 11.8% | 19.1% | 39.7% |
+| rule count (AI severity) | 19.1% | 25.0% | 26.5% | 36.8% |
+| **M1-bearing first** | 23.5% | **54.4%** | **83.8%** | 83.8% |
+| M1 first, then SOL gap | 26.5% | 58.8% | 83.8% | 85.3% |
+| oracle | 73.5% | 100% | 100% | 100% |
+
+- **One rule — "M1-bearing flags first" — reaches 84% of all errors in 140 of 1,048 reviews (13%).**
+- **The pipeline's own order is worse than random** (23.5% vs 39.7% at k=400). Whatever ordering the default queue has, it is anti-correlated with the truth.
+- The M1 block is separable; the remaining 885 M4-only flags hold 11 positives (1.24%).
+- Inside that block, a participant-grouped CV model reaches **AUC 0.467** (worse than chance; permutation p = 0.53). The best fixed single feature (`sleepperiod_minutes`) has AUC 0.78 (family-wise p = 0.010) but yields P@100 = 3% — 3 errors per 100 reviews.
+- 7–8 corrections are **never flagged at all**, so no ranking policy can reach them.
+
+### What this means (and what it forbids claiming)
+
+1. The queue is type-separable, and a one-line rule captures most of it. Any
+   learned scheduler must beat 83.8% at k=200 — not "no review".
+2. Ranking inside M4-only does **not** work with these features. That is a
+   negative result and should be reported as one.
+3. The remaining error mass sits in the **detector** (unflagged rows) and the
+   **graph**, not in the ranker. This is the ablation's conclusion
+   (noise 3.78 / normal 1.38 / oracle 0.72) reproduced on real data.
+4. Do **not** write "our scheduler improves review" from this. The honest claim
+   is "a type prior sets a high bar; the residual is information-limited."
+
+---
+
+## Files
+
+```
+bench/config.py      paths, seeds, and the refuse-to-run-inside-repo guard
+bench/load.py        join queue + labels + features; label columns dropped
+bench/policies.py    queue order / random / rule count / M1-first / oracle
+bench/metrics.py     recall@k, precision@k, pid-clustered bootstrap CI
+bench/mine_m4.py     grouped CV, permutation tests, univariate rules
+run_bench.py         Table 1
+run_m4_mining.py     M4-only headroom
+```

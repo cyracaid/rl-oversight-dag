@@ -1,0 +1,53 @@
+{
+  "n_candidates": 885,
+  "n_positives": 11,
+  "base_precision": 0.012429,
+  "n_features": 19,
+  "cv_auc": 0.4666,
+  "perm_p": 0.5274,
+  "best_single_auc": 0.7809,
+  "univariate_perm_p": 0.01,
+  "topk": {
+    "p@10": 0.1,
+    "p@25": 0.04,
+    "p@50": 0.02,
+    "p@100": 0.02
+  },
+  "univariate": [
+    {
+      "feature": "sleepperiod_minutes",
+      "p@10": 0.1,
+      "p@25": 0.04,
+      "p@50": 0.04,
+      "p@100": 0.03
+    },
+    {
+      "feature": "tib_minutes",
+      "p@10": 0.1,
+      "p@25": 0.04,
+      "p@50": 0.04,
+      "p@100": 0.03
+    },
+    {
+      "feature": "sleep_awake_gap",
+      "p@10": 0.1,
+      "p@25": 0.04,
+      "p@50": 0.02,
+      "p@100": 0.02
+    },
+    {
+      "feature": "tst_minutes",
+      "p@10": 0.0,
+      "p@25": 0.0,
+      "p@50": 0.0,
+      "p@100": 0.04
+    },
+    {
+      "feature": "waso_computed_minutes",
+      "p@10": 0.0,
+      "p@25": 0.0,
+      "p@50": 0.0,
+      "p@100": 0.01
+    }
+  ]
+}
