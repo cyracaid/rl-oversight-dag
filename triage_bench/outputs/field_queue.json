@@ -1,0 +1,61 @@
+{
+  "m1_rows": 140,
+  "m1_rows_with_known_field": 58,
+  "covered": 56,
+  "coverage": 0.9655,
+  "strict_multi_field": 39,
+  "by_pair": [
+    {
+      "pair": "awake_getup",
+      "n": 14,
+      "covered": 14,
+      "strict": 14,
+      "coverage": 1.0
+    },
+    {
+      "pair": "bed_sleep",
+      "n": 17,
+      "covered": 16,
+      "strict": 16,
+      "coverage": 0.9411764705882353
+    },
+    {
+      "pair": "sleep_awake",
+      "n": 26,
+      "covered": 25,
+      "strict": 9,
+      "coverage": 0.9615384615384616
+    },
+    {
+      "pair": "sleep_awake+awake_getup",
+      "n": 1,
+      "covered": 1,
+      "strict": 0,
+      "coverage": 1.0
+    }
+  ],
+  "reads_to_reach": {
+    "50pct": {
+      "row_reads": 116,
+      "pair_reads": 58,
+      "rows_reviewed": 29
+    },
+    "75pct": {
+      "row_reads": 176,
+      "pair_reads": 88,
+      "rows_reviewed": 44
+    },
+    "90pct": {
+      "row_reads": 212,
+      "pair_reads": 106,
+      "rows_reviewed": 53
+    },
+    "100pct": {
+      "row_reads": 232,
+      "pair_reads": 117,
+      "rows_reviewed": 58
+    }
+  },
+  "row_reads_all": 232,
+  "pair_reads_all": 117
+}

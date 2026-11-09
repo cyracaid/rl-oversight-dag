@@ -53,11 +53,12 @@ python3 triage_bench/run_m4_mining.py    # the remaining headroom, or its absenc
 python3 triage_bench/run_ceiling.py      # the three bounds (coverage / type / power)
 python3 triage_bench/run_unflagged.py    # the corrections the queue never sees
 python3 triage_bench/run_belief_queue.py # belief greedy inside the M4-only block
+python3 triage_bench/run_field_queue.py  # field-scoped review: half the reads
 ```
 
 Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,
 `participant.json`, `m4_mining.md`, `ceiling.md`, `unflagged.md`,
-`belief_queue.md`, plus `figures/recall_at_k.png`.
+`belief_queue.md`, `field_queue.md`, plus `figures/recall_at_k.png`.
 
 The one-page argument is [`CEILING.md`](CEILING.md); the paper draft is
 [`SECTION5_CEILING.md`](SECTION5_CEILING.md); the data request for the SciForge
@@ -103,6 +104,9 @@ costs ~15 reviews.
   (6.5% precision = base rate).
 - **17 broad corrections were never flagged** (7 in the narrow set), and 6 of
   those 7 target `time_awake` — a detector blind spot, not a ranking miss.
+- **Field-scoped review halves the reading cost** without raising recall: the
+  rule's witness pair contains a corrected field 96.6% of the time (58 rows),
+  and reaching every reachable positive costs 117 field-reads instead of 232.
 
 ### What this means (and what it forbids claiming)
 

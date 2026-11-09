@@ -71,6 +71,15 @@ winning row.
 | adaptive belief over participants (simulated deployment) | **P@200 = 1.5%** vs 1.24% base; adaptive and static both ~0 hits until k = 100 |
 | participant-level ranking (M1 density) | AUC 0.868, but paired Δ vs row rule @400 **+7.3% [−8.6%, +10.0%]** |
 | one extra rule (`awake == getup`) | 507 rows fire, 33 corrected → **6.5% precision**, i.e. the base rate |
+| field-scoped review (check only the witness pair) | **96.6%** of corrected fields inside the pair, at **half the reading cost** — moves cost, not recall |
+
+The one escape that survives is about **cost, not recall**: the rule's witness
+already names the two conflicting timestamps, so a curator can read 2 fields
+instead of 4. To reach every positive it can reach, row review spends 232
+field-reads, pair-scoped spends 117 (−50%). The strict count is lower (39/58 =
+67%), because a wrong bedtime surfaces as a `sleep_awake` violation — the
+field-level version of propagation. Under a time budget this halves the price of
+the M1 block; it does not raise the 83.8% ceiling.
 
 So the M4-only block is information-dead for the observations we have. The same
 lesson appears on the synthetic side: a deployable belief greedy beats the
@@ -111,9 +120,10 @@ Only one of these, and each is a different paper:
   documents). This is the detector paper.
 - **A second queue** from SciForge where errors are claims, not timestamps, and
   the DAG is real. That is the transfer test.
-- **Field-level review**: the labels are row-level, but the corrections target
-  `time_awake` 6/7 times among the misses; a field-level queue may be separable
-  where the row-level one is not.
+- **Field-level review**: measured here. It does not raise the recall ceiling,
+  but it halves the reading cost of the order block (96.6% coverage with 2 of 4
+  fields). A cost-normalised paper is a different paper: recall per field-read,
+  not recall per row.
 
 Until one of these lands, the honest abstract ends with "the signal, not the
 scheduler, is the bottleneck" — which is exactly what the ablation said.

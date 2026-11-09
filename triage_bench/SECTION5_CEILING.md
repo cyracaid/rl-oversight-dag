@@ -157,7 +157,27 @@ participants** (variance/mean 2.00 against a 1.10 label-shuffle null,
 \(p = 0.0005\); one participant carries 7), yet the clustering does not convert
 into budget efficiency — the same information is already in the row type.
 
-### 5.5.4 Relation to the synthetic result
+### 5.5.4 Escape route 3: change the unit of review
+
+The row-level rules fire on a whole row, but each rule's witness names the two
+timestamps that conflict (`bed_sleep`, `sleep_awake`, `awake_getup`). A curator
+who reads only the witness pair reads two fields instead of four.
+
+| measure | value |
+|---|---|
+| M1 rows with a recorded corrected field | 58 |
+| at least one corrected field inside the pair | **56 / 58 = 96.6%** |
+| *all* corrected fields inside the pair | 39 / 58 = 67.2% |
+| field-reads to exhaust reachable positives, row review | 232 |
+| field-reads, pair-scoped review | **117 (−50%)** |
+
+This does not move the recall ceiling. It moves the **cost axis**: with
+inspections priced in fields read rather than rows reviewed, the order block
+becomes twice as cheap per recall point. The strict column also shows the
+field-level analogue of propagation — a wrong bedtime surfaces as a
+`sleep_awake` violation, so the fix lies one field upstream of the witness.
+
+### 5.5.5 Relation to the synthetic result
 
 On held-out synthetic graphs the same asymmetry appears from the other side: a
 deployable belief-space greedy beats a learned policy (\(1.14\) vs \(1.56\) sink
@@ -179,8 +199,9 @@ if it either
 2. **raises the coverage ceiling** — flags items the detector misses (7 of 72 in
    the narrow set, concentrated on the final-awakening field), which is a
    detector contribution; or
-3. **changes the unit of review** — from row to field or claim, where the
-   exchangeability assumption may not hold.
+3. **changes the unit of review** — from row to field or claim. We measured the
+   field case (§5.5.4): it halves the reading cost without raising recall. That
+   is a real contribution, but it must be reported on a cost-normalised axis.
 
 Absent one of these, the honest abstract ends: *the signal, not the scheduler, is
 the bottleneck.* This is the same conclusion the synthetic ablation reached
