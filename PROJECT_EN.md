@@ -333,11 +333,13 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 
 | Date | Milestone | Owner |
 |---|---|---|
-| ~11/12 | Freeze env + baselines; reproduce REINFORCE / GNN | 3, 4 |
-| ~11/19 | PPO-Lagrangian + dual critic; method table | 2, 3 |
-| ~11/26 | Controls + curves + negative-result section; related work final; consensus/hard split | 4, 5 |
-| ~12/03 | Slides + ≥2 rehearsals | 5, all |
-| ~12/05 | Final presentation | all |
+| Mon 11/09 | Env frozen; `gain(i)` feature, n-step/AC baseline, misspecification hooks landed; 1-seed smoke test | 3, 4 |
+| Tue 11/10 | Both gates run overnight (5 seeds, paired held-out); every table regenerates from scripts | 2, 3 |
+| Wed 11/11 | **Decision: Option 1 or Option 2** (18:00, one page) | 1, all |
+| Thu 11/12 – Fri 11/13 | Branch work + 2-step greedy control; shuffle / flatten controls | 2, 4 |
+| Sat 11/14 | Numbers frozen; curves, paired CIs, clean-clone rerun | 4 |
+| Sun 11/15 – Mon 11/16 | Draft + slides + ≥2 rehearsals | 5, all |
+| 12/05 | Final presentation (the weeks before it are buffer + one optional transfer set) | all |
 
 ## 14. Presentation outline (condensed)
 

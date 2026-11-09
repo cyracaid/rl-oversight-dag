@@ -111,14 +111,21 @@ tests that would have falsified X."*
 
 ---
 
-## 5. Timeline to 12/05
+## 5. Timeline — one week (Mon 11/09 → Mon 11/16)
 
-| Week | Work | Gate |
+Both gates run the same night. Nothing waits for a "phase" to finish. Numbers frozen 11/14.
+
+| Day | Work | Gate |
 |---|---|---|
-| 11/10–11/16 | G0 run; freeze environment and numbers | **G0 decided**, env frozen |
-| 11/17–11/23 | Diagnostics (if Option 2) or seed tightening (Option 1); one transfer set | every table from one script |
-| 11/24–11/30 | Paper draft, figures, ceiling section | draft complete |
-| 12/01–12/05 | Slides, ≥2 rehearsals, final numbers | talk delivered |
+| Mon 11/09 | freeze env; land `gain(i)` feature, n-step/AC baseline, misspecification hooks; 1-seed smoke test | code merged |
+| Tue 11/10 | run both gates overnight: static / observed / gain, and terminal vs n-step vs AC (5 seeds each) | numbers in |
+| Wed 11/11 | read-out; **decide Option 1 vs 2 by 18:00**, one page | **decision** |
+| Thu 11/12–Fri 11/13 | Option 1: misspecification (λ ±50%, drift, catch 0.7) · Option 2: diagnostics; **2-step greedy control** for both | branch data |
+| Sat 11/14 | numbers frozen; curves, paired CIs, clean-clone rerun | numbers frozen |
+| Sun 11/15–Mon 11/16 | draft + slides + ≥2 rehearsals | talk ready |
+
+If the talk stays on 12/05, everything after 11/16 is buffer plus one optional transfer set —
+not extra scope.
 
 ---
 

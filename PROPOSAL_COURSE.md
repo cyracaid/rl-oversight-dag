@@ -177,9 +177,11 @@ already in its state; the remaining error mass is in the signal/detector.
 
 ---
 
-## 8. The decision point — phases and a pre-registered gate
+## 8. The decision point — one week, two gates, one decision
 
-The second half of the project is decided by two gates, written down **before** the runs.
+The whole decision runs inside **one week: Mon 11/09 → Sun 11/15**, numbers frozen 11/16.
+The two gates run **in parallel the same night**; they are not sequential, and nobody waits
+for a "phase" to end before starting the next one.
 
 ### 8.0 What is already run (do not run it twice)
 
@@ -195,7 +197,7 @@ The "observed state" GNN already receives the belief posterior — `P(base error
 - **(c) the regime** — a one-step exact-posterior greedy is hard to beat when the generative
   model is correct. Learning's advantage has to be shown where the model is wrong.
 
-### 8.1 Gate 0 — representation (11/10–11/11, ~1 day of compute)
+### 8.1 Gate 0 — representation (code 11/09, run 11/10, ~30 min of compute)
 
 Add `gain(i)` (and optionally the 2-step gain) to the node features; retrain the observed
 variant; same 200 held-out graphs, same paired protocol, 5 seeds.
@@ -203,19 +205,20 @@ variant; same 200 held-out graphs, same paired protocol, 5 seeds.
 | result | reading | next |
 |---|---|---|
 | policy matches greedy (≤ 1.14 or non-inferior) | the gap was representational | Option A now has to *beat* a one-step planner — depth or model error (8.3) |
-| still ≈ 1.5 | the gap is credit assignment | Gate 1 |
+| still ≈ 1.5 | the gap is credit assignment | Gate 1 (8.2) has already run the same night — read it together, do not queue it |
 
 Also report held-out error against training episodes: if it is still falling at 20k, the gap is
 data/compute, not architecture — and that changes Gate 1.
 
-### 8.2 Gate 1 — credit assignment (11/12–11/16)
+### 8.2 Gate 1 — credit assignment (same night, second lane)
 
-Only if Gate 0 fails to close the gap. Three variants, cheapest first: (1A) n-step / actor-critic
-with `gain` as the baseline, so the advantage is `G_t − gain(a_t)`; (1B) behaviour cloning from
-belief greedy, then fine-tune; (1C) PPO with the same critic (the existing PPO did not converge
-at ~5.60).
+Runs **with** 8.1, not after it. One-week cut: the only new variant is **(1A) n-step /
+actor-critic with `gain` as the baseline**, so the advantage is `G_t − gain(a_t)`.
+Behaviour cloning (1B) and the PPO retune (1C, existing PPO did not converge at ~5.60) are
+dropped unless 1A is inconclusive on the first night.
 
-**Pre-registered decision rule** (same 200 held-out graphs, paired, 5 seeds):
+**Pre-registered decision rule** (same 200 held-out graphs, paired, 5 seeds).
+**Decision: Wed 11/11, 18:00, one page, numbers only.**
 
 - **PASS → Option A** if the best variant has mean **≤ 1.14**, or is non-inferior (paired CI
   contains 0 and point estimate < +0.05), **and** it wins in at least one condition where the
@@ -270,18 +273,29 @@ Not used: VAE / diffusion (different module) — deliberately not forced in.
 
 ---
 
-## 10. Deliverables and timeline
+## 10. Deliverables and timeline — one week, seven days
 
-| date | deliverable | owner |
-|---|---|---|
-| ~11/12 | env + baselines frozen; REINFORCE/GNN reproduced; **Phase 0 gate run** | 3, 4 |
-| ~11/19 | credit-assignment variants + decision A/B | 2, 3 |
-| ~11/26 | Option A conditions or Option B claims; controls, curves, consensus/hard split | 4, 5 |
-| ~12/03 | slides + ≥2 rehearsals | 5, all |
-| ~12/05 | final presentation + report | all |
+Everything lands by **Sun 11/15**; 11/16 is freeze-and-buffer only. If the course talk stays on
+12/05, the extra weeks are buffer and a transfer set — not more scope.
 
-Deliverables: code that runs from a clean clone (data auto-skips if absent), a generated results
-table, the held-out paired evaluation, the negative-result section, and the talk.
+| day | date | lane 1 (env / RL, people 2–3) | lane 2 (baselines / write-up, people 4–5) | gate |
+|---|---|---|---|---|
+| D0 | Mon 11/09 | freeze env; land `gain` feature, n-step/AC, misspecification hooks; 1-seed smoke test | verify every number regenerates from scripts; data-absent path | code merged |
+| D1 | Tue 11/10 | **run both gates overnight**: static / observed / gain (5 seeds), terminal vs n-step vs AC-baseline (5 seeds) | table shell + figure scripts; provenance question to Maia | — |
+| D2 | Wed 11/11 | **read-out, decide A/B by 18:00**, one-page memo | — | **decision** |
+| D3 | Thu 11/12 | branch work: A = misspecification (λ ±50%, drift, catch 0.7) · B = diagnostics (advantage/contribution, return variance, curve slope) | implement **2-step greedy** control (needed by both branches) | — |
+| D4 | Fri 11/13 | branch runs (5 seeds each, overnight) | controls: shuffle / flatten; worst-of-n table | — |
+| D5 | Sat 11/14 | numbers frozen; learning curves; paired CIs | figures + table regeneration; clean-clone rerun of one seed | numbers frozen |
+| D6 | Sun 11/15 | draft §results, negative-result section | slides + one rehearsal | draft |
+| D7 | Mon 11/16 | buffer only | second rehearsal | freeze |
+
+**Deliverables:** code that runs from a clean clone (data auto-skips if absent), a generated
+results table, the held-out paired evaluation, the negative-result or Option-A section, and the
+talk.
+
+**If the week slips, cut in this order** (never cut the control): (1) the transfer set,
+(2) the drift condition, (3) PPO/CMDP, (4) the N=500 rerun. The 2-step greedy control and the
+paired CIs are not optional — without them neither branch is interpretable.
 
 ---
 

@@ -57,8 +57,8 @@ belief posterior (marginal, entropy, reviewed mask) into the RL state. Then:
 
 | Outcome | Reading | What we write |
 |---|---|---|
-| RL matches or beats belief greedy | the loss was a state-representation problem | **Option 1**: RL is the method; belief greedy is the baseline it beats |
-| RL still loses | the loss is credit assignment under sparse terminal reward | **Option 2**: the analysis *is* the result; the experiment is the evidence |
+| RL matches or beats greedy **after the `gain(i)` gate** | the loss was representational — note the belief posterior is *already* in the state (1.56 vs 1.56, −0.00 ± 0.08), so the missing quantity is the one-step value, not the belief | **Option 1**: RL is the method; belief greedy is the baseline it beats |
+| RL still loses | the loss is credit assignment under sparse terminal reward, or the model-correct regime | **Option 2**: the analysis *is* the result; the experiment is the evidence |
 
 Option 2 is not a failure state. For an RL course it is the stronger submission:
 five RL variants, a model-based comparator, an information-equalized control, and
@@ -70,10 +70,10 @@ a stated mechanism that could be disproved.
 
 | Phase | Window | Work | Gate |
 |---|---|---|---|
-| **P0** | now → 11/12 | Belief-conditioned RL run (5 seeds, paired held-out) | **G0**: does RL match greedy? decides Option 1 vs 2 |
-| **P1** | 11/12 → 11/19 | Course paper skeleton; freeze synthetic env and numbers | G1: every table reproducible from one script |
-| **P2** | 11/19 → 11/26 | One open transfer set (KAIST or GO), same protocol | G2: does the ordering repeat (type ≫ within-type)? |
-| **P3** | 11/26 → 12/03 | Slides, ≥2 rehearsals, final tables | G3: talk delivered |
+| **P0** | Mon 11/09 → Wed 11/11 | `gain(i)`-feature and n-step/AC gates, **run in parallel on 11/10**; decision 11/11 | **G0**: does RL match greedy? decides Option 1 vs 2 |
+| **P1** | Thu 11/12 → Sat 11/14 | Branch work + 2-step greedy control; numbers frozen | G1: every table reproducible from one script |
+| **P2** | Sun 11/15 → Mon 11/16 | Draft, slides, ≥2 rehearsals | G2: talk ready |
+| **P3** | only if the week finishes early | One open transfer set (KAIST or GO), same protocol | G3: does the ordering repeat (type ≫ within-type)? |
 | **B1** | parallel, no deadline | Receipt schema + demo (done); 20-row sample from 郑心 | B-gate: real receipts exist |
 | **B2** | after the course | Offline evaluation on the real chain; cost in minutes | B-gate: recall per hour reported |
 
@@ -87,5 +87,6 @@ a stated mechanism that could be disproved.
   graph plus an open transfer set; the sleep queue stays aggregate-only."
 - **On the 75:** "They're participant data-entry mistakes; the pipeline is a rule
   engine, so it's flag triage, not AI-output review — that's the SciForge track."
-- **On RL:** "One experiment decides it: give RL the same belief features. If it
-  still loses, the reason is credit assignment, and that becomes the result."
+- **On RL:** "The belief features are already in the state and it changed nothing
+  (1.56 vs 1.56). The open gate is the one-step value `gain(i)` the greedy
+  argmaxes, plus credit assignment. If it still loses, that becomes the result."
