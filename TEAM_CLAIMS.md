@@ -49,10 +49,10 @@ permalink: /TEAM_CLAIMS_EN.html
 
 Every row: **goal** → **why** → **this week** → **what to do, in order** → **hard part** → **principles** → **done when** → **don't**.
 
-### Person 1 — PM + co-presenter + code & upload
+### Person 1 — PM + co-presenter + code review
 **Goal:** the paper and the talk ship on 11/23 with numbers that are still true.
 
-**Why:** nobody else owns the whole picture. If the deck and the numbers are assembled in the last three days, the talk will contain a number that no longer holds — that is the normal failure mode of a five-person project. You also write the small glue code, and you are the one who commits and pushes it — so the work lives in the repository, not on a laptop.
+**Why:** nobody else owns the whole picture. If the deck and the numbers are assembled in the last three days, the talk will contain a number that no longer holds — that is the normal failure mode of a five-person project. You also read the experiment code before its numbers go on a slide, and you keep the search for other datasets alive — the paper is only as good as the data it is checked against.
 
 **This week:** one-page timeline (who does what, who is blocked) and a slide skeleton.
 **What to do, in order:**
@@ -63,19 +63,20 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 5. Keep the benchmark list with Person 5 — one line per candidate: what it measures, why we cite or exclude it.
 6. Book two rehearsals with a clock; split the talk (you take the first half, Person 5 the second).
 7. Submission checklist: file names, PDF export, who sends it, and the deadline in which time zone.
-8. Reproduce Person 2's distillation probe from a clean clone and upload the result — commit, push, and say whether the numbers match.
+8. Reproduce Person 2's distillation probe from a clean clone and say whether the numbers match — you do not push; you check.
+9. For every number that goes on a slide, read the diff that produced it; if it does not match the slide, block it.
 
 
 **You own:**
 - the timeline and the risk list, updated weekly;
 - the deck: section order, one message per slide, timing;
-- **the benchmark scan** — keep a running list of benchmarks we could compare against (learning-to-defer, annotation quality, AI4Science evaluation), check what each one actually measures, and decide with Person 5 which we cite and which we deliberately exclude. A reviewer will ask "why not X"; have the answer ready.
+- **the dataset and benchmark search** — keep a running list of datasets and benchmarks we could use or compare against (learning-to-defer, annotation quality, AI4Science evaluation, other public review/screening sets), check what each one actually measures, and decide with Person 5 which we cite and which we deliberately exclude. A reviewer will ask "why not X"; have the answer ready.
 - **reproducing the distillation probe** — Person 2 runs it; you rerun it from a clean clone and report whether the numbers match.
-- **code and upload** — the small glue scripts (timeline, table regeneration, figures) plus the commits and pushes; nothing that matters stays on a laptop.
+- **code review** — read the diffs Person 2 pushes, rerun the probe, and check that every table matches the code that produced it.
 - **the talk, first half** — problem, what we built, the result. Person 5 takes the second half. Rehearse together, twice, with a clock;
 - the submission: file names, PDF export, who sends it.
 
-**Hard part:** you own no headline number and still have to vouch for all of them; and the repository is in your hands — if you do not push it, it does not exist.
+**Hard part:** you own no headline number and still have to vouch for all of them; and the code you review is written by someone else, on a deadline.
 
 **Principles:** one number, one script, one source; unreproduced results go in limits, not the abstract; never edit a table by hand.
 
@@ -101,6 +102,8 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 8. Then the misspecification runs: edge probabilities ±50%, type rates drifting, reviewer missing 30%.
 9. Run the distillation probe (BC from belief greedy, then fine-tune) and hand the table to Person 1.
 10. Hand the table and the paragraph to Person 1 one day before the rehearsal.
+
+**And the repository is yours too:** you write the glue scripts (timeline, table regeneration, figures) and you do the commits and pushes — nothing that matters stays on a laptop.
 
 **Hard part:**
 - the rule is a planner with the model, not a heuristic;
