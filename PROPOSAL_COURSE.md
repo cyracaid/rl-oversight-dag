@@ -246,6 +246,21 @@ The "observed state" GNN already receives the belief posterior — `P(base error
 - **(c) the regime** — a one-step exact-posterior greedy is hard to beat when the generative
   model is correct. Learning's advantage has to be shown where the model is wrong.
 
+### 8.0b Preliminary: the policy can represent the rule
+
+Run on 11/10 with `experiments/rl_distill.py` (belief greedy as teacher → behaviour cloning → REINFORCE fine-tune), 1,200 teacher graphs, 5 BC epochs, 200 held-out graphs, 3 seeds:
+
+| policy | held-out sink errors |
+|---|---:|
+| belief greedy (teacher) | 1.15 ± 0.21 |
+| BC only | **1.21 ± 0.05** |
+| BC + REINFORCE, lr 3e-3, 20k episodes | 1.62 ± 0.41 |
+| BC + REINFORCE, lr 1e-4, 5k episodes | 1.24 ± 0.10 |
+
+**Reading.** Representation is not the gap: when the policy only imitates, it matches the teacher. Aggressive fine-tuning destroys that policy (and is unstable across seeds); gentle fine-tuning keeps it. That is credit assignment, and it points at Option A — initialise from the teacher, regularise the update, then try to pass it.
+
+**Caveat.** One configuration family, 3 seeds, not yet rerun by a second person. Preliminary, not a table for the paper.
+
 ### 8.1 Gate 0 — representation (code 11/09, run 11/10, ~30 min of compute)
 
 Add `gain(i)` (and optionally the 2-step gain) to the node features; retrain the observed
