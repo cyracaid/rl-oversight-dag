@@ -100,10 +100,8 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 6. If still ≥ +0.20 behind: stop. Write the paragraph on why, hand the numbers to Person 1. No fourth variant.
 7. In parallel: fit a small confidence predictor (or recalibrate), and measure noise / normal / oracle (3.78 / 1.38 / 0.72).
 8. Then the misspecification runs: edge probabilities ±50%, type rates drifting, reviewer missing 30%.
-9. Run the distillation probe (BC from belief greedy, then fine-tune) and hand the table to Person 1.
+9. Run the distillation probe (`experiments/rl_distill.py`: BC from belief greedy, then fine-tune) and hand the table to Person 1.
 10. Hand the table and the paragraph to Person 1 one day before the rehearsal.
-
-**And the repository is yours too:** you write the glue scripts (timeline, table regeneration, figures) and you do the commits and pushes — nothing that matters stays on a laptop.
 
 **Hard part:**
 - the rule is a planner with the model, not a heuristic;
@@ -170,7 +168,7 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 
 **Don't:** download CIFAR-10H or BurstGPT.
 
-### Person 5 — 동채하 — narrative, languages, SciForge, co-presenter
+### Person 5 — 동채하 — narrative, code & upload, languages, SciForge, co-presenter
 **Goal:** make the problem land for a reader who does not do RL, and keep the SciForge door open without delaying the paper.
 
 **Why:** the method is only half the talk. The other half is why anyone outside this course should care — and that is a different skill. This row also owns the two fragile things: the three languages, and the relationship with the external partner.
@@ -184,6 +182,7 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 5. Keep the three languages in sync: same commit, then run the link check.
 6. Second half of the talk: why it matters → related work → what is next. Rehearse twice with Person 1.
 7. Hand the final text to Person 1 one day before the rehearsal.
+8. Write and push the glue scripts (timeline, table regeneration, figures) — if it is not in the repo, it does not exist.
 
 
 **You own:**
@@ -191,9 +190,10 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 - related work: HealthBench and BioBasicsBench, 3–5 sentences each, with the difference from us — Person 1 brings the wider benchmark scan, and you two decide the final list;
 - **keeping the three languages in sync** — Person 1 no longer does this; when a number changes, all three pages change in the same commit;
 - **the talk, second half** — why it matters, related work, what is next — in English, rehearsed with Person 1;
-- the one-page SciForge ask to 郑心 (export fields, receipt fields), and a note of the reply.
+- the one-page SciForge ask to 郑心 (export fields, receipt fields), and a note of the reply;
+- **code and upload** — the glue scripts (timeline, table regeneration, figures) and the commits and pushes; nothing that matters stays on a laptop.
 
-**Hard part:** the 75 corrections are easy to over-claim — they record the fix, not who caused it; the SciForge ask runs on someone else's schedule; three languages drift.
+**Hard part:** the 75 corrections are easy to over-claim — they record the fix, not who caused it; the SciForge ask runs on someone else's schedule; three languages drift; and you are the only one pushing code at the end.
 
 **Principles:** no number without its caveat; the partner decides, we ask; never promise an integration date; change all three languages in one commit.
 
