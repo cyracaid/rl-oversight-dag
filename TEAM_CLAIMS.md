@@ -63,15 +63,13 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 5. Keep the benchmark list with Person 5 — one line per candidate: what it measures, why we cite or exclude it.
 6. Book two rehearsals with a clock; split the talk (you take the first half, Person 5 the second).
 7. Submission checklist: file names, PDF export, who sends it, and the deadline in which time zone.
-8. Reproduce Person 2's distillation probe from a clean clone and say whether the numbers match — you do not push; you check.
-9. For every number that goes on a slide, read the diff that produced it; if it does not match the slide, block it.
+8. For every number that goes on a slide, read the diff that produced it; if it does not match the slide, block it.
 
 
 **You own:**
 - the timeline and the risk list, updated weekly;
 - the deck: section order, one message per slide, timing;
 - **the dataset and benchmark search** — keep a running list of datasets and benchmarks we could use or compare against (learning-to-defer, annotation quality, AI4Science evaluation, other public review/screening sets), check what each one actually measures, and decide with Person 5 which we cite and which we deliberately exclude. A reviewer will ask "why not X"; have the answer ready.
-- **reproducing the distillation probe** — Person 2 runs it; you rerun it from a clean clone and report whether the numbers match.
 - **code review** — read the diffs Person 2 pushes, rerun the probe, and check that every table matches the code that produced it.
 - **the talk, first half** — problem, what we built, the result. Person 5 takes the second half. Rehearse together, twice, with a clock;
 - the submission: file names, PDF export, who sends it.
@@ -80,41 +78,30 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 
 **Principles:** one number, one script, one source; unreproduced results go in limits, not the abstract; never edit a table by hand.
 
-**Done when:** the timeline exists, both presenters have rehearsed twice with timing, the submission checklist is done, and the distillation numbers are reproduced.
+**Done when:** the timeline exists, both presenters have rehearsed twice with timing, the submission checklist is done.
 
 **Don't:** train models; own the SciForge integration; keep the three languages in sync — that is Person 5's.
 
-### Person 2 — policy and confidence signal
-**Goal:** find out whether the learned policy can beat the rule, and say which — with evidence either way.
+### Person 2 — experiments and the "why"
+**Goal:** run the comparison the paper reports, and write the paragraph that explains the gap.
 
-**Why:** the whole project is this one question. Right now our method loses (1.56 vs 1.14). Without an answer, the paper is just a table where we lose. With an answer, it says either "the gap was a missing feature / credit assignment, and here is the fix" or "the gap is structural, and here is where it starts". Every other section of the paper exists to support that one paragraph.
+**Why:** the paper's claim is a negative one, so it stands or falls on two things: the comparison is fair, and the explanation is honest. That is this row.
 
-**This week:** run the gate — add `gain(i)` to the node features, 5 seeds, 200 held-out graphs, paired.
+**This week:** re-run the standard comparison on the held-out graphs.
 
 **What to do, in order:**
-1. In `rl_gnn_multiseed.py`, add `gain(i)` to the observed-state features. `gain(i)` is the expected drop in reachable sink errors if node *i* is reviewed — the exact quantity the rule argmaxes.
-2. Write the bar down first: ≤ 1.14, or non-inferior (paired CI contains 0, point estimate < +0.05).
-3. Run 5 seeds × 20k episodes, evaluate on held-out graphs 1000–1199, paired. Put the number in the table before interpreting it.
-4. If the bar is met: the gap was representational. Record it and stop.
-5. If not: add n-step returns or an actor-critic with `gain(a_t)` as the baseline. One variant, one night.
-6. If still ≥ +0.20 behind: stop. Write the paragraph on why, hand the numbers to Person 1. No fourth variant.
-7. In parallel: fit a small confidence predictor (or recalibrate), and measure noise / normal / oracle (3.78 / 1.38 / 0.72).
-8. Then the misspecification runs: edge probabilities ±50%, type rates drifting, reviewer missing 30%.
-9. Run the distillation probe (`experiments/rl_distill.py`: BC from belief greedy, then fine-tune) and hand the table to Person 1.
-10. Hand the table and the paragraph to Person 1 one day before the rehearsal.
+1. Freeze the variants we report: conf threshold, structural greedy, belief greedy, GNN static, GNN observed. No new variants this week.
+2. Run 5 seeds x 20k episodes, evaluate on held-out graphs 1000-1199, paired.
+3. Write the paragraph: representation is not the gap (behaviour cloning matches the teacher, 1.14 vs 1.15), the gap is credit assignment.
+4. Hand the table and the paragraph to Person 1.
 
-**Hard part:**
-- the rule is a planner with the model, not a heuristic;
-- the easy explanation is spent: the belief posterior is already in the state and changed nothing (−0.00 ± 0.08);
-- reward arrives only at the end, after 16 reviews — that is the credit-assignment problem;
-- the signal sets the ceiling (0.72 oracle / 1.38 normal);
-- seeds disagree (1.51 ± 0.41), so one run proves nothing.
+**Hard part:** the comparison is easy to get subtly wrong (different seeds, different catch randomness), and the explanation has to survive "did you try harder?" — the answer is yes, and it now belongs to SciForge.
 
-**Principles:** write the bar down before running; paired held-out with 5 seeds only; a miss is a result, not a failure; never tune on held-out.
+**Principles:** paired held-out with 5 seeds only; report worst-of-n; a miss is a result; never tune on held-out.
 
-**Done when:** a paired table plus that paragraph, and code that reruns from a clean clone.
+**Done when:** the table and the paragraph exist, and rerun from a clean clone.
 
-**Don't:** tune DQN until it looks like a win; touch SciForge code.
+**Don't:** run new improvement variants (those moved to SciForge); tune DQN until it looks like a win.
 
 ### Person 3 — environment and graphs
 **Goal:** one frozen simulator that every other number comes from.
@@ -206,15 +193,15 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 | When | Person 1 | Person 2 | Person 3 | Person 4 | Person 5 |
 |---|---|---|---|---|---|
 | Mon 11/09 | timeline + deck skeleton | code `gain(i)`, smoke test | freeze the scripts, keep tests green | baseline list, data check | motivation numbers |
-| Tue 11/10 | slide skeleton, prep the reproduction | run the gate + distillation, 5 seeds | reproduce N=500 and N=21 | run the five baselines | HealthBench / BioBasics draft |
-| Wed 11/11 | reproduce the distillation numbers | read-out, **decide A/B** | publish the tag | first control results | send the SciForge ask |
+| Tue 11/10 | slide skeleton | run the standard comparison, 5 seeds | reproduce N=500 and N=21 | run the five baselines | HealthBench / BioBasics draft |
+| Wed 11/11 | collect the first numbers | read-out, write the paragraph | publish the tag | first control results | send the SciForge ask |
 | Thu 11/12 – Fri 11/13 | slides with real numbers | branch work (misspecification / credit) | reruns, 200-node GNN if there is time | shuffle / flatten, worst-of-n | related work, second half |
 | Sat 11/14 | **numbers frozen** | final table + paragraph | reproduction log | control table | three-language sync |
 | Sun 11/15 – Mon 11/16 | deck, rehearsal 1 | on call | on call | appendix | slides, rehearsal 1 |
 | Tue 11/17 – Sun 11/22 | timing, rehearsals 2–3 | on call | on call | on call | English polish, rehearsals 2–3 |
 | Mon 11/23 | first half | — | — | — | second half |
 
-**Rules on the timeline:** the gate on 11/11 decides the branch; numbers freeze on 11/14; after 11/14 nobody starts a new experiment.
+**Rules on the timeline:** the read-out on 11/11 fixes the claim; numbers freeze on 11/14; after 11/14 nobody starts a new experiment.
 
 ---
 
@@ -279,9 +266,9 @@ Nothing counts as verified until the named person reruns it.
 
 | # | Prerequisite (owner) | Due | What it unblocks | Hand-off |
 |---|---|---|---|---|
-| 1 | Freeze the simulator and the graphs (P3) | 11/10 | P2's gate; P4's baselines | tag + the one-line rule |
-| 2 | Gate run with `gain(i)` (P2) | 11/11 | the A/B decision; P1's slides | paired table |
-| 3 | **A/B decision** (P1 + P2) | 11/11, 18:00 | P2's branch; P4's final control set | one-page memo |
+| 1 | Freeze the simulator and the graphs (P3) | 11/10 | P2's comparison; P4's baselines | tag + the one-line rule |
+| 2 | Standard comparison run (P2) | 11/11 | the paragraph; P1's slides | paired table |
+| 3 | **Read-out** (P1 + P2) | 11/11, 18:00 | the paper's claim; P4's final control set | one-page memo |
 | 4 | Baselines + shuffle/flatten (P4) | 11/13 | the comparison section and the appendix | control table |
 | 5 | Confidence signal (P2) | 11/14 | the limits section; Option A conditions | ablation table |
 | 6 | N=500 and N=21 reproduction (P3) | 11/12 | the scale and real-data sections | reproduction log |
@@ -296,7 +283,7 @@ Nothing counts as verified until the named person reruns it.
 
 **What has slack:** the SciForge ask (9) can arrive as late as 11/18 and nothing in the paper moves. Related work (8) can slip to 11/15 without touching a number.
 
-**What must not slip:** the environment freeze (1) and the gate (2). Everything downstream is a function of those two dates.
+**What must not slip:** the environment freeze (1) and the comparison (2). Everything downstream is a function of those two dates.
 ---
 
 ## 6. Data: what exists and what is missing

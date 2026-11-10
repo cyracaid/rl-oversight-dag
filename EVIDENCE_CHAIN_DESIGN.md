@@ -288,6 +288,33 @@ A reviewer can ask "is this just FALCON on a graph" and get: FALCON has no error
 
 ---
 
+## 10b. The RL-improvement programme (handed to SciForge)
+
+The course paper reports the gap between learned policies and belief greedy, and explains it.
+**Closing that gap is SciForge-side work**, not the course team's: it needs their data and their
+review budget, and it is a research programme rather than a course deliverable.
+
+**What has been run** (2026-11-10, preliminary; `experiments/rl_distill.py`, 3 seeds, 200 held-out
+graphs, teacher = belief greedy):
+
+| policy | held-out sink errors |
+|---|---:|
+| belief greedy (teacher) | 1.15 ± 0.21 |
+| behaviour cloning only | 1.14 ± 0.11 |
+| BC + REINFORCE, lr 3e-3, 20k | 1.62 ± 0.41 |
+| BC + REINFORCE, lr 1e-4, 5k | 1.24 ± 0.10 |
+| BC + REINFORCE, KL leash 0.5, 20k | 1.15 ± 0.07 |
+
+**Reading.** Representation is not the gap: a policy that only imitates matches the teacher.
+Unregularised fine-tuning destroys it (and is unstable across seeds); a KL leash to the BC policy
+keeps it at teacher level. Nothing so far beats the teacher.
+
+**Open items for SciForge.** (1) the one-step value `gain(i)` as a feature; (2) trust-region size
+and early stopping; (3) the misspecification regime (wrong edge probabilities, drifting type rates,
+30% missed errors); (4) a 2-step greedy control, to separate learning from planning depth.
+
+**Caveat.** Three seeds, one configuration family, not rerun by a second person.
+
 ## 11. File map (what lives where)
 
 | Path | Role |

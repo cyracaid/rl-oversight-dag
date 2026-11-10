@@ -126,6 +126,57 @@ def finetune(policy, seed, episodes, lr=0.003):
     return curve
 
 
+def rollout_kl(policy, ref, rng, belief_seed, temp):
+    """One episode with both the current and the reference (BC) policy scored."""
+    env = M.build_env(rng, belief_seed, with_belief=True)
+    base = list(env["base"])
+    err = SP.compute_err(base, env["nodes"], env["topo"], env["coins"])
+    reviewed, flagged = [False] * N, [False] * N
+    u = SP.episode_uniforms(rng, N) if SP.CFG["crn"] else None
+    logps, kls = [], []
+    for t in range(R):
+        F = M.features(env, VARIANT, reviewed, flagged, R - t)
+        s = policy.score(F, env["A"])
+        s_ref = ref.score(F, env["A"])
+        mask = torch.tensor(reviewed)
+        s = s.masked_fill(mask, float("-inf"))
+        s_ref = s_ref.masked_fill(mask, float("-inf"))
+        lp = torch.log_softmax(s / temp, 0)
+        lp_ref = torch.log_softmax(s_ref / temp, 0)
+        a = int(torch.multinomial(torch.exp(lp), 1).item())
+        logps.append(lp[a])
+        kls.append((torch.exp(lp_ref) * (lp_ref - lp)).sum())
+        f, err = SP.review_step(a, base, err, env["nodes"], env["topo"],
+                                env["coins"], rng, u)
+        reviewed[a], flagged[a] = True, f
+        env["belief"].observe(a, f)
+    return sum(1 for j in env["sinks"] if err[j]), logps, kls
+
+
+def finetune_kl(policy, ref, seed, episodes, lr, beta):
+    """REINFORCE with a KL leash to the BC policy."""
+    torch.manual_seed(seed)
+    opt = torch.optim.Adam(policy.parameters(), lr=lr)
+    baseline = 0.0
+    rng = random.Random(10**9 + seed)
+    curve, window = [], []
+    for ep in range(episodes):
+        temp = max(0.3, 2.0 * (0.9993 ** ep))
+        sink_err, logps, kls = rollout_kl(policy, ref, rng,
+                                          belief_seed=seed * 10**6 + ep, temp=temp)
+        r = -sink_err
+        baseline = 0.95 * baseline + 0.05 * r
+        loss = -(r - baseline) * torch.stack(logps).sum() + beta * torch.stack(kls).sum()
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+        window.append(sink_err)
+        if len(window) == M.CURVE_EVERY:
+            curve.append((ep + 1, sum(window) / len(window)))
+            window = []
+    return curve
+
+
 def mean_ci(xs):
     n = len(xs)
     m = sum(xs) / n
@@ -134,7 +185,7 @@ def mean_ci(xs):
     return m, t * sd / math.sqrt(n)
 
 
-def run_seed(seed, graphs, epochs, episodes, lr_bc, lr_ft, heldout, no_ft):
+def run_seed(seed, graphs, epochs, episodes, lr_bc, lr_ft, heldout, no_ft, kl_beta=0.0):
     print(f"  seed {seed}: collecting teacher data ({graphs} graphs)", flush=True)
     data = collect(seed, graphs)
     policy = GNNPolicy(d=M.DIM[VARIANT])
@@ -144,7 +195,12 @@ def run_seed(seed, graphs, epochs, episodes, lr_bc, lr_ft, heldout, no_ft):
     print(f"  seed {seed}: BC-only held-out {sum(bc_held)/len(bc_held):.2f}", flush=True)
     ft_curve = []
     if not no_ft:
-        ft_curve = finetune(policy, seed, episodes, lr_ft)
+        if kl_beta > 0:
+            import copy
+            ref = copy.deepcopy(policy)
+            ft_curve = finetune_kl(policy, ref, seed, episodes, lr_ft, kl_beta)
+        else:
+            ft_curve = finetune(policy, seed, episodes, lr_ft)
         ft_held = M.eval_gnn(policy, VARIANT, heldout)
         print(f"  seed {seed}: BC+FT  held-out {sum(ft_held)/len(ft_held):.2f}", flush=True)
     else:
@@ -163,6 +219,8 @@ def main():
     ap.add_argument("--lr-bc", type=float, default=1e-3)
     ap.add_argument("--lr-ft", type=float, default=3e-3)
     ap.add_argument("--no-ft", action="store_true")
+    ap.add_argument("--kl-beta", type=float, default=0.0,
+                    help="KL leash to the BC policy during fine-tuning (0 = off)")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--out", default="dist_results.json")
     args = ap.parse_args()
@@ -181,7 +239,7 @@ def main():
     results = []
     for seed in args.seeds:
         results.append(run_seed(seed, args.graphs, args.bc_epochs, args.episodes,
-                                args.lr_bc, args.lr_ft, heldout, args.no_ft))
+                                args.lr_bc, args.lr_ft, heldout, args.no_ft, args.kl_beta))
 
     def agg(key):
         per = [sum(r[key]) / len(r[key]) for r in results]

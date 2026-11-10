@@ -8,7 +8,7 @@ layout: default
 <p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROPOSAL_COURSE_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROPOSAL_COURSE_CN.html">中文</a></p>
 
 > Yonsei University · team 6 · v1 2026-11-09
-> Phases and the pre-registered decision gate: §8 below. Operational detail:
+> Where the improvement programme went: §8 below. Operational detail:
 > [`RL_PLAN.md`](RL_PLAN.html) (with the correction in its §0) · track split: [`TRACKS.md`](TRACKS.html).
 > Full narrative: [`PROJECT_EN.md`](PROJECT_EN.html). Course mapping: [`COURSE_ALIGNMENT.md`](COURSE_ALIGNMENT.html).
 
@@ -226,96 +226,13 @@ already in its state; the remaining error mass is in the signal/detector.
 
 ---
 
-## 8. The decision point — one week, two gates, one decision
+## 8. The improvement programme is handed to SciForge
 
-The whole decision runs inside **one week: Mon 11/09 → Sun 11/15**, numbers frozen 11/16.
-The two gates run **in parallel the same night**; they are not sequential, and nobody waits
-for a "phase" to end before starting the next one.
+The course paper stops at the result and its explanation: the learned policies lose to belief greedy (1.56 vs 1.14), the belief posterior is already in the state, and the gap behaves like credit assignment rather than a representation problem.
 
-### 8.0 What is already run (do not run it twice)
+Closing that gap — the gate, the `gain(i)` feature, distillation, misspecification — is a SciForge-side research programme, documented in [`EVIDENCE_CHAIN_DESIGN.md` §10b](EVIDENCE_CHAIN_DESIGN.html). It needs their data and their review budget, and it is not on the 11/23 critical path.
 
-The "observed state" GNN already receives the belief posterior — `P(base error)`, `P(error)`,
-`reviewed`, `flagged`, budget fraction — refreshed after every review
-(`rl_gnn_multiseed.py:features`). It changed nothing: 1.56 vs 1.56 static, paired
-**−0.00 ± 0.08**. So *"feed the belief into the policy"* is not an open experiment
-(despite how `RL_PLAN.md` §0 first framed G0). The open variables are narrower:
-
-- **(a) the value, not the belief** — the greedy argmaxes `gain(i)`, the exact expected
-  sink-error reduction under the posterior; the policy never sees that quantity.
-- **(b) credit assignment** — terminal-only REINFORCE over 16 steps with a sparse reward.
-- **(c) the regime** — a one-step exact-posterior greedy is hard to beat when the generative
-  model is correct. Learning's advantage has to be shown where the model is wrong.
-
-### 8.0b Preliminary: the policy can represent the rule
-
-Run on 11/10 with `experiments/rl_distill.py` (belief greedy as teacher → behaviour cloning → REINFORCE fine-tune), 1,200 teacher graphs, 5 BC epochs, 200 held-out graphs, 3 seeds:
-
-| policy | held-out sink errors |
-|---|---:|
-| belief greedy (teacher) | 1.15 ± 0.21 |
-| BC only | **1.21 ± 0.05** |
-| BC + REINFORCE, lr 3e-3, 20k episodes | 1.62 ± 0.41 |
-| BC + REINFORCE, lr 1e-4, 5k episodes | 1.24 ± 0.10 |
-
-**Reading.** Representation is not the gap: when the policy only imitates, it matches the teacher. Aggressive fine-tuning destroys that policy (and is unstable across seeds); gentle fine-tuning keeps it. That is credit assignment, and it points at Option A — initialise from the teacher, regularise the update, then try to pass it.
-
-**Caveat.** One configuration family, 3 seeds, not yet rerun by a second person. Preliminary, not a table for the paper.
-
-### 8.1 Gate 0 — representation (code 11/09, run 11/10, ~30 min of compute)
-
-Add `gain(i)` (and optionally the 2-step gain) to the node features; retrain the observed
-variant; same 200 held-out graphs, same paired protocol, 5 seeds.
-
-| result | reading | next |
-|---|---|---|
-| policy matches greedy (≤ 1.14 or non-inferior) | the gap was representational | Option A now has to *beat* a one-step planner — depth or model error (8.3) |
-| still ≈ 1.5 | the gap is credit assignment | Gate 1 (8.2) has already run the same night — read it together, do not queue it |
-
-Also report held-out error against training episodes: if it is still falling at 20k, the gap is
-data/compute, not architecture — and that changes Gate 1.
-
-### 8.2 Gate 1 — credit assignment (same night, second lane)
-
-Runs **with** 8.1, not after it. One-week cut: the only new variant is **(1A) n-step /
-actor-critic with `gain` as the baseline**, so the advantage is `G_t − gain(a_t)`.
-Behaviour cloning (1B) and the PPO retune (1C, existing PPO did not converge at ~5.60) are
-dropped unless 1A is inconclusive on the first night.
-
-**Pre-registered decision rule** (same 200 held-out graphs, paired, 5 seeds).
-**Decision: Wed 11/11, 18:00, one page, numbers only.**
-
-- **PASS → Option A** if the best variant has mean **≤ 1.14**, or is non-inferior (paired CI
-  contains 0 and point estimate < +0.05), **and** it wins in at least one condition where the
-  greedy's model is wrong (8.3).
-- **FAIL → Option B** if the paired gap is still **≥ +0.20 with a CI excluding 0**. Stop there:
-  no fourth variant.
-
-### 8.3 Option A requires beating the planner, not matching it
-
-Matching a planner that has the model proves nothing about learning. Three conditions, all
-cheap in the existing simulator, plus one control that decides the story:
-
-| condition | breaks for greedy | exploitable by learning |
-|---|---|---|
-| edge probabilities off by ±50% | `gain` uses the wrong propagation | outcomes reveal the true rate |
-| non-stationary type rates | the fixed prior goes stale | online adaptation from flags |
-| reviewer miss rate 30% | belief updates over-trust negative evidence | learned discounting |
-
-**Control: 2-step greedy.** If deeper lookahead also wins, the result is "planning depth", not
-"learning" — and it must be reported as such.
-
-### 8.4 Option B — four claims, each falsifiable
-
-| # | claim | test | disproof |
-|---|---|---|---|
-| C1 | gap is representational | Gate 0 | gain features leave it unchanged |
-| C2 | gap is credit assignment | learning curves; 1A/1B | a variant reaches greedy without extra structure |
-| C3 | with a correct model, 1-step posterior greedy is near-optimal | oracle − greedy gap; 2-step gain | 2-step greedy is much better (greedy is myopic, not optimal) |
-| C4 | the binding constraint is the signal, not the policy | ablation (3.78 / 1.38 / 0.72); real-queue ceiling 83.8% | a better policy closes the gap at fixed signal |
-
-Either branch produces a complete course project. Branch B is not a fallback narrative: it is a
-measured boundary on when model-free learning pays, and it is checked against a stronger
-planner than most course baselines.
+What the course team still does: run the standard comparison fairly, report the negative result, and write the paragraph that explains it.
 
 ---
 
@@ -344,11 +261,11 @@ in between (11/17–11/22) is rehearsal and polish, not more scope.
 
 | day | date | lane 1 (env / RL, people 2–3) | lane 2 (baselines / write-up, people 4–5) | gate |
 |---|---|---|---|---|
-| D0 | Mon 11/09 | freeze env; land `gain` feature, n-step/AC, misspecification hooks; 1-seed smoke test | verify every number regenerates from scripts; data-absent path | code merged |
-| D1 | Tue 11/10 | **run both gates overnight**: static / observed / gain (5 seeds), terminal vs n-step vs AC-baseline (5 seeds) | table shell + figure scripts; provenance question to Maia | — |
-| D2 | Wed 11/11 | **read-out, decide A/B by 18:00**, one-page memo | — | **decision** |
-| D3 | Thu 11/12 | branch work: A = misspecification (λ ±50%, drift, catch 0.7) · B = diagnostics (advantage/contribution, return variance, curve slope) | implement **2-step greedy** control (needed by both branches) | — |
-| D4 | Fri 11/13 | branch runs (5 seeds each, overnight) | controls: shuffle / flatten; worst-of-n table | — |
+| D0 | Mon 11/09 | freeze env; no new variants | verify every number regenerates from scripts; data-absent path | code frozen |
+| D1 | Tue 11/10 | **run the standard comparison overnight**: static / observed (5 seeds) | table shell + figure scripts; provenance question to Maia | — |
+| D2 | Wed 11/11 | **read-out by 18:00; write the paragraph** | — | **claim fixed** |
+| D3 | Thu 11/12 | 2-step greedy control; rerun anything the read-out breaks | controls: shuffle / flatten | — |
+| D4 | Fri 11/13 | reruns overnight (5 seeds each) | worst-of-n table | — |
 | D5 | Sat 11/14 | numbers frozen; learning curves; paired CIs | figures + table regeneration; clean-clone rerun of one seed | numbers frozen |
 | D6 | Sun 11/15 | draft §results, negative-result section | slides + one rehearsal | draft |
 | D7 | Mon 11/16 | buffer only — fix anything the clean-clone rerun breaks | second rehearsal | freeze |
@@ -369,7 +286,7 @@ paired CIs are not optional — without them neither branch is interpretable.
 
 | risk | mitigation |
 |---|---|
-| gate fails and the talk reads as "we failed" | branch B is specified up front with falsifiable claims; the gate is pre-registered, so the decision is evidence, not mood |
+| the talk reads as "we failed" | the paper reports the negative result with the comparison and the explanation; the improvement programme is explicitly SciForge's, not an unfinished course task |
 | RL does not converge in time (PPO at ~5.60) | Phase 1 has a stop rule; the deliverable never depends on a single run |
 | real data unavailable on presentation day | everything is reproducible from synthetic + aggregates; data auto-skips |
 | teammates' time | phases are sized in days, each with a named owner |
