@@ -63,12 +63,14 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 5. Keep the benchmark list with Person 5 — one line per candidate: what it measures, why we cite or exclude it.
 6. Book two rehearsals with a clock; split the talk (you take the first half, Person 5 the second).
 7. Submission checklist: file names, PDF export, who sends it, and the deadline in which time zone.
+8. Run the distillation probe (behaviour cloning from belief greedy, then REINFORCE fine-tune) and hand the paired table to Person 2.
 
 
 **You own:**
 - the timeline and the risk list, updated weekly;
 - the deck: section order, one message per slide, timing;
 - **the benchmark scan** — keep a running list of benchmarks we could compare against (learning-to-defer, annotation quality, AI4Science evaluation), check what each one actually measures, and decide with Person 5 which we cite and which we deliberately exclude. A reviewer will ask "why not X"; have the answer ready.
+- **the distillation probe** — belief greedy as the teacher: collect (state, action) pairs, train the policy by cross-entropy, then fine-tune with REINFORCE. This is the "(b)" path: can the policy represent the rule at all? Hand the paired table to Person 2.
 - **the talk, first half** — problem, what we built, the result. Person 5 takes the second half. Rehearse together, twice, with a clock;
 - the submission: file names, PDF export, who sends it.
 
