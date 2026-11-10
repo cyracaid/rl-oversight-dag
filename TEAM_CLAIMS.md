@@ -49,10 +49,10 @@ permalink: /TEAM_CLAIMS_EN.html
 
 Every row: **goal** → **why** → **this week** → **what to do, in order** → **hard part** → **principles** → **done when** → **don't**.
 
-### Person 1 — PM + co-presenter
+### Person 1 — PM + co-presenter + code & upload
 **Goal:** the paper and the talk ship on 11/23 with numbers that are still true.
 
-**Why:** nobody else owns the whole picture. If the deck and the numbers are assembled in the last three days, the talk will contain a number that no longer holds — that is the normal failure mode of a five-person project.
+**Why:** nobody else owns the whole picture. If the deck and the numbers are assembled in the last three days, the talk will contain a number that no longer holds — that is the normal failure mode of a five-person project. You also write the small glue code, and you are the one who commits and pushes it — so the work lives in the repository, not on a laptop.
 
 **This week:** one-page timeline (who does what, who is blocked) and a slide skeleton.
 **What to do, in order:**
@@ -63,22 +63,23 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 5. Keep the benchmark list with Person 5 — one line per candidate: what it measures, why we cite or exclude it.
 6. Book two rehearsals with a clock; split the talk (you take the first half, Person 5 the second).
 7. Submission checklist: file names, PDF export, who sends it, and the deadline in which time zone.
-8. Run the distillation probe (behaviour cloning from belief greedy, then REINFORCE fine-tune) and hand the paired table to Person 2.
+8. Reproduce Person 2's distillation probe from a clean clone and upload the result — commit, push, and say whether the numbers match.
 
 
 **You own:**
 - the timeline and the risk list, updated weekly;
 - the deck: section order, one message per slide, timing;
 - **the benchmark scan** — keep a running list of benchmarks we could compare against (learning-to-defer, annotation quality, AI4Science evaluation), check what each one actually measures, and decide with Person 5 which we cite and which we deliberately exclude. A reviewer will ask "why not X"; have the answer ready.
-- **the distillation probe** — belief greedy as the teacher: collect (state, action) pairs, train the policy by cross-entropy, then fine-tune with REINFORCE. This is the "(b)" path: can the policy represent the rule at all? Hand the paired table to Person 2.
+- **reproducing the distillation probe** — Person 2 runs it; you rerun it from a clean clone and report whether the numbers match.
+- **code and upload** — the small glue scripts (timeline, table regeneration, figures) plus the commits and pushes; nothing that matters stays on a laptop.
 - **the talk, first half** — problem, what we built, the result. Person 5 takes the second half. Rehearse together, twice, with a clock;
 - the submission: file names, PDF export, who sends it.
 
-**Hard part:** you produce no number yourself — every number belongs to someone else, and a nicer story is always available.
+**Hard part:** you own no headline number and still have to vouch for all of them; and the repository is in your hands — if you do not push it, it does not exist.
 
 **Principles:** one number, one script, one source; unreproduced results go in limits, not the abstract; never edit a table by hand.
 
-**Done when:** the timeline exists, both presenters have rehearsed twice with timing, and the submission checklist is done.
+**Done when:** the timeline exists, both presenters have rehearsed twice with timing, the submission checklist is done, and the distillation numbers are reproduced.
 
 **Don't:** train models; own the SciForge integration; keep the three languages in sync — that is Person 5's.
 
@@ -98,7 +99,8 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 6. If still ≥ +0.20 behind: stop. Write the paragraph on why, hand the numbers to Person 1. No fourth variant.
 7. In parallel: fit a small confidence predictor (or recalibrate), and measure noise / normal / oracle (3.78 / 1.38 / 0.72).
 8. Then the misspecification runs: edge probabilities ±50%, type rates drifting, reviewer missing 30%.
-9. Hand the table and the paragraph to Person 1 one day before the rehearsal.
+9. Run the distillation probe (BC from belief greedy, then fine-tune) and hand the table to Person 1.
+10. Hand the table and the paragraph to Person 1 one day before the rehearsal.
 
 **Hard part:**
 - the rule is a planner with the model, not a heuristic;
@@ -201,8 +203,8 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 | When | Person 1 | Person 2 | Person 3 | Person 4 | Person 5 |
 |---|---|---|---|---|---|
 | Mon 11/09 | timeline + deck skeleton | code `gain(i)`, smoke test | freeze the scripts, keep tests green | baseline list, data check | motivation numbers |
-| Tue 11/10 | slide skeleton | run the gate, 5 seeds | reproduce N=500 and N=21 | run the five baselines | HealthBench / BioBasics draft |
-| Wed 11/11 | collect the first numbers | read-out, **decide A/B** | publish the tag | first control results | send the SciForge ask |
+| Tue 11/10 | slide skeleton, prep the reproduction | run the gate + distillation, 5 seeds | reproduce N=500 and N=21 | run the five baselines | HealthBench / BioBasics draft |
+| Wed 11/11 | reproduce the distillation numbers | read-out, **decide A/B** | publish the tag | first control results | send the SciForge ask |
 | Thu 11/12 – Fri 11/13 | slides with real numbers | branch work (misspecification / credit) | reruns, 200-node GNN if there is time | shuffle / flatten, worst-of-n | related work, second half |
 | Sat 11/14 | **numbers frozen** | final table + paragraph | reproduction log | control table | three-language sync |
 | Sun 11/15 – Mon 11/16 | deck, rehearsal 1 | on call | on call | appendix | slides, rehearsal 1 |
