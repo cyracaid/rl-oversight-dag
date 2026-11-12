@@ -1,0 +1,18 @@
+[강화학습 3번 담당 구현본 - 시작하기]
+
+1. 컴퓨터에서 ZIP을 해제합니다.
+2. 터미널을 열고 role3_dag_implementation 폴더로 이동합니다.
+3. 아래 명령어를 순서대로 실행합니다.
+
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python run_demo.py --family real --seed 7 --policy structural
+python run_benchmark.py --seeds 10
+python train_gnn.py --family spike --episodes 100 --seed 1
+python train_dqn.py --family spike --episodes 80 --seed 1
+
+4. outputs 폴더의 결과 그래프와 CSV를 확인합니다.
+
+README_KO.md를 꼭 읽으세요.
+특히: 이 코드는 독립 구현 예제이며 원래 저장소의 1,024입자 신념 필터와 다르게 근사 신념을 씁니다.
+이미 포함된 GNN/DQN 모델 체크포인트는 짧은 작동 테스트로 얻은 것이므로 연구 결과로 인용하면 안 됩니다.
