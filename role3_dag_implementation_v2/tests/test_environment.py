@@ -73,7 +73,7 @@ class SemanticsTests(unittest.TestCase):
         obs=env.observation()
         self.assertEqual(obs['features'].shape,(3,8))
         self.assertEqual(set(obs.keys()),{'features','mask','edge_index','sink_ids',
-                                           'budget_left','family','node_names'})
+                                           'budget_left','family','node_names','topological_order','edge_probability'})
         self.assertEqual(sum(obs['mask']),3)
         env.step(0)
         with self.assertRaises(ValueError):env.step(0)

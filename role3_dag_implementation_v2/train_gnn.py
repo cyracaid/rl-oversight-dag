@@ -18,7 +18,7 @@ def play(policy, family, graph_seed, episode_seed, budget, static=False,
     graph = generate_graph(family, graph_seed)
     env = OversightEnv.from_seed(graph, episode_seed, budget)
     obs = env.observation()
-    done = env._done
+    done = env.done
     logps = []
     while not done:
         x, edges, mask = torch_obs(obs, static=static)
@@ -39,6 +39,7 @@ def main():
     ap.add_argument('--eval-seeds',type=int,default=10)
     ap.add_argument('--out',type=Path,default=Path('outputs'))
     args=ap.parse_args()
+    if args.eval_seeds < 1 or args.episodes < 1: ap.error("episode counts must be positive")
     if args.episodes<=0: ap.error('--episodes must be positive')
     args.out.mkdir(parents=True,exist_ok=True)
     torch.set_num_threads(1)
@@ -56,8 +57,8 @@ def main():
         temperature=max(0.3, 2.0*0.9993**e)
         reward, logps=play(model,args.family,gseed, 40_000+gseed,budget,
                            static=args.variant=='static', training=True, temperature=temperature)
-        ema=.95*ema+.05*reward
         loss=-(reward-ema)*torch.stack(logps).sum()
+        ema=.95*ema+.05*reward
         optim.zero_grad();loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),5.0);optim.step()
         history.append({'episode':e+1,'sink_errors':-reward, 'temperature':temperature})
         if (e+1)%max(1,args.episodes//5)==0:

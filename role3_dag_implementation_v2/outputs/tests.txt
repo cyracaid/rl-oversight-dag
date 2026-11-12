@@ -1,0 +1,23 @@
+test_cycle_rejected (test_environment.GraphTests.test_cycle_rejected) ... ok
+test_generators_are_dags_and_deterministic (test_environment.GraphTests.test_generators_are_dags_and_deterministic) ... ok
+test_sink_reach_unique_ancestors (test_environment.GraphTests.test_sink_reach_unique_ancestors) ... ok
+test_clearing_source_and_fixed_coins (test_environment.SemanticsTests.test_clearing_source_and_fixed_coins) ... ok
+test_inherited_error_persists (test_environment.SemanticsTests.test_inherited_error_persists) ... ok
+test_not_expose_truth (test_environment.SemanticsTests.test_not_expose_truth) ... ok
+test_reset_and_mask (test_environment.SemanticsTests.test_reset_and_mask) ... ok
+test_reviewer_miss (test_environment.SemanticsTests.test_reviewer_miss) ... ok
+test_strict_crn_per_node (test_environment.SemanticsTests.test_strict_crn_per_node) ... ok
+test_shapes_backward (test_models.ModelTest.test_shapes_backward) ... ok
+test_fractional_budget_rejected (test_revision.RevisionTests.test_fractional_budget_rejected) ... ok
+test_impossible_particle_evidence (test_revision.RevisionTests.test_impossible_particle_evidence) ... ok
+test_integration_without_truth_leakage (test_revision.RevisionTests.test_integration_without_truth_leakage) ... ok
+test_marginal_prioritizes_common_source (test_revision.RevisionTests.test_marginal_prioritizes_common_source) ... ok
+test_particle_miss_matches_bayes (test_revision.RevisionTests.test_particle_miss_matches_bayes) ... ok
+test_particle_observation_updates_ancestor (test_revision.RevisionTests.test_particle_observation_updates_ancestor) ... ok
+test_review_uniforms_match_across_confidence_modes (test_revision.RevisionTests.test_review_uniforms_match_across_confidence_modes) ... ok
+test_terminal_mask_and_zero_budget (test_revision.RevisionTests.test_terminal_mask_and_zero_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.141s
+
+OK

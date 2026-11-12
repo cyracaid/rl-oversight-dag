@@ -56,7 +56,9 @@ def torch_obs(obs, device="cpu", static=False):
 
 
 def masked_action(scores, mask, sample=False, temperature=1.0):
-    scores = scores.masked_fill(~mask, -1e9)
+    if not mask.any() or temperature <= 0:
+        raise ValueError("need a legal action and positive temperature")
+    scores = scores.masked_fill(~mask, -torch.inf)
     if sample:
         dist = torch.distributions.Categorical(logits=scores / temperature)
         action = dist.sample()

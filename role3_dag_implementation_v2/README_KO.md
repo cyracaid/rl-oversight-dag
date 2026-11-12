@@ -19,7 +19,7 @@ Python 3.10+ 권장. 프로젝트 폴더에서:
 python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 python run_demo.py --family real --policy structural --seed 7
-python run_benchmark.py --seeds 10
+python reproduce.py  # 세 훈련 시드와 5개 그래프 유형의 배포 결과 재생성
 python train_gnn.py --family spike --episodes 100 --variant observed --seed 1
 python train_dqn.py --family spike --episodes 80 --seed 1
 ```
@@ -88,7 +88,7 @@ while obs['budget_left'] > 0:
 
 ## 6. 정확한 범위 및 제한
 
-- 공개 연구 명세의 `belief.py`는 **1,024개 입자의 파티클 필터**입니다. 이번 코드는 팀 합류가 쉽도록 근사 신념을 사용합니다. 따라서 여기의 GNN `observed`는 공개 구현의 파티클 필터 버전과 **동일하지 않으며 수치 비교할 수 없습니다**. 기존 팀원의 `belief.py`를 연결하면 엄격한 비교가 가능합니다.
+- 공개 연구 명세의 `belief.py`는 **1,024개 입자의 파티클 필터**입니다. 기본 학습·벤치마크는 평균장 근사를 사용합니다. 이번 독립 구현은 선택적으로 1,024입자 순차 필터를 지원합니다. 공개 구현과의 수치 동등성은 검증하지 않았습니다.
 - 500노드의 원천 오류 유형 분포, 모듈 클러스터 내 동일 유형 편향(65%)은 모형 선택입니다. 이 데이터는 실측 정보가 아닙니다.
 - BA/ER 그래프를 낮은 노드 번호에서 높은 번호로 방향을 부여해 DAG로 만듭니다.
 - `real`은 **수면 분석 의존성 도식만 가져온 시뮬레이션**입니다. 실제 사람 기록을 불러오지 않습니다.
@@ -100,3 +100,14 @@ while obs['budget_left'] > 0:
 - 구현 명세(한국어): https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html
 - 오류 수정 의미론: https://github.com/cyracaid/rl-oversight-dag/blob/main/experiments/SEMANTICS_AUDIT.md
 - 기존 공개 코드: https://github.com/cyracaid/rl-oversight-dag
+
+
+## 개정판 실행 및 데이터 읽기
+
+- `OversightEnv.from_seed(graph, seed=201, budget=16, particles=1024, belief_seed=17)`로 입자 필터를 켭니다. 기본값 `particles=0`은 빠른 평균장 근사입니다. `env.done`은 종료 상태이며 예산 소진 시 행동 마스크가 모두 False입니다.
+- `edge_probability[e]`는 `edge_index[:, e]`의 공개 전파 확률입니다. 실제로 오류가 전파됐는지는 숨깁니다. `topological_order`는 부모를 먼저 처리하는 노드 순서입니다. 입력 특징의 열 수는 이전과 같습니다.
+- `marginal`은 각 노드의 원천 오류 가능성과 그 오류가 여러 최종 결론에 미치는 영향을 결합합니다. 다른 부모가 이미 오류를 전달할 가능성이 높으면 해당 경로의 기여를 낮춥니다. 평균장 전파식의 국소 미분을 이용한 근사 순위이며, 여러 경로가 합쳐지는 DAG에서 정확한 개입 효과를 보장하지 않습니다. 모든 노드의 발견 확률이 같아서 순위 계산에서 공통 계수는 생략합니다.
+- 입자 필터는 신뢰도와 유형별 사전확률로 원천 오류를 표본 추출하고, 각 간선의 전파 여부를 입자 안에서 고정합니다. 검토 결과의 우도로 입자 가중치를 갱신하고, 발견 시 해당 원천 오류를 지운 뒤 하위 상태를 다시 계산합니다. 유효 입자 수가 절반 미만이면 체계적 재표집을 수행합니다. 관측에 맞는 입자가 하나도 없으면 그 회차의 남은 단계는 평균장으로 이어가며 `final_audit()["particle_fallback"]`에 기록합니다.
+- 학습 없이 동봉 가중치를 평가하려면 `python run_benchmark.py --families spike --checkpoints outputs/train_1/gnn_spike_observed.pt outputs/train_1/dqn_spike.pt --out outputs/check_seed1`을 실행합니다. 체크포인트를 주지 않으면 6개 비학습 정책을 평가합니다. `python compare_beliefs.py`는 같은 marginal 정책에서 신념 추정법만 바꿉니다.
+- `gain_vs_confidence`는 같은 사례에서 ‘신뢰도순 잔여 오류 − 해당 정책 잔여 오류’입니다. 양수일수록 개선입니다. `paired_lo/hi`는 사례 단위 2,000회 백분위 부트스트랩 95% 구간입니다. 훈련 시드 변동 및 다중비교 보정은 이 구간에 포함하지 않습니다. 승·무·패는 신뢰도순과의 사례별 비교입니다.
+- 평가 그래프 시드는 80000~80049, 에피소드 시드는 100000~100049입니다. real은 21노드 구조를 고정하고 오류·전파·검토 난수만 바꿉니다. 모델은 spike에서만 학습하고 평가했습니다. 가중치·에피소드별 학습 기록은 훈련 시드별 폴더에 있습니다.

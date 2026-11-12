@@ -17,16 +17,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--family', choices=['spike','modular','ba','er','real'], default='real')
     ap.add_argument('--seed', type=int, default=7)
-    ap.add_argument('--policy', choices=['random', 'confidence','structural','hub'], default='structural')
+    ap.add_argument('--policy', choices=['random', 'confidence','structural','hub','marginal'], default='structural')
     ap.add_argument('--budget', type=int, default=None)
     ap.add_argument('--out', type=Path, default=Path('outputs'))
+    ap.add_argument("--particles", type=int, default=0)
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     graph = generate_graph(args.family, seed=args.seed)
-    env = OversightEnv.from_seed(graph, args.seed+10_000, budget=args.budget)
+    env = OversightEnv.from_seed(graph, args.seed+10_000, budget=args.budget, particles=args.particles)
     obs = env.observation()
     rng = random.Random(args.seed+33)
-    done = env._done
+    done = env.done
     while not done:
         a = choose(obs, args.policy, rng)
         obs, _, done, _ = env.step(a)
@@ -41,6 +42,7 @@ def main():
         writer.writeheader()
         writer.writerows(audit['trace'])
     print('Review trace:', path)
+    print('Particle fallback:', audit['particle_fallback'])
     if graph.n <= 80:
         selected = {r['node'] for r in audit['trace']}
         fig, ax = plt.subplots(figsize=(21, 8) if graph.family == 'real' else (10, 8))

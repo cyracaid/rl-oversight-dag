@@ -27,8 +27,10 @@ def optimize(net,target,optimizer,replay,rng,batch_size):
         with torch.no_grad():
             if done: y=torch.tensor(float(r))
             else:
-                qs_next, mask_next=q_values(target,next_obs)
-                y=torch.tensor(float(r))+0.98*qs_next.masked_fill(~mask_next,-1e9).max()
+                online_next, mask_next=q_values(net,next_obs)
+                selected=online_next.masked_fill(~mask_next,-torch.inf).argmax()
+                target_next,_=q_values(target,next_obs)
+                y=torch.tensor(float(r))+target_next[selected]
         losses.append(F.smooth_l1_loss(pred,y))
     loss=torch.stack(losses).mean()
     optimizer.zero_grad();loss.backward();torch.nn.utils.clip_grad_norm_(net.parameters(),5.0)
@@ -44,6 +46,7 @@ def main():
     ap.add_argument('--eval-seeds',type=int,default=10)
     ap.add_argument('--out',type=Path,default=Path('outputs'))
     args=ap.parse_args()
+    if args.eval_seeds < 1 or args.episodes < 1: ap.error("episode counts must be positive")
     args.out.mkdir(exist_ok=True,parents=True)
     torch.set_num_threads(1)
     rng=random.Random(args.seed);np.random.seed(args.seed);torch.manual_seed(args.seed)
@@ -58,7 +61,7 @@ def main():
         graph=generate_graph(args.family,args.seed*1_000_000+ep)
         env=OversightEnv.from_seed(graph,seed=10_000+args.seed*1_000_000+ep,budget=budget)
         obs=env.observation()
-        done=env._done
+        done=env.done
         epsilon=max(.05,1.0-0.95*ep/max(1,args.episodes-1))
         while not done:
             if rng.random()<epsilon:
@@ -83,7 +86,7 @@ def main():
     with torch.no_grad():
         for s in range(1000,1000+args.eval_seeds):
             env=OversightEnv.from_seed(generate_graph(args.family,s),seed=50000+s,budget=budget)
-            obs=env.observation();done=env._done
+            obs=env.observation();done=env.done
             while not done:
                 qs,mask=q_values(net,obs)
                 a=int(qs.masked_fill(~mask,-1e9).argmax().item())

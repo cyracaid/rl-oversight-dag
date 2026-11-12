@@ -49,6 +49,10 @@ class DAG:
             raise ValueError("names length disagrees")
         if any(not 0.0 <= r <= 1.0 for r in self.rates):
             raise ValueError("invalid base error probability")
+        if not math.isfinite(self.lam) or self.lam < 0:
+            raise ValueError("lam must be finite and nonnegative")
+        if self.spike_probability is not None and not 0 <= self.spike_probability <= 1:
+            raise ValueError("invalid propagation probability")
         indeg = [0] * n
         children = [[] for _ in range(n)]
         for v, ps in enumerate(self.parents):
@@ -110,12 +114,12 @@ class DAG:
         return np.asarray([src, dst], dtype=np.int64).reshape(2, -1)
 
 
-def _make_random_types(n, k, rng, clustered=False):
-    if clustered:
+def _make_random_types(n, k, rng, clusters=None):
+    if clusters is not None:
         # Experimental assumption, not estimated from real records.
-        block = max(1, n // 10)
-        major = [rng.randrange(k) for _ in range(10)]
-        return tuple(major[min(9, i // block)] if rng.random() < 0.65
+        block = n // clusters
+        major = [rng.randrange(k) for _ in range(clusters)]
+        return tuple(major[i // block] if rng.random() < 0.65
                      else rng.randrange(k) for i in range(n))
     return tuple(rng.randrange(k) for _ in range(n))
 
@@ -140,7 +144,7 @@ def gen_spike(seed: int, n: int = 80, layers: int = 4) -> DAG:
 
 
 def gen_modular(seed: int, n: int = 500, clusters: int = 10) -> DAG:
-    if n < clusters * 2 or n % clusters != 0:
+    if clusters <= 0 or n < clusters * 2 or n % clusters != 0:
         raise ValueError("n must be divisible by clusters and at least 2*clusters")
     rng = random.Random(seed)
     per = n // clusters
@@ -155,7 +159,7 @@ def gen_modular(seed: int, n: int = 500, clusters: int = 10) -> DAG:
             if rng.random() < 0.5:
                 parents[v].append(rng.choice(interface))
     parents = [tuple(sorted(set(ps))) for ps in parents]
-    return DAG(tuple(parents), _make_random_types(n, 10, rng, clustered=True),
+    return DAG(tuple(parents), _make_random_types(n, 10, rng, clusters=clusters),
                scaled_rates(), "modular", lam=0.8)
 
 
@@ -215,6 +219,8 @@ def gen_real() -> DAG:
 
 
 def generate_graph(family: str, seed: int = 1, n: int | None = None) -> DAG:
+    if n is not None and n < 1:
+        raise ValueError("n must be positive")
     family = family.lower()
     if family == "spike":
         return gen_spike(seed, n=n or 80)
@@ -225,5 +231,7 @@ def generate_graph(family: str, seed: int = 1, n: int | None = None) -> DAG:
     if family == "er":
         return gen_er(seed, n=n or 500)
     if family == "real":
+        if n not in (None, 21):
+            raise ValueError("real has a fixed topology with 21 nodes")
         return gen_real()
     raise ValueError("family must be spike, modular, ba, er or real")

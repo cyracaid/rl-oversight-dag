@@ -49,6 +49,8 @@ def sample_episode(graph: DAG, seed: int, confidence_mode: str = "normal") -> Ep
             edge_probs[u, v] = p
             edge_coins[u, v] = rng.random() < p
     base = tuple(rng.random() < graph.rates[graph.types[i]] for i in range(graph.n))
+    # Draw before confidence so ablations preserve the reviewer for each node.
+    review_uniforms = tuple(rng.random() for _ in range(graph.n))
     conf = []
     for i in range(graph.n):
         if confidence_mode == "noise":
@@ -58,8 +60,6 @@ def sample_episode(graph: DAG, seed: int, confidence_mode: str = "normal") -> Ep
         else:
             mean = (-1.5 if base[i] else 1.5) - 0.4 * (graph.rates[graph.types[i]] - 0.15)
             conf.append(sigmoid(mean + rng.gauss(0, 1.2)))
-    # Strict common random numbers: reviewer outcomes depend on node, not review order.
-    review_uniforms = tuple(rng.random() for _ in range(graph.n))
     return EpisodeSnapshot(base, edge_coins, edge_probs, tuple(conf), review_uniforms, seed)
 
 
@@ -82,7 +82,7 @@ def initial_belief(graph: DAG, conf: Tuple[float, ...], confidence_mode: str = "
     probs = []
     for i, c in enumerate(conf):
         prior = float(graph.rates[graph.types[i]])
-        if confidence_mode == "noise":
+        if prior in (0.0, 1.0) or confidence_mode == "noise":
             probs.append(prior)
         elif confidence_mode == "oracle":
             probs.append(1.0 - c)
@@ -104,9 +104,14 @@ class OversightEnv:
     """
     def __init__(self, graph: DAG, snapshot: EpisodeSnapshot,
                  budget: int | None = None, p_catch: float = 0.9,
-                 confidence_mode: str = "normal"):
+                 confidence_mode: str = "normal", *, particles: int = 0, belief_seed: int = 0):
+        if not isinstance(particles, int) or particles < 0:
+            raise ValueError("particles must be a nonnegative integer")
+        self.particles, self.belief_seed = particles, belief_seed
         if budget is None:
             budget = 16 if graph.family == "spike" else 8 if graph.family == "real" else 50
+        if isinstance(budget, bool) or not isinstance(budget, (int, np.integer)):
+            raise ValueError("budget must be an integer")
         if budget < 0 or budget > graph.n:
             raise ValueError("budget must be between 0 and n")
         if not (0 <= p_catch <= 1):
@@ -116,13 +121,15 @@ class OversightEnv:
         self.graph, self.snapshot = graph, snapshot
         self.budget, self.p_catch = int(budget), float(p_catch)
         self.confidence_mode = confidence_mode
+        self._edges = graph.edge_index()
+        self._edge_prob = np.array([snapshot.edge_probs[u, v] for u,v in self._edges.T])
         self.reset()
 
     @classmethod
     def from_seed(cls, graph: DAG, seed: int, budget: int | None = None,
-                  p_catch: float = 0.9, confidence_mode: str = "normal"):
+                  p_catch: float = 0.9, confidence_mode: str = "normal", *, particles: int = 0, belief_seed: int = 0):
         return cls(graph, sample_episode(graph, seed, confidence_mode),
-                   budget, p_catch, confidence_mode)
+                   budget, p_catch, confidence_mode, particles=particles, belief_seed=belief_seed)
 
     def reset(self):
         self._base = list(self.snapshot.source_errors)
@@ -130,14 +137,27 @@ class OversightEnv:
         self._reviewed = [False] * self.graph.n
         self._flagged = [False] * self.graph.n
         self._belief_base = initial_belief(self.graph, self.snapshot.confidence, self.confidence_mode)
+        self._filter = None
+        self._filter_fallback = False
+        if self.particles:
+            from .belief import ParticleBelief
+            self._filter = ParticleBelief(self.graph, self._belief_base, self._edge_prob,
+                                          self.particles, self.belief_seed)
+            self._belief_base, self._particle_effective = self._filter.probabilities()
         self._budget_left = self.budget
         self._done = self.budget == 0
         self._trace = []
         self._initial_sink_errors = sum(self._effective[i] for i in self.graph.sinks)
         return self.observation()
 
+    @property
+    def done(self):
+        return self._done
+
     def _public_error_probabilities(self):
         """Forward mean-field proxy; not particle conditioning or hidden error."""
+        if self._filter is not None:
+            return self._particle_effective
         p = np.zeros(self.graph.n, dtype=np.float64)
         for i in self.graph.topo:
             clean_from_parents = 1.0
@@ -159,8 +179,10 @@ class OversightEnv:
         f[:, k + 6] = self._budget_left / max(1, self.budget)
         return {
             "features": f.copy(),
-            "mask": np.logical_not(self._reviewed),
-            "edge_index": self.graph.edge_index(),
+            "mask": np.logical_not(self._reviewed) & (not self.done),
+            "edge_index": self._edges.copy(),
+            "edge_probability": self._edge_prob.copy(),
+            "topological_order": np.array(self.graph.topo),
             "sink_ids": np.asarray(self.graph.sinks, dtype=np.int64),
             "budget_left": self._budget_left,
             "family": self.graph.family,
@@ -170,7 +192,7 @@ class OversightEnv:
     def step(self, action: int):
         if self._done:
             raise RuntimeError("episode is done; call reset()")
-        if not isinstance(action, (int, np.integer)) or not 0 <= action < self.graph.n:
+        if isinstance(action, (bool, np.bool_)) or not isinstance(action, (int, np.integer)) or not 0 <= action < self.graph.n:
             raise ValueError("action must be a valid node index")
         a = int(action)
         if self._reviewed[a]:
@@ -189,7 +211,15 @@ class OversightEnv:
             # A miss is weak evidence against a local source error. This is an
             # approximate belief update (ignores inherited-error correlations).
             q = self._belief_base[a]
-            self._belief_base[a] = (q * (1 - self.p_catch)) / max(1e-12, 1 - self.p_catch*q)
+            effective_risk = self._public_error_probabilities()[a]
+            self._belief_base[a] = min(1.0, q * (1 - self.p_catch) / max(1e-12, 1 - self.p_catch * effective_risk))
+        if self._filter is not None:
+            if self._filter.update(a, flagged, self.p_catch):
+                self._belief_base, self._particle_effective = self._filter.probabilities()
+            else:
+                # Continue with the local approximation above for this episode.
+                self._filter = None
+                self._filter_fallback = True
         self._budget_left -= 1
         self._done = self._budget_left == 0
         after = sum(self._effective[i] for i in self.graph.sinks)
@@ -209,7 +239,8 @@ class OversightEnv:
         """For evaluators after completion only; NEVER pass to a learned policy."""
         if not self._done:
             raise RuntimeError("final_audit is available only after episode completion")
-        return {"initial_sink_errors": self._initial_sink_errors,
+        return {"particle_fallback": self._filter_fallback,
+                "initial_sink_errors": self._initial_sink_errors,
                 "final_sink_errors": sum(self._effective[i] for i in self.graph.sinks),
                 "initial_base_errors": sum(self.snapshot.source_errors),
                 "remaining_base_errors": sum(self._base),
