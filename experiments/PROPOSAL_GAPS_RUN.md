@@ -56,6 +56,23 @@ and explicitly explain deviations. Reproduction remains pending until returned.
 Before using 2000–2199 as confirmation, freeze candidate, criteria and schedule in
 a separate protocol. A CLI seed change alone does not make a run confirmatory.
 
+## Frozen development analysis
+
+After the full run completes, apply `PROPOSAL_GAPS_ANALYSIS_PROTOCOL.md`:
+
+```bash
+python3 experiments/analyze_proposal_gaps.py runs/proposal-gaps-full-v1/results.json --out runs/proposal-gaps-full-v1/analysis.json
+```
+
+The analyzer refuses incomplete runs, missing cells, unexpected development seeds,
+invalid arrays and checkpoint hash mismatches. It uses 100,000 crossed-bootstrap
+draws with seed 20261112: eight primary contrasts with 99.375% intervals and ten
+secondary contrasts with 99.5% intervals. All cells and seed means remain visible.
+Output creation is exclusive; existing analysis files are never overwritten.
+Training source files remain unchanged. Historical source hashes are preserved;
+they are not compared against an evolved checkout. Training curves remain in the
+input JSON, whose digest is included in the analysis output.
+
 ## Scope and current status
 
 Gain inputs, learned critic, n-step targets, real message-passing confidence
