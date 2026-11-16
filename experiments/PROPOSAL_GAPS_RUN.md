@@ -1,0 +1,135 @@
+# Run proposal extensions
+
+From repository root, use Python with NumPy and PyTorch installed. Existing
+boundary experiments use the same dependencies. Record exact installed versions
+from `results.json` rather than assuming environments match.
+
+## Quick verification
+
+```bash
+python3 -m unittest discover -s experiments -p test_proposal_gaps.py -v
+python3 -m unittest discover -s experiments -p test_boundary.py -v
+python3 experiments/test_semantics.py
+python3 experiments/proposal_gaps.py --out runs/proposal-gaps-smoke-local --episodes 2 --seeds 1 --graphs 3 --bootstrap 20 --confidence normal noise oracle
+```
+
+The smoke runs all 24 combinations. Output-directory reuse is refused. Small
+runs are explicitly labelled `smoke`; their CIs are debugging output only.
+
+## Full development run (user executed)
+
+```bash
+python3 experiments/proposal_gaps.py --out runs/proposal-gaps-full-v1 --episodes 20000 --seeds 1 2 3 4 5 --graphs 200 --eval-start 1000 --bootstrap 10000 --confidence normal noise oracle
+```
+
+This is 24 methods/conditions ×5 seeds ×20,000 episodes: 2.4 million training
+episodes, plus evaluation. It runs sequentially with one PyTorch thread. No
+runtime estimate is established. For smaller separate jobs select one confidence,
+feature or method and a unique output directory; preserve all requested cells.
+No resume is implemented. Interrupted jobs retain completed checkpoints and an
+`in_progress` JSON; they must not be treated as complete results.
+
+`ac` uses a learned critic with full-horizon Monte Carlo targets. `nstep3` and
+`nstep5` use a learned critic with 3/5-step bootstrap. `reinforce` uses an EMA
+scalar baseline. All use gamma=1, terminal-only reward, identical masked GNN,
+temperature schedule and gradient clip. Critic shares no policy parameters.
+These are fresh baselines, not reproductions of legacy numerical tables.
+
+Saved `results.json` contains config, source hashes, environment versions, every
+training-episode error, checkpoint hashes, seed-by-graph outcomes and posterior
+degeneracy counts. `results.md` is generated from the saved JSON. Intervals compare
+each learned policy against belief greedy using crossed seed/graph bootstrap.
+They are pointwise intervals, not multiplicity-corrected claims across the factorial.
+Drift arrays are indexed by chronological position; bootstrap summaries describe
+this fixed schedule, not uncertainty over possible drift processes. No automatic
+model selection, success declaration or confirmatory run is performed.
+
+## Independent reproduction
+
+Teammate: clone repository into a new directory, checkout the published commit,
+install dependencies in a fresh environment, run tests and the identical full
+command with a fresh output directory. Return commit, command, Python/PyTorch/NumPy
+versions, output/checkpoint SHA256 values, exit status and discrepancy notes.
+Different hardware/versions may not reproduce bitwise; compare paired raw arrays
+and explicitly explain deviations. Reproduction remains pending until returned.
+
+Before using 2000–2199 as confirmation, freeze candidate, criteria and schedule in
+a separate protocol. A CLI seed change alone does not make a run confirmatory.
+
+## Frozen development analysis
+
+After the full run completes, apply `PROPOSAL_GAPS_ANALYSIS_PROTOCOL.md`:
+
+```bash
+python3 experiments/analyze_proposal_gaps.py runs/proposal-gaps-full-v1/results.json --out runs/proposal-gaps-full-v1/analysis.json
+```
+
+The analyzer refuses incomplete runs, missing cells, unexpected development seeds,
+invalid arrays and checkpoint hash mismatches. It uses 100,000 crossed-bootstrap
+draws with seed 20261112: eight primary contrasts with 99.375% intervals and ten
+secondary contrasts with 99.5% intervals. All cells and seed means remain visible.
+Output creation is exclusive; existing analysis files are never overwritten.
+Training source files remain unchanged. Historical source hashes are preserved;
+they are not compared against an evolved checkout. Training curves remain in the
+input JSON, whose digest is included in the analysis output.
+
+## Scope and current status
+
+Gain inputs, learned critic, n-step targets, real message-passing confidence
+conditions and chronological true-error drift have implementation and smoke
+coverage. Full-v1 development training and frozen analysis are complete, as is
+checkpoint replay diagnosis. Independent confirmation and teammate reproduction
+remain pending. SciForge production integration is not implemented by this work.
+Existing API 502 diagnostics are a separate workstream.
+
+## Completed results and action diagnosis
+
+- [Full-v1 findings](PROPOSAL_GAPS_FULL_V1_FINDINGS.md): all eight primary learned candidates lose to belief greedy.
+- [Action/posterior diagnosis](PROPOSAL_GAPS_DIAGNOSIS_V1_FINDINGS.md): all selected conditions and seeds; noise advantage is exploratory.
+- [Artifact receipt](PROPOSAL_GAPS_ARTIFACT_RECEIPT.md): original inputs, checkpoints and diagnostic output hashes.
+- [Next experiment plan](PROPOSAL_GAPS_NEXT_EXPERIMENT.md): proposed development-only controls; not yet implemented or executed.
+
+Replay requires the local full-v1 artifacts, including checkpoints. They are not
+bundled in Git. Obtain them from the run owner and verify against the receipt.
+
+```bash
+python3 -u experiments/diagnose_proposal_gaps.py \
+  --run runs/proposal-gaps-full-v1 \
+  --out runs/proposal-gaps-diagnosis-v1
+```
+
+The output directory must not exist. A quick replay can use `--graphs 1` and a
+different output directory; it is only a smoke check. Full replay covers 13,200
+episodes and 211,200 steps, checks original outcomes and degeneracy counts, and
+never trains. The original source hashes are checked before replay; keep those
+source files unchanged or use the original training checkout with this separate
+diagnostic script. The hashes do not establish clean-clone reproduction.
+
+`summary.csv` preserves condition/policy/seed and degeneracy subsets;
+`episodes.csv` preserves graph-level outcomes; `steps.jsonl.gz` preserves stepwise
+actions and observations; `manifest.json` records provenance and completion.
+Raw training data, checkpoints and replay traces stay local. Reports and the
+lightweight synthetic aggregate/hash receipt are the shareable repository record.
+
+## Type-prior control comparison
+
+Implementation and smoke verification are complete; the full comparison is pending.
+The descriptive analysis rules are in `PROPOSAL_GAPS_NEXT_EXPERIMENT.md`.
+
+```bash
+python3 -m unittest discover -s experiments -p test_type_prior_controls.py -v
+python3 -u experiments/compare_type_priors.py \
+  --run runs/proposal-gaps-full-v1 \
+  --out runs/proposal-gaps-type-priors-v1
+```
+
+No training. Full run: 15,600 episodes, 249,600 steps, six conditions and every
+selected learned seed. The two new baselines ignore confidence. Ranking uses no
+posterior, so its degeneracy is null. Nominal greedy and learned checkpoint
+outcomes/degeneracies must reproduce the original arrays. All original source
+and checkpoint hashes are validated. Output creation is exclusive.
+`results.md` and `summary.csv` report per-seed and equal-weight five-seed means
+and graph-paired differences; `episodes.json` and `steps.jsonl.gz` retain raw
+synthetic results. `manifest.json` records hashes and completion. No significance
+tests or equivalence claims are produced. Use `--graphs 1` with a separate output
+directory for smoke verification; drift still uses the original denominator 199.
