@@ -76,7 +76,37 @@ input JSON, whose digest is included in the analysis output.
 ## Scope and current status
 
 Gain inputs, learned critic, n-step targets, real message-passing confidence
-conditions and chronological true-error drift now have implementation and smoke
-coverage. Full scientific runs, independent confirmation and teammate reproduction
+conditions and chronological true-error drift have implementation and smoke
+coverage. Full-v1 development training and frozen analysis are complete, as is
+checkpoint replay diagnosis. Independent confirmation and teammate reproduction
 remain pending. SciForge production integration is not implemented by this work.
 Existing API 502 diagnostics are a separate workstream.
+
+## Completed results and action diagnosis
+
+- [Full-v1 findings](PROPOSAL_GAPS_FULL_V1_FINDINGS.md): all eight primary learned candidates lose to belief greedy.
+- [Action/posterior diagnosis](PROPOSAL_GAPS_DIAGNOSIS_V1_FINDINGS.md): all selected conditions and seeds; noise advantage is exploratory.
+- [Artifact receipt](PROPOSAL_GAPS_ARTIFACT_RECEIPT.md): original inputs, checkpoints and diagnostic output hashes.
+- [Next experiment plan](PROPOSAL_GAPS_NEXT_EXPERIMENT.md): proposed development-only controls; not yet implemented or executed.
+
+Replay requires the local full-v1 artifacts, including checkpoints. They are not
+bundled in Git. Obtain them from the run owner and verify against the receipt.
+
+```bash
+python3 -u experiments/diagnose_proposal_gaps.py \
+  --run runs/proposal-gaps-full-v1 \
+  --out runs/proposal-gaps-diagnosis-v1
+```
+
+The output directory must not exist. A quick replay can use `--graphs 1` and a
+different output directory; it is only a smoke check. Full replay covers 13,200
+episodes and 211,200 steps, checks original outcomes and degeneracy counts, and
+never trains. The original source hashes are checked before replay; keep those
+source files unchanged or use the original training checkout with this separate
+diagnostic script. The hashes do not establish clean-clone reproduction.
+
+`summary.csv` preserves condition/policy/seed and degeneracy subsets;
+`episodes.csv` preserves graph-level outcomes; `steps.jsonl.gz` preserves stepwise
+actions and observations; `manifest.json` records provenance and completion.
+Raw training data, checkpoints and replay traces stay local. Reports and the
+lightweight synthetic aggregate/hash receipt are the shareable repository record.
