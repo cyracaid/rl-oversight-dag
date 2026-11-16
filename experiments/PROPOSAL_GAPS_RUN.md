@@ -110,3 +110,26 @@ diagnostic script. The hashes do not establish clean-clone reproduction.
 actions and observations; `manifest.json` records provenance and completion.
 Raw training data, checkpoints and replay traces stay local. Reports and the
 lightweight synthetic aggregate/hash receipt are the shareable repository record.
+
+## Type-prior control comparison
+
+Implementation and smoke verification are complete; the full comparison is pending.
+The descriptive analysis rules are in `PROPOSAL_GAPS_NEXT_EXPERIMENT.md`.
+
+```bash
+python3 -m unittest discover -s experiments -p test_type_prior_controls.py -v
+python3 -u experiments/compare_type_priors.py \
+  --run runs/proposal-gaps-full-v1 \
+  --out runs/proposal-gaps-type-priors-v1
+```
+
+No training. Full run: 15,600 episodes, 249,600 steps, six conditions and every
+selected learned seed. The two new baselines ignore confidence. Ranking uses no
+posterior, so its degeneracy is null. Nominal greedy and learned checkpoint
+outcomes/degeneracies must reproduce the original arrays. All original source
+and checkpoint hashes are validated. Output creation is exclusive.
+`results.md` and `summary.csv` report per-seed and equal-weight five-seed means
+and graph-paired differences; `episodes.json` and `steps.jsonl.gz` retain raw
+synthetic results. `manifest.json` records hashes and completion. No significance
+tests or equivalence claims are produced. Use `--graphs 1` with a separate output
+directory for smoke verification; drift still uses the original denominator 199.

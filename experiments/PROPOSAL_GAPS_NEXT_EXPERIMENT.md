@@ -1,6 +1,6 @@
 # Proposed next development comparison
 
-Status: plan only; no new baseline implementation, training, or evaluation executed.
+Status: implementation authorized; full comparison not yet executed.
 Written after inspecting full-v1 and replay diagnosis. This is a post-result
 development study, not confirmation or preregistration.
 
@@ -37,10 +37,21 @@ frequencies, realized terminal benefit and unsupported-positive counts, normaliz
 per episode/review. Distinguish a single baseline trajectory from five learned
 seed trajectories. Never interpret policy-dependent degeneracy subsets causally.
 
-Before execution, fix the analysis implementation and any interval/multiplicity
-rules in this document. Current plan does not define an inferential success
-threshold; results must remain descriptive until that is specified. Do not change
-the full-v1 frozen analysis to accommodate new controls.
+Analysis fixed before implementation and execution: descriptive means only, no
+confidence intervals, significance tests, equivalence margin or success threshold.
+For each condition and each learned seed report the graph-paired mean error
+difference against each of the three baselines. Also report an equal-weight
+five-seed aggregate, clearly distinguished from individual seeds. Baselines have
+one trajectory per graph and are not duplicated to manufacture sample size.
+Smoke runs use the first N original graphs and retain drift odds index/199.
+Do not change the full-v1 frozen analysis to accommodate new controls.
+
+Type-prior belief uses the original graph-specific particle seed (graph+10000),
+particle count and independent type rates even under drift (no true odds access).
+Simple type ranking has no posterior: degeneracy fields are null, not zero.
+Save stepwise records for all policies and preserve truth only as diagnostic
+fields. Source/checkpoint mismatch or reference replay mismatch must abort; never
+mark partially completed output as completed. Existing output reuse is refused.
 
 If inexpensive controls match or improve learned performance, describe the noise
 finding as consistent with a type-prior/model-specification explanation. A remaining
