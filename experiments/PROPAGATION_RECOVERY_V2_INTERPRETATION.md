@@ -68,7 +68,7 @@ Nothing in this run isolates it.
 **3. The robust-label criterion is noise-sensitive as pre-registered.** "At most 5% wrong among labelled
 replicates" is evaluated on few replicates (for example 3 of 50 in `random` family 3) and a correct 95% interval
 misses the truth about 5% of the time, so with 50 replicates the observed rate exceeds 5% about half the time by
-chance alone (`blast`: 0.08, 0.08, 0.07 with coverage 0.92–0.94). Part of the 7 failures is Monte Carlo noise and
+chance alone (`blast` E3b: 0.08, 0.08, 0.07 with coverage 0.92 in each family). Part of the 7 failures is Monte Carlo noise and
 part is real (`confidence`). The criterion should have had a noise allowance; it is not changed here.
 
 **4. Interval width is a poor calibration signal even under random review.** Estimates closer to the boundary have
