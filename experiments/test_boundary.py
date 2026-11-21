@@ -45,6 +45,33 @@ class BoundaryTests(unittest.TestCase):
         self.assertEqual(float(kl.detach()), 0.)
         self.assertTrue(torch.isfinite(scores.grad).all())
 
+    def test_distill_cli_rejects_unsafe_arguments_and_overwrite(self):
+        import subprocess, sys
+        script = str(Path(__file__).with_name("rl_distill.py"))
+        def run(*args):
+            return subprocess.run([sys.executable, script, *args], capture_output=True, text=True)
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertNotEqual(run("--smoke").returncode, 0)  # --out-dir required
+            self.assertNotEqual(run("--smoke", "--out", "x.json", "--out-dir", f"{tmp}/a").returncode, 0)
+            self.assertNotEqual(run("--heldout", "999", "--out-dir", f"{tmp}/b").returncode, 0)
+            self.assertNotEqual(run("--seeds", "1", "1", "--out-dir", f"{tmp}/c").returncode, 0)
+            Path(tmp, "existing").mkdir()
+            self.assertNotEqual(run("--smoke", "--out-dir", f"{tmp}/existing").returncode, 0)
+
+    def test_distill_smoke_is_deterministic_and_writes_checkpoints(self):
+        import subprocess, sys
+        script = str(Path(__file__).with_name("rl_distill.py"))
+        outs = []
+        with tempfile.TemporaryDirectory() as tmp:
+            for name in ("a", "b"):
+                out = Path(tmp, name)
+                done = subprocess.run([sys.executable, script, "--smoke", "--out-dir", str(out)],
+                                      capture_output=True, text=True)
+                self.assertEqual(done.returncode, 0, done.stderr)
+                self.assertTrue((out / "bc_1.pt").exists() and (out / "bc_ft_1.pt").exists())
+                outs.append(json.loads((out / "results.json").read_text())["conditions"])
+        self.assertEqual(outs[0], outs[1])
+
     def test_two_step_known_sink_values(self):
         belief = ParticleBelief([[], [], []], [0, 1, 2], {0, 1, 2}, {}, [1., 1., 0.], 1., 128, 1)
         self.assertEqual(B.two_step_action(belief, [True, True, True], 2), 0)
