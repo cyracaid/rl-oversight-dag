@@ -119,3 +119,47 @@ therefore not an independent replication. About 400 audited roots per run instea
 - **Reading for design.** In this synthetic world about 400 audited roots per 800 graphs (2 of the 16 reviews per graph) kept every pre-registered property while accepting fewer benign
   distortions. Whether that holds for a real chain depends on its error rate, its audit size and its posterior quality.
   The 0.5 audit-fraction run (more audit) has not been run.
+
+## Exploratory run: audit fraction 0.5 (`runs/propagation-recovery-v5-audit05/`) and the audit-size curve
+
+Same status and caveats as the 0.125 run: exploratory, provenance matches the current sources (run commit `ba72a39`), same
+seed and worlds as the primary run (not independent), about 1,600 audited roots (8 of the 16 reviews per graph).
+
+- **The gate code reports PASSED.** E4 under `cal`: |bias| ≤ 0.004, coverage ≥ 0.93; the check passes a correct posterior in
+  100% of replicates; the same two harmful modes (`shift+1.5` 0.070, `scale0.5` 0.051) are refused (0.00–0.01).
+- **More audit does not make the check stricter; it makes it sharper.** The mean residual's spread falls to about 0.0059, so
+  the acceptance region approaches the tolerance itself (|mean residual| ≤ 0.04) and mild distortions inside the tolerance
+  are accepted more often.
+
+Pass rate of the calibration check (random / confidence / blast) by audit size:
+
+| mode | ~400 roots (fraction 0.125) | ~800 (0.25, primary) | ~1,600 (0.5) |
+|---|---|---|---|
+| cal | 0.95 / 0.99 / 0.98 | 1.00 / 1.00 / 1.00 | 1.00 / 1.00 / 1.00 |
+| shift+1.5 (harmful) | 0.00 / 0.00 / 0.00 | 0.00 / 0.00 / 0.00 | 0.00 / 0.00 / 0.00 |
+| scale0.5 (harmful) | 0.01 / 0.01 / 0.01 | 0.00 / 0.00 / 0.01 | 0.01 / 0.00 / 0.00 |
+| type+1.5 | 0.04 / 0.02 / 0.05 | 0.03 / 0.03 / 0.06 | 0.07 / 0.05 / 0.05 |
+| shift-1.5 | 0.06 / 0.05 / 0.03 | 0.07 / 0.06 / 0.03 | 0.05 / 0.06 / 0.02 |
+| shift+0.8 | 0.17 / 0.18 / 0.25 | 0.29 / 0.30 / 0.35 | 0.54 / 0.54 / 0.56 |
+| shift-0.8 | 0.47 / 0.45 / 0.45 | 0.65 / 0.73 / 0.67 | 0.84 / 0.89 / 0.91 |
+| scale2 | 0.84 / 0.82 / 0.79 | 0.98 / 0.97 / 0.99 | 1.00 / 1.00 / 1.00 |
+| noise1 | 0.90 / 0.94 / 0.96 | 1.00 / 1.00 / 0.99 | 1.00 / 1.00 / 1.00 |
+
+E4 under `cal` across the three audit sizes: |bias| ≤ 0.003 / 0.003 / 0.004; minimum coverage 0.91 / 0.92 / 0.93; minimum
+mean usable events per cell 119 / 120 / 115; minimum label rate 0.87 / 0.92 / 0.85.
+
+What the curve shows, for design:
+
+1. **Harmful modes are refused at every audit size tested** (0.00–0.01), and a correct posterior is accepted at 800 and 1,600
+   roots; only the smallest audit costs a few percent false refusal.
+2. **The audit size controls how sharply the tolerance acts.** With a small audit the check also refuses mild distortions
+   (conservative); with a large audit it accepts distortions that stay within 0.04. Because accepted mild shifts lowered
+   interval coverage (limit 1 above), a larger audit does **not** protect coverage better; only a tighter tolerance, or
+   intervals that carry the tolerated calibration uncertainty, does.
+3. **Audit and policy reviews compete for the same budget.** The mean number of correction events shrinks as the audit grows
+   under the ranked policies (confidence 5,897 → 5,722 → 5,095; blast 3,379 → 3,113 → 2,564), and the lowest label rates
+   (0.87 at 400 roots, 0.85 at 1,600 roots) show both ends of the trade-off: too little audit refuses more correct
+   posteriors, too much leaves fewer usable events. The best audit share in this world is therefore in the middle of the
+   range tested; this was not optimised and may differ for a real chain.
+4. The comparison uses one seed and one world set, so differences of a few points between audit sizes are not independent
+   evidence; the direction of the trends is what is reported.
