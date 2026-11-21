@@ -1,0 +1,81 @@
+[
+  {
+    "probe": "baseline",
+    "endpoint": "/responses",
+    "model": "gpt-6.1-sol",
+    "actor_header_present": true,
+    "payload": {
+      "model": "gpt-6.1-sol",
+      "input": "Reply with ok.",
+      "max_output_tokens": 64
+    },
+    "status": 502,
+    "error_type": "upstream_error",
+    "known_upstream_forbidden": true,
+    "has_generated_text": false,
+    "seconds": 2.201487374957651
+  },
+  {
+    "probe": "omit_actor",
+    "endpoint": "/responses",
+    "model": "gpt-6.1-sol",
+    "actor_header_present": false,
+    "payload": {
+      "model": "gpt-6.1-sol",
+      "input": "Reply with ok.",
+      "max_output_tokens": 64
+    },
+    "status": 502,
+    "error_type": "upstream_error",
+    "known_upstream_forbidden": true,
+    "has_generated_text": false,
+    "seconds": 2.1613876670598984
+  },
+  {
+    "probe": "structured_input",
+    "endpoint": "/responses",
+    "model": "gpt-6.1-sol",
+    "actor_header_present": true,
+    "payload": {
+      "model": "gpt-6.1-sol",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "Reply with ok."
+            }
+          ]
+        }
+      ],
+      "max_output_tokens": 64
+    },
+    "status": 502,
+    "error_type": "upstream_error",
+    "known_upstream_forbidden": true,
+    "has_generated_text": false,
+    "seconds": 2.149877540767193
+  },
+  {
+    "probe": "chat_endpoint_schema",
+    "endpoint": "/chat/completions",
+    "model": "gpt-6.1-sol",
+    "actor_header_present": true,
+    "payload": {
+      "model": "gpt-6.1-sol",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Reply with ok."
+        }
+      ],
+      "max_completion_tokens": 64
+    },
+    "status": 502,
+    "error_type": "upstream_error",
+    "known_upstream_forbidden": true,
+    "has_generated_text": false,
+    "seconds": 2.124675333034247
+  }
+]
