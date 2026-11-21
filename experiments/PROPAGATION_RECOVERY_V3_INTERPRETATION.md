@@ -1,10 +1,11 @@
-# Propagation recovery v3: primary run results and verdict
+# Propagation recovery v3: results and verdict
 
 2026-11-21. Run by the user; this note only reads the saved output (`runs/propagation-recovery-v3/`).
 No rerun, no change to the pre-registered hypotheses or gate (`PROPAGATION_RECOVERY_V3_PREREG.md`).
-**The negative-control run (`--audit-order after --attest-frame all_eligible`) has not been run yet.** The primary
-gate already failed, so v3 as a whole does not pass whatever the negative control shows; its result is still needed
-to know whether the label rule refuses a mislabelled flawed audit.
+Two runs: the primary run (`runs/propagation-recovery-v3/`) and the negative control
+(`runs/propagation-recovery-v3-negcontrol/`, `--audit-order after --attest-frame all_eligible`), both read here with
+provenance matching the current sources (run commit `4c644c1` for the primary, `c40bbe2` for the negative control).
+**Overall verdict: v3 not passed** (the primary gate failed); **the negative control passed.**
 
 ## Integrity
 
@@ -29,7 +30,7 @@ families 2 and 3 also fail the label wrong-rate bound.
 |---|---|
 | V3-H1 audit-root b̂ in [0.08, 0.13] under all policies | **Supported**: 0.105 (random), 0.102 (confidence), 0.103 (blast); v2 had 0.017 under confidence |
 | V3-H2 primary gate | **Not passed** (confidence cells) |
-| V3-H3 negative control | **Not run yet** |
+| V3-H3 negative control: flawed audit mislabelled as sound is refused under `confidence` (calibrated rate ≤ 0.10) | **Supported**: calibrated rate 0.00 in all three families (see below) |
 | V3-H4 hidden child base-error rate < 0.09 under `confidence`; oracle `Eo` \|bias\| ≤ 0.02 | **Supported**: children's hidden base rate 0.064 / 0.063 / 0.063 under `confidence` (0.098–0.105 under random and blast; population 0.104); `Eo` bias +0.001, +0.000, −0.001 |
 | V3-H5 E4 \|bias\| ≤ 0.05 and coverage ≥ 0.90 under all policies | **Not fully met by the literal criterion**: bias within 0.003 everywhere and coverage 0.92–0.98 except `random` family 3 at **0.89** |
 
@@ -51,6 +52,17 @@ families 2 and 3 also fail the label wrong-rate bound.
    (changed / Σ(1 − child posterior), sandwich interval) is unbiased in all nine cells (|bias| ≤ 0.003) with
    coverage 0.92–0.98 apart from one cell at 0.89 (`random` family 3). This is exploratory: it presupposes a
    calibrated node posterior, which a real chain does not have.
+
+## Negative control (separate run): passed
+
+With the audit drawn after the policy (the v2 flaw) but recorded as drawn from all eligible nodes, the frame check is
+blind by construction and only the flag-rate check can catch it. Under `confidence` the audit-root b̂ is 0.017 (true
+0.104) and E3b is labelled calibrated in **0.00** of replicates in all three families (E3b bias −0.015, −0.028,
+−0.041; coverage 0.81, 0.70, 0.35). Under `random` and `blast` the same flawed procedure is harmless (audit b̂ 0.107
+and 0.097) and the label is given (0.95–1.00) with Wilson upper bound of the wrong rate at most 0.14, which is the
+desired behaviour: the rule refuses when the audit is biased and accepts when it is not. This shows the two-sided
+flag-rate check works as a backstop when the recorded frame cannot be trusted. It does not address the second
+selection effect described below.
 
 ## What went wrong
 
@@ -85,8 +97,7 @@ calibrated. All protocol idealisations still apply; the sensitivity runs were no
 
 ## Next
 
-1. Run the negative control (command in `PROPAGATION_RECOVERY_V3_PREREG.md`) to complete the v3 record.
-2. A v4 protocol, written and frozen before running: gate an estimator that conditions on the logged selection
+1. A v4 protocol, written and frozen before running: gate an estimator that conditions on the logged selection
    covariate (E4-type) together with a posterior-calibration check from the random audit and a covariate-balance
    label rule; add a sensitivity run with a deliberately miscalibrated posterior. v1, v2 and v3 results stay as they
    are.
