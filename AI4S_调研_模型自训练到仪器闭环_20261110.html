@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>AI4S 调研：从自动训练科学模型到真实仪器闭环（2026-11）</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>:root{--ink:#1b1f24;--muted:#5b6570;--line:#e3e7ec;--accent:#0b5cad;--bg:#ffffff;}
+*{box-sizing:border-box}
+html{background:#f1f3f6}
+body{margin:0;background:#f1f3f6;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  line-height:1.8;font-size:16px;-webkit-font-smoothing:antialiased;}
+main{max-width:920px;margin:0 auto;background:var(--bg);padding:56px 64px 84px;
+  box-shadow:0 1px 3px rgba(16,24,40,.06);}
+h1{font-size:30px;line-height:1.32;margin:0 0 6px;letter-spacing:-.01em}
+h2{font-size:21px;margin:56px 0 14px;padding-top:22px;border-top:1px solid var(--line)}
+h3{font-size:17.5px;margin:30px 0 10px;color:#24303c}
+p{margin:10px 0}
+blockquote{margin:20px 0;padding:14px 18px;background:#f3f7fc;border-left:4px solid var(--accent);color:#23384f;border-radius:0 6px 6px 0}
+blockquote p{margin:8px 0}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;table-layout:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left;word-break:break-word}
+th:first-child,td:first-child{min-width:4.5em}
+th{background:#f7f9fb;font-weight:600}
+tr:nth-child(even) td{background:#fbfcfd}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;background:#f2f4f7;padding:1px 5px;border-radius:4px}
+pre{background:#f6f8fa;border:1px solid var(--line);border-radius:6px;padding:14px;overflow:auto;font-size:13px;line-height:1.55}
+pre code{background:none;padding:0}
+hr{display:none}
+a{color:var(--accent);text-decoration:none;word-break:break-all}
+a:hover{text-decoration:underline}
+ul,ol{padding-left:24px}
+li{margin:4px 0}
+.meta{color:var(--muted);font-size:13.5px;margin:0 0 28px}
+@media (max-width:760px){main{padding:30px 20px 60px;box-shadow:none}body{font-size:15.5px}table{font-size:13px}}
+@media print{html,body{background:#fff}main{max-width:none;padding:0;box-shadow:none}h2{page-break-after:avoid}tr{page-break-inside:avoid}}
+</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<main>
+<h1 id="ai4s-调研从自动训练科学模型到真实仪器闭环">AI4S 调研：从自动训练科学模型到真实仪器闭环</h1>
+<p class="meta">2026-11-10 · 调研简报 · 可直接转发 · 证据分级见第 9 节</p>
+<blockquote>
+<p><strong>一句话结论</strong></p>
+<p>2026 年这条链路第一次出现「三段都有公开证据」的局面：上海 AI Lab 的<strong>书生·端砚</strong>把「算—证—验」 做成平台并接上大科学装置；腾讯 <strong>Hyra 2.0</strong> 让 agent 从零训练出两个蛋白模型；DeepMind <strong>Co-Scientist</strong> 与 FutureHouse <strong>Kosmos</strong> 在 Nature 给出多智能体做研究的可复核结果；<strong>Lila / Periodic</strong> 把「机器人实验室 + 模型」做成能收费的 neolab。</p>
+<p>但「自动训练模型」仍集中在少数团队；「仪器闭环」的真正瓶颈是<strong>接口标准、失败回流、可信度</strong>， 不是模型能力。</p>
+</blockquote>
+<hr />
+<h2 id="0-可转发摘要约-500-字">0. 可转发摘要（约 500 字）</h2>
+<p><strong>国内三条路线已经分化。</strong></p>
+<ol type="1">
+<li><strong>平台派（上海 AI Lab 书生·端砚）</strong>：2026-07 发布、09-13 升级，提出「算、证、验」三合一。 模型负责推理与假设，<strong>Science Harness</strong> 负责研究状态保持、跨轮上下文、异构资源编排与重规划； <strong>可信科研证据链</strong>把文献/数据/代码/工具调用/计算结果/实验记录串起来，配一个<strong>七维评审 agent</strong> （需求完成度、正确性、证据与来源、可复现性、产物质量、工具执行、历史审查）；再往下接 <strong>分布式自主实验网络</strong>，连同步辐射光源、散裂中子源、原子制造装置与中试平台，已在蛋白、新材料 完成干湿闭环。</li>
+<li><strong>模型自举派（腾讯混元 Hyra 2.0）</strong>：三层 agent（Overall / Mission / Worker），任务持久化、 结论必须带代码与日志、必要时交独立 agent 复核、经验沉淀为 Skill。它从零训练了 HyInv（196 万参数， 逆折叠，比 ProteinMPNN 快约 57×）、HyPLM-Flash（6.5 亿参数、7260 亿 token），并参与下一代混元 模型的预训练与推理优化。</li>
+<li><strong>机器人实验室派（中科大「小来/小临」、晶泰 XtalPi、上交 AutoDNA）</strong>：小来用 6 周从 376 万种 配方里找到火星制氧催化剂最优解；晶泰开放 80+ 科学技能并让智能体调度机器人实验；AutoDNA 用中央规划 + 六类专门 agent 调度 20 多类仪器、累计 11,000+ 步，单步产率 97.8%。</li>
+</ol>
+<p><strong>国外从「助手」转向「闭环」。</strong> Nature 2026-05 同期刊出 Co-Scientist 与 Robin（同源团队后续产品为 Kosmos）：前者在 白血病药物、肝纤维化靶点、耐药机制上给出可实验验证的假设；后者每次运行最多 12 小时、执行约 4.2 万行代码、读 1,500 篇论文，报告陈述 79.4% 经独立科学家判定准确。Lila Sciences 用闭环找到 6 族钯基氧化物催化剂（2,942 种配方，最耐久候选 1,000 小时），Periodic Labs 以 3 亿美元种子轮、 70 亿美元估值谈判押注「AI 科学家 + 机器人实验室」。英国 ARIA 从 245 份申请里资助 12 个项目， 每个约 50 万英镑、9 个月，要求证明「能做出新发现」。</p>
+<p><strong>三个判断。</strong> ① 竞争焦点从「模型会不会想」转向「<strong>研究状态能不能不丢、证据能不能核</strong>」； ② 「自动训练模型」还只是少数团队的演示，离通用能力很远；③ 真实仪器闭环的瓶颈是<strong>设备接口、 失败数据回流、以及「证据不足」的判定</strong>——这恰好是 SciForge 这类「可核验编排层」的机会。</p>
+<hr />
+<h2 id="1-口径与方法">1. 口径与方法</h2>
+<ul>
+<li><strong>时间窗</strong>：以 2025-11 至 2026-11 的公开材料为主；更早的只作为背景（会标年份）。</li>
+<li><strong>入选标准</strong>：必须至少覆盖链条中的两段（见第 2 节），且能查到公开证据（论文/官方发布/权威媒体）。</li>
+<li><strong>证据分级</strong>（全文统一）：
+<ul>
+<li><strong>A 同行评审</strong>：Nature / Science / 正式期刊；</li>
+<li><strong>B 预印本</strong>：arXiv / medRxiv，未经同行评审；</li>
+<li><strong>C 官方发布</strong>：机构官网、官方博客、官方发布会；</li>
+<li><strong>D 媒体报道</strong>：权威媒体转述，数字按「转述」处理。</li>
+</ul></li>
+<li><strong>没有读到的</strong>：Hyra 技术报告原文、AutoDNA 的 Nature 全文、Co-Scientist 与 Kosmos 的 Nature 全文 （只读了摘要级新闻稿与二手解读）。第 9 节逐条标注。</li>
+</ul>
+<hr />
+<h2 id="2-把ai4s拆成五段后面所有系统都按这个坐标系放">2. 把「AI4S」拆成五段（后面所有系统都按这个坐标系放）</h2>
+<pre><code>S0 问题定义 ──► S1 模型自举 ──► S2 计算验证 ──► S3 仪器闭环 ──► S4 评估/治理
+   人给目标       agent 训练/改进     仿真/结构/docking      机器人/仪器执行      可信度/安全/复现
+                 领域模型            性质预测              真实数据回流</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>段</th>
+<th>问题</th>
+<th>2026 年的状态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>S0</strong></td>
+<td>谁提出问题、谁定成功标准</td>
+<td>仍以人为主；Co-Scientist 能生成子问题，但选题仍靠人</td>
+</tr>
+<tr class="even">
+<td><strong>S1</strong></td>
+<td>agent 能不能自己造/训一个领域模型</td>
+<td><strong>最稀缺</strong>：Hyra 2.0 是公开证据最完整的一例；Co-Scientist 的 Agent_H 是「造模型架构」的早期信号</td>
+</tr>
+<tr class="odd">
+<td><strong>S2</strong></td>
+<td>算出来的东西可不可信</td>
+<td>成熟：AlphaFold 3 / ESM3 / Uni-Mol / MatterGen 等；但「算得对」≠「实验成立」</td>
+</tr>
+<tr class="even">
+<td><strong>S3</strong></td>
+<td>能不能真的指挥仪器</td>
+<td>快速成熟：AutoDNA、小来、XtalPi、Lila、Periodic、书生·端砚；瓶颈在接口与失败回流</td>
+</tr>
+<tr class="odd">
+<td><strong>S4</strong></td>
+<td>怎么知道它做对了</td>
+<td>2026 年才真正被当回事：Kosmos 的 79.4%、Co-Scientist 的 4% 幻觉、BioBasicsBench 的 66.7%</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这条链的关键不是「五段都有人做」，而是<strong>有没有系统把五段接起来、并且每段都留下可核对的痕迹</strong>。 目前公开做到「三段以上 + 有证据链」的，只有书生·端砚、Hyra 2.0、AutoDNA、Co-Scientist、Kosmos、 Lila 这六家（程度不同）。</p>
+</blockquote>
+<hr />
+<h2 id="3-国内进展">3. 国内进展</h2>
+<h3 id="31-上海-ai-lab书生端砚算证验三合一c">3.1 上海 AI Lab：书生·端砚，「算、证、验」三合一（C）</h3>
+<p>2026-07 发布，2026-09-13 在浦江创新论坛升级并开放全栈服务。官方定位是「面向重要复杂科研任务的 可信科研执行平台」，不是聊天助手。</p>
+<p><strong>三层结构：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>层</th>
+<th>做什么</th>
+<th>关键设计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>模型</td>
+<td>科学推理、假设生成、策略判断、知识组织</td>
+<td>书生科学多模态大模型 <strong>S2</strong>（科学专业、长程科研、智能体能力）；书生物理世界模型 <strong>W0</strong>（原生力触、双工协同，为进入物理世界准备）</td>
+</tr>
+<tr class="even">
+<td>Science Harness</td>
+<td>研究状态保持、跨轮上下文、异构资源编排、多角色协同、实验反馈接收、任务重规划</td>
+<td>新结果/新数据/专家意见写入当前研究状态，模型据此重评估；有效路径、失败记录、关键决策持续沉淀</td>
+</tr>
+<tr class="odd">
+<td>验证</td>
+<td>可信科研证据链 + 分布式自主实验网络</td>
+<td>证据链覆盖「交付对齐、独立核验、执行复现」；实验网络连真实设备</td>
+</tr>
+</tbody>
+</table>
+<p><strong>七维评审 agent</strong>（这是最值得对标的部分）：需求完成度、正确性、证据与来源、可复现性、产物质量、 工具执行、历史审查；逐维独立核验，按结论分级输出。执行侧保留关键参数、工具版本、实验条件与执行日志， 支持同条件复跑。</p>
+<p><strong>真实闭环</strong>：联合上海同步辐射光源、中国散裂中子源、原子制造大装置、电合成新技术研究所，把自主科研 闭环延伸到大科学装置与中试平台；已在生命科学、关键材料、半导体、核聚变、量子、地球气象六个领域落地， 官方称在蛋白质、新材料完成干湿实验闭环。</p>
+<p><strong>为什么重要</strong>：它是目前<strong>唯一公开把「证据链 + 评审 agent + 真实实验网络」做成同一产品</strong>的系统； 和 SciForge 的「证据治理」最接近，也是最直接的对标对象。</p>
+<h3 id="32-腾讯混元-hyra-20agent-自己训练基础模型cd">3.2 腾讯混元 Hyra 2.0：agent 自己训练基础模型（C/D）</h3>
+<p>2026-11 发布。最核心的不是「又做了一个模型」，而是<strong>研究流程本身被产品化</strong>：</p>
+<ul>
+<li><strong>三层 agent</strong>：Overall（资源协调）/ Mission（研究规划）/ Worker（实验执行）；任务持久化保存， 等训练结果时可以并行推进别的任务。</li>
+<li><strong>证据约束</strong>：每个结论要有代码、日志等可核对支撑；必要时交<strong>独立 agent 复核</strong>。</li>
+<li><strong>经验沉淀</strong>：有效做法蒸馏成 <strong>Skill</strong>，供后续任务复用。</li>
+<li><strong>从零训练</strong>：HyInv（196 万参数，逆折叠；402 残基 × 128 条序列在单张 H20 上 50.6 ms， 对比 ProteinMPNN 2907 ms，约 57×）、HyPLM-Flash（6.5 亿参数、7260 亿 token）；细胞模型 HyCell（1610 万参数、7950 万个人类细胞预训练）。</li>
+<li><strong>评测</strong>：内部科研基准 <strong>TenureTrail</strong>（7 学科 123 项任务）；生物安全基准 <strong>Hy-BioExperimentBench</strong> 得 30.4/100，官方结论是「知识够、把知识转成可执行实验方案的能力仍有限」。</li>
+<li>同一路线还改了 RISC-V「香山」（+5.79% SPEC/GHz，面积 +0.3%）、设计了螺旋阶梯手（+28.6%）， 并参与下一代混元模型的预训练/后训练/推理优化。</li>
+</ul>
+<p><strong>读法</strong>：这是「AI 帮 AI 做研究」的公开样本，但<strong>仍以人给目标、人做最终判断</strong>；「自己训练」目前集中在 小模型、窄任务，不能外推成「agent 能独立造大模型」。</p>
+<h3 id="33-中科大机器化学家小来--小临cd">3.3 中科大「机器化学家」：小来 / 小临（C/D）</h3>
+<p>据《瞭望》2026-04 报道（中国科大精准智能化学全国重点实验室）：</p>
+<ul>
+<li><strong>小来</strong>（2021）：2 台移动机器人 + 19 个智能化学工作站 + 高通量计算；日均 2,000 次精准操作， 可稳定抓起 0.1 mm 厚碳纸。标志性结果：火星制氧催化剂有 <strong>376 万种</strong>潜在配方，人工需 2,000 年； 小来<strong>自主阅读 5 万篇论文</strong>，融合实验与理论计算，<strong>6 周</strong>找到最优解。</li>
+<li><strong>小临</strong>（2023）：接入生成式大模型，多一条机械臂；能自主设计/优化实验，并从失败中学习 （上百种配方失败后锁定关键变量）。帮方天成博士做吸能材料，传统筛选需十年，7 个月找到最优解。</li>
+<li><strong>规模</strong>：全国 19 个分布式创新设施、80 个 AI 驱动的化学与材料实验平台、110 台科研机器人、 196 台智能化学工作站；通过 AICHEM 云平台可远程「下单」做实验。</li>
+<li><strong>标准</strong>：2023 年牵头 120 家单位的「智能科学家生态联盟」；2025-09 全球首次开源机器化学家指令集、 接口函数、操作系统、科研模板库。</li>
+</ul>
+<p><strong>读法</strong>：这是国内<strong>最早、最完整的「AI 决策 + 机器人执行」闭环</strong>，强在化学/材料与工程化； 弱在「模型自举」——它调用专家模型（「熊宇杰大脑」「张国庆大脑」），不自己训练新模型。</p>
+<h3 id="34-晶泰科技-xtalpi-science80-科学技能--机器人实验室c">3.4 晶泰科技 XtalPi Science：80+ 科学技能 + 机器人实验室（C）</h3>
+<p>2026-09-21 升级：上线 80 余项专有科学技能与工具，封装真实研发经验、专有数据集、算法与计算工具， 覆盖靶点调研与专利分析、分子生成与性质预测、蛋白准备与分子对接、逆合成路线预测、构效关系、 LC-MS 谱图解析、数据处理与工作流自动化。形态是 <strong>Tools / Skills / Recipes</strong> 三层；用户在对话框输入 「/」唤起技能，由智能体执行。能力已从数字端延伸到实验执行：连接科研数据系统与自主实验室， 调度实验室机器人做实验、采数据、按结果调整后续任务。</p>
+<p><strong>读法</strong>：这是「<strong>技能市场 + 机器人调度</strong>」路线，商业上最接近落地；闭源、以药物发现为主。</p>
+<h3 id="35-上海交大-autodna20-多类仪器11000-步a据二手报道">3.5 上海交大 AutoDNA：20 多类仪器、11,000+ 步（A，据二手报道）</h3>
+<p>2026-11 Nature（s41586-026-11228-6）。中央规划 agent + 六类专门 agent（文献、试剂、方案、代码、 硬件、假设），形成「设计—实验—优化」闭环；硬件抽象层把移液、孵育、测序等 20 余类仪器封装成 <strong>可组合的原子服务</strong>，模型像调 API 一样指挥实验室。</p>
+<ul>
+<li>规模：20 多类仪器、累计 <strong>11,000+ 步</strong>硬件操作；人只做试剂补充、耗材更换、设备维护。</li>
+<li>结果：酶促 DNA 合成单步产率 <strong>97.8%</strong>、并行协议加速 <strong>3.2×</strong>、DNA 数据存储零误差恢复、 未知序列结直肠癌样本自主锁定 <strong>KRAS G13D</strong>（首次合成引物即通过）。</li>
+<li>精度：微升级液体处理、微米级定位；支持多用户并发与动态资源调度。</li>
+</ul>
+<p><strong>读法</strong>：目前公开的「仪器原子化 + 调度」最干净的一例；和 Hyra 的「模型自举」正好互补。</p>
+<h3 id="36-生态里的其它名字c未逐一核验细节">3.6 生态里的其它名字（C，未逐一核验细节）</h3>
+<ul>
+<li><strong>中科院「ChemBrain 智能体 + ChemBody 机器人」</strong>：据《瞭望》报道，用于自主实验室。</li>
+<li><strong>北京科学智能研究院 Uni-Lab-OS</strong>：智能操作系统，面向自主实验室的调度与设备接入。</li>
+<li><strong>深势科技</strong>：Uni-Mol / Bohrium 等计算侧能力，2026-10 与西交利物浦合办 AI4S 研讨会； 本轮没有查到它 2026 年「仪器闭环」的公开证据，暂不计入 S3。</li>
+<li><strong>华为、百度、阿里</strong>：更多在算力/平台层，未纳入本表。</li>
+</ul>
+<hr />
+<h2 id="4-国外进展">4. 国外进展</h2>
+<h3 id="41-google-deepmind-co-scientist从假设生成器到研究伙伴a--b">4.1 Google DeepMind Co-Scientist：从假设生成器到研究伙伴（A + B）</h3>
+<ul>
+<li><strong>Nature 2026-05-19</strong>（Gottweis et al., DOI 10.1038/s41586-026-10644-y）：基于 Gemini 2.0 的 多智能体系统；在急性髓系白血病上提出新药候选与联合疗法（细胞系实验显示潜在获益）、发现肝纤维化 新靶点、揭示抗生素耐药的关键遗传机制。作者明确：仍需严格的临床前与临床验证。</li>
+<li><strong>2026-08 扩展版</strong>（arXiv 2608.26701，B）：三档自主度——
+<ul>
+<li><strong>材料</strong>：与半自动高温炉耦合，为一种二维材料找到更安全的合成路线（避开危险蚀刻），生成适配 实验室设备的完整生长配方；25 轮人机迭代后得到层状结构，原子结构尚待确证；三种半导体薄膜 <strong>首次尝试即成功</strong>，用 Gemini 3 Deep Think 直接控制设备，配方开发从数天缩到数分钟。</li>
+<li><strong>生物</strong>：自主搭建图像分析管线，预测工程化大肠杆菌菌落在不同化学浓度下的形态；Gemini-3-Pro-Image 的预测在 3/4 个形态特征上与未发表实验结果一致；作者承认只会在已知条件间推断。</li>
+<li><strong>计算机</strong>：完全无人干预地设计出 Agent_H（分类请求、并行生成并精炼候选），在健康基准上超过 6 个前沿模型；但三位专科医生的盲评里，只在「减少有害回答」一项显著优于基座 Gemini 3.1 Pro。</li>
+</ul></li>
+<li><strong>可靠性模块</strong>（最值得抄）：惩罚编造/抄袭内容 + <strong>独立校验模块把文中数字与代码实际执行日志对齐</strong>。 30 位专家、450 次独立评审、150 篇自主生成论文的双盲实验：幻觉率从 <strong>46%</strong>（无模块）降到 <strong>4%</strong>， 对照系统 90%；完全编造数据为零（对照 44%）；抄袭/派生内容从 60% 降到 16%；安全架构拒绝 98.7% 潜在有害方向。残余问题仍在：选择性报告、方法描述与实际代码不一致。</li>
+</ul>
+<h3 id="42-futurehouse--edisonrobin-与-kosmosa--b--c">4.2 FutureHouse / Edison：Robin 与 Kosmos（A + B + C）</h3>
+<ul>
+<li><strong>Nature 2026-05-19</strong>（Ghareeb et al., DOI 10.1038/s41586-026-10652-y）：Robin 用 OpenAI o4-mini + Anthropic Claude 3.7，面向实验生物学；在干性年龄相关性黄斑变性上找到可修饰的视网膜细胞过程， 并提出此前未用于该病的候选药物，还给出后续机制研究建议。</li>
+<li><strong>Kosmos</strong>（arXiv 2511.02824，B）：数据分析 agent 与文献 agent 通过共享「世界模型」协同； 每次运行最多 12 小时、平均执行 <strong>4.2 万行代码</strong>、读 <strong>1,500 篇论文</strong>。独立科学家判定 79.4% 的陈述准确；分类看：数据分析陈述 <strong>85.5%</strong> 可复现、文献陈述 <strong>82.1%</strong> 与原始来源一致、 综合陈述 <strong>57.9%</strong> 准确。所有陈述都引用到执行过的代码、源数据或文献（含页码/图）。</li>
+<li><strong>商业</strong>：2026-10-29 与 Pfizer 签约，把 Kosmos 部署到肿瘤、内科、免疫等研发数据上；此前与 Incyte 合作（2026-05-19）；累计融资 7,000 万美元。另有一个 case study 声称 IND 准备时间压缩约 75%、 每项目回收约 9,900 万美元峰值销售（C，属公司自报，需打折看）。</li>
+</ul>
+<h3 id="43-lila-sciences闭环找催化剂第一次公开物理科学闭环细节b--d">4.3 Lila Sciences：闭环找催化剂，第一次公开「物理科学闭环」细节（B + D）</h3>
+<ul>
+<li>2023 年成立于 Flagship Pioneering，2025-03 以 2 亿美元种子轮亮相，到 2025-10 累计 <strong>5.5 亿美元</strong> （含英伟达风投）。</li>
+<li>2026-09 预印本（arXiv 2609.30133，B）：用 LLM + 统计方法选择催化金属组合，自动设备镀薄膜、 自动仪器测活性与稳定性；评估 <strong>2,942 种配方</strong>，找到 <strong>6 族钯基氧化物</strong>；最耐久的 In-Mn-Pd 氧化物在实验室耐久测试中保持 <strong>1,000 小时</strong>以上。公司称序贯学习优于部分替代搜索策略。</li>
+<li><strong>必须打的折</strong>（C&amp;EN 2026-11-04 引述 UC Irvine 教授 Iryna Zenyuk）：测的是催化剂样品， 不是完整电解槽；商业 PEM 电解槽电流密度约为该耐久测试的 <strong>300 倍</strong>、温度近 80 °C， 低电流密度下的耐久不能外推到工业；钯比铱便宜（1,140 vs 9,100 美元/金衡盎司）但用量与供应链仍待算。 Lila 自己的 CSO 也说「这大概不是最终进电解槽的材料」。</li>
+<li>2026-01 获英国 ARIA 资助，做「AI nano-scientist」：设计并执行量子点合成/加工实验。</li>
+</ul>
+<h3 id="44-periodic-labsneolab-的资本样本d">4.4 Periodic Labs：neolab 的资本样本（D）</h3>
+<p>2025-05 由前 OpenAI 研究 VP Liam Fedus 与前 DeepMind 科学家 Ekin Dogus Cubuk 创立；2025-09 以 <strong>13 亿美元</strong>估值完成 <strong>3 亿美元</strong>种子轮；2026-03 传以约 <strong>70 亿美元</strong>估值再融数亿美元（Bloomberg）。路线是机械臂做粉末合成 + LLM 推理优化 + ML 快速模拟， 目标是「AI 实验室自主做实验、分析数据、改进结果」；已有半导体行业客户、有收入。</p>
+<h3 id="45-英国-aria12245要求九个月做出新发现d">4.5 英国 ARIA：12/245，要求「九个月做出新发现」（D）</h3>
+<p>2026-01：ARIA 从 <strong>245</strong> 份申请中资助 <strong>12</strong> 个项目，每个约 <strong>50 万英镑、9 个月</strong>；一半团队在英国， 其余来自美国与欧洲。入选者包括 Lila（量子点）、利物浦大学（机器人化学家，用视觉语言模型排错）、 伦敦 stealth 公司 ThetaWorld（电池材料实验设计 + 自动实验室）。ARIA CTO Ant Rowstron 的判断： 当前所有项目都还是「调用已有工具」，还没有到「工具不存在就自己造一个」；并引用 Lossfunk 的 《Why LLMs aren't scientists yet》（arXiv 2601.03315）：让 LLM agent 跑完整科研流程， <strong>四次里失败三次</strong>，失败模式是「偏离原始研究规格、转向更简单熟悉的方案」与「明显失败却宣布成功」。</p>
+<h3 id="46-欧洲其它自主实验室cd背景">4.6 欧洲其它自主实验室（C/D，背景）</h3>
+<p>利物浦材料创新工厂（MIF，欧洲最先进之一）、法国 IKTOS、瑞士 Atinary SDLabs、德国 FULL-MAP、 美国「创世纪计划」与 MIT/国家实验室的自主实验室。共同点：<strong>设备层标准化 + 闭环调度</strong>， 但多数仍限定在化学/材料。</p>
+<h3 id="47-评测侧openai-的两个基准bc">4.7 评测侧：OpenAI 的两个基准（B/C）</h3>
+<ul>
+<li><strong>HealthBench</strong>（2025-05）：5,000 段真实医疗对话、262 位执业医师、48,562 条加权 rubric； 用 worst-of-n 看可靠性，并与医师基线对比。它把「评分标准」本身做成了可复用的资产。</li>
+<li><strong>BioBasicsBench</strong>（2026-11）：100 个任务、5 个领域，输入是<strong>原始湿实验证据</strong>（凝胶/印迹 31、 方案与记录 27、表格与仪器导出 20、台面照片 18、显微 14、仪器屏幕 13、测序 12、操作视频 7、 平板 7），专家 rubric 给偏学分；7 个模型、37 个「模型 × 推理档」设置、每题 5 次，共 18,500 次，最高 66.7%。 失败分类直接可用：假设压过对照、忽略矛盾观察、数错/看不清、把 z-stack 当成细胞消失。</li>
+<li><strong>意义</strong>：这两个基准不测「能不能做实验」，测「读不读得懂实验证据、知不知道自己不够」—— 这是 S4 的地基。OpenAI 目前公开的是评测与（据媒体）内部计划，尚无闭环系统公开。</li>
+</ul>
+<hr />
+<h2 id="5-横向对比按第-2-节的坐标系">5. 横向对比（按第 2 节的坐标系）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>系统</th>
+<th>机构/国家</th>
+<th>S1 模型自举</th>
+<th>S2 计算</th>
+<th>S3 仪器</th>
+<th>公开证据</th>
+<th>成熟度</th>
+<th>可复核性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>书生·端砚</td>
+<td>上海 AI Lab / 中国</td>
+<td>中（S2/W0 模型，不自训）</td>
+<td>强</td>
+<td><strong>强</strong>（大科学装置/中试）</td>
+<td>官方发布</td>
+<td>平台化，六领域落地</td>
+<td>C</td>
+</tr>
+<tr class="even">
+<td>Hyra 2.0</td>
+<td>腾讯 / 中国</td>
+<td><strong>强</strong>（HyInv/HyPLM/HyCell）</td>
+<td>强</td>
+<td>公开材料未见湿实验</td>
+<td>官方页 + 媒体</td>
+<td>研究平台</td>
+<td>C/D</td>
+</tr>
+<tr class="odd">
+<td>小来/小临</td>
+<td>中科大 / 中国</td>
+<td>弱（专家模型）</td>
+<td>中</td>
+<td><strong>强</strong>（110 机器人/196 工作站）</td>
+<td>新华社报道</td>
+<td>工程化，已有产业应用</td>
+<td>C/D</td>
+</tr>
+<tr class="even">
+<td>XtalPi Science</td>
+<td>晶泰 / 中国</td>
+<td>弱</td>
+<td>强（药物发现）</td>
+<td>强（机器人实验室）</td>
+<td>官方发布</td>
+<td>商业化</td>
+<td>C</td>
+</tr>
+<tr class="odd">
+<td>AutoDNA</td>
+<td>上海交大 / 中国</td>
+<td>弱</td>
+<td>中</td>
+<td><strong>强</strong>（20+ 仪器、11k 步）</td>
+<td>Nature</td>
+<td>原型→平台</td>
+<td>A（二手）</td>
+</tr>
+<tr class="even">
+<td>Co-Scientist</td>
+<td>DeepMind / 英国</td>
+<td>中（Agent_H 造架构）</td>
+<td>强</td>
+<td>中（半自动高温炉）</td>
+<td>Nature + arXiv</td>
+<td>研究系统</td>
+<td>A/B</td>
+</tr>
+<tr class="odd">
+<td>Kosmos</td>
+<td>FutureHouse/Edison / 美国</td>
+<td>弱</td>
+<td>强（数据分析）</td>
+<td>弱（不做湿实验）</td>
+<td>Nature + arXiv</td>
+<td>商业化（Pfizer）</td>
+<td>A/B</td>
+</tr>
+<tr class="even">
+<td>Lila</td>
+<td>Lila Sciences / 美国</td>
+<td>中（ML 模型 + 序贯学习）</td>
+<td>强</td>
+<td><strong>强</strong>（闭环 2,942 配方）</td>
+<td>预印本 + C&amp;EN</td>
+<td>商业化前</td>
+<td>B/D</td>
+</tr>
+<tr class="odd">
+<td>Periodic</td>
+<td>Periodic Labs / 美国</td>
+<td>中</td>
+<td>强</td>
+<td>强（机器人粉末合成）</td>
+<td>媒体/融资</td>
+<td>早期商业化</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>读表要点：<strong>没有一家在「S1 强 + S3 强」同时成立</strong>。Hyra 强在 S1、弱在 S3；AutoDNA/小来强在 S3、 弱在 S1；书生·端砚最均衡，但 S1 仍靠外部模型。<strong>这个空档就是机会。</strong></p>
+</blockquote>
+<hr />
+<h2 id="6-五个判断">6. 五个判断</h2>
+<ol type="1">
+<li><p><strong>竞争焦点从「模型能力」转向「研究状态 + 证据」。</strong> Hyra 的任务持久化、书生·端砚的 Science Harness、Kosmos 的「每句话引用到代码/数据/页码」， 说的是同一件事：长程科研的瓶颈是<strong>上下文与可核对性</strong>，不是单次推理。这与我们做「证据链」的 判断一致，而且现在有大厂公开背书。</p></li>
+<li><p><strong>「自动训练模型」还只是演示，不是通用能力。</strong> Hyra 训的是 196 万/6.5 亿参数的小模型；Co-Scientist 的 Agent_H 是「设计架构」而非「训练大模型」。 公开证据里没有「agent 独立训出 SOTA 科学大模型」的案例。对外表述要克制。</p></li>
+<li><p><strong>仪器闭环的瓶颈是接口与失败回流，不是模型。</strong> AutoDNA 把仪器封装成原子服务、小来统一指令集/接口/模板库、书生·端砚做统一物理层协议—— 三家都在解决「设备怎么说同一种话」。另一个被低估的点是<strong>失败/阴性数据的回流</strong>：书生·端砚明确 把失败记录与异常信息写回研究流程；这比「成功案例」更能决定闭环能不能持续。</p></li>
+<li><p><strong>评估在 2026 年才真正成为一等公民。</strong> Kosmos 79.4%、Co-Scientist 4% 幻觉、BioBasicsBench 最高 66.7%、Hy-BioExperimentBench 30.4/100—— 这些数字的共同含义是：<strong>「能跑通」和「可信」之间还有很大距离</strong>。谁先把「证据不足」做成 显式动作，谁就更接近可用。</p></li>
+<li><p><strong>商业模式先于科学突破。</strong> Lila（累计融资 5.5 亿美元）、Periodic（3 亿美元种子/70 亿美元估值谈判）、Edison（Pfizer/Incyte 合同） 说明「闭环」本身可以卖钱；但 Lila 的电解槽差距、Kosmos 的综合陈述只有 57.9% 准确，也说明 <strong>离「工业级可信」还有距离</strong>。</p></li>
+</ol>
+<hr />
+<h2 id="7-对-sciforge-的意义">7. 对 SciForge 的意义</h2>
+<h3 id="71-我们不该做什么">7.1 我们不该做什么</h3>
+<ul>
+<li><strong>不造仪器、不造机器人、不做湿实验</strong>。AutoDNA/小来/Lila 的护城河是硬件与工程，不是模型。</li>
+<li><strong>不追「通用 AI 科学家」的叙事</strong>。Kosmos 的教训是：综合陈述最不可靠（57.9%）， 而「数据分析」和「文献」两类陈述可靠得多（85.5%/82.1%）。SciForge 的强项恰好在这两类。</li>
+</ul>
+<h3 id="72-我们可以做什么按差异排序">7.2 我们可以做什么（按差异排序）</h3>
+<table>
+<thead>
+<tr class="header">
+<th>机会</th>
+<th>依据</th>
+<th>最小动作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>可核验的编排层</strong></td>
+<td>书生·端砚的七维评审 + 证据链；Kosmos 的逐句引用</td>
+<td>把「七维」映射到 SciForge 现有的 evidence DAG / artifact-versions，先做 2–3 维（证据与来源、可复现性、历史审查）</td>
+</tr>
+<tr class="even">
+<td><strong>「证据不足」显式化</strong></td>
+<td>BioBasicsBench 专门计分；Co-Scientist 的 4% 幻觉靠校验模块</td>
+<td>在 claim/笔记层加 <code>insufficient</code> 判定与理由，作为可评分动作</td>
+</tr>
+<tr class="odd">
+<td><strong>跨机构/跨仪器的适配契约</strong></td>
+<td>AutoDNA 的原子服务；书生·端砚的统一物理层协议；小来的指令集</td>
+<td>定义只读的「仪器适配器」schema（能力、输入、输出、失败码），先接模拟器与公开数据</td>
+</tr>
+<tr class="even">
+<td><strong>本地优先 / 可审计</strong></td>
+<td>端砚是云平台 + 本地客户端；SciForge 是桌面端 + 本地证据</td>
+<td>强调「数据不出机器、证据可带走」，这是与平台派差异化的点</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-三个可落地动作3-个月">7.3 三个可落地动作（3 个月）</h3>
+<ol type="1">
+<li><strong>对标拆解</strong>：把书生·端砚的七维评审、Co-Scientist 的可靠性模块、Kosmos 的引用粒度， 写成一张「我们已有 / 可借 / 不借」对照表（1 周）。</li>
+<li><strong>一个端到端 demo</strong>：选一篇公开论文 + 一份公开数据 + 一个模拟仪器（或公开仪器日志）， 跑通「claim → 证据 → 计算 → 仪器记录 → 复核」的链，所有节点可点开看原文/原始记录（4–6 周）。</li>
+<li><strong>一页对外材料</strong>：用第 5 节的空档（S1 强 + S3 强同时成立者为零）说明 SciForge 的位置： 不做最强的模型、也不做最强的机器人，做<strong>两者之间最可核验的那一层</strong>（1 周）。</li>
+</ol>
+<hr />
+<h2 id="8-反证与风险别只看好消息">8. 反证与风险（别只看好消息）</h2>
+<table>
+<thead>
+<tr class="header">
+<th>反证</th>
+<th>出处</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LLM agent 跑完整科研流程，四次失败三次</td>
+<td>Lossfunk, arXiv 2601.03315（D 转述）</td>
+<td>「全自动科研」被高估；失败模式是「降级到熟悉方案」与「宣布成功」</td>
+</tr>
+<tr class="even">
+<td>AI 科学家的综合陈述只有 57.9% 准确</td>
+<td>Kosmos, arXiv 2511.02824（B）</td>
+<td>越往「综合/解释」走越不可靠；引用粒度是关键</td>
+</tr>
+<tr class="odd">
+<td>实验室结果 ≠ 工业条件</td>
+<td>Lila, C&amp;EN 2026-11-04（D）</td>
+<td>商业 PEM 电流密度约为测试的 300×；不要拿实验室数据讲工业故事</td>
+</tr>
+<tr class="even">
+<td>Co-Scientist 的医生盲评只在 1/9 维度显著</td>
+<td>arXiv 2608.26701（B）</td>
+<td>benchmark 分数 ≠ 临床价值；自动评审与专家判断一致性弱</td>
+</tr>
+<tr class="odd">
+<td>「没有先例」类表述容易被推翻</td>
+<td>本轮就找到 6 家三段以上系统</td>
+<td>对外写「我们没找到」，不写「没有」</td>
+</tr>
+<tr class="even">
+<td>多数系统闭源、细节不可复现</td>
+<td>端砚/XtalPi/Hyra/Periodic</td>
+<td>对比时要标「官方自报」，不能当独立验证</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-来源清单按证据等级">9. 来源清单（按证据等级）</h2>
+<p><strong>A 同行评审</strong></p>
+<ul>
+<li>Gottweis, J., Weng, W-H., Daryin, A. et al. <em>Accelerating scientific discovery with Co-Scientist.</em> Nature (2026-05-19). <a href="https://doi.org/10.1038/s41586-026-10644-y">https://doi.org/10.1038/s41586-026-10644-y</a></li>
+<li>Ghareeb, A.E., Chang, B., Mitchener, L. et al. <em>A multi-agent system for automating scientific discovery.</em> Nature (2026-05-19). <a href="https://doi.org/10.1038/s41586-026-10652-y">https://doi.org/10.1038/s41586-026-10652-y</a></li>
+<li>AutoDNA: Nature (2026). <a href="https://www.nature.com/articles/s41586-026-11228-6">https://www.nature.com/articles/s41586-026-11228-6</a> （论文为 A 级；本轮只读澎湃转述，故实际证据按 D 用）</li>
+<li>Nature 社论 <em>Why AI cannot do good science without humans</em>： <a href="https://www.nature.com/articles/d41586-026-01551-3">https://www.nature.com/articles/d41586-026-01551-3</a></li>
+</ul>
+<p><strong>B 预印本</strong></p>
+<ul>
+<li>Co-Scientist 扩展版：arXiv 2608.26701（2026-08）。</li>
+<li>Kosmos：arXiv 2511.02824（2025-11）。</li>
+<li>Lila 催化剂：arXiv 2609.30133（2026-09）。</li>
+<li><em>Why LLMs aren't scientists yet</em>：arXiv 2601.03315（2026-01）。</li>
+</ul>
+<p><strong>C 官方发布</strong></p>
+<ul>
+<li>上海 AI Lab《『书生·端砚』全面开放全栈服务》2026-09-13： <a href="https://www.shlab.org.cn/news/5444294">https://www.shlab.org.cn/news/5444294</a></li>
+<li>腾讯 Hyra 2.0 官方页：<a href="https://hy.tencent.com/research/hyra2">https://hy.tencent.com/research/hyra2</a></li>
+<li>晶泰科技 XtalPi Science 升级（新华网转环球网，2026-09-21）： <a href="https://www.news.cn/tech/20260921/04a2cbef72444a32910cb3dd7c1833f2/c.html">https://www.news.cn/tech/20260921/04a2cbef72444a32910cb3dd7c1833f2/c.html</a></li>
+<li>Nature 新闻稿（Co-Scientist + Robin，2026-05-20）： <a href="https://www.natureasia.com/en/info/press-releases/detail/9330">https://www.natureasia.com/en/info/press-releases/detail/9330</a></li>
+</ul>
+<p><strong>D 媒体报道</strong></p>
+<ul>
+<li>《瞭望》/新华网《智能科学家来了》2026-04-03： <a href="https://www.news.cn/liangzi/20260403/05bd0e6b42dc4dffb7822319e74ed8d1/c.html">https://www.news.cn/liangzi/20260403/05bd0e6b42dc4dffb7822319e74ed8d1/c.html</a></li>
+<li>华尔街见闻《腾讯姚顺雨：AI 很快将真正掌握生物学！》2026-11-09： <a href="https://wallstreetcn.com/articles/3785563">https://wallstreetcn.com/articles/3785563</a></li>
+<li>BlockBeats（Hyra 2.0 英文快讯）： <a href="https://en.theblockbeats.news/flash/375029">https://en.theblockbeats.news/flash/375029</a></li>
+<li>C&amp;EN《Lila Sciences tests AI's ability to find hydrogen catalysts》2026-11-04： <a href="https://cen.acs.org/business/start-ups/lila-ai-hydrogen-catalyst-electrolyzer/104/web/2026/10">https://cen.acs.org/business/start-ups/lila-ai-hydrogen-catalyst-electrolyzer/104/web/2026/10</a></li>
+<li>MIT Technology Review《The UK government is backing AI that can run its own lab experiments》 2026-01-20： <a href="https://www.technologyreview.com/2026/01/20/1131462/the-uk-government-is-backing-ai-scientists-that-can-run-their-own-experiments/">https://www.technologyreview.com/2026/01/20/1131462/the-uk-government-is-backing-ai-scientists-that-can-run-their-own-experiments/</a></li>
+<li>R&amp;D World《Edison's Kosmos AI scientist moves into Pfizer R&amp;D》2026-11-06： <a href="https://www.rdworldonline.com/edisons-kosmos-ai-scientist-moves-into-pfizer-r-edison-details-the-math-behind-its-99-million-per-program-estimate/">https://www.rdworldonline.com/edisons-kosmos-ai-scientist-moves-into-pfizer-r-edison-details-the-math-behind-its-99-million-per-program-estimate/</a></li>
+<li>Tech Funding News（Periodic Labs，2026-03-26）： <a href="https://techfundingnews.com/former-openai-and-deepmind-researchers-eye-7b-valuation-for-ai-startup-periodic-labs/">https://techfundingnews.com/former-openai-and-deepmind-researchers-eye-7b-valuation-for-ai-startup-periodic-labs/</a></li>
+<li>澎湃《从辅助实验到组织实验，上海交大…AutoDNA…》2026-11-09： <a href="https://m.thepaper.cn/newsDetail_forward_34434147">https://m.thepaper.cn/newsDetail_forward_34434147</a></li>
+</ul>
+<p><strong>未核验 / 待补</strong></p>
+<ul>
+<li>Hyra 技术报告（HyInv / HyPLM-Flash / HyCell）原文；TenureTrail 与 Hy-BioExperimentBench 的 评测细节；AutoDNA 的 Nature 全文；Co-Scientist 与 Kosmos 的 Nature 全文；Lila 预印本全文。</li>
+<li>中科院 ChemBrain/ChemBody、北京科学智能研究院 Uni-Lab-OS、深势科技 2026 年的仪器闭环证据。</li>
+<li>美国「创世纪计划」的具体资助规模与项目清单。</li>
+</ul>
+<hr />
+<h2 id="10-如果只记三件事">10. 如果只记三件事</h2>
+<ol type="1">
+<li><strong>三段都有人跑通了，但没人把三段都做强。</strong> 端砚最均衡、Hyra 强在造模型、AutoDNA/小来强在 指挥仪器；「S1 强 + S3 强」同时成立的，公开证据里是零。</li>
+<li><strong>可信度是 2026 年的主战场。</strong> 4% 幻觉、79.4% 准确、57.9% 综合准确、30.4/100 生物安全—— 这些数字比「又发了什么模型」更值得跟踪。</li>
+<li><strong>对 SciForge，正确的姿势是「中间层」。</strong> 不做最强模型、不做机器人，做「证据可核、状态不丢、 失败可回流」的编排层；这正好是端砚在做、但还没开源的那一块。</li>
+</ol>
+</main>
+</body>
+</html>
