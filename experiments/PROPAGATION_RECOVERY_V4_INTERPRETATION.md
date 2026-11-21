@@ -1,10 +1,11 @@
-# Propagation recovery v4: primary run results and verdict
+# Propagation recovery v4: results and verdict
 
 2026-11-21. Run by the user; this note only reads the saved output (`runs/propagation-recovery-v4/`).
 No rerun, no change to the pre-registered hypotheses or gate (`PROPAGATION_RECOVERY_V4_PREREG.md`).
-**The miscalibration-control run (`--post-shift 1.5`) has not been run yet.** The primary gate already failed on a
-part described below, so v4 as a whole does not pass whatever the control shows; its result is still needed to know
-whether the label refuses a miscalibrated posterior.
+Two runs: the primary run (`runs/propagation-recovery-v4/`, run commit `07e6483`) and the miscalibration control
+(`runs/propagation-recovery-v4-miscal/`, `--post-shift 1.5`, run commit `193b7ec`), both read here with provenance
+matching the current sources. **Overall verdict: v4 not passed** (V4-H2 failed on the primary run); **the
+miscalibration control passed.**
 
 ## Integrity
 
@@ -20,8 +21,8 @@ whether the label refuses a miscalibrated posterior.
 |---|---|
 | **V4-H1** E4 in all 9 cells: \|bias\| ≤ 0.05, coverage ≥ 0.90, mean n ≥ 100, no missing, calibrated rate ≥ 0.80, Wilson ub ≤ 0.20 | **Supported in all 9 cells** (table below) |
 | **V4-H2** E3b label: ≤ 0.10 under `confidence`; ≥ 0.80 under `random` and `blast` | **Not supported**: refusal under `confidence` works (0.03, 0.01, 0.01) but acceptance under `random` (0.70, 0.67, 0.71) and `blast` family 3 (0.73) is below 0.80; `blast` families 1 and 2 pass (0.83, 0.81) |
-| V4-H3 miscalibration control | **Not run yet** |
-| V4-H4 posterior calibration check passes in ≥ 95% of replicates | **Supported**: 1.00 under all three policies |
+| V4-H3 miscalibration control (`--post-shift 1.5`): E4 calibrated rate ≤ 0.10 in all 9 cells | **Supported**: 0.00 in all 9 cells (see below) |
+| V4-H4 posterior calibration check passes in ≥ 95% of replicates (primary) and ≤ 5% (shifted) | **Supported**: 1.00 under all three policies in the primary run; 0.00 under all three with the shift |
 | V4-H5 hidden child base-error rate under `confidence` below 0.09 | **Supported**: 0.064 / 0.063 / 0.063 (random 0.102–0.103, blast 0.097–0.105; population 0.104) |
 
 E4 (the estimator under the gate), by policy and family 1 / 2 / 3:
@@ -44,6 +45,21 @@ E4 (the estimator under the gate), by policy and family 1 / 2 / 3:
 3. **The balance check does its job where the bias is real.** Under `confidence` it refuses E3b/E3a/E2 almost always
    (calibrated rate 0.01–0.03; E2 additionally 0.00 by its flag-rate check). The mean ratio of the children's posterior
    to the audited roots' posterior is 0.62 there (sd 0.08), against 0.94–1.02 under `random` and `blast`.
+
+## Miscalibration control (separate run): passed
+
+With the logged posterior shifted by +1.5 on the logit scale (ranking unchanged), the audited roots' observed base-error
+rate is 0.102–0.105 while their mean logged posterior is 0.167–0.170. The posterior calibration check passes in 0.00 of
+replicates under all three policies, and the E4 label is refused in all nine cells (calibrated rate 0.00). Refusing was
+right: E4 is biased there (+0.027 / +0.046 / +0.068 under `random`, +0.022 / +0.044 / +0.060 under `confidence`,
++0.023 / +0.045 / +0.065 under `blast`; coverage as low as 0.09), growing with the true propagation probability as
+anticipated in the protocol. So the check detects a posterior miscalibration large enough to matter, and the shift
+size chosen before the run (1.5, with 0.8 deemed too weak to matter) behaved as intended.
+
+A side finding: the balance check uses the same logged posterior, so a miscalibrated posterior also degrades it. Under
+`confidence` the biased E3b label rate rose from 0.01–0.03 (calibrated posterior) to 0.22–0.25 (shifted), i.e. the check
+refuses the biased estimator much less reliably when the posterior is wrong. Another reason to drop the population-rate
+path and to gate any use of the posterior on its calibration.
 
 ## What went wrong: the balance check is noise-limited
 
@@ -78,8 +94,7 @@ observations noisy, families unknown and confounding present. All protocol ideal
 
 ## Next
 
-1. Run the miscalibration control (command in `PROPAGATION_RECOVERY_V4_PREREG.md`) to complete the v4 record.
-2. A v5 protocol, written and frozen before running, that gates E4 with the posterior calibration check and drops the
+1. A v5 protocol, written and frozen before running, that gates E4 with the posterior calibration check and drops the
    population-b estimators from the gate (kept as references), replaces the fixed-band balance check with an
    evidence-based one whose false-refusal and miss rates are measured, and tests a posterior that is miscalibrated in
    different ways (shift, scale, and miscalibration confined to some node types). v1–v4 results stay as they are.
