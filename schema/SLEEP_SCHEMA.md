@@ -1,3 +1,5 @@
+[**한국어: 39개 필드·자료형 설명**](SLEEP_SCHEMA_KO.md) · [**한국어 인계 안내**](TEAM_HANDOFF_KO.md)
+
 # Sleep diary — schema card (for code, not for analysis)
 
 13,990 rows × 39 columns · grain: **one row per participant-day** · key: `(pid, day_num, row_id)`

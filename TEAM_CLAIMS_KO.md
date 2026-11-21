@@ -5,7 +5,9 @@ layout: default
 
 # 팀 분담 — 누가 무엇을 맡는가
 
-<p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html">English</a> · <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
+<p><b>언어:</b> <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
+
+**수면 데이터 바로가기:** [한국어 인계 안내](schema/TEAM_HANDOFF_KO.md) · [39개 필드·자료형](schema/SLEEP_SCHEMA_KO.md) · [헤더만 있는 CSV](schema/sleep_headers.csv).
 
 > 5명 · 두 트랙 · **11/23** 발표
 > 한 문장: 우리는 **사람이 어디를 먼저 봐야 하는지** 연구한다 — AI 결과가 서로 의존하는 체인에서.

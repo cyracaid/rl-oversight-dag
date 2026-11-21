@@ -1,3 +1,5 @@
+[**한국어: 수면 데이터 인계**](TEAM_HANDOFF_KO.md) · [**39개 헤더·자료형**](SLEEP_SCHEMA_KO.md) · [**역할 분담**](../TEAM_CLAIMS_KO.md)
+
 # Sharing the sleep data without sharing the sleep data
 
 The rule is simple: **the real table never leaves your machine.** What teammates

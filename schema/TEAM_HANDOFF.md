@@ -1,3 +1,5 @@
+[**한국어 먼저 보기: 수면 데이터 인계**](TEAM_HANDOFF_KO.md) · [**한국어 39개 필드 설명**](SLEEP_SCHEMA_KO.md) · [**한국어 역할 분담**](../TEAM_CLAIMS_KO.md)
+
 # Sleep data handoff / 睡眠数据交接
 
 This package lets teammates write loaders and checks without receiving real rows.
