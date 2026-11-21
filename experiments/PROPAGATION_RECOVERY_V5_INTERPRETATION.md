@@ -96,3 +96,26 @@ present.
 - Before any real record is touched: calibrated node posterior and logged selection score available in the chain, a random
   audit drawn from the full eligible set with a recorded frame, and the calibration check passing on the real audit.
   Real records stay local and uncommitted.
+
+## Exploratory run: audit fraction 0.125 (`runs/propagation-recovery-v5-audit0125/`)
+
+Not part of the verdict (the protocol lists it as exploratory, gated only in the sense that the same gate code runs on it).
+Provenance matches the current sources (run commit `6bf7669`). It uses the same seed as the primary run, so the simulated
+worlds are the same and only the split of the 16 reviews per graph changes (14 policy + 2 audit instead of 12 + 4); it is
+therefore not an independent replication. About 400 audited roots per run instead of about 800.
+
+- **The gate code reports PASSED again.** E4 under `cal`: bias within 0.003, coverage 0.91–0.97, mean n 119–627, calibrated
+  rate 0.87–0.99. Both harmful modes (`shift+1.5` 0.065 and `scale0.5` 0.051, same classification) are still refused
+  (pass rate 0.00–0.01).
+- **Halving the audit makes the check more conservative, not more permissive.** The mean residual's spread across replicates
+  grows from about 0.0075 to about 0.0105, and the equivalence test needs the whole interval inside the tolerance, so
+  more uncertainty means more refusals. False refusal under `cal` rises from 0.00 to 0.05 / 0.01 / 0.02 (random /
+  confidence / blast; all refusals global). Mild distortions are accepted less often than with the larger audit:
+  `shift+0.8` 0.17 / 0.18 / 0.25 (was 0.29 / 0.30 / 0.35), `shift-0.8` 0.47 / 0.45 / 0.45 (was 0.65 / 0.73 / 0.67),
+  `scale2` 0.84 / 0.82 / 0.79 (was 0.98 / 0.97 / 0.99), `noise1` 0.90 / 0.94 / 0.96 (was 1.00 / 1.00 / 0.99).
+- **The cost shows up as fewer usable labels, not wrong ones.** The E4 label rate under `cal` falls (random family 3:
+  0.92 → 0.87) because more correct posteriors are refused. A smaller audit than this would eventually make the label
+  rate fall below the 0.80 non-vacuity requirement; where that happens was not measured.
+- **Reading for design.** In this synthetic world about 400 audited roots per 800 graphs (2 of the 16 reviews per graph) kept every pre-registered property while accepting fewer benign
+  distortions. Whether that holds for a real chain depends on its error rate, its audit size and its posterior quality.
+  The 0.5 audit-fraction run (more audit) has not been run.
