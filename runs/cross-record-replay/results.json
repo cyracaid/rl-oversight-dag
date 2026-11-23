@@ -1,0 +1,339 @@
+{
+  "header": {
+    "records_used": 2652,
+    "participants_total": 237,
+    "participants_with_min_nights": 196,
+    "min_nights": 10,
+    "nights_per_participant_median": 12.0,
+    "records_dropped": {
+      "implausible_duration": 178
+    }
+  },
+  "flip_table": {
+    "visible": {
+      "C4_data_quality": {
+        "n": 1213,
+        "p_flip_pct": 89.1
+      },
+      "C2_low_efficiency": {
+        "n": 1213,
+        "p_flip_pct": 25.3
+      },
+      "C1_short_sleep": {
+        "n": 1213,
+        "p_flip_pct": 0.2
+      },
+      "C3_irregular": {
+        "n": 1213,
+        "p_flip_pct": 0.6
+      }
+    },
+    "silent": {
+      "C2_low_efficiency": {
+        "n": 2372,
+        "p_flip_pct": 0.5
+      },
+      "C1_short_sleep": {
+        "n": 2372,
+        "p_flip_pct": 0.2
+      },
+      "C3_irregular": {
+        "n": 2372,
+        "p_flip_pct": 0.0
+      },
+      "C4_data_quality": {
+        "n": 2372,
+        "p_flip_pct": 0.0
+      }
+    }
+  },
+  "delta": {
+    "visible": {
+      "mean_tst": {
+        "mean": 1.49,
+        "p90": 0.0
+      },
+      "mean_se": {
+        "mean": 4.34,
+        "p90": 5.43
+      },
+      "sd_mid": {
+        "mean": 1.0,
+        "p90": 0.0
+      }
+    },
+    "silent": {
+      "mean_tst": {
+        "mean": 0.83,
+        "p90": 2.27
+      },
+      "mean_se": {
+        "mean": 0.15,
+        "p90": 0.42
+      },
+      "sd_mid": {
+        "mean": 0.0,
+        "p90": 0.0
+      }
+    }
+  },
+  "detection": {
+    "visible": {
+      "pct_flagged": 99.8,
+      "n": 1213
+    },
+    "silent": {
+      "pct_flagged": 2.9,
+      "n": 2372
+    }
+  },
+  "fragility": {
+    "C1_short_sleep": {
+      "n": 196,
+      "median_margin": -42.63,
+      "p10_margin": -111.82,
+      "p90_one_night_shift": 0.0,
+      "pct_conclusion_true": 82.7,
+      "pct_within_p90_shift": 0.0
+    },
+    "C2_low_efficiency": {
+      "n": 196,
+      "median_margin": -4.79,
+      "p10_margin": -11.06,
+      "p90_one_night_shift": 5.43,
+      "pct_conclusion_true": 79.1,
+      "pct_within_p90_shift": 13.8
+    },
+    "C3_irregular": {
+      "n": 196,
+      "median_margin": -25.36,
+      "p10_margin": -41.37,
+      "p90_one_night_shift": 0.0,
+      "pct_conclusion_true": 80.6,
+      "pct_within_p90_shift": 0.0
+    }
+  },
+  "flip_by_nights": {
+    "10-13": {
+      "visible": {
+        "n": 925,
+        "pct_any_flip": 92.2
+      },
+      "silent": {
+        "n": 1831,
+        "pct_any_flip": 0.6
+      }
+    },
+    "14-20": {
+      "visible": {
+        "n": 288,
+        "pct_any_flip": 100.0
+      },
+      "silent": {
+        "n": 541,
+        "pct_any_flip": 0.4
+      }
+    }
+  },
+  "flip_by_corrupted_fraction": {
+    "10pct": {
+      "any": {
+        "n": 980,
+        "pct_flip": 49.2
+      },
+      "C1_short_sleep": {
+        "n": 980,
+        "pct_flip": 0.3
+      },
+      "C2_low_efficiency": {
+        "n": 980,
+        "pct_flip": 14.1
+      },
+      "C3_irregular": {
+        "n": 980,
+        "pct_flip": 0.4
+      }
+    },
+    "25pct": {
+      "any": {
+        "n": 980,
+        "pct_flip": 80.7
+      },
+      "C1_short_sleep": {
+        "n": 980,
+        "pct_flip": 0.3
+      },
+      "C2_low_efficiency": {
+        "n": 980,
+        "pct_flip": 41.5
+      },
+      "C3_irregular": {
+        "n": 980,
+        "pct_flip": 1.2
+      }
+    },
+    "50pct": {
+      "any": {
+        "n": 980,
+        "pct_flip": 94.0
+      },
+      "C1_short_sleep": {
+        "n": 980,
+        "pct_flip": 0.5
+      },
+      "C2_low_efficiency": {
+        "n": 980,
+        "pct_flip": 68.2
+      },
+      "C3_irregular": {
+        "n": 980,
+        "pct_flip": 1.6
+      }
+    }
+  },
+  "policies": {
+    "visible|b1": {
+      "none": {
+        "mean": 0.582,
+        "sd": 0.043
+      },
+      "random": {
+        "mean": 0.524,
+        "sd": 0.05
+      },
+      "qc": {
+        "mean": 0.014,
+        "sd": 0.008
+      },
+      "extreme": {
+        "mean": 0.472,
+        "sd": 0.045
+      },
+      "oracle": {
+        "mean": 0.0,
+        "sd": 0.0
+      }
+    },
+    "visible|b2": {
+      "none": {
+        "mean": 0.582,
+        "sd": 0.043
+      },
+      "random": {
+        "mean": 0.471,
+        "sd": 0.048
+      },
+      "qc": {
+        "mean": 0.002,
+        "sd": 0.003
+      },
+      "extreme": {
+        "mean": 0.379,
+        "sd": 0.039
+      },
+      "oracle": {
+        "mean": 0.0,
+        "sd": 0.0
+      }
+    },
+    "visible|b3": {
+      "none": {
+        "mean": 0.582,
+        "sd": 0.043
+      },
+      "random": {
+        "mean": 0.428,
+        "sd": 0.048
+      },
+      "qc": {
+        "mean": 0.001,
+        "sd": 0.003
+      },
+      "extreme": {
+        "mean": 0.295,
+        "sd": 0.038
+      },
+      "oracle": {
+        "mean": 0.0,
+        "sd": 0.0
+      }
+    },
+    "silent|b1": {
+      "none": {
+        "mean": 0.008,
+        "sd": 0.007
+      },
+      "random": {
+        "mean": 0.006,
+        "sd": 0.005
+      },
+      "qc": {
+        "mean": 0.008,
+        "sd": 0.006
+      },
+      "extreme": {
+        "mean": 0.004,
+        "sd": 0.004
+      },
+      "oracle": {
+        "mean": 0.0,
+        "sd": 0.0
+      }
+    },
+    "silent|b2": {
+      "none": {
+        "mean": 0.008,
+        "sd": 0.007
+      },
+      "random": {
+        "mean": 0.005,
+        "sd": 0.005
+      },
+      "qc": {
+        "mean": 0.008,
+        "sd": 0.006
+      },
+      "extreme": {
+        "mean": 0.004,
+        "sd": 0.004
+      },
+      "oracle": {
+        "mean": 0.0,
+        "sd": 0.0
+      }
+    },
+    "silent|b3": {
+      "none": {
+        "mean": 0.008,
+        "sd": 0.007
+      },
+      "random": {
+        "mean": 0.004,
+        "sd": 0.005
+      },
+      "qc": {
+        "mean": 0.008,
+        "sd": 0.006
+      },
+      "extreme": {
+        "mean": 0.004,
+        "sd": 0.004
+      },
+      "oracle": {
+        "mean": 0.0,
+        "sd": 0.0
+      }
+    }
+  },
+  "thresholds": {
+    "bed_to_sleep_max_h": 7.0,
+    "awake_to_getup_max_h": 7.0,
+    "sleep_to_awake_max_h": 24.0,
+    "sol_excessive_min": 120.0,
+    "waso_excessive_min": 90.0,
+    "short_tst_min": 420.0,
+    "low_se": 85.0,
+    "irregular_sd_min": 60.0
+  },
+  "min_nights": 10
+}

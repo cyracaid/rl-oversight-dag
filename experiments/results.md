@@ -160,3 +160,79 @@ Not done yet: evaluate the policy separately on consensus-verified vs single-ann
 - **Meaningful**: sink errors on a real sleep-research pipeline, not a toy classifier.
 - **Trustworthy**: 75 human corrections (27 consensus / 48 agree); never AI-stamped.
 - **Non-saturated**: even oracle conf leaves 0.72 (reviewer miss rate p_catch = 0.9) — room in review *quality*, not just scheduling.
+
+---
+
+## 12. Real-data replays (2026-11-23): the graph is smaller than the simulator assumed
+
+Two replays now use our own records instead of a simulator with copied type rates.
+Both are pilots (n = 53 rows / 196 participants), not package-official output.
+
+### 12a. Within record: 75 human corrections
+
+`replay_manual_corrections.py` → `runs/replay-manual-corrections/results.json`,
+written up in `REPLAY_MANUAL_CORRECTIONS_INTERPRETATION.md`.
+
+53 of 75 rows have four complete timestamps (22 dropped); 36 participants; 14-node
+reduction of the 21-node DAG. Validation gate: our recomputed `bed_sleep_diff_h`,
+`sleep_awake_diff_h`, `awake_getup_diff_h` match the CSV's own columns in **159/159
+cells** (0.02 h tolerance). No error is sampled — node values come from the record,
+truth from `column_to_correct` + `correct_value`.
+
+| statistic | value |
+|---|---|
+| wrong nodes per record | 5.92 / 14 (42 %) |
+| sink errors before review | 1.53 / 4 |
+| sink errors, rows with exactly one source defect (n = 37) | **1.84 / 4** |
+
+Sink errors by budget (root-cause reviewer, mean of 30 seeds):
+
+| budget | random | threshold | structural | oracle |
+|---|---|---|---|---|
+| 1 | 0.90 | 0.42 | **0.19** | 0.14 |
+| 2 | 0.52 | 0.08 | 0.10 | 0.01 |
+| 8 | 0.01 | 0.00 | 0.00 | 0.00 |
+
+* Propagation is real and now measured on our data (1 source defect → 1.84 of 4 conclusions).
+* **Within a record there is almost no scheduling problem**: two reviews clear it, so the
+  budget of 8/21 is 4–8× the requirement.
+* Structure pays only at budget ≈ 1 (0.19 vs 0.42); it disappears at budget 2.
+* If the reviewer cannot trace root cause (local model), `leaf_first` wins at every budget
+  (b1 0.56 vs threshold 1.36): open the raw fields first.
+
+### 12b. Across records: does one bad night survive aggregation?
+
+`cross_record_replay.py` → `runs/cross-record-replay/results.json`,
+written up in `CROSS_RECORD_REPLAY_INTERPRETATION.md`.
+
+2,652 nights / 237 participants (196 with ≥ 10 nights, median 12); 4 conclusions per
+participant (short sleep, low efficiency, irregular midpoint, data quality).
+
+| corruption | C1 | C2 | C3 | C4* | QC flags it |
+|---|---|---|---|---|---|
+| visible (±12 h, order_error) | 0.2 % | 25.3 % | 0.6 % | 89.1 % | **99.8 %** |
+| silent (WASO→0) | 0.2 % | 0.5 % | 0.0 % | 0.0 % | 2.9 % |
+
+\* definitional: the corruption breaks the order rules by construction.
+
+Sink errors, budget 1 of ~12 nights: none 0.582, random 0.524, extreme-value 0.472,
+**QC rule 0.014**, oracle 0.000.
+
+* A one-line rule on the existing QC flags is within 0.014 of the oracle; anything
+  adaptive has to beat *that*, not random.
+* Systematic bias is the real risk: 25 % of a participant's nights corrupted →
+  80.7 % of participants change a conclusion; 50 % → 94.0 %.
+* Default population cuts do not discriminate in this cohort: 82.7 % / 79.1 % / 80.6 %
+  of participants already meet the short-sleep / low-efficiency / irregular cuts.
+
+**Consequence for the proposal.** Per-node review scheduling is not supported by our
+own data at either level. The defensible formulation is *block* review: given a
+participant's nights and a small budget, choose which contiguous block to open,
+because a defect that matters is shared. That is a proposed next experiment.
+
+### 12c. Numbers that must not be reused
+
+* `order_error` = **57/75 = 76 %**, not 85.1 % (85.1 % = 57/67, 8 rows unlabeled).
+* REINFORCE 1.40 / PPO 1.60 / threshold 2.30 / structural 1.80 are **legacy seeds 1–20**.
+  On 200 held-out graphs: threshold 1.41, structural 1.45, **belief greedy 1.14**,
+  GNN+REINFORCE 1.56. Do not quote the legacy column as the method comparison.
