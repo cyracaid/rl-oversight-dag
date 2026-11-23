@@ -17,7 +17,7 @@ import numpy as np
 
 N_SEEDS = 8
 P_CATCH = 0.9
-BUDGET = 8            # ~25% of 32 nodes
+BUDGET = 8            # 8 of 21 nodes (38%)
 LAMBDA = 0.9
 
 # ---- nodes (id, layer, type) -------------------------------------------------
