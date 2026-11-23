@@ -11,6 +11,7 @@ Error types and rates come from manual_error_correction_updated.csv:
 This is the "real pipeline" answer to "the 80/500-node graph is a toy".
 """
 import math
+import os
 import random
 import numpy as np
 
@@ -143,9 +144,8 @@ def run_seed(seed):
     # hub = number of children
     children = [0] * N
     for name, ps in PARENTS.items():
-        i = NAME2ID[name]
         for p in ps:
-            children[pi] += 1
+            children[NAME2ID[p]] += 1
     pol_hub = sorted(idx, key=lambda i: -children[i])[:BUDGET]
 
     def apply(order):
@@ -191,9 +191,10 @@ def main():
         f"| conf threshold | {sum(agg['threshold'])/N_SEEDS:.2f} |",
         f"| hub (children) | {sum(agg['hub'])/N_SEEDS:.2f} |",
     ]
-    with open("real_pipeline_table.md", "w") as f:
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "real_pipeline_table.md")
+    with open(out, "w") as f:
         f.write("\n".join(lines) + "\n")
-    print("wrote real_pipeline_table.md")
+    print("wrote", out)
 
 
 if __name__ == "__main__":
