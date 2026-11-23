@@ -245,7 +245,7 @@ GNN + REINFORCE 在三种置信度条件下训练（3 种子 × 12k episode）�
 | 不审 | 2.12 |
 | 随机 | 1.88 |
 | **置信度阈值** | **0.50** |
-| hub | 1.75 |
+| hub | 1.88 |
 
 ![真实睡眠管道 DAG](experiments/real_pipeline.png)
 
