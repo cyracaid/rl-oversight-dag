@@ -246,7 +246,7 @@ Encoded from splsleep SCHEMA (`real_pipeline_graph.py`): raw diary leaves → pa
 | no review | 2.12 |
 | random | 1.88 |
 | **conf threshold** | **0.50** |
-| hub | 1.75 |
+| hub | 1.88 |
 
 ![Real sleep-pipeline DAG](experiments/real_pipeline.png)
 

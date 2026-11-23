@@ -186,7 +186,7 @@ CMDP naive (do not use for the main table): `N` node actions + 1 STOP.
 r_T = − sink_errors          # number of sink nodes still erroneous at the end
 ```
 
-No per-step reward. Discount γ = 0.97 (REINFORCE MC uses the terminal directly, so γ matters only for the ablated TD variants).
+No per-step reward. **Main results are undiscounted: γ = 1** — `experiments/PROPOSAL_GAPS_RUN.md` records "All use gamma=1, terminal-only reward", and the deck states gamma = 1. The ablation TD variants use γ = 0.97; that value applies to them only, not to the main table.
 
 CMDP naive (failed, keep for the report as a negative result):
 
@@ -275,7 +275,7 @@ Hidden 32, lr 0.003 / 0.001, 12k–20k episodes, conf_bins = 8 for the tabular v
 | BA | 80.6 | 78.2 | 37.6 | 29.2 | **12.8** | 3.6 |
 | ER | 42.6 | 42.0 | 21.4 | 34.0 | **19.2** | 7.8 |
 
-Real pipeline (8 seeds, budget 8, λ=0.9): no review 2.12, random 1.88, hub 1.75, **threshold 0.50**.
+Real pipeline (8 seeds, budget 8, λ=0.9): no review 2.12, random 1.88, hub 1.88, **threshold 0.50**. Hub equals random, so degree-based selection carries no gain on this DAG.
 
 ---
 

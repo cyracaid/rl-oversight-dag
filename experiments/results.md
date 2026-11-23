@@ -133,7 +133,13 @@ Types and rates match the 75 corrections (order_error 0.35/node, then the others
 | no review | 2.12 |
 | random | 1.88 |
 | **conf threshold** | **0.50** |
-| hub (children) | 1.75 |
+| hub (children) | 1.88 |
+
+Hub equals random: degree-based selection carries no gain on this DAG (the
+earlier 1.75 came from an edge-counting bug, fixed 2026-11-23). Threshold is the
+only policy that separates: paired against random it gains 1.38 sink errors
+(95 % CI 0.12–2.63, t on 8 paired seeds), and one seed still ends at 3 errors, so
+the mean hides a real spread.
 
 **This is the application-value answer:** on the *actual* lab pipeline (not a synthetic 500-node graph), a calibrated confidence threshold nearly clears conclusion errors. The 500-node scale-free result says what to do when the evidence graph is large; this 21-node result says what to do on *our* data today.
 
@@ -166,7 +172,8 @@ Not done yet: evaluate the policy separately on consensus-verified vs single-ann
 ## 12. Real-data replays (2026-11-23): the graph is smaller than the simulator assumed
 
 Two replays now use our own records instead of a simulator with copied type rates.
-Both are pilots (n = 53 rows / 196 participants), not package-official output.
+Both are pilots on our own records (12a: 53 corrected rows / 36 participants; 12b: the
+full 13,990-row panel), not package-official output.
 
 ### 12a. Within record: 75 human corrections
 

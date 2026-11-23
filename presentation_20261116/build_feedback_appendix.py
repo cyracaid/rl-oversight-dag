@@ -127,18 +127,17 @@ def body_row(cells, xs, widths, y, size=13, bold_first=True, color=None):
 
 # ---------------------------------------------------------------- A1 error definition
 new('1', 'An error is a wrong output value, not a bug',
-    'The parser produced a plausible record; a human later corrected it. Code bugs are caught by tests.')
+    'The pipeline produced a plausible record; a human later corrected it. Code bugs are caught by tests.')
 
-xs = [.65, 3.55, 8.55, 10.95]
-ws = [2.85, 4.9, 2.3, 1.7]
+xs = [.65, 3.45, 8.40, 10.80]
+ws = [2.75, 4.75, 2.30, 1.95]
 y = head_row(['Error type', 'Concrete example from the real extract', 'Share of fixes', 'Base rate'], xs, ws, 2.62)
 rows = [
     ('order_error', 'wake-up timestamp earlier than sleep onset; AM/PM flipped; span over 24 h',
      '57/75 = 76%', '0.35'),
-    ('*_diff_error', 'derived awake-to-get-up gap wrong; self-reported SOL contradicts the timestamps',
-     '7/75 = 9.3%', '0.15 / 0.12'),
-    ('metric_spike, others', 'metric jump; sleep efficiency over 100%; zero-length sleep accepted',
-     'residual 10.7%', '0.05'),
+    ('every other type',
+     'diff / metric_spike / sleep_awake_equal: gap wrong, metric jump, efficiency over 100%, zero-length sleep',
+     '10 labelled + 8 unlabelled = 18/75', '0.05 - 0.15'),
 ]
 for r in rows:
     y = body_row(list(r), xs, ws, y, 13)
@@ -191,13 +190,13 @@ end('This is the answer to the per-stage question. Collect has eight raw diary f
 new('3', 'Three requirements, one MDP',
     'Not three literatures side by side: three components that feed each other.')
 
-xs = [.65, 6.05, 11.0]
-ws = [5.2, 4.75, 1.9]
+xs = [.65, 5.95, 10.65]
+ws = [5.1, 4.6, 2.1]
 y = head_row(['Requirement', 'Component in our method', 'Anchor'], xs, ws, 2.45)
 rows = [
     ('Hand the decision back to a human\n(learning-to-defer)',
-     'action = review one unreviewed node; inspection may miss (p_catch = 0.9); terminal reward = minus residual sink errors',
-     'spec 2.3'),
+     'action = review an unreviewed node; inspection may miss (p_catch = 0.9); reward = minus residual sink errors',
+     'proposal 4 / spec 2.3'),
     ('Allocate reviews under a budget\n(budgeted allocation)',
      'state carries budget_left; finite horizon H = B; the episode ends when the budget is spent',
      'proposal 4'),
@@ -251,22 +250,25 @@ y = tblock('Type shares are measured. Per-node base rates (0.35, 0.15, ...) are 
            'shares, not per-node measurements: the correction file does not record the pipeline stage.',
            .65, y, 12.1, 13, MUTED)
 
-y += .34
+y += .28
 tblock('Hidden errors are estimated, not merely defined', .65, y, 12.1, 14.5, GREEN, True)
 y += .36
 y = tblock('Random audits estimate the base error rate; v5 passes its pre-registered gate on all 9 cells: '
            '|bias| <= 0.05, coverage >= 0.90, calibration pass rate 1.00.', .65, y, 12.1, 13)
 
-y += .34
+y += .28
 tblock('A strong baseline already exists on the real graph', .65, y, 12.1, 14.5, GREEN, True)
 y += .36
-tblock('8 seeds, budget 8/21: no review 2.12, random 1.88, degree 1.88, confidence 0.5 = 0.50 — '
-       'the bar a learned policy must clear.', .65, y, 12.1, 13)
+tblock('Only heuristics run at N=21 (belief greedy is not run at this size). 8 seeds, budget 8/21 '
+       '(main synthetic setting: 16): no review 2.12, random 1.88, degree 1.88, confidence 0.50 — '
+       'paired against random +1.38 [0.12, 2.63], and one seed still ends at 3.', .65, y, 12.1, 13)
 
 end('Two honesties. First, the three rates have three denominators and we never mix them. Type shares are measured; the per-node base rates are a model prior mapped from '
     'those shares, because the correction file does not record which stage failed. Second, hidden errors are estimated, not only defined: random audits, with v5 passing its '
     'pre-registered gate on all nine cells. On the real graph a simple confidence threshold reaches 0.50 residual errors against 2.12 for no review, so that is the bar '
-    'any learned policy has to clear.')
+    'any learned policy has to clear. Third, and say this before anyone asks: our own replays (results.md section 12) show that within a record two reviews clear it, '
+    'and across records a one-line QC rule is within 0.014 of the oracle. Per-node scheduling is justified by the 80-node synthetic setting, not by our 21-node data; '
+    'on our data the open question is block review, which is a proposed next experiment, not a result.')
 
 pdf.save()
 prs.save(OUT / 'Team6_Feedback_Appendix.pptx')
