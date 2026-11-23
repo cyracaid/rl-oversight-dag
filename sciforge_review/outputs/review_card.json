@@ -1,0 +1,154 @@
+[
+  {
+    "policy": "no review",
+    "sink_errors": 2.433333333333333,
+    "recall": 0.0,
+    "reviews": 0.0,
+    "minutes": 0.0,
+    "errors_per_hour": 0.0
+  },
+  {
+    "policy": "queue order @ 4 min (row)",
+    "sink_errors": 2.3666666666666667,
+    "recall": 0.2175925925925926,
+    "reviews": 3.0,
+    "minutes": 3.1000000000000005,
+    "errors_per_hour": 20.645161290322577
+  },
+  {
+    "policy": "queue order @ 8 min (row)",
+    "sink_errors": 2.2333333333333334,
+    "recall": 0.3290079365079365,
+    "reviews": 7.0,
+    "minutes": 7.233333333333333,
+    "errors_per_hour": 13.271889400921658
+  },
+  {
+    "policy": "queue order @ 16 min (row)",
+    "sink_errors": 1.8666666666666667,
+    "recall": 0.5781878306878308,
+    "reviews": 15.0,
+    "minutes": 15.5,
+    "errors_per_hour": 11.225806451612902
+  },
+  {
+    "policy": "type prior @ 4 min (row)",
+    "sink_errors": 2.3666666666666667,
+    "recall": 0.2175925925925926,
+    "reviews": 3.0,
+    "minutes": 3.1000000000000005,
+    "errors_per_hour": 20.645161290322577
+  },
+  {
+    "policy": "type prior @ 8 min (row)",
+    "sink_errors": 2.1,
+    "recall": 0.4796957671957672,
+    "reviews": 7.0,
+    "minutes": 7.233333333333333,
+    "errors_per_hour": 18.80184331797235
+  },
+  {
+    "policy": "type prior @ 16 min (row)",
+    "sink_errors": 0.8333333333333334,
+    "recall": 0.8450529100529101,
+    "reviews": 15.0,
+    "minutes": 15.5,
+    "errors_per_hour": 16.387096774193548
+  },
+  {
+    "policy": "belief greedy @ 4 min (row)",
+    "sink_errors": 2.3666666666666667,
+    "recall": 0.2175925925925926,
+    "reviews": 3.0,
+    "minutes": 3.1000000000000005,
+    "errors_per_hour": 20.645161290322577
+  },
+  {
+    "policy": "belief greedy @ 8 min (row)",
+    "sink_errors": 2.1,
+    "recall": 0.4796957671957672,
+    "reviews": 7.0,
+    "minutes": 7.233333333333333,
+    "errors_per_hour": 18.80184331797235
+  },
+  {
+    "policy": "belief greedy @ 16 min (row)",
+    "sink_errors": 0.7666666666666667,
+    "recall": 0.8328306878306878,
+    "reviews": 15.0,
+    "minutes": 15.5,
+    "errors_per_hour": 16.129032258064516
+  },
+  {
+    "policy": "queue order @ 4 min (witness)",
+    "sink_errors": 2.2333333333333334,
+    "recall": 0.3290079365079365,
+    "reviews": 7.0,
+    "minutes": 3.6166666666666667,
+    "errors_per_hour": 26.543778801843317
+  },
+  {
+    "policy": "queue order @ 8 min (witness)",
+    "sink_errors": 1.8666666666666667,
+    "recall": 0.5781878306878308,
+    "reviews": 15.0,
+    "minutes": 7.75,
+    "errors_per_hour": 22.451612903225804
+  },
+  {
+    "policy": "queue order @ 16 min (witness)",
+    "sink_errors": 0.43333333333333335,
+    "recall": 0.9085978835978835,
+    "reviews": 21.0,
+    "minutes": 10.850000000000005,
+    "errors_per_hour": 25.437788018433164
+  },
+  {
+    "policy": "type prior @ 4 min (witness)",
+    "sink_errors": 2.1,
+    "recall": 0.4796957671957672,
+    "reviews": 7.0,
+    "minutes": 3.6166666666666667,
+    "errors_per_hour": 37.6036866359447
+  },
+  {
+    "policy": "type prior @ 8 min (witness)",
+    "sink_errors": 0.8333333333333334,
+    "recall": 0.8450529100529101,
+    "reviews": 15.0,
+    "minutes": 7.75,
+    "errors_per_hour": 32.774193548387096
+  },
+  {
+    "policy": "type prior @ 16 min (witness)",
+    "sink_errors": 0.5,
+    "recall": 0.9085978835978835,
+    "reviews": 21.0,
+    "minutes": 10.850000000000005,
+    "errors_per_hour": 25.437788018433164
+  },
+  {
+    "policy": "belief greedy @ 4 min (witness)",
+    "sink_errors": 2.1,
+    "recall": 0.4796957671957672,
+    "reviews": 7.0,
+    "minutes": 3.6166666666666667,
+    "errors_per_hour": 37.6036866359447
+  },
+  {
+    "policy": "belief greedy @ 8 min (witness)",
+    "sink_errors": 0.7666666666666667,
+    "recall": 0.8328306878306878,
+    "reviews": 15.0,
+    "minutes": 7.75,
+    "errors_per_hour": 32.25806451612903
+  },
+  {
+    "policy": "belief greedy @ 16 min (witness)",
+    "sink_errors": 0.5,
+    "recall": 0.9085978835978835,
+    "reviews": 21.0,
+    "minutes": 10.850000000000005,
+    "errors_per_hour": 25.437788018433164
+  }
+]

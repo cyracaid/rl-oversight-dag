@@ -1,0 +1,37 @@
+belief greedy held-out: 1.10 ± 0.20
+  seed 1: collecting teacher data (800 graphs)
+    BC epoch 1/4: loss 3.821
+    BC epoch 2/4: loss 3.020
+    BC epoch 3/4: loss 2.802
+    BC epoch 4/4: loss 2.666
+  seed 1: BC-only held-out 1.28
+  seed 1: BC+FT  held-out 1.39
+  seed 2: collecting teacher data (800 graphs)
+    BC epoch 1/4: loss 3.961
+    BC epoch 2/4: loss 2.975
+    BC epoch 3/4: loss 2.763
+    BC epoch 4/4: loss 2.640
+  seed 2: BC-only held-out 1.20
+  seed 2: BC+FT  held-out 1.38
+  seed 3: collecting teacher data (800 graphs)
+    BC epoch 1/4: loss 3.143
+    BC epoch 2/4: loss 2.848
+    BC epoch 3/4: loss 2.682
+    BC epoch 4/4: loss 2.544
+  seed 3: BC-only held-out 1.14
+  seed 3: BC+FT  held-out 1.89
+  seed 4: collecting teacher data (800 graphs)
+    BC epoch 1/4: loss 3.367
+    BC epoch 2/4: loss 2.906
+    BC epoch 3/4: loss 2.738
+    BC epoch 4/4: loss 2.611
+  seed 4: BC-only held-out 1.21
+  seed 4: BC+FT  held-out 1.50
+  seed 5: collecting teacher data (800 graphs)
+    BC epoch 1/4: loss 3.690
+    BC epoch 2/4: loss 2.992
+    BC epoch 3/4: loss 2.803
+    BC epoch 4/4: loss 2.670
+  seed 5: BC-only held-out 1.18
+  seed 5: BC+FT  held-out 1.47
+Saved runs/boundary-full-v1/bc/results.json and results.md

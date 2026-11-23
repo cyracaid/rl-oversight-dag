@@ -1,9 +1,14 @@
+[**한국어: 수면 데이터 인계**](TEAM_HANDOFF_KO.md) · [**39개 헤더·자료형**](SLEEP_SCHEMA_KO.md) · [**역할 분담**](../TEAM_CLAIMS_KO.md)
+
 # Sharing the sleep data without sharing the sleep data
 
 The rule is simple: **the real table never leaves your machine.** What teammates
 need in order to write code is the *shape* of the table, not any row of it.
 
 This directory holds that shape.
+
+**Teammates start here: [TEAM_HANDOFF.md](TEAM_HANDOFF.md)** — ordered header,
+parsing recommendations, schema caveats, label boundaries, and owner/deliverable map.
 
 ---
 
@@ -31,10 +36,10 @@ import pandas as pd
 df = pd.read_csv(path)          # path = fixture now, real file later
 ```
 
-The fixture has the same 39 columns, the same dtypes, the same missingness pattern,
-and **internally consistent nights** — `bed → sleep → wake → get-up` with TST, TIB
-and SE computed from those timestamps. That matters: their validation logic should
-not fail on impossible data.
+The fixture has the same 39 column names and approximates some marginal ranges
+and missingness. Its complete night block is internally consistent; independently
+filled fields elsewhere may not be. CSV type inference, labels and joint missingness
+are not preserved. Use it for loader plumbing, not scientific or clinical validation.
 
 ## What the card deliberately omits
 
@@ -56,7 +61,7 @@ not fail on impossible data.
 | invariants: `bed ≤ sleep ≤ wake ≤ get-up`, `0 ≤ SE ≤ 100` | their checks need a ground truth for "legal" | this file, below |
 | rows per participant: min 3, median 61, max 75 | sizing loops and splits | `rows_per_participant` in the JSON |
 
-## Invariants the fixture respects
+## Intended invariants for valid complete nights
 
 ```
 bedtime ≤ sleeponset ≤ awakening ≤ getup
@@ -66,8 +71,8 @@ se   = tst / tib × 100        0 ≤ se ≤ 100
 sol  = sleeponset − bedtime
 ```
 
-If a teammate's loader or validator assumes anything else, it is wrong against both
-the fixture and the real table.
+These are validation targets, not guarantees for every synthetic or real record.
+Raw/erroneous records can violate them; confirm derived-field definitions locally.
 
 ## If someone needs more detail
 

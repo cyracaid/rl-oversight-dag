@@ -1,0 +1,82 @@
+{
+  "config": {
+    "command": "train",
+    "variant": "static",
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "episodes": 20000,
+    "out_dir": "runs/boundary-full-v1/static"
+  },
+  "provenance": {
+    "git_commit": "c9641e37ee44e9bec521bb47612011b8a5f5991e",
+    "git_status": "M .gitignore\n M TEAM_CLAIMS.html\n M TEAM_CLAIMS_KO.md\n M experiments/rl_distill.py\n M schema/README.md\n M schema/SLEEP_SCHEMA.md\n M schema/TEAM_HANDOFF.md\n?? AI4S_Landscape_2026-11_EN.md\n?? \"AI4S_\\350\\260\\203\\347\\240\\224_20261110_\\351\\243\\236\\344\\271\\246\\347\\211\\210.md\"\n?? \"AI4S_\\350\\260\\203\\347\\240\\224_20261110_\\351\\243\\236\\344\\271\\246\\351\\223\\276\\346\\216\\245\\347\\211\\210.md\"\n?? \"AI4S_\\350\\260\\203\\347\\240\\224_\\346\\250\\241\\345\\236\\213\\350\\207\\252\\350\\256\\255\\347\\273\\203\\345\\210\\260\\344\\273\\252\\345\\231\\250\\351\\227\\255\\347\\216\\257_20261110.html\"\n?? \"AI4S_\\350\\260\\203\\347\\240\\224_\\346\\250\\241\\345\\236\\213\\350\\207\\252\\350\\256\\255\\347\\273\\203\\345\\210\\260\\344\\273\\252\\345\\231\\250\\351\\227\\255\\347\\216\\257_20261110.md\"\n?? \"PLAN_\\350\\277\\236\\350\\264\\257\\350\\257\\273_20261110.md\"\n?? experiments/BOUNDARY_PREREG.md\n?? experiments/BOUNDARY_RUN.md\n?? experiments/dist_results.json\n?? experiments/dist_table.md\n?? experiments/rl_boundary.py\n?? experiments/run_boundary.sh\n?? experiments/test_boundary.py\n?? runs/\n?? schema/SLEEP_SCHEMA_KO.md\n?? schema/TEAM_HANDOFF_KO.md\n?? sciforge_review/",
+    "source_sha256": {
+      "belief.py": "4b5e6bac5175dc80b4bfcd87ac6b4daa1c672fc4c1819d64037134ba1d870edd",
+      "dependency_review_sim.py": "5549eb0eecd60c2e3264c18ec8b06f7f81494c18b4d8a65c747c07e7215014e1",
+      "graph_scale.py": "94adc260aad6473bd0339a41e14bc8a13c0421ca3e2578d6f5ddff0e1bcf0af2",
+      "plot_ablation.py": "af969db5905bb2e6c733ebed97974053d3efcb49f228c88ca97bcb18c23de88c",
+      "plot_real_pipeline.py": "fcfff8d3e8e15a822a59ffbd4606bd76a6313dbc943a4e7e4344aa08ae2b9687",
+      "plot_scale.py": "d18a0d97796a7a1371e4afa782753699a48535f512a992d09a3bce54fcf85e12",
+      "real_pipeline_graph.py": "fe7631467159c8922b693ff453adc93d7f9ed6f1b3c689fd9e12af58534295d2",
+      "rl_ablation.py": "20d4019935a0c51b5e0146fc6ad26d96f5419b94ab7e1b85d479de615e1e1d46",
+      "rl_active_selection.py": "c7aa84b90edf6e9a7c67cb843326428f22f9f5df774711a24a9e9bd44e0057c1",
+      "rl_boundary.py": "6ad6a333b1eb00826d1c266d88a04ee14b6401b6ad6d0c1fced2264687f28482",
+      "rl_cmdp_gnn.py": "0051cda5508094d7d6eba5687c782dcee6730162009ac4c673866471ff891d2c",
+      "rl_distill.py": "746abe751a2c059990ed36297dc83405f817fae7ff5c3589666ed7de7cf5fe91",
+      "rl_final.py": "86df227827fcde79d6a559e2bf34c94fe16dd92ce1de4eb5943a77e5947544ff",
+      "rl_gnn_multiseed.py": "72d26d6dd6e7e4152b6e1c9638527283a8d4a11063b2074210c718775ef48721",
+      "rl_methods_compare.py": "ad3d12ead3c389c74cad12eddaea3e81f8b66a3ca55f7748202e0a1bb1ca863b",
+      "spike_active_selection.py": "6dc57ba720d9bc8e8170ca28b6c80ebe2ced079e43bbec420706d0f62a2d01c3",
+      "test_boundary.py": "d153db44309342bbaa35914ca42632c7e26b0b9882ed94e8d66b96c1bac89941",
+      "test_semantics.py": "1d80e9634984e1a74acafd791be282aa8488ddca8ab27b6b84e7111d42f30132",
+      "verify_clustering.py": "b855d281c175bd55e52418bf7b839f48084ce7dcc7fdf3ea34691c239a01a510"
+    },
+    "python": "3.13.5",
+    "torch": "2.12.1",
+    "numpy": "2.4.4",
+    "simulator": {
+      "N": 80,
+      "K": 5,
+      "L": 4,
+      "p_prop": 0.6,
+      "p_catch": 0.9,
+      "budget": 16,
+      "crn": true,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "n_particles": 1024
+    },
+    "type_rates": [
+      0.01,
+      0.03,
+      0.08,
+      0.15,
+      0.25
+    ]
+  }
+}

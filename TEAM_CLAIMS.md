@@ -47,6 +47,11 @@ permalink: /TEAM_CLAIMS_EN.html
 
 ## 1. Who owns what
 
+**Sleep headers/types and member handoff:** [schema/TEAM_HANDOFF.md](schema/TEAM_HANDOFF.md).
+Status correction (2026-11-12): the historical BC table conflicts with its JSON;
+BC parity is pending reproduction, and credit assignment remains a hypothesis.
+Boundary experiment code and preregistration are being validated locally and are not included in this handoff commit.
+
 Every row: **goal** → **why** → **this week** → **what to do, in order** → **hard part** → **principles** → **done when** → **don't**.
 
 ### Person 1 — PM + co-presenter + code review

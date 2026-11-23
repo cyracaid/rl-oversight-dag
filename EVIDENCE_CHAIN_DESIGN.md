@@ -256,7 +256,7 @@ Each ingredient exists. The combination does not (we did not find it).
 5. GNN vs belief greedy: belief greedy wins by 0.42 ± 0.15 on 200 held-out graphs. Belief greedy assumes the confidence model and edge probabilities are known exactly; test it under misspecification before treating it as an upper bound for deployable policies.
 6. GNN + PPO not converged (~5.60).
 7. Dual-critic CMDP not built (naive 2.15 with a fixed seed; 4.85 unseeded).
-8. Belief greedy assumes the confidence model and edge probabilities are known exactly; rerun it under misspecification.
+8. Belief greedy assumes the confidence model and edge probabilities are known exactly; misspecification was tested on the development set in boundary-full-v1 (see 10b); the independent confirmation set has not been run.
 9. SciForge: confidence field on nodes; real graph size / edge types.
 10. Consensus / Hard split (27 / 48) — labels exist, evaluation not run.
 11. BestReject (arXiv:2409.20489) = our calibrated threshold — claim dropped as unverified.
@@ -288,32 +288,75 @@ A reviewer can ask "is this just FALCON on a graph" and get: FALCON has no error
 
 ---
 
-## 10b. The RL-improvement programme (handed to SciForge)
+## 10b. The RL-improvement programme and the boundary results (development set)
 
 The course paper reports the gap between learned policies and belief greedy, and explains it.
 **Closing that gap is SciForge-side work**, not the course team's: it needs their data and their
 review budget, and it is a research programme rather than a course deliverable.
 
-**What has been run** (2026-11-10, preliminary; `experiments/rl_distill.py`, 3 seeds, 200 held-out
-graphs, teacher = belief greedy):
+**Results currently relied on:** `boundary-full-v1` (2026-11-12, run by the user; raw records in
+`runs/boundary-full-v1/`, verification in `experiments/BOUNDARY_FULL_V1_INTERPRETATION.md`). Primary
+metric: residual sink errors after a 16-review budget, lower is better; N=80, training seeds 1-5, 200
+development graphs (graph seeds 1000-1199), common random numbers, 10,000 crossed bootstrap draws.
 
-| policy | held-out sink errors |
-|---|---:|
-| belief greedy (teacher) | 1.15 ± 0.21 |
-| behaviour cloning only | 1.14 ± 0.11 |
-| BC + REINFORCE, lr 3e-3, 20k | 1.62 ± 0.41 |
-| BC + REINFORCE, lr 1e-4, 5k | 1.24 ± 0.10 |
-| BC + REINFORCE, KL leash 0.5, 20k | 1.15 ± 0.07 |
+| policy (matched) | mean sink errors | vs belief greedy | 95% CI |
+|---|---:|---:|---|
+| confidence threshold | 1.440 | +0.340 | [+0.200, +0.495] |
+| belief greedy | 1.100 | 0 | - |
+| 2-step greedy | 1.020 | -0.080 | [-0.160, -0.010] |
+| REINFORCE / static | 1.517 | +0.417 | [+0.161, +0.766] |
+| REINFORCE / observed | 1.709 | +0.609 | [+0.404, +0.829] |
+| BC | 1.201 | +0.101 | [+0.007, +0.197] |
+| BC + FT (no KL) | 1.525 | +0.425 | [+0.240, +0.650] |
 
-**Reading.** Representation is not the gap: a policy that only imitates matches the teacher.
-Unregularised fine-tuning destroys it (and is unstable across seeds); a KL leash to the BC policy
-keeps it at teacher level. Nothing so far beats the teacher.
+**Reading.**
+- No learned policy beats belief greedy; two-step planning gives a small gain (about 7.3%).
+- BC did not pass the pre-registered near-parity criterion (upper bound +0.197 exceeds the +0.10 margin), so
+  **"imitation alone matches the teacher" cannot be claimed**.
+- Unregularised REINFORCE fine-tuning hurts: BC+FT minus BC = +0.324, CI [+0.129, +0.568]; worse than the
+  matching BC in all 7 conditions and for every training seed. This contrast **cannot by itself identify** the
+  cause (credit assignment, exploration, learning rate, optimisation or distribution drift).
+- Under model misspecification (propagation odds x0.5/x2, confidence logit +/-0.5, catch 0.7) belief greedy stays
+  best or near-best in all six conditions. Dropping catch to 0.7 roughly doubles errors for every policy
+  (greedy 1.10 to 2.35); known vs unknown shift differ little (2.350 vs 2.345), which does not show that
+  identifying reviewer ability has no value.
 
-**Open items for SciForge.** (1) the one-step value `gain(i)` as a feature; (2) trust-region size
-and early stopping; (3) the misspecification regime (wrong edge probabilities, drifting type rates,
-30% missed errors); (4) a 2-step greedy control, to separate learning from planning depth.
+**Superseded earlier table.** The 2026-11-10 preliminary table (BC 1.14, KL 0.5 fine-tuning 1.15, 3 seeds)
+conflicts with the saved JSON and was marked inadmissible in the pre-registration; it is **removed from this
+section and must not be cited**. The earlier attribution of the gap to credit assignment is withdrawn too. KL
+fine-tuning is a separately listed exploratory intervention and is not reported as a conclusion here.
 
-**Caveat.** Three seeds, one configuration family, not rerun by a second person.
+**Limits.** The independent confirmation set (graph seeds 2000-2199) has not been run; planner intervals
+resample graphs only; five training seeds; the synthetic DAG does not test semantic verification of real
+sleep claims, evidence availability, judgement reliability or cost.
+
+**Open items for SciForge.** (1) the one-step value `gain(i)` as a feature; (2) trust-region size and early
+stopping; (3) broader misspecification (drifting type rates, etc.); (4) to confirm two-step planning, freeze the
+candidate and matched condition first, then have the user run the independent confirmation.
+
+---
+
+## 10c. What these results imply for the evidence and audit chain (hypotheses, unconfirmed)
+
+These are design suggestions drawn from the development-set results, **not established conclusions**.
+
+1. **Make the review recommender a deterministic belief ranking first.** The read-only suggestion phase in
+   Section 9 can use belief greedy; there is currently no evidence supporting a learned policy in the product.
+2. **The chain must store what the belief needs:** a calibrated confidence per node, a propagation probability per
+   edge, and the outcome of each review (flagged or not). This is Section 8 item 9 (does a node have a confidence field).
+3. **Reviewer reliability is the first-order parameter.** Catch rate moves outcomes far more than the gaps between
+   policies, so measure and record reviewer reliability first (multi-reviewer agreement, e.g. alpha/kappa), then
+   worry about which node to review.
+4. **Treat "flagged but unexplained by the model" as a first-class event.** The diagnostic `n_degenerate`
+   (matched: greedy 0/200, BC 23/1000; confidence offset +0.5: greedy 6/200) hints at a missing edge or node, or
+   systematically overstated confidence; it should escalate to a human and trigger recalibration. It is not a
+   general particle-degeneracy metric and excludes the planner's hypothetical branches, so it is a lead only.
+5. **Two-step planning stays out of the product for now.** The gain is small; the saved whole-condition wall
+   time (220 s vs 28 s) covers all models and is not a per-policy speed ratio.
+6. **Every suggestion carries provenance:** version, parameters, seed and source hash, so it can be replayed;
+   Section 4 already allows recording the fact that a suggestion was shown.
+
+---
 
 ## 11. File map (what lives where)
 

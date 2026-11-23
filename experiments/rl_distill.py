@@ -23,15 +23,16 @@ Reading the result
 
 Usage
 -----
-  python3 rl_distill.py --smoke
-  python3 rl_distill.py --graphs 800 --bc-epochs 4 --episodes 20000 --seeds 1 2 3 4 5
-Writes dist_results.json and dist_table.md next to this file.
+  python3 rl_distill.py --smoke --out-dir runs/bc-smoke
+  python3 rl_distill.py --graphs 800 --bc-epochs 4 --episodes 20000 --seeds 1 2 3 4 5 --out-dir runs/bc-full
+Writes results.json, results.md and checkpoints inside a new output directory.
 """
 import argparse
 import json
 import math
 import random
 import statistics
+from pathlib import Path
 
 import torch
 
@@ -79,11 +80,12 @@ def collect(seed, graphs):
     return data
 
 
-def bc_train(policy, data, epochs, lr, batch):
+def bc_train(policy, data, epochs, lr, batch, seed=0):
     opt = torch.optim.Adam(policy.parameters(), lr=lr)
+    shuffle_rng = random.Random(seed)
     losses = []
     for ep in range(epochs):
-        random.shuffle(data)
+        shuffle_rng.shuffle(data)
         tot, n = 0.0, 0
         for i in range(0, len(data), batch):
             chunk = data[i:i + batch]
@@ -126,6 +128,14 @@ def finetune(policy, seed, episodes, lr=0.003):
     return curve
 
 
+def valid_kl(scores, reference, reviewed, temp):
+    """KL(reference || policy) only on available actions; avoid -inf - -inf."""
+    lp = torch.log_softmax(scores[~reviewed] / temp, 0)
+    with torch.no_grad():
+        lp_ref = torch.log_softmax(reference[~reviewed] / temp, 0)
+    return (lp_ref.exp() * (lp_ref - lp)).sum()
+
+
 def rollout_kl(policy, ref, rng, belief_seed, temp):
     """One episode with both the current and the reference (BC) policy scored."""
     env = M.build_env(rng, belief_seed, with_belief=True)
@@ -137,15 +147,15 @@ def rollout_kl(policy, ref, rng, belief_seed, temp):
     for t in range(R):
         F = M.features(env, VARIANT, reviewed, flagged, R - t)
         s = policy.score(F, env["A"])
-        s_ref = ref.score(F, env["A"])
+        with torch.no_grad():
+            s_ref = ref.score(F, env["A"])
         mask = torch.tensor(reviewed)
+        kls.append(valid_kl(s, s_ref, mask, temp))
         s = s.masked_fill(mask, float("-inf"))
         s_ref = s_ref.masked_fill(mask, float("-inf"))
         lp = torch.log_softmax(s / temp, 0)
-        lp_ref = torch.log_softmax(s_ref / temp, 0)
         a = int(torch.multinomial(torch.exp(lp), 1).item())
         logps.append(lp[a])
-        kls.append((torch.exp(lp_ref) * (lp_ref - lp)).sum())
         f, err = SP.review_step(a, base, err, env["nodes"], env["topo"],
                                 env["coins"], rng, u)
         reviewed[a], flagged[a] = True, f
@@ -185,12 +195,18 @@ def mean_ci(xs):
     return m, t * sd / math.sqrt(n)
 
 
-def run_seed(seed, graphs, epochs, episodes, lr_bc, lr_ft, heldout, no_ft, kl_beta=0.0):
+def run_seed(seed, graphs, epochs, episodes, lr_bc, lr_ft, heldout, no_ft, kl_beta=0.0,
+             checkpoint_dir=None):
     print(f"  seed {seed}: collecting teacher data ({graphs} graphs)", flush=True)
     data = collect(seed, graphs)
-    policy = GNNPolicy(d=M.DIM[VARIANT])
     torch.manual_seed(seed)
-    losses = bc_train(policy, data, epochs, lr_bc, batch=128)
+    policy = GNNPolicy(d=M.DIM[VARIANT])
+    losses = bc_train(policy, data, epochs, lr_bc, batch=128, seed=seed)
+    training_config = dict(graphs=graphs, epochs=epochs, episodes=episodes, lr_bc=lr_bc,
+                           lr_ft=lr_ft, kl_beta=kl_beta, no_ft=no_ft)
+    if checkpoint_dir is not None:
+        from rl_boundary import save_policy
+        save_policy(checkpoint_dir / f"bc_{seed}.pt", policy, VARIANT, seed, "bc", training_config)
     bc_held = M.eval_gnn(policy, VARIANT, heldout)
     print(f"  seed {seed}: BC-only held-out {sum(bc_held)/len(bc_held):.2f}", flush=True)
     ft_curve = []
@@ -202,6 +218,9 @@ def run_seed(seed, graphs, epochs, episodes, lr_bc, lr_ft, heldout, no_ft, kl_be
         else:
             ft_curve = finetune(policy, seed, episodes, lr_ft)
         ft_held = M.eval_gnn(policy, VARIANT, heldout)
+        if checkpoint_dir is not None:
+            kind = "bc_kl_ft" if kl_beta > 0 else "bc_ft"
+            save_policy(checkpoint_dir / f"{kind}_{seed}.pt", policy, VARIANT, seed, kind, training_config)
         print(f"  seed {seed}: BC+FT  held-out {sum(ft_held)/len(ft_held):.2f}", flush=True)
     else:
         ft_held = bc_held
@@ -222,60 +241,54 @@ def main():
     ap.add_argument("--kl-beta", type=float, default=0.0,
                     help="KL leash to the BC policy during fine-tuning (0 = off)")
     ap.add_argument("--smoke", action="store_true")
-    ap.add_argument("--out", default="dist_results.json")
+    ap.add_argument("--out", default=None, help="Legacy JSON path; defaults to out-dir/results.json")
+    ap.add_argument("--out-dir", type=Path, default=None, help="New directory; refuses to overwrite")
+    ap.add_argument("--bootstrap", type=int, default=10000)
     args = ap.parse_args()
 
     if args.smoke:
         args.graphs, args.bc_epochs, args.episodes = 40, 1, 30
         args.seeds, args.heldout = [1], 20
 
+    if min(args.graphs, args.bc_epochs, args.heldout, args.bootstrap) < 1:
+        ap.error("graphs, bc-epochs, heldout and bootstrap must be positive")
+    if args.heldout > len(M.HELDOUT_SEEDS) or len(set(args.seeds)) != len(args.seeds):
+        ap.error("heldout must be <= 200 and training seeds must be unique")
+    if args.episodes < 0 or args.kl_beta < 0:
+        ap.error("episodes and kl-beta must be nonnegative")
+    if args.out_dir is None:
+        ap.error("--out-dir is required; use a new directory to preserve historical artifacts")
+    if args.out is not None:
+        ap.error("use --out-dir instead of --out to keep JSON, table and checkpoints together")
+    args.out_dir.mkdir(parents=True, exist_ok=False)
+    SP.CFG["crn"] = True
+
     torch.set_num_threads(1)
     heldout = M.HELDOUT_SEEDS[:args.heldout]
-    base = M.eval_baselines(heldout)
-    greedy = base["belief greedy"]
+    from rl_boundary import evaluate, SCENARIOS, provenance, write_report
+    with torch.no_grad():
+        greedy = [evaluate(s, SCENARIOS["matched"], "belief greedy")[0] for s in heldout]
     gm, gci = mean_ci(greedy)
     print(f"belief greedy held-out: {gm:.2f} ± {gci:.2f}")
 
     results = []
     for seed in args.seeds:
         results.append(run_seed(seed, args.graphs, args.bc_epochs, args.episodes,
-                                args.lr_bc, args.lr_ft, heldout, args.no_ft, args.kl_beta))
-
-    def agg(key):
-        per = [sum(r[key]) / len(r[key]) for r in results]
-        m, ci = mean_ci(per)
-        return m, ci, per
-
-    bc_m, bc_ci, bc_per = agg("bc_heldout")
-    ft_m, ft_ci, ft_per = agg("ft_heldout")
-    paired = [p - g for p, g in zip(ft_per, [gm] * len(ft_per))]
-
-    lines = [
-        f"N={N}, budget={R}, {len(args.seeds)} seed(s) x {args.episodes} FT episodes, "
-        f"held-out n={len(heldout)}, teacher = belief greedy",
-        "",
-        "| policy | held-out mean | 95% CI |",
-        "|---|---:|---:|",
-        f"| belief greedy (teacher) | {gm:.2f} | ± {gci:.2f} |",
-        f"| student, BC only | {bc_m:.2f} | ± {bc_ci:.2f} |",
-        f"| student, BC + REINFORCE | {ft_m:.2f} | ± {ft_ci:.2f} |",
-        "",
-        f"Per-seed BC only: {['%.2f' % x for x in bc_per]}",
-        f"Per-seed BC + FT: {['%.2f' % x for x in ft_per]}",
-        "",
-        ("Reading: BC ≈ teacher means the policy can represent the rule; a large BC gap "
-         "means capacity/features; BC good and FT worse means credit assignment."),
-    ]
-    table = "\n".join(lines)
-    print("\n" + table)
-    with open(args.out, "w") as f:
-        json.dump({"config": vars(args), "teacher": {"mean": gm, "ci95": gci},
-                   "bc": {"mean": bc_m, "ci95": bc_ci, "per_seed": bc_per},
-                   "ft": {"mean": ft_m, "ci95": ft_ci, "per_seed": ft_per},
-                   "results": results}, f, indent=1)
-    with open("dist_table.md", "w") as f:
-        f.write(table + "\n")
-
+                                args.lr_bc, args.lr_ft, heldout, args.no_ft, args.kl_beta,
+                                args.out_dir))
+        # Save completed seeds immediately, before starting the next long training run.
+        config = {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}
+        conditions = {"belief greedy": greedy,
+                      "BC": [r["bc_heldout"] for r in results]}
+        if not args.no_ft:
+            kind = "BC+KL-FT" if args.kl_beta > 0 else "BC+FT"
+            conditions[kind] = [r["ft_heldout"] for r in results]
+        write_report(args.out_dir / "results.json", {
+            "config": config, "provenance": provenance(), "graph_seeds": heldout,
+            "completed_seeds": [r["seed"] for r in results],
+            "conditions": {"matched": conditions}, "training": results})
+    print(f"Saved {args.out_dir / 'results.json'} and results.md", flush=True)
+    return
 
 if __name__ == "__main__":
     main()

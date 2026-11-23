@@ -1,0 +1,2 @@
+# Share the header-only contract; synthetic and real CSV rows remain ignored.
+!sleep_headers.csv

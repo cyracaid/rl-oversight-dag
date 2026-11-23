@@ -1,0 +1,164 @@
+[
+  {
+    "policy": "queue order",
+    "mode": "row",
+    "budget": 4.0,
+    "reviews": 3.0,
+    "spent": 3.1000000000000005,
+    "recall": 0.10922619047619046,
+    "errors_per_hour": 11.61290322580645
+  },
+  {
+    "policy": "type prior",
+    "mode": "row",
+    "budget": 4.0,
+    "reviews": 3.0,
+    "spent": 3.1000000000000005,
+    "recall": 0.10922619047619046,
+    "errors_per_hour": 11.61290322580645
+  },
+  {
+    "policy": "belief greedy",
+    "mode": "row",
+    "budget": 4.0,
+    "reviews": 3.0,
+    "spent": 3.1000000000000005,
+    "recall": 0.10922619047619046,
+    "errors_per_hour": 11.61290322580645
+  },
+  {
+    "policy": "queue order",
+    "mode": "row",
+    "budget": 8.0,
+    "reviews": 7.0,
+    "spent": 7.2333333333333325,
+    "recall": 0.2773214285714286,
+    "errors_per_hour": 12.027649769585254
+  },
+  {
+    "policy": "type prior",
+    "mode": "row",
+    "budget": 8.0,
+    "reviews": 7.0,
+    "spent": 7.2333333333333325,
+    "recall": 0.4041071428571429,
+    "errors_per_hour": 17.004608294930875
+  },
+  {
+    "policy": "belief greedy",
+    "mode": "row",
+    "budget": 8.0,
+    "reviews": 7.0,
+    "spent": 7.2333333333333325,
+    "recall": 0.4041071428571429,
+    "errors_per_hour": 17.004608294930875
+  },
+  {
+    "policy": "queue order",
+    "mode": "row",
+    "budget": 16.0,
+    "reviews": 15.0,
+    "spent": 15.5,
+    "recall": 0.49869047619047613,
+    "errors_per_hour": 10.064516129032258
+  },
+  {
+    "policy": "type prior",
+    "mode": "row",
+    "budget": 16.0,
+    "reviews": 15.0,
+    "spent": 15.5,
+    "recall": 0.8192857142857143,
+    "errors_per_hour": 15.87096774193548
+  },
+  {
+    "policy": "belief greedy",
+    "mode": "row",
+    "budget": 16.0,
+    "reviews": 15.0,
+    "spent": 15.5,
+    "recall": 0.8109523809523809,
+    "errors_per_hour": 15.677419354838708
+  },
+  {
+    "policy": "queue order",
+    "mode": "witness",
+    "budget": 4.0,
+    "reviews": 7.0,
+    "spent": 3.6166666666666663,
+    "recall": 0.2773214285714286,
+    "errors_per_hour": 24.05529953917051
+  },
+  {
+    "policy": "type prior",
+    "mode": "witness",
+    "budget": 4.0,
+    "reviews": 7.0,
+    "spent": 3.6166666666666663,
+    "recall": 0.4041071428571429,
+    "errors_per_hour": 34.00921658986175
+  },
+  {
+    "policy": "belief greedy",
+    "mode": "witness",
+    "budget": 4.0,
+    "reviews": 7.0,
+    "spent": 3.6166666666666663,
+    "recall": 0.4041071428571429,
+    "errors_per_hour": 34.00921658986175
+  },
+  {
+    "policy": "queue order",
+    "mode": "witness",
+    "budget": 8.0,
+    "reviews": 15.0,
+    "spent": 7.75,
+    "recall": 0.49869047619047613,
+    "errors_per_hour": 20.129032258064516
+  },
+  {
+    "policy": "type prior",
+    "mode": "witness",
+    "budget": 8.0,
+    "reviews": 15.0,
+    "spent": 7.75,
+    "recall": 0.8192857142857143,
+    "errors_per_hour": 31.74193548387096
+  },
+  {
+    "policy": "belief greedy",
+    "mode": "witness",
+    "budget": 8.0,
+    "reviews": 15.0,
+    "spent": 7.75,
+    "recall": 0.8109523809523809,
+    "errors_per_hour": 31.354838709677416
+  },
+  {
+    "policy": "queue order",
+    "mode": "witness",
+    "budget": 16.0,
+    "reviews": 21.0,
+    "spent": 10.850000000000005,
+    "recall": 0.8593452380952382,
+    "errors_per_hour": 23.778801843317957
+  },
+  {
+    "policy": "type prior",
+    "mode": "witness",
+    "budget": 16.0,
+    "reviews": 21.0,
+    "spent": 10.850000000000005,
+    "recall": 0.8593452380952382,
+    "errors_per_hour": 23.778801843317957
+  },
+  {
+    "policy": "belief greedy",
+    "mode": "witness",
+    "budget": 16.0,
+    "reviews": 21.0,
+    "spent": 10.850000000000005,
+    "recall": 0.8593452380952382,
+    "errors_per_hour": 23.778801843317957
+  }
+]

@@ -5,7 +5,9 @@ layout: default
 
 # 팀 분담 — 누가 무엇을 맡는가
 
-<p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html">English</a> · <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
+<p><b>언어:</b> <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html">中文</a></p>
+
+**수면 데이터 바로가기:** [한국어 인계 안내](schema/TEAM_HANDOFF_KO.md) · [39개 필드·자료형](schema/SLEEP_SCHEMA_KO.md) · [헤더만 있는 CSV](schema/sleep_headers.csv).
 
 > 5명 · 두 트랙 · **11/23** 발표
 > 한 문장: 우리는 **사람이 어디를 먼저 봐야 하는지** 연구한다 — AI 결과가 서로 의존하는 체인에서.
@@ -80,6 +82,11 @@ layout: default
 **끝나는 때:** 일정이 있고, 두 발표자가 두 번 리허설했고, 제출 체크리스트가 끝났고.
 
 **하지 말 것:** 모델 학습; SciForge 통합; 세 언어 동기화(5번 몫).
+
+> **2026-11-12 인계 정정:** 수면 데이터 헤더·타입·담당별 산출물은
+> [schema/TEAM_HANDOFF.md](schema/TEAM_HANDOFF.md) 참고. 기존 BC 표와 JSON이
+> 불일치하므로 parity는 재현 대기이며 credit assignment는 가설이다.
+> 경계 실험 코드와 사전등록은 로컬 검증 중이며 이번 인계 커밋에는 포함되지 않는다.
 
 ### 2번 — 실험과 "왜"
 **목적:** 논문이 보고할 비교를 돌리고, 격차를 설명하는 문단을 쓴다.
