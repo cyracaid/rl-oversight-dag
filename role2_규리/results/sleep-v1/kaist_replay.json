@@ -1,0 +1,457 @@
+{
+  "cohort": "different",
+  "historical_baseline_check": {
+    "header": {
+      "records_used": 1366,
+      "participants_total": 49,
+      "participants_with_min_nights": 49,
+      "min_nights": 10,
+      "nights_per_participant_median": 28,
+      "records_dropped": {}
+    },
+    "legacy_seeds": 20,
+    "visible_b2_qc_four_conclusions": 0.0,
+    "differences_from_archive": {
+      "records_used": {
+        "current": 1366,
+        "archive": 2652
+      },
+      "participants_total": {
+        "current": 49,
+        "archive": 237
+      },
+      "participants_with_min_nights": {
+        "current": 49,
+        "archive": 196
+      },
+      "nights_per_participant_median": {
+        "current": 28,
+        "archive": 12.0
+      },
+      "records_dropped": {
+        "current": {},
+        "archive": {
+          "implausible_duration": 178
+        }
+      },
+      "visible_b2_qc_four_conclusions": {
+        "current": 0.0,
+        "archive": 0.002
+      }
+    }
+  },
+  "budget_nights": 2,
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261123,
+  "split": "sha256(role2-sleep-v1-split/{pid}) first uint64 mod 5",
+  "input_sha256": "76d0177396d79b438e3372804e2c040e2abd955d11e691011680b62290a8cb74",
+  "code_sha256": "caf8eca82dcf3536bd945ea046eac3a8374dc9d38d3464154aa52e1bb73515a0",
+  "legacy_code_sha256": "9f784a8d30247a778a352f12b621a7bd3a624c1c50326d3a2ac8a0d0b4cfd4af",
+  "protocol_sha256": "29bcade963c50e00a5f4ab26aafc64b148fd2f75ced19f343e49cf8db3b42d57",
+  "new_exclusions_after_legacy_load": {},
+  "scenario_ledger": {
+    "development/consecutive/awake-60/included": 212,
+    "development/consecutive/bed-720/included": 212,
+    "development/consecutive/getup+720/included": 212,
+    "development/consecutive/sleep+60/included": 212,
+    "development/single/awake-60/included": 222,
+    "development/single/bed-720/included": 222,
+    "development/single/getup+720/included": 222,
+    "development/single/sleep+60/included": 222,
+    "evaluation/consecutive/awake-60/included": 1099,
+    "evaluation/consecutive/bed-720/included": 1040,
+    "evaluation/consecutive/bed-720/noncomputable": 59,
+    "evaluation/consecutive/getup+720/included": 1040,
+    "evaluation/consecutive/getup+720/noncomputable": 59,
+    "evaluation/consecutive/sleep+60/included": 1099,
+    "evaluation/single/awake-60/included": 1144,
+    "evaluation/single/bed-720/included": 1112,
+    "evaluation/single/bed-720/noncomputable": 32,
+    "evaluation/single/getup+720/included": 1112,
+    "evaluation/single/getup+720/noncomputable": 32,
+    "evaluation/single/sleep+60/included": 1144
+  },
+  "conditions": {
+    "development/clean": {
+      "participants": 8,
+      "scenarios": 8,
+      "scenarios_with_ties": {
+        "qc_first_max_tied": 8,
+        "contiguous_max_tied": 8
+      },
+      "means": {
+        "before_review": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "random": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "qc": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "contiguous": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "feedback": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        }
+      },
+      "paired_differences": {
+        "contiguous_minus_qc": {
+          "mean": 0.0,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.0
+          ],
+          "upper_below_zero": false
+        },
+        "feedback_minus_qc": {
+          "mean": 0.0,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.0
+          ],
+          "upper_below_zero": false
+        }
+      }
+    },
+    "development/consecutive": {
+      "participants": 8,
+      "scenarios": 848,
+      "scenarios_with_ties": {
+        "qc_first_max_tied": 811,
+        "contiguous_max_tied": 423
+      },
+      "means": {
+        "before_review": {
+          "wrong_conclusions_C1_C3": 0.21805555555555556,
+          "C1_short_sleep": 0.0625,
+          "C2_low_efficiency": 0.125,
+          "C3_irregular": 0.030555555555555558,
+          "C4_data_quality": 0.5
+        },
+        "random": {
+          "wrong_conclusions_C1_C3": 0.2064814814814815,
+          "C1_short_sleep": 0.0625,
+          "C2_low_efficiency": 0.11574074074074074,
+          "C3_irregular": 0.02824074074074074,
+          "C4_data_quality": 0.5
+        },
+        "qc": {
+          "wrong_conclusions_C1_C3": 0.13675925925925925,
+          "C1_short_sleep": 0.0625,
+          "C2_low_efficiency": 0.04976851851851852,
+          "C3_irregular": 0.02449074074074074,
+          "C4_data_quality": 0.0
+        },
+        "contiguous": {
+          "wrong_conclusions_C1_C3": 0.1375462962962963,
+          "C1_short_sleep": 0.05625,
+          "C2_low_efficiency": 0.05555555555555555,
+          "C3_irregular": 0.02574074074074074,
+          "C4_data_quality": 0.0
+        },
+        "feedback": {
+          "wrong_conclusions_C1_C3": 0.12675925925925927,
+          "C1_short_sleep": 0.0525,
+          "C2_low_efficiency": 0.04976851851851852,
+          "C3_irregular": 0.02449074074074074,
+          "C4_data_quality": 0.0
+        }
+      },
+      "paired_differences": {
+        "contiguous_minus_qc": {
+          "mean": 0.0007870370370370357,
+          "ci95_participant_bootstrap": [
+            -0.017499999999999995,
+            0.018148148148148142
+          ],
+          "upper_below_zero": false
+        },
+        "feedback_minus_qc": {
+          "mean": -0.010000000000000002,
+          "ci95_participant_bootstrap": [
+            -0.030000000000000006,
+            0.0
+          ],
+          "upper_below_zero": false
+        }
+      }
+    },
+    "development/single": {
+      "participants": 8,
+      "scenarios": 888,
+      "scenarios_with_ties": {
+        "qc_first_max_tied": 441,
+        "contiguous_max_tied": 811
+      },
+      "means": {
+        "before_review": {
+          "wrong_conclusions_C1_C3": 0.1417824074074074,
+          "C1_short_sleep": 0.0625,
+          "C2_low_efficiency": 0.06919642857142858,
+          "C3_irregular": 0.010085978835978835,
+          "C4_data_quality": 0.5
+        },
+        "random": {
+          "wrong_conclusions_C1_C3": 0.13157242063492064,
+          "C1_short_sleep": 0.05787037037037037,
+          "C2_low_efficiency": 0.06473214285714286,
+          "C3_irregular": 0.008969907407407407,
+          "C4_data_quality": 0.46395502645502645
+        },
+        "qc": {
+          "wrong_conclusions_C1_C3": 0.0665922619047619,
+          "C1_short_sleep": 0.052083333333333336,
+          "C2_low_efficiency": 0.006696428571428571,
+          "C3_irregular": 0.0078125,
+          "C4_data_quality": 0.0
+        },
+        "contiguous": {
+          "wrong_conclusions_C1_C3": 0.07237929894179895,
+          "C1_short_sleep": 0.056712962962962965,
+          "C2_low_efficiency": 0.006696428571428571,
+          "C3_irregular": 0.008969907407407407,
+          "C4_data_quality": 0.0023148148148148147
+        },
+        "feedback": {
+          "wrong_conclusions_C1_C3": 0.0665922619047619,
+          "C1_short_sleep": 0.052083333333333336,
+          "C2_low_efficiency": 0.006696428571428571,
+          "C3_irregular": 0.0078125,
+          "C4_data_quality": 0.0
+        }
+      },
+      "paired_differences": {
+        "contiguous_minus_qc": {
+          "mean": 0.005787037037037037,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.015046296296296295
+          ],
+          "upper_below_zero": false
+        },
+        "feedback_minus_qc": {
+          "mean": 0.0,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.0
+          ],
+          "upper_below_zero": false
+        }
+      }
+    },
+    "evaluation/clean": {
+      "participants": 41,
+      "scenarios": 41,
+      "scenarios_with_ties": {
+        "qc_first_max_tied": 35,
+        "contiguous_max_tied": 36
+      },
+      "means": {
+        "before_review": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "random": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "qc": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "contiguous": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        },
+        "feedback": {
+          "wrong_conclusions_C1_C3": 0.0,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.0,
+          "C4_data_quality": 0.0
+        }
+      },
+      "paired_differences": {
+        "contiguous_minus_qc": {
+          "mean": 0.0,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.0
+          ],
+          "upper_below_zero": false
+        },
+        "feedback_minus_qc": {
+          "mean": 0.0,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.0
+          ],
+          "upper_below_zero": false
+        }
+      }
+    },
+    "evaluation/consecutive": {
+      "participants": 41,
+      "scenarios": 4278,
+      "scenarios_with_ties": {
+        "qc_first_max_tied": 3770,
+        "contiguous_max_tied": 1937
+      },
+      "means": {
+        "before_review": {
+          "wrong_conclusions_C1_C3": 0.10139032473527246,
+          "C1_short_sleep": 0.013439522150323542,
+          "C2_low_efficiency": 0.07575568063372942,
+          "C3_irregular": 0.012195121951219513,
+          "C4_data_quality": 0.4852359119901736
+        },
+        "random": {
+          "wrong_conclusions_C1_C3": 0.09304461830594235,
+          "C1_short_sleep": 0.011448481831757094,
+          "C2_low_efficiency": 0.06940101452296575,
+          "C3_irregular": 0.012195121951219511,
+          "C4_data_quality": 0.4852359119901736
+        },
+        "qc": {
+          "wrong_conclusions_C1_C3": 0.023878125358961597,
+          "C1_short_sleep": 0.011448481831757094,
+          "C2_low_efficiency": 0.00046904315196998124,
+          "C3_irregular": 0.011960600375234522,
+          "C4_data_quality": 0.0
+        },
+        "contiguous": {
+          "wrong_conclusions_C1_C3": 0.023892483822797413,
+          "C1_short_sleep": 0.011697361871577898,
+          "C2_low_efficiency": 0.00046904315196998124,
+          "C3_irregular": 0.011726078799249532,
+          "C4_data_quality": 0.0
+        },
+        "feedback": {
+          "wrong_conclusions_C1_C3": 0.023409082206991616,
+          "C1_short_sleep": 0.011448481831757094,
+          "C2_low_efficiency": 0.00046904315196998124,
+          "C3_irregular": 0.01149155722326454,
+          "C4_data_quality": 0.0
+        }
+      },
+      "paired_differences": {
+        "contiguous_minus_qc": {
+          "mean": 1.4358463835813984e-05,
+          "ci95_participant_bootstrap": [
+            -0.001407129455909945,
+            0.0012156832714323967
+          ],
+          "upper_below_zero": false
+        },
+        "feedback_minus_qc": {
+          "mean": -0.0004690431519699816,
+          "ci95_participant_bootstrap": [
+            -0.0011726078799249543,
+            0.0
+          ],
+          "upper_below_zero": false
+        }
+      }
+    },
+    "evaluation/single": {
+      "participants": 41,
+      "scenarios": 4512,
+      "scenarios_with_ties": {
+        "qc_first_max_tied": 1963,
+        "contiguous_max_tied": 3815
+      },
+      "means": {
+        "before_review": {
+          "wrong_conclusions_C1_C3": 0.052565726955970865,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.04037060500475135,
+          "C3_irregular": 0.012195121951219513,
+          "C4_data_quality": 0.49264758133224074
+        },
+        "random": {
+          "wrong_conclusions_C1_C3": 0.049271460247070006,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.037741526765917015,
+          "C3_irregular": 0.011529933481152992,
+          "C4_data_quality": 0.45762367868834924
+        },
+        "qc": {
+          "wrong_conclusions_C1_C3": 0.011086474501108647,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.011086474501108647,
+          "C4_data_quality": 0.0
+        },
+        "contiguous": {
+          "wrong_conclusions_C1_C3": 0.01349382324992081,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0021856192587899905,
+          "C3_irregular": 0.01130820399113082,
+          "C4_data_quality": 0.02087476605559494
+        },
+        "feedback": {
+          "wrong_conclusions_C1_C3": 0.011086474501108647,
+          "C1_short_sleep": 0.0,
+          "C2_low_efficiency": 0.0,
+          "C3_irregular": 0.011086474501108647,
+          "C4_data_quality": 0.0
+        }
+      },
+      "paired_differences": {
+        "contiguous_minus_qc": {
+          "mean": 0.0024073487488121634,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.006335128286347798
+          ],
+          "upper_below_zero": false
+        },
+        "feedback_minus_qc": {
+          "mean": 0.0,
+          "ci95_participant_bootstrap": [
+            0.0,
+            0.0
+          ],
+          "upper_below_zero": false
+        }
+      }
+    }
+  },
+  "status": "completed",
+  "private_cases_sha256": "619a8b53389d5c93e6f1b9a53ffd4ea89bb38bd71a3aa8b57aa088b64188a68d",
+  "private_pairs_sha256": "0e867f5e0affe9c2b20d6f86a21a23bc2119948a0c8e958201b560e0371c101f"
+}

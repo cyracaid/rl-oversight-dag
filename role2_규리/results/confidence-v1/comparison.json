@@ -1,0 +1,231 @@
+{
+  "graphs": 200,
+  "review_budget": 16,
+  "source_sha256": {
+    "manifest.json": "0bc46a49ae3f558a17da49eb997d902632fd6e94c0c95d69b746c31871c64c2d",
+    "episodes.csv": "aec3883fab0c41225d2659ac0429967181368848e43f19c7d4526d5cd959872c",
+    "report_conditions.py": "33b8c94b1642c4f5556961617032eaf73bc26f425a16d4b212c06911166194ec",
+    "rl_boundary.py": "e44e6fe5ca1086206e5dab8c4ba3598e3ab1f8b5d898faeb329ea9b7f734eb62"
+  },
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 20261112,
+    "coverage": 0.95
+  },
+  "conditions": {
+    "matched": {
+      "confidence": {
+        "mean_sink_errors": 1.545,
+        "flag_rate": 0.4365625,
+        "saved_per_review": 0.2853125
+      },
+      "marginal": {
+        "mean_sink_errors": 1.13,
+        "flag_rate": 0.361875,
+        "saved_per_review": 0.31125
+      },
+      "type_prior": {
+        "mean_sink_errors": 4.065,
+        "flag_rate": 0.260625,
+        "saved_per_review": 0.1278125
+      },
+      "adaptive_marginal": {
+        "mean_sink_errors": 1.13,
+        "flag_rate": 0.361875,
+        "saved_per_review": 0.31125,
+        "vs_marginal": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0
+        },
+        "inferred_noise_graphs": 0,
+        "inferred_normal_graphs": 200
+      },
+      "gnn": {
+        "mean_sink_errors": 1.485,
+        "flag_rate": 0.4409375,
+        "saved_per_review": 0.2890625,
+        "vs_marginal": {
+          "mean": 0.355,
+          "low": 0.225,
+          "high": 0.5033333333333333
+        },
+        "vs_type_prior": {
+          "mean": -2.58,
+          "low": -2.8733333333333335,
+          "high": -2.285
+        },
+        "vs_adaptive_marginal": {
+          "mean": 0.355,
+          "low": 0.225,
+          "high": 0.5033333333333333
+        },
+        "seeds": {
+          "gnn_s1": {
+            "mean_sink_errors": 1.41,
+            "vs_marginal": 0.28,
+            "vs_type_prior": -2.655,
+            "vs_adaptive_marginal": 0.28
+          },
+          "gnn_s2": {
+            "mean_sink_errors": 1.59,
+            "vs_marginal": 0.46,
+            "vs_type_prior": -2.475,
+            "vs_adaptive_marginal": 0.46
+          },
+          "gnn_s3": {
+            "mean_sink_errors": 1.455,
+            "vs_marginal": 0.325,
+            "vs_type_prior": -2.61,
+            "vs_adaptive_marginal": 0.325
+          }
+        }
+      }
+    },
+    "noise_unrecognized": {
+      "confidence": {
+        "mean_sink_errors": 5.26,
+        "flag_rate": 0.1875,
+        "saved_per_review": 0.053125
+      },
+      "marginal": {
+        "mean_sink_errors": 4.415,
+        "flag_rate": 0.2096875,
+        "saved_per_review": 0.1059375
+      },
+      "type_prior": {
+        "mean_sink_errors": 4.065,
+        "flag_rate": 0.260625,
+        "saved_per_review": 0.1278125
+      },
+      "adaptive_marginal": {
+        "mean_sink_errors": 3.15,
+        "flag_rate": 0.241875,
+        "saved_per_review": 0.185,
+        "vs_marginal": {
+          "mean": -1.265,
+          "low": -1.545,
+          "high": -0.985
+        },
+        "inferred_noise_graphs": 200,
+        "inferred_normal_graphs": 0
+      },
+      "gnn": {
+        "mean_sink_errors": 4.8566666666666665,
+        "flag_rate": 0.21229166666666666,
+        "saved_per_review": 0.07833333333333334,
+        "vs_marginal": {
+          "mean": 0.44166666666666665,
+          "low": 0.265,
+          "high": 0.6216666666666667
+        },
+        "vs_type_prior": {
+          "mean": 0.7916666666666666,
+          "low": 0.5016666666666667,
+          "high": 1.075
+        },
+        "vs_adaptive_marginal": {
+          "mean": 1.7066666666666668,
+          "low": 1.3983333333333334,
+          "high": 2.0166666666666666
+        },
+        "seeds": {
+          "gnn_s1": {
+            "mean_sink_errors": 4.85,
+            "vs_marginal": 0.435,
+            "vs_type_prior": 0.785,
+            "vs_adaptive_marginal": 1.7
+          },
+          "gnn_s2": {
+            "mean_sink_errors": 4.73,
+            "vs_marginal": 0.315,
+            "vs_type_prior": 0.665,
+            "vs_adaptive_marginal": 1.58
+          },
+          "gnn_s3": {
+            "mean_sink_errors": 4.99,
+            "vs_marginal": 0.575,
+            "vs_type_prior": 0.925,
+            "vs_adaptive_marginal": 1.84
+          }
+        }
+      }
+    },
+    "noise_known": {
+      "confidence": {
+        "mean_sink_errors": 5.26,
+        "flag_rate": 0.1875,
+        "saved_per_review": 0.053125
+      },
+      "marginal": {
+        "mean_sink_errors": 3.15,
+        "flag_rate": 0.241875,
+        "saved_per_review": 0.185
+      },
+      "type_prior": {
+        "mean_sink_errors": 4.065,
+        "flag_rate": 0.260625,
+        "saved_per_review": 0.1278125
+      },
+      "adaptive_marginal": {
+        "mean_sink_errors": 3.15,
+        "flag_rate": 0.241875,
+        "saved_per_review": 0.185,
+        "vs_marginal": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0
+        },
+        "inferred_noise_graphs": 200,
+        "inferred_normal_graphs": 0
+      },
+      "gnn": {
+        "mean_sink_errors": 4.191666666666666,
+        "flag_rate": 0.25958333333333333,
+        "saved_per_review": 0.11989583333333333,
+        "vs_marginal": {
+          "mean": 1.0416666666666667,
+          "low": 0.66,
+          "high": 1.4466666666666668
+        },
+        "vs_type_prior": {
+          "mean": 0.12666666666666668,
+          "low": -0.235,
+          "high": 0.515
+        },
+        "vs_adaptive_marginal": {
+          "mean": 1.0416666666666667,
+          "low": 0.66,
+          "high": 1.4466666666666668
+        },
+        "seeds": {
+          "gnn_s1": {
+            "mean_sink_errors": 4.11,
+            "vs_marginal": 0.96,
+            "vs_type_prior": 0.045,
+            "vs_adaptive_marginal": 0.96
+          },
+          "gnn_s2": {
+            "mean_sink_errors": 3.89,
+            "vs_marginal": 0.74,
+            "vs_type_prior": -0.175,
+            "vs_adaptive_marginal": 0.74
+          },
+          "gnn_s3": {
+            "mean_sink_errors": 4.575,
+            "vs_marginal": 1.425,
+            "vs_type_prior": 0.51,
+            "vs_adaptive_marginal": 1.425
+          }
+        }
+      }
+    }
+  },
+  "uncorrected_gnn_vs_corrected_marginal": {
+    "gnn": {
+      "mean": 1.7066666666666668,
+      "low": 1.3983333333333334,
+      "high": 2.0166666666666666
+    }
+  }
+}

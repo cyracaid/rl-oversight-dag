@@ -1,0 +1,16 @@
+*.py text eol=lf
+# Reports validate the recorded SHA-256 of these generated inputs byte for byte.
+results/**/episodes.csv -text
+results/**/manifest.json -text
+results/residual-v1/train/*/config.json -text
+results/residual-v1/train/*/training.json -text
+잔차학습계획.md text eol=lf
+두단계계획.md text eol=lf
+results/planning-v1/trace.csv -text
+부분손상실행안.md text eol=lf
+results/credit-v1/**/protocol.md text eol=lf
+results/credit-v1/protocol.md text eol=lf
+results/sleep-v1/protocol.md text eol=lf
+results/credit-v1/curves.csv -text
+results/credit-v1/**/*.json -text
+results/credit-v1/*.json -text

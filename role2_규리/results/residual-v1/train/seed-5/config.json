@@ -1,0 +1,54 @@
+{
+  "train_seed": 5,
+  "train_start": 3050000,
+  "episodes": 384,
+  "episode_seed_offset": 20000,
+  "validation_start": 74000,
+  "validation_graphs": 24,
+  "validation_episodes": [
+    0,
+    192,
+    384
+  ],
+  "conditions": [
+    "matched",
+    "uniform",
+    "shuffled"
+  ],
+  "variants": [
+    "residual",
+    "feature_only"
+  ],
+  "budget": 16,
+  "signal_gate": {
+    "graph_start": 70000,
+    "graph_count": 100,
+    "episode_seed_offset": 20000,
+    "centers": {
+      "normal": 0.7097657136377006,
+      "noise": 0.5025193763368987
+    }
+  },
+  "optimizer": "Adam",
+  "lr": 0.003,
+  "clip_grad_norm": 5.0,
+  "correction_scale": 0.25,
+  "temperature": 0.12,
+  "python": "3.13.3",
+  "torch": "2.13.0+cpu",
+  "numpy": "2.4.4",
+  "source_sha256": {
+    "role2_\uaddc\ub9ac/train_residual.py": "1e396398686a16b383d698506fd6635e2e447b4e129674512d9764137ece0e91",
+    "role2_\uaddc\ub9ac/evaluate_feedback.py": "2b001e56eba474a72545c881912ad91658c2915820cf5c911f4cced04c631427",
+    "role2_\uaddc\ub9ac/evaluate_conditions.py": "28430de1425ff9105c7c1a045e049ec76411c5216c58f4bcf9968e8e1b58f9db",
+    "role2_\uaddc\ub9ac/signal_calibration.py": "756e1407dd576c98ec26884ec7d98769b87ee364089ceee3a100794841ef66af",
+    "role2_\uaddc\ub9ac/shuffle_control.py": "6a56788891a68b23f532dfc2e12960df823f99db3867978fe102d48f4027b275",
+    "role3 improvement/dag_role3/__init__.py": "e9bc2b7713c4ec5a9ddbcb90e5be0d89bbb3f0cde7cf5a657ae2868da4487aa8",
+    "role3 improvement/dag_role3/belief.py": "2d7596915bb0ef180304ccd244aabf2f3a20ed97e82fd70423516a4caa8c8ed7",
+    "role3 improvement/dag_role3/environment.py": "c9844ed5b4cf7f2387db986d4f2cfc372e461c6d6660dd93088af743ba76d9dd",
+    "role3 improvement/dag_role3/graphs.py": "1bbb7a0a732fb92adba96416faf2d66a68f3e8ba50b74a4a1cbacf96a2f2cce3",
+    "role3 improvement/dag_role3/models.py": "1be5c823a10463b9a89fa45c0cc00157011bad1bec4a96d6faae094e071e5094",
+    "role3 improvement/dag_role3/policies.py": "7113802b64018779d958ee2b0f36de82a5ba0952ed0bdddeced28114983458c4",
+    "role3 improvement/dag_role3/training.py": "0d2d3ce7fc99d56ea6eadf6c20cc4e3a6592f4888125f88b31234804c348281c"
+  }
+}

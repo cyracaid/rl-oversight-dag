@@ -1,0 +1,78 @@
+{
+  "source_sha256": "de4733157001611f1bb85e1af7634fc8790b4f27c54ee94835e70e5f4caf5374",
+  "training_source_sha256": "bd24d2ef4431806a13fff8c1d2b512d76f0fe325588ab80e47bb74dda0dc28b9",
+  "episodes_per_seed": 24,
+  "updates": 0,
+  "seeds": {
+    "1": {
+      "terminal": {
+        "covariance_trace": 1268.4179061583814,
+        "mean_pairwise_cosine_nonzero": 0.010460998802092801,
+        "zero_gradients": 4,
+        "trajectories": 24
+      },
+      "future": {
+        "covariance_trace": 367.25004477320283,
+        "mean_pairwise_cosine_nonzero": 0.013114616306362873,
+        "zero_gradients": 0,
+        "trajectories": 24
+      }
+    },
+    "2": {
+      "terminal": {
+        "covariance_trace": 2260.430324523919,
+        "mean_pairwise_cosine_nonzero": 0.00650977638888331,
+        "zero_gradients": 2,
+        "trajectories": 24
+      },
+      "future": {
+        "covariance_trace": 632.8503089168025,
+        "mean_pairwise_cosine_nonzero": 0.006542923181898625,
+        "zero_gradients": 0,
+        "trajectories": 24
+      }
+    },
+    "3": {
+      "terminal": {
+        "covariance_trace": 861.9231075672085,
+        "mean_pairwise_cosine_nonzero": -0.0014006007810137009,
+        "zero_gradients": 5,
+        "trajectories": 24
+      },
+      "future": {
+        "covariance_trace": 186.76361250502381,
+        "mean_pairwise_cosine_nonzero": -0.026785811100237308,
+        "zero_gradients": 3,
+        "trajectories": 24
+      }
+    },
+    "4": {
+      "terminal": {
+        "covariance_trace": 1004.2434566087575,
+        "mean_pairwise_cosine_nonzero": -0.008803888541826123,
+        "zero_gradients": 2,
+        "trajectories": 24
+      },
+      "future": {
+        "covariance_trace": 254.9173671407568,
+        "mean_pairwise_cosine_nonzero": -0.004852396687934646,
+        "zero_gradients": 0,
+        "trajectories": 24
+      }
+    },
+    "5": {
+      "terminal": {
+        "covariance_trace": 982.8375354015974,
+        "mean_pairwise_cosine_nonzero": 0.022127392634887628,
+        "zero_gradients": 5,
+        "trajectories": 24
+      },
+      "future": {
+        "covariance_trace": 297.184693018978,
+        "mean_pairwise_cosine_nonzero": -0.013433799644777995,
+        "zero_gradients": 3,
+        "trajectories": 24
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "train_seed": 3,
+  "control": {
+    "path": "role2_규리/results/residual-v1/train/seed-3/feature_only.pt",
+    "train_seed": 3,
+    "sha256": "94f6d2e93508ba50f5ad3c671f34a17b775dd1d181e9507099c9682ecfda2ada",
+    "episodes": 384,
+    "selected_episode": 384,
+    "training_config_sha256": "b2f152a9dbd3c60753bd3cd34cbf44c6f16a222370ffbc7f5d61da86fe109d5f",
+    "training_log_sha256": "1ad86ee4b593fccdb8517e2c00d7d2a7a4949e06cdae4e16d314c89570060d33"
+  },
+  "inputs": {
+    "role2_규리/train_credit.py": "bd24d2ef4431806a13fff8c1d2b512d76f0fe325588ab80e47bb74dda0dc28b9",
+    "role2_규리/evaluate_residual.py": "35fdd6e7a0bed6befd6a3f9070810b77cd672bacbb6f12bffa26b6a57bc9269f",
+    "role2_규리/results/credit-v1/protocol.md": "2c0ee5cf58185890275c49e5c879e7318b47a4ae6c4f3fe18bd46d33c5dce8a0",
+    "role2_규리/results/residual-v1/eval/manifest.json": "0dab894361f4685fe476b520f74635c5071db4c283bf8c52df53f2b124c81bd8"
+  }
+}

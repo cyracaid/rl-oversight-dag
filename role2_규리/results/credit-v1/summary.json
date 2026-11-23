@@ -1,0 +1,182 @@
+{
+  "conditions": {
+    "matched": {
+      "means": {
+        "terminal": 4.111,
+        "future": 1.001
+      },
+      "rule": 0.89,
+      "future_minus_terminal": {
+        "mean": -3.11,
+        "low": -3.878,
+        "high": -2.3889750000000003
+      },
+      "vs_rule": {
+        "terminal": {
+          "mean": 3.221,
+          "low": 2.4659750000000003,
+          "high": 4.043
+        },
+        "future": {
+          "mean": 0.111,
+          "low": 0.015975000000000024,
+          "high": 0.227
+        }
+      },
+      "by_seed": {
+        "terminal": [
+          3.525,
+          5.13,
+          3.6,
+          3.17,
+          5.13
+        ],
+        "future": [
+          1.05,
+          1.15,
+          0.86,
+          0.96,
+          0.985
+        ]
+      },
+      "worst_seed_mean_errors": {
+        "terminal": 5.13,
+        "future": 1.15
+      }
+    },
+    "uniform": {
+      "means": {
+        "terminal": 4.575,
+        "future": 2.944
+      },
+      "rule": 2.82,
+      "future_minus_terminal": {
+        "mean": -1.631,
+        "low": -2.178,
+        "high": -0.983
+      },
+      "vs_rule": {
+        "terminal": {
+          "mean": 1.755,
+          "low": 1.081,
+          "high": 2.336
+        },
+        "future": {
+          "mean": 0.124,
+          "low": -0.059,
+          "high": 0.369
+        }
+      },
+      "by_seed": {
+        "terminal": [
+          3.365,
+          5.13,
+          4.93,
+          4.32,
+          5.13
+        ],
+        "future": [
+          2.92,
+          3.355,
+          2.81,
+          2.8,
+          2.835
+        ]
+      },
+      "worst_seed_mean_errors": {
+        "terminal": 5.13,
+        "future": 3.355
+      }
+    },
+    "shuffled": {
+      "means": {
+        "terminal": 4.549,
+        "future": 2.926
+      },
+      "rule": 2.86,
+      "future_minus_terminal": {
+        "mean": -1.623,
+        "low": -2.136,
+        "high": -1.033
+      },
+      "vs_rule": {
+        "terminal": {
+          "mean": 1.689,
+          "low": 1.0539500000000002,
+          "high": 2.26
+        },
+        "future": {
+          "mean": 0.066,
+          "low": -0.083,
+          "high": 0.269
+        }
+      },
+      "by_seed": {
+        "terminal": [
+          3.435,
+          5.13,
+          4.755,
+          4.295,
+          5.13
+        ],
+        "future": [
+          2.86,
+          3.24,
+          2.8,
+          2.885,
+          2.845
+        ]
+      },
+      "worst_seed_mean_errors": {
+        "terminal": 5.13,
+        "future": 3.24
+      }
+    }
+  },
+  "selected_episodes": {
+    "terminal": [
+      384,
+      0,
+      384,
+      384,
+      0
+    ],
+    "future": [
+      384,
+      384,
+      384,
+      192,
+      384
+    ]
+  },
+  "evaluation_rows": 6600,
+  "train_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "graph_range_inclusive": [
+    96000,
+    96199
+  ],
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 20261112,
+    "coverage": 0.95
+  },
+  "sha256": {
+    "role2_규리/results/credit-v1/seed-1/complete.json": "ea409d84ffe1c1acc57339ccfe97d1f21a0f794ccb368b93c4f63c983b246354",
+    "role2_규리/results/credit-v1/seed-2/complete.json": "d53471d00c4ce43c6529a25ae68600a17252edeeb33b3c95c43690f0ae1d3724",
+    "role2_규리/results/credit-v1/seed-3/complete.json": "719cb2025cce9df377f83da73f8df48be7570b2dfa963cdaf4426935d8785c87",
+    "role2_규리/results/credit-v1/seed-4/complete.json": "4df17005a28e62410a8239c70ff633f322f41593178301f4c078e7bfee2ec569",
+    "role2_규리/results/credit-v1/seed-5/complete.json": "c24eb642d2048ac80c2d2e06ca0b49cf5bb8226c5193555673c3d99581c4bfb2",
+    "role2_규리/report_credit.py": "edcee2b602c2d223b86c02e3e93958f8e85e42c24b2e697f64c81de9f8952b62",
+    "experiments/rl_boundary.py": "e44e6fe5ca1086206e5dab8c4ba3598e3ab1f8b5d898faeb329ea9b7f734eb62",
+    "role2_규리/results/credit-v1/protocol.md": "2c0ee5cf58185890275c49e5c879e7318b47a4ae6c4f3fe18bd46d33c5dce8a0",
+    "role2_규리/results/credit-v1/curves.csv": "fe91d670ba03ffca2ddebe9083441b8e71eb6dc6f855f18736e883b65b7d9475",
+    "role2_규리/results/credit-v1/curves.png": "ffe262bd25d17b0f77f9391be6528723b2b7d4c187951e32071833f4c704e46d",
+    "role2_규리/results/credit-v1/diagnostic.json": "4d6cab4a0c8e744ea47b938c1fce65c680f8fb379bfc5653d5f2e377f42e2d39"
+  }
+}

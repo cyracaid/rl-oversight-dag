@@ -1,0 +1,180 @@
+{
+  "graphs": 200,
+  "rows": 3600,
+  "conditions": {
+    "0": {
+      "changed_fraction": 0.0,
+      "type_appearances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean_final_errors": {
+        "trust": 1.065,
+        "ignore": 2.82,
+        "feedback": 1.14
+      },
+      "feedback_minus_fixed": {
+        "trust": {
+          "mean": 0.075,
+          "low": 0.025,
+          "high": 0.145
+        },
+        "ignore": {
+          "mean": -1.68,
+          "low": -1.905,
+          "high": -1.455
+        }
+      },
+      "feedback_noise_fraction": 0.0575
+    },
+    "1": {
+      "changed_fraction": 0.18693749999999998,
+      "type_appearances": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ],
+      "mean_final_errors": {
+        "trust": 1.71,
+        "ignore": 2.82,
+        "feedback": 1.8
+      },
+      "feedback_minus_fixed": {
+        "trust": {
+          "mean": 0.09,
+          "low": -0.035,
+          "high": 0.21
+        },
+        "ignore": {
+          "mean": -1.02,
+          "low": -1.245,
+          "high": -0.8
+        }
+      },
+      "feedback_noise_fraction": 0.1546875
+    },
+    "2": {
+      "changed_fraction": 0.36981250000000004,
+      "type_appearances": [
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "mean_final_errors": {
+        "trust": 2.18,
+        "ignore": 2.82,
+        "feedback": 2.28
+      },
+      "feedback_minus_fixed": {
+        "trust": {
+          "mean": 0.1,
+          "low": -0.04,
+          "high": 0.245
+        },
+        "ignore": {
+          "mean": -0.54,
+          "low": -0.735,
+          "high": -0.345
+        }
+      },
+      "feedback_noise_fraction": 0.265
+    },
+    "3": {
+      "changed_fraction": 0.5551875000000001,
+      "type_appearances": [
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "mean_final_errors": {
+        "trust": 2.675,
+        "ignore": 2.82,
+        "feedback": 2.5
+      },
+      "feedback_minus_fixed": {
+        "trust": {
+          "mean": -0.175,
+          "low": -0.35,
+          "high": -0.015
+        },
+        "ignore": {
+          "mean": -0.32,
+          "low": -0.47,
+          "high": -0.17
+        }
+      },
+      "feedback_noise_fraction": 0.390625
+    },
+    "4": {
+      "changed_fraction": 0.74725,
+      "type_appearances": [
+        160,
+        160,
+        160,
+        160,
+        160
+      ],
+      "mean_final_errors": {
+        "trust": 3.22,
+        "ignore": 2.82,
+        "feedback": 2.81
+      },
+      "feedback_minus_fixed": {
+        "trust": {
+          "mean": -0.41,
+          "low": -0.6101249999999999,
+          "high": -0.22
+        },
+        "ignore": {
+          "mean": -0.01,
+          "low": -0.125,
+          "high": 0.105
+        }
+      },
+      "feedback_noise_fraction": 0.541875
+    },
+    "5": {
+      "changed_fraction": 0.9371250000000001,
+      "type_appearances": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "mean_final_errors": {
+        "trust": 3.76,
+        "ignore": 2.82,
+        "feedback": 2.995
+      },
+      "feedback_minus_fixed": {
+        "trust": {
+          "mean": -0.765,
+          "low": -0.975,
+          "high": -0.565
+        },
+        "ignore": {
+          "mean": 0.175,
+          "low": 0.07,
+          "high": 0.29
+        }
+      },
+      "feedback_noise_fraction": 0.6709375
+    }
+  },
+  "followup_triggers": [],
+  "source_sha256": {
+    "role2_규리/results/partial-v1/manifest.json": "99826d9308663826a97e6bafa7bc000762c3d3c9e9a04fcca709a4cbeefca7e0",
+    "role2_규리/report_partial.py": "682ec080a28a4d0f00ec8f379363109ce24fbfb7b4b126b76295d436d89f650d",
+    "experiments/rl_boundary.py": "e44e6fe5ca1086206e5dab8c4ba3598e3ab1f8b5d898faeb329ea9b7f734eb62"
+  }
+}

@@ -1,0 +1,12 @@
+/runs/
+/results/**/*.partial
+# Paired outcomes from the synthetic Spike experiment.
+!/results/confidence-v1/episodes.csv
+!/results/feedback-v1/episodes.csv
+!/results/residual-v1/eval/episodes.csv
+!/results/planning-v1/episodes.csv
+!/results/planning-v1/trace.csv
+!/results/partial-v1/episodes.csv
+!/results/credit-v1/seed-*/episodes.csv
+!/results/credit-v1/confirmation/episodes.csv
+!/results/credit-v1/curves.csv

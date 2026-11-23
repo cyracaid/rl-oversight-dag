@@ -1,0 +1,6222 @@
+{
+  "residual": {
+    "training": [
+      {
+        "episode": 1,
+        "graph_seed": 3040000,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 2,
+        "graph_seed": 3040001,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 3,
+        "graph_seed": 3040002,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 4,
+        "graph_seed": 3040003,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 5,
+        "graph_seed": 3040004,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 6,
+        "graph_seed": 3040005,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 7,
+        "graph_seed": 3040006,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 8,
+        "graph_seed": 3040007,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 9,
+        "graph_seed": 3040008,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 10,
+        "graph_seed": 3040009,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 11,
+        "graph_seed": 3040010,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 12,
+        "graph_seed": 3040011,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 13,
+        "graph_seed": 3040012,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 14,
+        "graph_seed": 3040013,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 15,
+        "graph_seed": 3040014,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 16,
+        "graph_seed": 3040015,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 17,
+        "graph_seed": 3040016,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 18,
+        "graph_seed": 3040017,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 19,
+        "graph_seed": 3040018,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 20,
+        "graph_seed": 3040019,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 4,
+        "advantage": 1
+      },
+      {
+        "episode": 21,
+        "graph_seed": 3040020,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 22,
+        "graph_seed": 3040021,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 23,
+        "graph_seed": 3040022,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 24,
+        "graph_seed": 3040023,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 25,
+        "graph_seed": 3040024,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 26,
+        "graph_seed": 3040025,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 27,
+        "graph_seed": 3040026,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 28,
+        "graph_seed": 3040027,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 29,
+        "graph_seed": 3040028,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 30,
+        "graph_seed": 3040029,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 31,
+        "graph_seed": 3040030,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 32,
+        "graph_seed": 3040031,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 33,
+        "graph_seed": 3040032,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 34,
+        "graph_seed": 3040033,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 35,
+        "graph_seed": 3040034,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 36,
+        "graph_seed": 3040035,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 37,
+        "graph_seed": 3040036,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 38,
+        "graph_seed": 3040037,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 39,
+        "graph_seed": 3040038,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 40,
+        "graph_seed": 3040039,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 41,
+        "graph_seed": 3040040,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 42,
+        "graph_seed": 3040041,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 4,
+        "advantage": 3
+      },
+      {
+        "episode": 43,
+        "graph_seed": 3040042,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 44,
+        "graph_seed": 3040043,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 45,
+        "graph_seed": 3040044,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 46,
+        "graph_seed": 3040045,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 47,
+        "graph_seed": 3040046,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 8,
+        "advantage": 2
+      },
+      {
+        "episode": 48,
+        "graph_seed": 3040047,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 49,
+        "graph_seed": 3040048,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 50,
+        "graph_seed": 3040049,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 51,
+        "graph_seed": 3040050,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 52,
+        "graph_seed": 3040051,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 53,
+        "graph_seed": 3040052,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 54,
+        "graph_seed": 3040053,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 5,
+        "advantage": 1
+      },
+      {
+        "episode": 55,
+        "graph_seed": 3040054,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 56,
+        "graph_seed": 3040055,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 57,
+        "graph_seed": 3040056,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 4,
+        "advantage": 1
+      },
+      {
+        "episode": 58,
+        "graph_seed": 3040057,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 59,
+        "graph_seed": 3040058,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 4,
+        "advantage": 1
+      },
+      {
+        "episode": 60,
+        "graph_seed": 3040059,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 61,
+        "graph_seed": 3040060,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 62,
+        "graph_seed": 3040061,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 63,
+        "graph_seed": 3040062,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 64,
+        "graph_seed": 3040063,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 65,
+        "graph_seed": 3040064,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 66,
+        "graph_seed": 3040065,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 67,
+        "graph_seed": 3040066,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 68,
+        "graph_seed": 3040067,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 69,
+        "graph_seed": 3040068,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 5,
+        "advantage": 1
+      },
+      {
+        "episode": 70,
+        "graph_seed": 3040069,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 71,
+        "graph_seed": 3040070,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 2,
+        "advantage": 2
+      },
+      {
+        "episode": 72,
+        "graph_seed": 3040071,
+        "condition": "shuffled",
+        "sink_errors": 9,
+        "baseline_sink_errors": 9,
+        "advantage": 0
+      },
+      {
+        "episode": 73,
+        "graph_seed": 3040072,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 74,
+        "graph_seed": 3040073,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 75,
+        "graph_seed": 3040074,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 76,
+        "graph_seed": 3040075,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 77,
+        "graph_seed": 3040076,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 78,
+        "graph_seed": 3040077,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 79,
+        "graph_seed": 3040078,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 80,
+        "graph_seed": 3040079,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 81,
+        "graph_seed": 3040080,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 82,
+        "graph_seed": 3040081,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 83,
+        "graph_seed": 3040082,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 84,
+        "graph_seed": 3040083,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 85,
+        "graph_seed": 3040084,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 86,
+        "graph_seed": 3040085,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 87,
+        "graph_seed": 3040086,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 88,
+        "graph_seed": 3040087,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 89,
+        "graph_seed": 3040088,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 90,
+        "graph_seed": 3040089,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 91,
+        "graph_seed": 3040090,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 92,
+        "graph_seed": 3040091,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 93,
+        "graph_seed": 3040092,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 94,
+        "graph_seed": 3040093,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 95,
+        "graph_seed": 3040094,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 96,
+        "graph_seed": 3040095,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 97,
+        "graph_seed": 3040096,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 98,
+        "graph_seed": 3040097,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 99,
+        "graph_seed": 3040098,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 2,
+        "advantage": 1
+      },
+      {
+        "episode": 100,
+        "graph_seed": 3040099,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 101,
+        "graph_seed": 3040100,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 102,
+        "graph_seed": 3040101,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 8,
+        "advantage": 0
+      },
+      {
+        "episode": 103,
+        "graph_seed": 3040102,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 104,
+        "graph_seed": 3040103,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 5,
+        "advantage": 2
+      },
+      {
+        "episode": 105,
+        "graph_seed": 3040104,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 6,
+        "advantage": 2
+      },
+      {
+        "episode": 106,
+        "graph_seed": 3040105,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 107,
+        "graph_seed": 3040106,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 108,
+        "graph_seed": 3040107,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 109,
+        "graph_seed": 3040108,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 110,
+        "graph_seed": 3040109,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 111,
+        "graph_seed": 3040110,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 112,
+        "graph_seed": 3040111,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 113,
+        "graph_seed": 3040112,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 114,
+        "graph_seed": 3040113,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 115,
+        "graph_seed": 3040114,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 116,
+        "graph_seed": 3040115,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 117,
+        "graph_seed": 3040116,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 118,
+        "graph_seed": 3040117,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 119,
+        "graph_seed": 3040118,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 120,
+        "graph_seed": 3040119,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 9,
+        "advantage": 2
+      },
+      {
+        "episode": 121,
+        "graph_seed": 3040120,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 122,
+        "graph_seed": 3040121,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 123,
+        "graph_seed": 3040122,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 124,
+        "graph_seed": 3040123,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 125,
+        "graph_seed": 3040124,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 7,
+        "advantage": 0
+      },
+      {
+        "episode": 126,
+        "graph_seed": 3040125,
+        "condition": "shuffled",
+        "sink_errors": 9,
+        "baseline_sink_errors": 6,
+        "advantage": -3
+      },
+      {
+        "episode": 127,
+        "graph_seed": 3040126,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 128,
+        "graph_seed": 3040127,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 129,
+        "graph_seed": 3040128,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 2,
+        "advantage": 1
+      },
+      {
+        "episode": 130,
+        "graph_seed": 3040129,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 131,
+        "graph_seed": 3040130,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 132,
+        "graph_seed": 3040131,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 133,
+        "graph_seed": 3040132,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 134,
+        "graph_seed": 3040133,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 135,
+        "graph_seed": 3040134,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 136,
+        "graph_seed": 3040135,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 137,
+        "graph_seed": 3040136,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 138,
+        "graph_seed": 3040137,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 139,
+        "graph_seed": 3040138,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 140,
+        "graph_seed": 3040139,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 141,
+        "graph_seed": 3040140,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 142,
+        "graph_seed": 3040141,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 143,
+        "graph_seed": 3040142,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 144,
+        "graph_seed": 3040143,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 145,
+        "graph_seed": 3040144,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 146,
+        "graph_seed": 3040145,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 147,
+        "graph_seed": 3040146,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 148,
+        "graph_seed": 3040147,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 149,
+        "graph_seed": 3040148,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 150,
+        "graph_seed": 3040149,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 151,
+        "graph_seed": 3040150,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 152,
+        "graph_seed": 3040151,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 6,
+        "advantage": 1
+      },
+      {
+        "episode": 153,
+        "graph_seed": 3040152,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 154,
+        "graph_seed": 3040153,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 155,
+        "graph_seed": 3040154,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 5,
+        "advantage": 1
+      },
+      {
+        "episode": 156,
+        "graph_seed": 3040155,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 157,
+        "graph_seed": 3040156,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 158,
+        "graph_seed": 3040157,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 1,
+        "advantage": 1
+      },
+      {
+        "episode": 159,
+        "graph_seed": 3040158,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 160,
+        "graph_seed": 3040159,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 161,
+        "graph_seed": 3040160,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 162,
+        "graph_seed": 3040161,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 2,
+        "advantage": 1
+      },
+      {
+        "episode": 163,
+        "graph_seed": 3040162,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 164,
+        "graph_seed": 3040163,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 165,
+        "graph_seed": 3040164,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 166,
+        "graph_seed": 3040165,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 167,
+        "graph_seed": 3040166,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 168,
+        "graph_seed": 3040167,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 169,
+        "graph_seed": 3040168,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 170,
+        "graph_seed": 3040169,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 171,
+        "graph_seed": 3040170,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 6,
+        "advantage": -1
+      },
+      {
+        "episode": 172,
+        "graph_seed": 3040171,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 173,
+        "graph_seed": 3040172,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 174,
+        "graph_seed": 3040173,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 175,
+        "graph_seed": 3040174,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 176,
+        "graph_seed": 3040175,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 177,
+        "graph_seed": 3040176,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 178,
+        "graph_seed": 3040177,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 179,
+        "graph_seed": 3040178,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 180,
+        "graph_seed": 3040179,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 181,
+        "graph_seed": 3040180,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 182,
+        "graph_seed": 3040181,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 183,
+        "graph_seed": 3040182,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 184,
+        "graph_seed": 3040183,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 185,
+        "graph_seed": 3040184,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 186,
+        "graph_seed": 3040185,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 187,
+        "graph_seed": 3040186,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 188,
+        "graph_seed": 3040187,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 189,
+        "graph_seed": 3040188,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 190,
+        "graph_seed": 3040189,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 191,
+        "graph_seed": 3040190,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 192,
+        "graph_seed": 3040191,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 193,
+        "graph_seed": 3040192,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 194,
+        "graph_seed": 3040193,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 7,
+        "advantage": 1
+      },
+      {
+        "episode": 195,
+        "graph_seed": 3040194,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 196,
+        "graph_seed": 3040195,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 197,
+        "graph_seed": 3040196,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 198,
+        "graph_seed": 3040197,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 199,
+        "graph_seed": 3040198,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 200,
+        "graph_seed": 3040199,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 1,
+        "advantage": 1
+      },
+      {
+        "episode": 201,
+        "graph_seed": 3040200,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 202,
+        "graph_seed": 3040201,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 203,
+        "graph_seed": 3040202,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 204,
+        "graph_seed": 3040203,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 205,
+        "graph_seed": 3040204,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 206,
+        "graph_seed": 3040205,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 207,
+        "graph_seed": 3040206,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 208,
+        "graph_seed": 3040207,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 209,
+        "graph_seed": 3040208,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 210,
+        "graph_seed": 3040209,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 211,
+        "graph_seed": 3040210,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 212,
+        "graph_seed": 3040211,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 213,
+        "graph_seed": 3040212,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 214,
+        "graph_seed": 3040213,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 215,
+        "graph_seed": 3040214,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 216,
+        "graph_seed": 3040215,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 217,
+        "graph_seed": 3040216,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 218,
+        "graph_seed": 3040217,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 219,
+        "graph_seed": 3040218,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 220,
+        "graph_seed": 3040219,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 221,
+        "graph_seed": 3040220,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 222,
+        "graph_seed": 3040221,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 223,
+        "graph_seed": 3040222,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 224,
+        "graph_seed": 3040223,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 4,
+        "advantage": 2
+      },
+      {
+        "episode": 225,
+        "graph_seed": 3040224,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 226,
+        "graph_seed": 3040225,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 227,
+        "graph_seed": 3040226,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 228,
+        "graph_seed": 3040227,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 229,
+        "graph_seed": 3040228,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 230,
+        "graph_seed": 3040229,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 231,
+        "graph_seed": 3040230,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 232,
+        "graph_seed": 3040231,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 233,
+        "graph_seed": 3040232,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 234,
+        "graph_seed": 3040233,
+        "condition": "shuffled",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 235,
+        "graph_seed": 3040234,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 236,
+        "graph_seed": 3040235,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 237,
+        "graph_seed": 3040236,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 238,
+        "graph_seed": 3040237,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 239,
+        "graph_seed": 3040238,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 240,
+        "graph_seed": 3040239,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 241,
+        "graph_seed": 3040240,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 242,
+        "graph_seed": 3040241,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 243,
+        "graph_seed": 3040242,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 7,
+        "advantage": 0
+      },
+      {
+        "episode": 244,
+        "graph_seed": 3040243,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 245,
+        "graph_seed": 3040244,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 246,
+        "graph_seed": 3040245,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 247,
+        "graph_seed": 3040246,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 248,
+        "graph_seed": 3040247,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 249,
+        "graph_seed": 3040248,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 250,
+        "graph_seed": 3040249,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 251,
+        "graph_seed": 3040250,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 2,
+        "advantage": 1
+      },
+      {
+        "episode": 252,
+        "graph_seed": 3040251,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 253,
+        "graph_seed": 3040252,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 254,
+        "graph_seed": 3040253,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 255,
+        "graph_seed": 3040254,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 256,
+        "graph_seed": 3040255,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 257,
+        "graph_seed": 3040256,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 258,
+        "graph_seed": 3040257,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 259,
+        "graph_seed": 3040258,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 260,
+        "graph_seed": 3040259,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 261,
+        "graph_seed": 3040260,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 262,
+        "graph_seed": 3040261,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 263,
+        "graph_seed": 3040262,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 264,
+        "graph_seed": 3040263,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 265,
+        "graph_seed": 3040264,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 266,
+        "graph_seed": 3040265,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 267,
+        "graph_seed": 3040266,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 268,
+        "graph_seed": 3040267,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 269,
+        "graph_seed": 3040268,
+        "condition": "uniform",
+        "sink_errors": 10,
+        "baseline_sink_errors": 10,
+        "advantage": 0
+      },
+      {
+        "episode": 270,
+        "graph_seed": 3040269,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 271,
+        "graph_seed": 3040270,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 272,
+        "graph_seed": 3040271,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 273,
+        "graph_seed": 3040272,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 274,
+        "graph_seed": 3040273,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 275,
+        "graph_seed": 3040274,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 276,
+        "graph_seed": 3040275,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 277,
+        "graph_seed": 3040276,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 278,
+        "graph_seed": 3040277,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 279,
+        "graph_seed": 3040278,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 280,
+        "graph_seed": 3040279,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 281,
+        "graph_seed": 3040280,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 282,
+        "graph_seed": 3040281,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 283,
+        "graph_seed": 3040282,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 284,
+        "graph_seed": 3040283,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 285,
+        "graph_seed": 3040284,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 286,
+        "graph_seed": 3040285,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 287,
+        "graph_seed": 3040286,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 288,
+        "graph_seed": 3040287,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 289,
+        "graph_seed": 3040288,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 290,
+        "graph_seed": 3040289,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 291,
+        "graph_seed": 3040290,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 292,
+        "graph_seed": 3040291,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 293,
+        "graph_seed": 3040292,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 294,
+        "graph_seed": 3040293,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 295,
+        "graph_seed": 3040294,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 296,
+        "graph_seed": 3040295,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 297,
+        "graph_seed": 3040296,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 298,
+        "graph_seed": 3040297,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 299,
+        "graph_seed": 3040298,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 300,
+        "graph_seed": 3040299,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 301,
+        "graph_seed": 3040300,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 302,
+        "graph_seed": 3040301,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 303,
+        "graph_seed": 3040302,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 304,
+        "graph_seed": 3040303,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 305,
+        "graph_seed": 3040304,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 306,
+        "graph_seed": 3040305,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 5,
+        "advantage": 1
+      },
+      {
+        "episode": 307,
+        "graph_seed": 3040306,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 308,
+        "graph_seed": 3040307,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 309,
+        "graph_seed": 3040308,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 310,
+        "graph_seed": 3040309,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 311,
+        "graph_seed": 3040310,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 312,
+        "graph_seed": 3040311,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 313,
+        "graph_seed": 3040312,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 314,
+        "graph_seed": 3040313,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 315,
+        "graph_seed": 3040314,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 316,
+        "graph_seed": 3040315,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 317,
+        "graph_seed": 3040316,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 318,
+        "graph_seed": 3040317,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 319,
+        "graph_seed": 3040318,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 320,
+        "graph_seed": 3040319,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 321,
+        "graph_seed": 3040320,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 322,
+        "graph_seed": 3040321,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 323,
+        "graph_seed": 3040322,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 324,
+        "graph_seed": 3040323,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 325,
+        "graph_seed": 3040324,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 326,
+        "graph_seed": 3040325,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 327,
+        "graph_seed": 3040326,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 328,
+        "graph_seed": 3040327,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 329,
+        "graph_seed": 3040328,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 330,
+        "graph_seed": 3040329,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 331,
+        "graph_seed": 3040330,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 332,
+        "graph_seed": 3040331,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 333,
+        "graph_seed": 3040332,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 334,
+        "graph_seed": 3040333,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 335,
+        "graph_seed": 3040334,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 336,
+        "graph_seed": 3040335,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 337,
+        "graph_seed": 3040336,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 338,
+        "graph_seed": 3040337,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 339,
+        "graph_seed": 3040338,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 340,
+        "graph_seed": 3040339,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 341,
+        "graph_seed": 3040340,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 342,
+        "graph_seed": 3040341,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 7,
+        "advantage": 1
+      },
+      {
+        "episode": 343,
+        "graph_seed": 3040342,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 344,
+        "graph_seed": 3040343,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 345,
+        "graph_seed": 3040344,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 4,
+        "advantage": 1
+      },
+      {
+        "episode": 346,
+        "graph_seed": 3040345,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 347,
+        "graph_seed": 3040346,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 348,
+        "graph_seed": 3040347,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 349,
+        "graph_seed": 3040348,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 350,
+        "graph_seed": 3040349,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 351,
+        "graph_seed": 3040350,
+        "condition": "shuffled",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 352,
+        "graph_seed": 3040351,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 353,
+        "graph_seed": 3040352,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 354,
+        "graph_seed": 3040353,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 355,
+        "graph_seed": 3040354,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 356,
+        "graph_seed": 3040355,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 357,
+        "graph_seed": 3040356,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 358,
+        "graph_seed": 3040357,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 359,
+        "graph_seed": 3040358,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 360,
+        "graph_seed": 3040359,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 7,
+        "advantage": 2
+      },
+      {
+        "episode": 361,
+        "graph_seed": 3040360,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 362,
+        "graph_seed": 3040361,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 363,
+        "graph_seed": 3040362,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 364,
+        "graph_seed": 3040363,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 365,
+        "graph_seed": 3040364,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 366,
+        "graph_seed": 3040365,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 367,
+        "graph_seed": 3040366,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 368,
+        "graph_seed": 3040367,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 6,
+        "advantage": 1
+      },
+      {
+        "episode": 369,
+        "graph_seed": 3040368,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 370,
+        "graph_seed": 3040369,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 371,
+        "graph_seed": 3040370,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 372,
+        "graph_seed": 3040371,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 373,
+        "graph_seed": 3040372,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 374,
+        "graph_seed": 3040373,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 375,
+        "graph_seed": 3040374,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 4,
+        "advantage": 1
+      },
+      {
+        "episode": 376,
+        "graph_seed": 3040375,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 377,
+        "graph_seed": 3040376,
+        "condition": "uniform",
+        "sink_errors": 9,
+        "baseline_sink_errors": 7,
+        "advantage": -2
+      },
+      {
+        "episode": 378,
+        "graph_seed": 3040377,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 379,
+        "graph_seed": 3040378,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 6,
+        "advantage": 1
+      },
+      {
+        "episode": 380,
+        "graph_seed": 3040379,
+        "condition": "uniform",
+        "sink_errors": 9,
+        "baseline_sink_errors": 9,
+        "advantage": 0
+      },
+      {
+        "episode": 381,
+        "graph_seed": 3040380,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 7,
+        "advantage": 2
+      },
+      {
+        "episode": 382,
+        "graph_seed": 3040381,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 383,
+        "graph_seed": 3040382,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 384,
+        "graph_seed": 3040383,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      }
+    ],
+    "validation": [
+      {
+        "episode": 0,
+        "mean_sink_errors": 1.9305555555555556,
+        "conditions": {
+          "matched": 0.75,
+          "uniform": 2.75,
+          "shuffled": 2.2916666666666665
+        },
+        "selected": false
+      },
+      {
+        "episode": 192,
+        "mean_sink_errors": 1.9027777777777777,
+        "conditions": {
+          "matched": 0.75,
+          "uniform": 2.6666666666666665,
+          "shuffled": 2.2916666666666665
+        },
+        "selected": true
+      },
+      {
+        "episode": 384,
+        "mean_sink_errors": 2.0972222222222223,
+        "conditions": {
+          "matched": 0.75,
+          "uniform": 2.625,
+          "shuffled": 2.9166666666666665
+        },
+        "selected": false
+      }
+    ],
+    "selected_episode": 192,
+    "checkpoint_sha256": "9681c13fd150a66d42945dde003d52b47692da49d4779ee584d263ef2e8b6345"
+  },
+  "feature_only": {
+    "training": [
+      {
+        "episode": 1,
+        "graph_seed": 3040000,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 2,
+        "graph_seed": 3040001,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 3,
+        "graph_seed": 3040002,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 4,
+        "graph_seed": 3040003,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 5,
+        "graph_seed": 3040004,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 6,
+        "graph_seed": 3040005,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 7,
+        "graph_seed": 3040006,
+        "condition": "matched",
+        "sink_errors": 10,
+        "baseline_sink_errors": 3,
+        "advantage": -7
+      },
+      {
+        "episode": 8,
+        "graph_seed": 3040007,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 9,
+        "graph_seed": 3040008,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 10,
+        "graph_seed": 3040009,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 0,
+        "advantage": -8
+      },
+      {
+        "episode": 11,
+        "graph_seed": 3040010,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 4,
+        "advantage": -4
+      },
+      {
+        "episode": 12,
+        "graph_seed": 3040011,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 13,
+        "graph_seed": 3040012,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 14,
+        "graph_seed": 3040013,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 15,
+        "graph_seed": 3040014,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 16,
+        "graph_seed": 3040015,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 17,
+        "graph_seed": 3040016,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 1,
+        "advantage": -7
+      },
+      {
+        "episode": 18,
+        "graph_seed": 3040017,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 6,
+        "advantage": 1
+      },
+      {
+        "episode": 19,
+        "graph_seed": 3040018,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 20,
+        "graph_seed": 3040019,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 21,
+        "graph_seed": 3040020,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 22,
+        "graph_seed": 3040021,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 0,
+        "advantage": -7
+      },
+      {
+        "episode": 23,
+        "graph_seed": 3040022,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 24,
+        "graph_seed": 3040023,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 25,
+        "graph_seed": 3040024,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 26,
+        "graph_seed": 3040025,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 27,
+        "graph_seed": 3040026,
+        "condition": "shuffled",
+        "sink_errors": 9,
+        "baseline_sink_errors": 1,
+        "advantage": -8
+      },
+      {
+        "episode": 28,
+        "graph_seed": 3040027,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 2,
+        "advantage": -5
+      },
+      {
+        "episode": 29,
+        "graph_seed": 3040028,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 30,
+        "graph_seed": 3040029,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 31,
+        "graph_seed": 3040030,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 32,
+        "graph_seed": 3040031,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 3,
+        "advantage": -5
+      },
+      {
+        "episode": 33,
+        "graph_seed": 3040032,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 34,
+        "graph_seed": 3040033,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 35,
+        "graph_seed": 3040034,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 2,
+        "advantage": -5
+      },
+      {
+        "episode": 36,
+        "graph_seed": 3040035,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 37,
+        "graph_seed": 3040036,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 0,
+        "advantage": -7
+      },
+      {
+        "episode": 38,
+        "graph_seed": 3040037,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 39,
+        "graph_seed": 3040038,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 40,
+        "graph_seed": 3040039,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 41,
+        "graph_seed": 3040040,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 2,
+        "advantage": -5
+      },
+      {
+        "episode": 42,
+        "graph_seed": 3040041,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 43,
+        "graph_seed": 3040042,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 3,
+        "advantage": -3
+      },
+      {
+        "episode": 44,
+        "graph_seed": 3040043,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 45,
+        "graph_seed": 3040044,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 46,
+        "graph_seed": 3040045,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 47,
+        "graph_seed": 3040046,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 8,
+        "advantage": 3
+      },
+      {
+        "episode": 48,
+        "graph_seed": 3040047,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 49,
+        "graph_seed": 3040048,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 50,
+        "graph_seed": 3040049,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 51,
+        "graph_seed": 3040050,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 52,
+        "graph_seed": 3040051,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 53,
+        "graph_seed": 3040052,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 54,
+        "graph_seed": 3040053,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 5,
+        "advantage": -3
+      },
+      {
+        "episode": 55,
+        "graph_seed": 3040054,
+        "condition": "matched",
+        "sink_errors": 14,
+        "baseline_sink_errors": 2,
+        "advantage": -12
+      },
+      {
+        "episode": 56,
+        "graph_seed": 3040055,
+        "condition": "uniform",
+        "sink_errors": 11,
+        "baseline_sink_errors": 4,
+        "advantage": -7
+      },
+      {
+        "episode": 57,
+        "graph_seed": 3040056,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 58,
+        "graph_seed": 3040057,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 59,
+        "graph_seed": 3040058,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 4,
+        "advantage": 2
+      },
+      {
+        "episode": 60,
+        "graph_seed": 3040059,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 61,
+        "graph_seed": 3040060,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 62,
+        "graph_seed": 3040061,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 4,
+        "advantage": -4
+      },
+      {
+        "episode": 63,
+        "graph_seed": 3040062,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 64,
+        "graph_seed": 3040063,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 65,
+        "graph_seed": 3040064,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 66,
+        "graph_seed": 3040065,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 67,
+        "graph_seed": 3040066,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 68,
+        "graph_seed": 3040067,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 69,
+        "graph_seed": 3040068,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 5,
+        "advantage": -3
+      },
+      {
+        "episode": 70,
+        "graph_seed": 3040069,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 71,
+        "graph_seed": 3040070,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 2,
+        "advantage": 2
+      },
+      {
+        "episode": 72,
+        "graph_seed": 3040071,
+        "condition": "shuffled",
+        "sink_errors": 11,
+        "baseline_sink_errors": 9,
+        "advantage": -2
+      },
+      {
+        "episode": 73,
+        "graph_seed": 3040072,
+        "condition": "matched",
+        "sink_errors": 9,
+        "baseline_sink_errors": 2,
+        "advantage": -7
+      },
+      {
+        "episode": 74,
+        "graph_seed": 3040073,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 75,
+        "graph_seed": 3040074,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 76,
+        "graph_seed": 3040075,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 77,
+        "graph_seed": 3040076,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 2,
+        "advantage": -5
+      },
+      {
+        "episode": 78,
+        "graph_seed": 3040077,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 79,
+        "graph_seed": 3040078,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 1,
+        "advantage": -6
+      },
+      {
+        "episode": 80,
+        "graph_seed": 3040079,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 81,
+        "graph_seed": 3040080,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 82,
+        "graph_seed": 3040081,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 83,
+        "graph_seed": 3040082,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 84,
+        "graph_seed": 3040083,
+        "condition": "shuffled",
+        "sink_errors": 9,
+        "baseline_sink_errors": 2,
+        "advantage": -7
+      },
+      {
+        "episode": 85,
+        "graph_seed": 3040084,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 86,
+        "graph_seed": 3040085,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 87,
+        "graph_seed": 3040086,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 3,
+        "advantage": -5
+      },
+      {
+        "episode": 88,
+        "graph_seed": 3040087,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 89,
+        "graph_seed": 3040088,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 6,
+        "advantage": -1
+      },
+      {
+        "episode": 90,
+        "graph_seed": 3040089,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 2,
+        "advantage": 1
+      },
+      {
+        "episode": 91,
+        "graph_seed": 3040090,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 92,
+        "graph_seed": 3040091,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 93,
+        "graph_seed": 3040092,
+        "condition": "shuffled",
+        "sink_errors": 10,
+        "baseline_sink_errors": 1,
+        "advantage": -9
+      },
+      {
+        "episode": 94,
+        "graph_seed": 3040093,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 95,
+        "graph_seed": 3040094,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 96,
+        "graph_seed": 3040095,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 97,
+        "graph_seed": 3040096,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 98,
+        "graph_seed": 3040097,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 4,
+        "advantage": 1
+      },
+      {
+        "episode": 99,
+        "graph_seed": 3040098,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 100,
+        "graph_seed": 3040099,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 101,
+        "graph_seed": 3040100,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 102,
+        "graph_seed": 3040101,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 8,
+        "advantage": 2
+      },
+      {
+        "episode": 103,
+        "graph_seed": 3040102,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 104,
+        "graph_seed": 3040103,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 105,
+        "graph_seed": 3040104,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 6,
+        "advantage": -1
+      },
+      {
+        "episode": 106,
+        "graph_seed": 3040105,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 107,
+        "graph_seed": 3040106,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 108,
+        "graph_seed": 3040107,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 109,
+        "graph_seed": 3040108,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 0,
+        "advantage": -7
+      },
+      {
+        "episode": 110,
+        "graph_seed": 3040109,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 111,
+        "graph_seed": 3040110,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 112,
+        "graph_seed": 3040111,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 113,
+        "graph_seed": 3040112,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 114,
+        "graph_seed": 3040113,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 115,
+        "graph_seed": 3040114,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 116,
+        "graph_seed": 3040115,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 117,
+        "graph_seed": 3040116,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 3,
+        "advantage": -5
+      },
+      {
+        "episode": 118,
+        "graph_seed": 3040117,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 119,
+        "graph_seed": 3040118,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 120,
+        "graph_seed": 3040119,
+        "condition": "shuffled",
+        "sink_errors": 12,
+        "baseline_sink_errors": 9,
+        "advantage": -3
+      },
+      {
+        "episode": 121,
+        "graph_seed": 3040120,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 122,
+        "graph_seed": 3040121,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 123,
+        "graph_seed": 3040122,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 124,
+        "graph_seed": 3040123,
+        "condition": "matched",
+        "sink_errors": 9,
+        "baseline_sink_errors": 2,
+        "advantage": -7
+      },
+      {
+        "episode": 125,
+        "graph_seed": 3040124,
+        "condition": "uniform",
+        "sink_errors": 9,
+        "baseline_sink_errors": 7,
+        "advantage": -2
+      },
+      {
+        "episode": 126,
+        "graph_seed": 3040125,
+        "condition": "shuffled",
+        "sink_errors": 11,
+        "baseline_sink_errors": 6,
+        "advantage": -5
+      },
+      {
+        "episode": 127,
+        "graph_seed": 3040126,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 128,
+        "graph_seed": 3040127,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 129,
+        "graph_seed": 3040128,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 130,
+        "graph_seed": 3040129,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 131,
+        "graph_seed": 3040130,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 132,
+        "graph_seed": 3040131,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 6,
+        "advantage": 1
+      },
+      {
+        "episode": 133,
+        "graph_seed": 3040132,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 2,
+        "advantage": -5
+      },
+      {
+        "episode": 134,
+        "graph_seed": 3040133,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 135,
+        "graph_seed": 3040134,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 136,
+        "graph_seed": 3040135,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 5,
+        "advantage": -3
+      },
+      {
+        "episode": 137,
+        "graph_seed": 3040136,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 138,
+        "graph_seed": 3040137,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 139,
+        "graph_seed": 3040138,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 140,
+        "graph_seed": 3040139,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 141,
+        "graph_seed": 3040140,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 142,
+        "graph_seed": 3040141,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 143,
+        "graph_seed": 3040142,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 144,
+        "graph_seed": 3040143,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 5,
+        "advantage": 1
+      },
+      {
+        "episode": 145,
+        "graph_seed": 3040144,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 146,
+        "graph_seed": 3040145,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 147,
+        "graph_seed": 3040146,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 148,
+        "graph_seed": 3040147,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 149,
+        "graph_seed": 3040148,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 150,
+        "graph_seed": 3040149,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 151,
+        "graph_seed": 3040150,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 152,
+        "graph_seed": 3040151,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 6,
+        "advantage": -2
+      },
+      {
+        "episode": 153,
+        "graph_seed": 3040152,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 154,
+        "graph_seed": 3040153,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 155,
+        "graph_seed": 3040154,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 156,
+        "graph_seed": 3040155,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 3,
+        "advantage": -3
+      },
+      {
+        "episode": 157,
+        "graph_seed": 3040156,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 158,
+        "graph_seed": 3040157,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 159,
+        "graph_seed": 3040158,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 160,
+        "graph_seed": 3040159,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 161,
+        "graph_seed": 3040160,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 162,
+        "graph_seed": 3040161,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 163,
+        "graph_seed": 3040162,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 164,
+        "graph_seed": 3040163,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 165,
+        "graph_seed": 3040164,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 3,
+        "advantage": -3
+      },
+      {
+        "episode": 166,
+        "graph_seed": 3040165,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 167,
+        "graph_seed": 3040166,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 168,
+        "graph_seed": 3040167,
+        "condition": "shuffled",
+        "sink_errors": 9,
+        "baseline_sink_errors": 5,
+        "advantage": -4
+      },
+      {
+        "episode": 169,
+        "graph_seed": 3040168,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 170,
+        "graph_seed": 3040169,
+        "condition": "uniform",
+        "sink_errors": 9,
+        "baseline_sink_errors": 6,
+        "advantage": -3
+      },
+      {
+        "episode": 171,
+        "graph_seed": 3040170,
+        "condition": "shuffled",
+        "sink_errors": 9,
+        "baseline_sink_errors": 6,
+        "advantage": -3
+      },
+      {
+        "episode": 172,
+        "graph_seed": 3040171,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 173,
+        "graph_seed": 3040172,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 174,
+        "graph_seed": 3040173,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 175,
+        "graph_seed": 3040174,
+        "condition": "matched",
+        "sink_errors": 10,
+        "baseline_sink_errors": 1,
+        "advantage": -9
+      },
+      {
+        "episode": 176,
+        "graph_seed": 3040175,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 177,
+        "graph_seed": 3040176,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 178,
+        "graph_seed": 3040177,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 179,
+        "graph_seed": 3040178,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 180,
+        "graph_seed": 3040179,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 181,
+        "graph_seed": 3040180,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 182,
+        "graph_seed": 3040181,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 183,
+        "graph_seed": 3040182,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 184,
+        "graph_seed": 3040183,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 185,
+        "graph_seed": 3040184,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 186,
+        "graph_seed": 3040185,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 187,
+        "graph_seed": 3040186,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 188,
+        "graph_seed": 3040187,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 189,
+        "graph_seed": 3040188,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 190,
+        "graph_seed": 3040189,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 191,
+        "graph_seed": 3040190,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 3,
+        "advantage": -5
+      },
+      {
+        "episode": 192,
+        "graph_seed": 3040191,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 2,
+        "advantage": -3
+      },
+      {
+        "episode": 193,
+        "graph_seed": 3040192,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 194,
+        "graph_seed": 3040193,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 7,
+        "advantage": 0
+      },
+      {
+        "episode": 195,
+        "graph_seed": 3040194,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 196,
+        "graph_seed": 3040195,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 0,
+        "advantage": -7
+      },
+      {
+        "episode": 197,
+        "graph_seed": 3040196,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 198,
+        "graph_seed": 3040197,
+        "condition": "shuffled",
+        "sink_errors": 10,
+        "baseline_sink_errors": 2,
+        "advantage": -8
+      },
+      {
+        "episode": 199,
+        "graph_seed": 3040198,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 200,
+        "graph_seed": 3040199,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 201,
+        "graph_seed": 3040200,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 202,
+        "graph_seed": 3040201,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 203,
+        "graph_seed": 3040202,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 204,
+        "graph_seed": 3040203,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 205,
+        "graph_seed": 3040204,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 206,
+        "graph_seed": 3040205,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 207,
+        "graph_seed": 3040206,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 208,
+        "graph_seed": 3040207,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 209,
+        "graph_seed": 3040208,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 210,
+        "graph_seed": 3040209,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 211,
+        "graph_seed": 3040210,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 212,
+        "graph_seed": 3040211,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 213,
+        "graph_seed": 3040212,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 214,
+        "graph_seed": 3040213,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 215,
+        "graph_seed": 3040214,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 216,
+        "graph_seed": 3040215,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 217,
+        "graph_seed": 3040216,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 218,
+        "graph_seed": 3040217,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 6,
+        "advantage": -1
+      },
+      {
+        "episode": 219,
+        "graph_seed": 3040218,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 4,
+        "advantage": -4
+      },
+      {
+        "episode": 220,
+        "graph_seed": 3040219,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 221,
+        "graph_seed": 3040220,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 222,
+        "graph_seed": 3040221,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 223,
+        "graph_seed": 3040222,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 224,
+        "graph_seed": 3040223,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 225,
+        "graph_seed": 3040224,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 3,
+        "advantage": -5
+      },
+      {
+        "episode": 226,
+        "graph_seed": 3040225,
+        "condition": "matched",
+        "sink_errors": 10,
+        "baseline_sink_errors": 0,
+        "advantage": -10
+      },
+      {
+        "episode": 227,
+        "graph_seed": 3040226,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 228,
+        "graph_seed": 3040227,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 229,
+        "graph_seed": 3040228,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 230,
+        "graph_seed": 3040229,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 231,
+        "graph_seed": 3040230,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 232,
+        "graph_seed": 3040231,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 1,
+        "advantage": -7
+      },
+      {
+        "episode": 233,
+        "graph_seed": 3040232,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 234,
+        "graph_seed": 3040233,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 235,
+        "graph_seed": 3040234,
+        "condition": "matched",
+        "sink_errors": 13,
+        "baseline_sink_errors": 0,
+        "advantage": -13
+      },
+      {
+        "episode": 236,
+        "graph_seed": 3040235,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 6,
+        "advantage": 0
+      },
+      {
+        "episode": 237,
+        "graph_seed": 3040236,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 2,
+        "advantage": 1
+      },
+      {
+        "episode": 238,
+        "graph_seed": 3040237,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 239,
+        "graph_seed": 3040238,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 240,
+        "graph_seed": 3040239,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 241,
+        "graph_seed": 3040240,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 1,
+        "advantage": -6
+      },
+      {
+        "episode": 242,
+        "graph_seed": 3040241,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 3,
+        "advantage": -3
+      },
+      {
+        "episode": 243,
+        "graph_seed": 3040242,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 7,
+        "advantage": 2
+      },
+      {
+        "episode": 244,
+        "graph_seed": 3040243,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 245,
+        "graph_seed": 3040244,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 246,
+        "graph_seed": 3040245,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 247,
+        "graph_seed": 3040246,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 248,
+        "graph_seed": 3040247,
+        "condition": "uniform",
+        "sink_errors": 9,
+        "baseline_sink_errors": 4,
+        "advantage": -5
+      },
+      {
+        "episode": 249,
+        "graph_seed": 3040248,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 250,
+        "graph_seed": 3040249,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 251,
+        "graph_seed": 3040250,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 2,
+        "advantage": 0
+      },
+      {
+        "episode": 252,
+        "graph_seed": 3040251,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 253,
+        "graph_seed": 3040252,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 254,
+        "graph_seed": 3040253,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 255,
+        "graph_seed": 3040254,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 1,
+        "advantage": -6
+      },
+      {
+        "episode": 256,
+        "graph_seed": 3040255,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 257,
+        "graph_seed": 3040256,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 258,
+        "graph_seed": 3040257,
+        "condition": "shuffled",
+        "sink_errors": 10,
+        "baseline_sink_errors": 4,
+        "advantage": -6
+      },
+      {
+        "episode": 259,
+        "graph_seed": 3040258,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 1,
+        "advantage": -6
+      },
+      {
+        "episode": 260,
+        "graph_seed": 3040259,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 261,
+        "graph_seed": 3040260,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 262,
+        "graph_seed": 3040261,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 263,
+        "graph_seed": 3040262,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 264,
+        "graph_seed": 3040263,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 265,
+        "graph_seed": 3040264,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 3,
+        "advantage": -3
+      },
+      {
+        "episode": 266,
+        "graph_seed": 3040265,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 267,
+        "graph_seed": 3040266,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 268,
+        "graph_seed": 3040267,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 269,
+        "graph_seed": 3040268,
+        "condition": "uniform",
+        "sink_errors": 11,
+        "baseline_sink_errors": 10,
+        "advantage": -1
+      },
+      {
+        "episode": 270,
+        "graph_seed": 3040269,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 271,
+        "graph_seed": 3040270,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 272,
+        "graph_seed": 3040271,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 5,
+        "advantage": -1
+      },
+      {
+        "episode": 273,
+        "graph_seed": 3040272,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 274,
+        "graph_seed": 3040273,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 275,
+        "graph_seed": 3040274,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 276,
+        "graph_seed": 3040275,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 6,
+        "advantage": -1
+      },
+      {
+        "episode": 277,
+        "graph_seed": 3040276,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 278,
+        "graph_seed": 3040277,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 279,
+        "graph_seed": 3040278,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 280,
+        "graph_seed": 3040279,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 2,
+        "advantage": -5
+      },
+      {
+        "episode": 281,
+        "graph_seed": 3040280,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 282,
+        "graph_seed": 3040281,
+        "condition": "shuffled",
+        "sink_errors": 11,
+        "baseline_sink_errors": 4,
+        "advantage": -7
+      },
+      {
+        "episode": 283,
+        "graph_seed": 3040282,
+        "condition": "matched",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 284,
+        "graph_seed": 3040283,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 3,
+        "advantage": -3
+      },
+      {
+        "episode": 285,
+        "graph_seed": 3040284,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 286,
+        "graph_seed": 3040285,
+        "condition": "matched",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 287,
+        "graph_seed": 3040286,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 3,
+        "advantage": -4
+      },
+      {
+        "episode": 288,
+        "graph_seed": 3040287,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 3,
+        "advantage": -4
+      },
+      {
+        "episode": 289,
+        "graph_seed": 3040288,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 290,
+        "graph_seed": 3040289,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 291,
+        "graph_seed": 3040290,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 292,
+        "graph_seed": 3040291,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 293,
+        "graph_seed": 3040292,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 294,
+        "graph_seed": 3040293,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 295,
+        "graph_seed": 3040294,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 296,
+        "graph_seed": 3040295,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 297,
+        "graph_seed": 3040296,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 1,
+        "advantage": -5
+      },
+      {
+        "episode": 298,
+        "graph_seed": 3040297,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 299,
+        "graph_seed": 3040298,
+        "condition": "uniform",
+        "sink_errors": 0,
+        "baseline_sink_errors": 0,
+        "advantage": 0
+      },
+      {
+        "episode": 300,
+        "graph_seed": 3040299,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 301,
+        "graph_seed": 3040300,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 302,
+        "graph_seed": 3040301,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 303,
+        "graph_seed": 3040302,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 304,
+        "graph_seed": 3040303,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 305,
+        "graph_seed": 3040304,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 306,
+        "graph_seed": 3040305,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 307,
+        "graph_seed": 3040306,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 308,
+        "graph_seed": 3040307,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 309,
+        "graph_seed": 3040308,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 310,
+        "graph_seed": 3040309,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 311,
+        "graph_seed": 3040310,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 312,
+        "graph_seed": 3040311,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 5,
+        "advantage": -2
+      },
+      {
+        "episode": 313,
+        "graph_seed": 3040312,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 314,
+        "graph_seed": 3040313,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 1,
+        "advantage": -2
+      },
+      {
+        "episode": 315,
+        "graph_seed": 3040314,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 316,
+        "graph_seed": 3040315,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 0,
+        "advantage": -7
+      },
+      {
+        "episode": 317,
+        "graph_seed": 3040316,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 318,
+        "graph_seed": 3040317,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 319,
+        "graph_seed": 3040318,
+        "condition": "matched",
+        "sink_errors": 9,
+        "baseline_sink_errors": 1,
+        "advantage": -8
+      },
+      {
+        "episode": 320,
+        "graph_seed": 3040319,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 321,
+        "graph_seed": 3040320,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 322,
+        "graph_seed": 3040321,
+        "condition": "matched",
+        "sink_errors": 9,
+        "baseline_sink_errors": 1,
+        "advantage": -8
+      },
+      {
+        "episode": 323,
+        "graph_seed": 3040322,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      },
+      {
+        "episode": 324,
+        "graph_seed": 3040323,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 2,
+        "advantage": -5
+      },
+      {
+        "episode": 325,
+        "graph_seed": 3040324,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 326,
+        "graph_seed": 3040325,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 327,
+        "graph_seed": 3040326,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 328,
+        "graph_seed": 3040327,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 329,
+        "graph_seed": 3040328,
+        "condition": "uniform",
+        "sink_errors": 13,
+        "baseline_sink_errors": 4,
+        "advantage": -9
+      },
+      {
+        "episode": 330,
+        "graph_seed": 3040329,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 331,
+        "graph_seed": 3040330,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 0,
+        "advantage": -7
+      },
+      {
+        "episode": 332,
+        "graph_seed": 3040331,
+        "condition": "uniform",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 333,
+        "graph_seed": 3040332,
+        "condition": "shuffled",
+        "sink_errors": 7,
+        "baseline_sink_errors": 1,
+        "advantage": -6
+      },
+      {
+        "episode": 334,
+        "graph_seed": 3040333,
+        "condition": "matched",
+        "sink_errors": 2,
+        "baseline_sink_errors": 0,
+        "advantage": -2
+      },
+      {
+        "episode": 335,
+        "graph_seed": 3040334,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 336,
+        "graph_seed": 3040335,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 337,
+        "graph_seed": 3040336,
+        "condition": "matched",
+        "sink_errors": 3,
+        "baseline_sink_errors": 0,
+        "advantage": -3
+      },
+      {
+        "episode": 338,
+        "graph_seed": 3040337,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 339,
+        "graph_seed": 3040338,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 340,
+        "graph_seed": 3040339,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 0,
+        "advantage": -6
+      },
+      {
+        "episode": 341,
+        "graph_seed": 3040340,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 342,
+        "graph_seed": 3040341,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 7,
+        "advantage": -1
+      },
+      {
+        "episode": 343,
+        "graph_seed": 3040342,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 344,
+        "graph_seed": 3040343,
+        "condition": "uniform",
+        "sink_errors": 1,
+        "baseline_sink_errors": 1,
+        "advantage": 0
+      },
+      {
+        "episode": 345,
+        "graph_seed": 3040344,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 4,
+        "advantage": 0
+      },
+      {
+        "episode": 346,
+        "graph_seed": 3040345,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 347,
+        "graph_seed": 3040346,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 348,
+        "graph_seed": 3040347,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 349,
+        "graph_seed": 3040348,
+        "condition": "matched",
+        "sink_errors": 6,
+        "baseline_sink_errors": 2,
+        "advantage": -4
+      },
+      {
+        "episode": 350,
+        "graph_seed": 3040349,
+        "condition": "uniform",
+        "sink_errors": 7,
+        "baseline_sink_errors": 4,
+        "advantage": -3
+      },
+      {
+        "episode": 351,
+        "graph_seed": 3040350,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 0,
+        "advantage": -1
+      },
+      {
+        "episode": 352,
+        "graph_seed": 3040351,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 353,
+        "graph_seed": 3040352,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 354,
+        "graph_seed": 3040353,
+        "condition": "shuffled",
+        "sink_errors": 3,
+        "baseline_sink_errors": 2,
+        "advantage": -1
+      },
+      {
+        "episode": 355,
+        "graph_seed": 3040354,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 356,
+        "graph_seed": 3040355,
+        "condition": "uniform",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 357,
+        "graph_seed": 3040356,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 358,
+        "graph_seed": 3040357,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 0,
+        "advantage": -5
+      },
+      {
+        "episode": 359,
+        "graph_seed": 3040358,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 0,
+        "advantage": -8
+      },
+      {
+        "episode": 360,
+        "graph_seed": 3040359,
+        "condition": "shuffled",
+        "sink_errors": 8,
+        "baseline_sink_errors": 7,
+        "advantage": -1
+      },
+      {
+        "episode": 361,
+        "graph_seed": 3040360,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 0,
+        "advantage": -8
+      },
+      {
+        "episode": 362,
+        "graph_seed": 3040361,
+        "condition": "uniform",
+        "sink_errors": 2,
+        "baseline_sink_errors": 1,
+        "advantage": -1
+      },
+      {
+        "episode": 363,
+        "graph_seed": 3040362,
+        "condition": "shuffled",
+        "sink_errors": 2,
+        "baseline_sink_errors": 3,
+        "advantage": 1
+      },
+      {
+        "episode": 364,
+        "graph_seed": 3040363,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 0,
+        "advantage": -4
+      },
+      {
+        "episode": 365,
+        "graph_seed": 3040364,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 4,
+        "advantage": -1
+      },
+      {
+        "episode": 366,
+        "graph_seed": 3040365,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 367,
+        "graph_seed": 3040366,
+        "condition": "matched",
+        "sink_errors": 9,
+        "baseline_sink_errors": 5,
+        "advantage": -4
+      },
+      {
+        "episode": 368,
+        "graph_seed": 3040367,
+        "condition": "uniform",
+        "sink_errors": 5,
+        "baseline_sink_errors": 6,
+        "advantage": 1
+      },
+      {
+        "episode": 369,
+        "graph_seed": 3040368,
+        "condition": "shuffled",
+        "sink_errors": 10,
+        "baseline_sink_errors": 5,
+        "advantage": -5
+      },
+      {
+        "episode": 370,
+        "graph_seed": 3040369,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 1,
+        "advantage": -4
+      },
+      {
+        "episode": 371,
+        "graph_seed": 3040370,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 372,
+        "graph_seed": 3040371,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 3,
+        "advantage": -1
+      },
+      {
+        "episode": 373,
+        "graph_seed": 3040372,
+        "condition": "matched",
+        "sink_errors": 4,
+        "baseline_sink_errors": 1,
+        "advantage": -3
+      },
+      {
+        "episode": 374,
+        "graph_seed": 3040373,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 4,
+        "advantage": -4
+      },
+      {
+        "episode": 375,
+        "graph_seed": 3040374,
+        "condition": "shuffled",
+        "sink_errors": 6,
+        "baseline_sink_errors": 4,
+        "advantage": -2
+      },
+      {
+        "episode": 376,
+        "graph_seed": 3040375,
+        "condition": "matched",
+        "sink_errors": 5,
+        "baseline_sink_errors": 3,
+        "advantage": -2
+      },
+      {
+        "episode": 377,
+        "graph_seed": 3040376,
+        "condition": "uniform",
+        "sink_errors": 8,
+        "baseline_sink_errors": 7,
+        "advantage": -1
+      },
+      {
+        "episode": 378,
+        "graph_seed": 3040377,
+        "condition": "shuffled",
+        "sink_errors": 5,
+        "baseline_sink_errors": 5,
+        "advantage": 0
+      },
+      {
+        "episode": 379,
+        "graph_seed": 3040378,
+        "condition": "matched",
+        "sink_errors": 7,
+        "baseline_sink_errors": 6,
+        "advantage": -1
+      },
+      {
+        "episode": 380,
+        "graph_seed": 3040379,
+        "condition": "uniform",
+        "sink_errors": 10,
+        "baseline_sink_errors": 9,
+        "advantage": -1
+      },
+      {
+        "episode": 381,
+        "graph_seed": 3040380,
+        "condition": "shuffled",
+        "sink_errors": 1,
+        "baseline_sink_errors": 7,
+        "advantage": 6
+      },
+      {
+        "episode": 382,
+        "graph_seed": 3040381,
+        "condition": "matched",
+        "sink_errors": 8,
+        "baseline_sink_errors": 2,
+        "advantage": -6
+      },
+      {
+        "episode": 383,
+        "graph_seed": 3040382,
+        "condition": "uniform",
+        "sink_errors": 3,
+        "baseline_sink_errors": 3,
+        "advantage": 0
+      },
+      {
+        "episode": 384,
+        "graph_seed": 3040383,
+        "condition": "shuffled",
+        "sink_errors": 4,
+        "baseline_sink_errors": 2,
+        "advantage": -2
+      }
+    ],
+    "validation": [
+      {
+        "episode": 0,
+        "mean_sink_errors": 4.958333333333333,
+        "conditions": {
+          "matched": 4.958333333333333,
+          "uniform": 4.958333333333333,
+          "shuffled": 4.958333333333333
+        },
+        "selected": false
+      },
+      {
+        "episode": 192,
+        "mean_sink_errors": 4.388888888888889,
+        "conditions": {
+          "matched": 3.75,
+          "uniform": 4.666666666666667,
+          "shuffled": 4.75
+        },
+        "selected": false
+      },
+      {
+        "episode": 384,
+        "mean_sink_errors": 3.9305555555555554,
+        "conditions": {
+          "matched": 2.7916666666666665,
+          "uniform": 4.708333333333333,
+          "shuffled": 4.291666666666667
+        },
+        "selected": true
+      }
+    ],
+    "selected_episode": 384,
+    "checkpoint_sha256": "0afcedb70e8c6012bbbb13d029895ea5165557311800be0c28ca60eda84da2de"
+  }
+}

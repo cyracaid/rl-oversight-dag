@@ -1,0 +1,54 @@
+{
+  "status": "complete",
+  "graph_start": 95000,
+  "graphs": 200,
+  "nodes": 80,
+  "sink_nodes": 20,
+  "budget": 16,
+  "p_catch": 0.9,
+  "episode_seed_offset": 20000,
+  "conditions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "approaches": [
+    "trust",
+    "ignore",
+    "feedback"
+  ],
+  "signal_gate": {
+    "graph_start": 70000,
+    "graph_count": 100,
+    "episode_seed_offset": 20000,
+    "centers": {
+      "normal": 0.7097657136377006,
+      "noise": 0.5025193763368987
+    }
+  },
+  "primary_condition": 2,
+  "bootstrap": {
+    "unit": "paired graph",
+    "draws": 10000,
+    "seed": 20261112
+  },
+  "type_order": "default_rng(graph_seed - graph_seed % 5 + 420001), rotate left by graph_seed % 5",
+  "score_permutation": "shuffle_within_type, episode_seed + 173, prefix of type order",
+  "python": "3.13.3",
+  "numpy": "2.4.4",
+  "episodes_sha256": "2214fd2bc50d600b70b1198c9e0f1e14b2750b812a655dcce9dcaeebfd5dbe3a",
+  "source_sha256": {
+    "role2_규리/evaluate_partial.py": "8547da8aac5e782b633622803a1970baeb20441ef909cdc00bba36094e38d430",
+    "role2_규리/부분손상실행안.md": "42e33170f287828f8c408c3140aee273367b37f242b2a8c1e4081523896cd379",
+    "role2_규리/shuffle_control.py": "6a56788891a68b23f532dfc2e12960df823f99db3867978fe102d48f4027b275",
+    "role2_규리/evaluate_conditions.py": "28430de1425ff9105c7c1a045e049ec76411c5216c58f4bcf9968e8e1b58f9db",
+    "role2_규리/evaluate_feedback.py": "2b001e56eba474a72545c881912ad91658c2915820cf5c911f4cced04c631427",
+    "role2_규리/signal_calibration.py": "756e1407dd576c98ec26884ec7d98769b87ee364089ceee3a100794841ef66af",
+    "role3 improvement/dag_role3/policies.py": "7113802b64018779d958ee2b0f36de82a5ba0952ed0bdddeced28114983458c4",
+    "role3 improvement/dag_role3/graphs.py": "1bbb7a0a732fb92adba96416faf2d66a68f3e8ba50b74a4a1cbacf96a2f2cce3",
+    "role3 improvement/dag_role3/environment.py": "c9844ed5b4cf7f2387db986d4f2cfc372e461c6d6660dd93088af743ba76d9dd"
+  }
+}
