@@ -127,18 +127,17 @@ def body_row(cells, xs, widths, y, size=13, bold_first=True, color=None):
 
 # ---------------------------------------------------------------- A1 error definition
 new('1', 'An error is a wrong output value, not a bug',
-    'The parser produced a plausible record; a human later corrected it. Code bugs are caught by tests.')
+    'The pipeline produced a plausible record; a human later corrected it. Code bugs are caught by tests.')
 
-xs = [.65, 3.55, 8.55, 10.95]
-ws = [2.85, 4.9, 2.3, 1.7]
+xs = [.65, 3.45, 8.40, 10.80]
+ws = [2.75, 4.75, 2.30, 1.95]
 y = head_row(['Error type', 'Concrete example from the real extract', 'Share of fixes', 'Base rate'], xs, ws, 2.62)
 rows = [
     ('order_error', 'wake-up timestamp earlier than sleep onset; AM/PM flipped; span over 24 h',
      '57/75 = 76%', '0.35'),
-    ('*_diff_error', 'derived awake-to-get-up gap wrong; self-reported SOL contradicts the timestamps',
-     '7/75 = 9.3%', '0.15 / 0.12'),
-    ('metric_spike, others', 'metric jump; sleep efficiency over 100%; zero-length sleep accepted',
-     'residual 10.7%', '0.05'),
+    ('every other type',
+     'diff / metric_spike / sleep_awake_equal: gap wrong, metric jump, efficiency over 100%, zero-length sleep',
+     '10 labelled + 8 unlabelled = 18/75', '0.05 - 0.15'),
 ]
 for r in rows:
     y = body_row(list(r), xs, ws, y, 13)
