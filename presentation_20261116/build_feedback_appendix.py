@@ -261,13 +261,15 @@ y += .28
 tblock('A strong baseline already exists on the real graph', .65, y, 12.1, 14.5, GREEN, True)
 y += .36
 tblock('Only heuristics run at N=21 (belief greedy is not run at this size). 8 seeds, budget 8/21 '
-       '(the main synthetic setting uses 16): no review 2.12, random 1.88, degree 1.88, confidence 0.5 = 0.50 '
-       '— the level any improvement claim must beat.', .65, y, 12.1, 13)
+       '(main synthetic setting: 16): no review 2.12, random 1.88, degree 1.88, confidence 0.50 — '
+       'paired against random +1.38 [0.12, 2.63], and one seed still ends at 3.', .65, y, 12.1, 13)
 
 end('Two honesties. First, the three rates have three denominators and we never mix them. Type shares are measured; the per-node base rates are a model prior mapped from '
     'those shares, because the correction file does not record which stage failed. Second, hidden errors are estimated, not only defined: random audits, with v5 passing its '
     'pre-registered gate on all nine cells. On the real graph a simple confidence threshold reaches 0.50 residual errors against 2.12 for no review, so that is the bar '
-    'any learned policy has to clear.')
+    'any learned policy has to clear. Third, and say this before anyone asks: our own replays (results.md section 12) show that within a record two reviews clear it, '
+    'and across records a one-line QC rule is within 0.014 of the oracle. Per-node scheduling is justified by the 80-node synthetic setting, not by our 21-node data; '
+    'on our data the open question is block review, which is a proposed next experiment, not a result.')
 
 pdf.save()
 prs.save(OUT / 'Team6_Feedback_Appendix.pptx')
