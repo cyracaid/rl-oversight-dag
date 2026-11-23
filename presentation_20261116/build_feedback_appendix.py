@@ -191,13 +191,13 @@ end('This is the answer to the per-stage question. Collect has eight raw diary f
 new('3', 'Three requirements, one MDP',
     'Not three literatures side by side: three components that feed each other.')
 
-xs = [.65, 6.05, 11.0]
-ws = [5.2, 4.75, 1.9]
+xs = [.65, 5.95, 10.65]
+ws = [5.1, 4.6, 2.1]
 y = head_row(['Requirement', 'Component in our method', 'Anchor'], xs, ws, 2.45)
 rows = [
     ('Hand the decision back to a human\n(learning-to-defer)',
-     'action = review one unreviewed node; inspection may miss (p_catch = 0.9); terminal reward = minus residual sink errors',
-     'spec 2.3'),
+     'action = review an unreviewed node; inspection may miss (p_catch = 0.9); reward = minus residual sink errors',
+     'proposal 4 / spec 2.3'),
     ('Allocate reviews under a budget\n(budgeted allocation)',
      'state carries budget_left; finite horizon H = B; the episode ends when the budget is spent',
      'proposal 4'),
@@ -251,17 +251,18 @@ y = tblock('Type shares are measured. Per-node base rates (0.35, 0.15, ...) are 
            'shares, not per-node measurements: the correction file does not record the pipeline stage.',
            .65, y, 12.1, 13, MUTED)
 
-y += .34
+y += .28
 tblock('Hidden errors are estimated, not merely defined', .65, y, 12.1, 14.5, GREEN, True)
 y += .36
 y = tblock('Random audits estimate the base error rate; v5 passes its pre-registered gate on all 9 cells: '
            '|bias| <= 0.05, coverage >= 0.90, calibration pass rate 1.00.', .65, y, 12.1, 13)
 
-y += .34
+y += .28
 tblock('A strong baseline already exists on the real graph', .65, y, 12.1, 14.5, GREEN, True)
 y += .36
-tblock('8 seeds, budget 8/21: no review 2.12, random 1.88, degree 1.88, confidence 0.5 = 0.50 — '
-       'the bar a learned policy must clear.', .65, y, 12.1, 13)
+tblock('Only heuristics run at N=21 (belief greedy is not run at this size). 8 seeds, budget 8/21 '
+       '(the main synthetic setting uses 16): no review 2.12, random 1.88, degree 1.88, confidence 0.5 = 0.50 '
+       '— the level any improvement claim must beat.', .65, y, 12.1, 13)
 
 end('Two honesties. First, the three rates have three denominators and we never mix them. Type shares are measured; the per-node base rates are a model prior mapped from '
     'those shares, because the correction file does not record which stage failed. Second, hidden errors are estimated, not only defined: random audits, with v5 passing its '

@@ -120,8 +120,13 @@ The `hub` baseline was broken: `real_pipeline_graph.py` credited every edge to o
 | hub (child count) | 1.88 |
 | **confidence threshold 0.5** | **0.50** |
 
+Two scope facts to say out loud:
+
+- The main synthetic setting uses **16 reviews**; the real DAG uses **8 of 21**. Do not let the two numbers look like a contradiction.
+- At N=21 only **heuristics** are run — belief greedy is not run at this size (`PROPOSAL_COURSE_KO.md` section 6). So 0.50 is a heuristic bar, not a greedy-vs-learned comparison.
+
 Two consequences for the talk:
 
 - Do **not** cite the old `hub = 1.75`; it came from the bug.
-- Confidence thresholding is a **strong** baseline on the real graph (0.50 vs 2.12). Say so before the teacher does: it is exactly why learned policies must be compared against a strong baseline, and it sets the bar the belief-state policy has to clear. Degree-based selection carries no benefit here.
+- Confidence thresholding is a **strong** baseline on the real graph (0.50 vs 2.12). Say so before the teacher does: it is exactly why learned policies must be compared against a strong baseline, and it sets the bar any improvement claim has to clear. Degree-based selection carries no benefit here.
 
