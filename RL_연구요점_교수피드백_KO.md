@@ -58,7 +58,7 @@
 - ◐ 개념 해명 — **재료 있음**: 숨은 오류=관측 불가 원천 오류(`SEMANTICS_AUDIT.md`), 모든 노드(sink 포함) 원천 오류 추출(`spike_active_selection.py:145`), 상태 7항목(`PROPOSAL_COURSE_KO.md §4`). **남은 것**: 4개 용어 카드로 정리.
 - ◐ 당위성 — **재료 있음**: bandit이 그래프를 평탄화한 V1 부정 결과(`PROPOSAL_COURSE_KO.md §3`), 3개 문헌 축 대조(`延迟惩罚审查调度_文献调研/README_相关工作摘要_中英.md`). **남은 것**: "하나 빠지면 풀 수 없다" 3단 논증.
 - ❌→표만 남음 세 요소→방법론 매핑 — MDP 7항목 표가 이미 있음(`PROPOSAL_COURSE_KO.md §4`). **남은 것**: 매핑 표 작성.
-- ◐ 용어 학술화 — learning-to-defer / review capacity / belief greedy / sink node 이미 사용, 슬라이드 13 용어표 있음. **남은 것**: KO 원고 구어체 정리.
+- ◐ 용어 학술화 — learning-to-defer / review capacity / belief greedy / sink node 이미 사용. **정정**: 제안 deck은 10장이고 독립 용어표는 없음(슬라이드 3–4에 흩어져 있음). 부록 deck A2에 용어 카드 추가함. **남은 것**: KO 원고 구어체 정리.
 
 ### 추가로 확보된 근거 (교수 질문에 바로 쓸 수 있음)
 

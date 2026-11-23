@@ -186,7 +186,7 @@ CMDP naive (do not use for the main table): `N` node actions + 1 STOP.
 r_T = − sink_errors          # number of sink nodes still erroneous at the end
 ```
 
-No per-step reward. Discount γ = 0.97 (REINFORCE MC uses the terminal directly, so γ matters only for the ablated TD variants).
+No per-step reward. **Main results are undiscounted: γ = 1** — `experiments/PROPOSAL_GAPS_RUN.md` records "All use gamma=1, terminal-only reward", and the deck states gamma = 1. The ablation TD variants use γ = 0.97; that value applies to them only, not to the main table.
 
 CMDP naive (failed, keep for the report as a negative result):
 
