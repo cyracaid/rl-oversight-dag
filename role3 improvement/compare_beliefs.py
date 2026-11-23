@@ -11,7 +11,7 @@ from run_benchmark import FAMILIES, interval, save
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--families", nargs="+", choices=FAMILIES, default=["spike","real"])
-    ap.add_argument("--seeds", type=int, default=50)
+    ap.add_argument("--seeds", type=int, default=100)
     ap.add_argument("--particles", type=int, default=1024)
     ap.add_argument("--out", type=Path, default=Path("outputs"))
     args = ap.parse_args()
@@ -20,8 +20,8 @@ def main():
     args.out.mkdir(parents=True, exist_ok=True)
     records, summary = [], []
     for family in args.families:
-        gains, fallbacks = [], []
-        for seed in range(80000, 80000 + args.seeds):
+        gains, fallbacks, recoveries = [], [], []
+        for seed in range(90000, 90000 + args.seeds):
             graph = generate_graph(family, seed)
             snapshot = sample_episode(graph, 20000 + seed)
             outcomes = []
@@ -34,13 +34,15 @@ def main():
                 outcomes.append(audit["final_sink_errors"])
                 records.append(dict(family=family, graph_seed=seed, episode_seed=20000+seed,
                                     particles=count, belief_seed=seed+40000,
-                                    sink_errors=outcomes[-1], fallback=audit["particle_fallback"]))
+                                    sink_errors=outcomes[-1], fallback=audit["particle_fallback"],
+                                    recoveries=audit["particle_recoveries"]))
             fallbacks.append(audit["particle_fallback"])
+            recoveries.append(audit["particle_recoveries"])
             gains.append(outcomes[0]-outcomes[1])
         lo, hi = interval(gains)
         summary.append(dict(family=family, episodes=args.seeds, particles=args.particles,
                             gain_vs_mean_field=np.mean(gains), paired_lo=lo, paired_hi=hi,
-                            fallback_episodes=sum(fallbacks)))
+                            fallback_episodes=sum(fallbacks), recovery_events=sum(recoveries)))
     save(args.out/"belief_episodes.csv", records)
     save(args.out/"belief_summary.csv", summary)
 

@@ -9,6 +9,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from dag_role3 import OversightEnv, generate_graph
+from dag_role3.training import BestValidation, potential, replay_observation
 from dag_role3.models import GraphDQN, torch_obs
 
 
@@ -45,7 +46,10 @@ def main():
     ap.add_argument('--seed',type=int,default=1)
     ap.add_argument('--eval-seeds',type=int,default=10)
     ap.add_argument('--out',type=Path,default=Path('outputs'))
+    ap.add_argument('--validation-every', type=int, default=100)
     args=ap.parse_args()
+    if args.seed < 1 or args.episodes >= 900000 or args.validation_every < 1 or args.eval_seeds > 10000:
+        ap.error("use positive seed, episodes < 900000, positive validation interval, eval-seeds <= 10000")
     if args.eval_seeds < 1 or args.episodes < 1: ap.error("episode counts must be positive")
     args.out.mkdir(exist_ok=True,parents=True)
     torch.set_num_threads(1)
@@ -56,6 +60,7 @@ def main():
     target=copy.deepcopy(net)
     optimizer=torch.optim.Adam(net.parameters(),lr=0.001)
     replay=deque(maxlen=5000)
+    validation = BestValidation(net, args.family, budget, args.eval_seeds)
     n_steps=0;history=[]
     for ep in range(args.episodes):
         graph=generate_graph(args.family,args.seed*1_000_000+ep)
@@ -71,34 +76,30 @@ def main():
                     scores,mask=q_values(net,obs)
                     a=int(scores.masked_fill(~mask,-1e9).argmax().item())
             nxt,reward,done,info=env.step(a)
-            replay.append((obs,a,reward,nxt,done))
+            shaped = reward + potential(nxt) - potential(obs)
+            replay.append((replay_observation(obs), a, shaped, replay_observation(nxt), done))
             optimize(net,target,optimizer,replay,rng,batch_size=8)
             n_steps+=1
             if n_steps%200==0:
                 target.load_state_dict(net.state_dict())
             obs=nxt
+        if (ep + 1) % args.validation_every == 0 or ep + 1 == args.episodes:
+            validation.check(net, ep + 1)
         history.append({'episode':ep+1,'sink_errors':env.final_audit()['final_sink_errors'],
                         'epsilon':epsilon})
         if (ep+1)%max(1,args.episodes//5)==0:
             print(f'train {ep+1:4d}/{args.episodes}: sink errors={history[-1]["sink_errors"]}')
-    target.load_state_dict(net.state_dict())
-    scores=[]
-    with torch.no_grad():
-        for s in range(1000,1000+args.eval_seeds):
-            env=OversightEnv.from_seed(generate_graph(args.family,s),seed=50000+s,budget=budget)
-            obs=env.observation();done=env.done
-            while not done:
-                qs,mask=q_values(net,obs)
-                a=int(qs.masked_fill(~mask,-1e9).argmax().item())
-                obs,_,done,_=env.step(a)
-            scores.append(env.final_audit()['final_sink_errors'])
+    net.load_state_dict(validation.state)
+    with open(args.out / 'dqn_validation.csv', 'w', newline='') as stream:
+        writer = csv.DictWriter(stream, fieldnames=['episode', 'mean_sink_errors'])
+        writer.writeheader()
+        writer.writerows(validation.rows)
     name=f'dqn_{args.family}'
     torch.save({'state_dict':net.state_dict(),'family':args.family,
-                'input_dim':len(g.rates)+7, 'seed':args.seed,'episodes':args.episodes},args.out/f'{name}.pt')
+                'input_dim':len(g.rates)+7, 'seed':args.seed,'episodes':args.episodes, 'algorithm':'double_dqn_public_potential', **validation.metadata()},args.out/f'{name}.pt')
     with open(args.out/f'{name}_train.csv','w',newline='') as f:
         w=csv.DictWriter(f,fieldnames=list(history[0]));w.writeheader();w.writerows(history)
-    print(f'Evaluation (held-out {len(scores)} graphs) mean final sink errors: '
-          f'{np.mean(scores):.3f} (not a validated performance claim)')
+    print(f'Validation selected episode {validation.episode}: {validation.best:.3f}')
     print('Saved model and training CSV to',args.out)
 
 

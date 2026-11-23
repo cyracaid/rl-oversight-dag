@@ -8,6 +8,7 @@ This is explicitly not a do(X_v=correct) intervention.
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, Tuple
+from types import MappingProxyType
 import math
 import random
 
@@ -33,6 +34,13 @@ class EpisodeSnapshot:
     confidence: Tuple[float, ...]
     review_uniforms: Tuple[float, ...]
     seed: int
+
+    def __post_init__(self):
+        # Keep the shared episode immutable even if the caller changes input lists.
+        for name in ("source_errors", "confidence", "review_uniforms"):
+            object.__setattr__(self, name, tuple(getattr(self, name)))
+        for name in ("edge_coins", "edge_probs"):
+            object.__setattr__(self, name, MappingProxyType(dict(getattr(self, name))))
 
 
 def sample_episode(graph: DAG, seed: int, confidence_mode: str = "normal") -> EpisodeSnapshot:
@@ -105,7 +113,7 @@ class OversightEnv:
     def __init__(self, graph: DAG, snapshot: EpisodeSnapshot,
                  budget: int | None = None, p_catch: float = 0.9,
                  confidence_mode: str = "normal", *, particles: int = 0, belief_seed: int = 0):
-        if not isinstance(particles, int) or particles < 0:
+        if isinstance(particles, bool) or not isinstance(particles, int) or particles < 0:
             raise ValueError("particles must be a nonnegative integer")
         self.particles, self.belief_seed = particles, belief_seed
         if budget is None:
@@ -116,8 +124,22 @@ class OversightEnv:
             raise ValueError("budget must be between 0 and n")
         if not (0 <= p_catch <= 1):
             raise ValueError("p_catch must be a probability")
-        if len(snapshot.source_errors) != graph.n:
+        if confidence_mode not in ("normal", "noise", "oracle"):
+            raise ValueError("invalid confidence mode")
+        if any(len(getattr(snapshot, key)) != graph.n for key in
+               ("source_errors", "confidence", "review_uniforms")):
             raise ValueError("snapshot n mismatch")
+        expected_edges = {(u, v) for v, parents in enumerate(graph.parents) for u in parents}
+        if set(snapshot.edge_coins) != expected_edges or set(snapshot.edge_probs) != expected_edges:
+            raise ValueError("snapshot edges do not match graph")
+        for values in (snapshot.confidence, snapshot.edge_probs.values()):
+            if any(not np.isfinite(x) or not 0 <= x <= 1 for x in values):
+                raise ValueError("snapshot probabilities must lie in [0, 1]")
+        if any(not np.isfinite(x) or not 0 <= x < 1 for x in snapshot.review_uniforms):
+            raise ValueError("review uniforms must lie in [0, 1)")
+        if any(not isinstance(x, (bool, np.bool_)) for x in
+               (*snapshot.source_errors, *snapshot.edge_coins.values())):
+            raise ValueError("hidden error indicators must be Boolean")
         self.graph, self.snapshot = graph, snapshot
         self.budget, self.p_catch = int(budget), float(p_catch)
         self.confidence_mode = confidence_mode
@@ -139,6 +161,7 @@ class OversightEnv:
         self._belief_base = initial_belief(self.graph, self.snapshot.confidence, self.confidence_mode)
         self._filter = None
         self._filter_fallback = False
+        self._filter_recoveries = 0
         if self.particles:
             from .belief import ParticleBelief
             self._filter = ParticleBelief(self.graph, self._belief_base, self._edge_prob,
@@ -216,6 +239,7 @@ class OversightEnv:
         if self._filter is not None:
             if self._filter.update(a, flagged, self.p_catch):
                 self._belief_base, self._particle_effective = self._filter.probabilities()
+                self._filter_recoveries = self._filter.recoveries
             else:
                 # Continue with the local approximation above for this episode.
                 self._filter = None
@@ -240,11 +264,12 @@ class OversightEnv:
         if not self._done:
             raise RuntimeError("final_audit is available only after episode completion")
         return {"particle_fallback": self._filter_fallback,
+                "particle_recoveries": self._filter_recoveries,
                 "initial_sink_errors": self._initial_sink_errors,
                 "final_sink_errors": sum(self._effective[i] for i in self.graph.sinks),
                 "initial_base_errors": sum(self.snapshot.source_errors),
                 "remaining_base_errors": sum(self._base),
-                "trace": list(self._trace)}
+                "trace": [dict(row) for row in self._trace]}
 
     def no_review_score(self):
         """Evaluator-only reference; do not use this in a policy."""

@@ -3,6 +3,42 @@ import random
 import numpy as np
 
 
+def marginal_scores(observation):
+    """Local derivative approximation, consistently evaluated at posterior source means."""
+    f = observation["features"]
+    n, k = len(f), f.shape[1] - 7
+    # Reverse derivative of the mean-field expected number of wrong conclusions.
+    base = f[:, k + 2].astype(float)
+    src, dst = observation["edge_index"]
+    prob = observation["edge_probability"]
+    effective = np.zeros(n)
+    product = np.ones(n)
+    parents = [[] for _ in range(n)]
+    for edge, child in enumerate(dst):
+        parents[child].append(edge)
+    for v in observation["topological_order"]:
+        for edge in parents[v]:
+            product[v] *= 1 - prob[edge] * effective[src[edge]]
+        effective[v] = 1 - (1 - base[v]) * product[v]
+    survival = 1 - prob * effective[src]
+    adjoint = np.zeros(n)
+    adjoint[observation["sink_ids"]] = 1.0
+    # Prefix/suffix products avoid division by zero for certain transmission.
+    for v in reversed(observation["topological_order"]):
+        edges = parents[v]
+        left = adjoint[v] * (1 - base[v])
+        partial = []
+        for edge in edges:
+            partial.append(left)
+            left *= survival[edge]
+        right = 1.0
+        for edge, prefix in zip(reversed(edges), reversed(partial)):
+            adjoint[src[edge]] += prefix * right * prob[edge]
+            right *= survival[edge]
+    score = base * product * adjoint
+    return score
+
+
 def choose(observation: dict, name: str, rng: random.Random | None = None) -> int:
     f = observation["features"]
     n = len(f)
@@ -20,37 +56,13 @@ def choose(observation: dict, name: str, rng: random.Random | None = None) -> in
         score = (1.0 - f[:, k]) * (1.0 + reach)
         return int(available[np.argmax(score[available])])
     if name == "marginal":
-        # Reverse derivative of the mean-field expected number of wrong conclusions.
-        base, effective = f[:, k + 2].astype(float), f[:, k + 3].astype(float)
-        src, dst = observation["edge_index"]
-        prob = observation["edge_probability"]
-        survival = 1 - prob * effective[src]
-        product = np.ones(n)
-        np.multiply.at(product, dst, survival)
-        adjoint = np.zeros(n)
-        adjoint[observation["sink_ids"]] = 1.0
-        # Prefix/suffix products avoid division by zero for certain transmission.
-        parents = [[] for _ in range(n)]
-        for edge, child in enumerate(dst):
-            parents[child].append(edge)
-        for v in reversed(observation["topological_order"]):
-            edges = parents[v]
-            left = adjoint[v] * (1 - base[v])
-            partial = []
-            for edge in edges:
-                partial.append(left)
-                left *= survival[edge]
-            right = 1.0
-            for edge, prefix in zip(reversed(edges), reversed(partial)):
-                adjoint[src[edge]] += prefix * right * prob[edge]
-                right *= survival[edge]
-        score = base * product * adjoint
+        score = marginal_scores(observation)
         return int(available[np.argmax(score[available])])
     if name == "hub":
         src = observation["edge_index"][0]
         degree = np.bincount(src, minlength=n)
         return int(available[np.argmax(degree[available])])
-    raise ValueError("name must be random, confidence, structural or hub")
+    raise ValueError("unknown policy; choose random, confidence, structural, marginal or hub")
 
 
 def run_public_policy(graph, snapshot, policy_name, budget, p_catch=0.9,

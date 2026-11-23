@@ -1,0 +1,5 @@
+3.12.14
+torch 2.15.0+cpu
+numpy 2.3.5
+networkx 3.7
+matplotlib 3.10.8

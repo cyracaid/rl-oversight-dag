@@ -40,6 +40,13 @@ class DAG:
     layers: Tuple[int, ...] = field(init=False)
 
     def __post_init__(self):
+        object.__setattr__(self, "parents", tuple(tuple(row) for row in self.parents))
+        for name in ("types", "rates", "names", "sink_override"):
+            object.__setattr__(self, name, tuple(getattr(self, name)))
+        indices = (*self.types, *self.sink_override,
+                   *(u for row in self.parents for u in row))
+        if any(isinstance(i, (bool, np.bool_)) or not isinstance(i, (int, np.integer)) for i in indices):
+            raise ValueError("node and type indices must be integers")
         n = len(self.parents)
         if n == 0 or len(self.types) != n:
             raise ValueError("parents/types dimensions disagree or empty DAG")

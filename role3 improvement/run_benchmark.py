@@ -1,6 +1,12 @@
 """Compare public policies on matched, held-out episodes."""
 import argparse
 import csv
+import json
+import hashlib
+import platform
+import time
+import os
+import tempfile
 from pathlib import Path
 
 import matplotlib
@@ -20,6 +26,10 @@ def load_policy(path):
     from dag_role3.models import GNNScorer, GraphDQN, torch_obs, masked_action
     torch.set_num_threads(1)
     ckpt = torch.load(path, map_location="cpu", weights_only=True)
+    if "feature_schema" in ckpt:
+        from dag_role3.training import FEATURE_SCHEMA
+        if ckpt["feature_schema"] != FEATURE_SCHEMA:
+            raise ValueError(f"Unknown feature schema in {path}")
     dim = ckpt["input_dim"]
     family = ckpt["family"]
     k = len(generate_graph(family).rates)
@@ -50,22 +60,31 @@ def interval(xs):
 
 
 def save(path, rows):
-    with path.open("w", newline="", encoding="utf-8-sig") as stream:
-        writer = csv.DictWriter(stream, fieldnames=rows[0].keys())
-        writer.writeheader()
-        writer.writerows(rows)
+    with tempfile.NamedTemporaryFile(mode="w", newline="", encoding="utf-8-sig",
+                                     dir=path.parent, delete=False) as stream:
+        temporary = stream.name
+        try:
+            writer = csv.DictWriter(stream, fieldnames=rows[0].keys())
+            writer.writeheader()
+            writer.writerows(rows)
+        except BaseException:
+            os.unlink(temporary)
+            raise
+    os.replace(temporary, path)
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--families", nargs="+", choices=FAMILIES, default=FAMILIES)
-    ap.add_argument("--seeds", type=int, default=50)
-    ap.add_argument("--start-seed", type=int, default=80000)
+    ap.add_argument("--seeds", type=int, default=100)
+    ap.add_argument("--start-seed", type=int, default=90000)
     ap.add_argument("--checkpoints", nargs="+", type=Path, default=[])
     ap.add_argument("--out", type=Path, default=Path("outputs"))
     args = ap.parse_args()
     if args.seeds < 1 or len(set(args.families)) != len(args.families):
         ap.error("need positive seeds and distinct families")
+    if args.start_seed < 90000 or args.start_seed + args.seeds > 100000:
+        ap.error("test graph seeds must stay within [90000, 100000)")
     learners = {f: {} for f in args.families}
     for path in args.checkpoints:
         family, name, act = load_policy(path)
@@ -83,21 +102,35 @@ def main():
             snapshot = sample_episode(graph, episode_seed)
             budget = {"spike": 16, "real": 8}.get(family, 50)
             for name, policy in policies.items():
+                started = time.perf_counter()
                 errors, actions = run_public_policy(graph, snapshot, policy, budget)
                 scores[name].append(errors)
                 rows.append(dict(family=family, graph_seed=seed, episode_seed=episode_seed,
                                  n=graph.n, edges=graph.edge_count, sinks=len(graph.sinks),
                                  budget=budget, policy=name, sink_errors=errors,
+                                 sink_error_rate=errors/len(graph.sinks),
+                                 elapsed_seconds=time.perf_counter()-started,
                                  actions=" ".join(map(str, actions))))
         for name, errors in scores.items():
             delta = np.subtract(scores["confidence"], errors)
             lo, hi = interval(delta)
             summary.append(dict(family=family, policy=name, n_episodes=len(errors),
                                 mean_sink_errors=np.mean(errors),
+                                std_sink_errors=np.std(errors, ddof=1) if len(errors)>1 else "",
+                                p95_sink_errors=np.quantile(errors,.95),
+                                zero_error_rate=float(np.mean(np.asarray(errors)==0)),
                                 mean_saved_vs_none=np.mean(np.subtract(scores["none"], errors)),
                                 gain_vs_confidence=delta.mean(), paired_lo=lo, paired_hi=hi,
                                 wins=sum(delta>0), ties=sum(delta==0), losses=sum(delta<0)))
         print(family, "complete", flush=True)
+    manifest = {"python": platform.python_version(), "numpy": np.__version__,
+                "families": list(args.families), "test_start": args.start_seed,
+                "test_episodes_per_family": args.seeds, "bootstrap_replicates": 2000,
+                "checkpoints": {str(p): hashlib.sha256(p.read_bytes()).hexdigest()
+                                for p in args.checkpoints},
+                "source_sha256": {str(p): hashlib.sha256(p.read_bytes()).hexdigest()
+                                  for p in sorted(Path('.').rglob('*.py'))}}
+    (args.out / "manifest.json").write_text(json.dumps(manifest, indent=2))
     save(args.out/"benchmark_role3.csv", rows)
     save(args.out/"benchmark_summary.csv", summary)
     fig, axes = plt.subplots(1, len(args.families), figsize=(3.8*len(args.families), 5), squeeze=False)
