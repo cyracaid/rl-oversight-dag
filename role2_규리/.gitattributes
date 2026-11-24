@@ -8,6 +8,7 @@ results/residual-v1/train/*/training.json -text
 두단계계획.md text eol=lf
 results/planning-v1/trace.csv -text
 부분손상실행안.md text eol=lf
+PREREGISTER_SCOPE_WITHIN.md text eol=lf
 results/credit-v1/**/protocol.md text eol=lf
 results/credit-v1/protocol.md text eol=lf
 results/sleep-v1/protocol.md text eol=lf

@@ -1,0 +1,625 @@
+{
+  "graphs": 100,
+  "first_seed": 4600,
+  "last_seed": 4699,
+  "budget": 16,
+  "episodes_sha256": "beab16a32113ae379e0cf761b5bf09fd2c4a038b3c7da056dd5635a682d1d350",
+  "bootstrap": {
+    "unit": "graph",
+    "draws": 10000,
+    "seed": 411,
+    "interval": "95% percentile",
+    "mixed_cell_weight": 0.05
+  },
+  "verdict": "inconclusive",
+  "mixed": {
+    "means": {
+      "trust": 1.718,
+      "shrink": 1.6905000000000001,
+      "scope": 1.669
+    },
+    "differences": {
+      "scope-shrink": {
+        "mean": -0.0215,
+        "low": -0.047,
+        "high": 0.003
+      },
+      "scope-trust": {
+        "mean": -0.049,
+        "low": -0.0865,
+        "high": -0.014000000000000002
+      },
+      "shrink-trust": {
+        "mean": -0.027500000000000004,
+        "low": -0.051500000000000004,
+        "high": -0.003
+      }
+    }
+  },
+  "cells": [
+    {
+      "layer": "source",
+      "fraction": 0.5,
+      "shift_a": -3,
+      "shift_b": 3,
+      "means": {
+        "trust": 1.5,
+        "shrink": 1.5,
+        "scope": 1.49
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.01,
+          "low": -0.03,
+          "high": 0.0
+        },
+        "scope-trust": {
+          "mean": -0.01,
+          "low": -0.04,
+          "high": 0.02
+        },
+        "shrink-trust": {
+          "mean": 0.0,
+          "low": -0.04,
+          "high": 0.04
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 0.5,
+      "shift_a": -4,
+      "shift_b": 2,
+      "means": {
+        "trust": 1.46,
+        "shrink": 1.46,
+        "scope": 1.46
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0
+        },
+        "scope-trust": {
+          "mean": 0.0,
+          "low": -0.06,
+          "high": 0.05
+        },
+        "shrink-trust": {
+          "mean": 0.0,
+          "low": -0.06,
+          "high": 0.05
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 0.5,
+      "shift_a": -2,
+      "shift_b": 4,
+      "means": {
+        "trust": 1.46,
+        "shrink": 1.47,
+        "scope": 1.44
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.03,
+          "low": -0.1,
+          "high": 0.02
+        },
+        "scope-trust": {
+          "mean": -0.02,
+          "low": -0.09,
+          "high": 0.03
+        },
+        "shrink-trust": {
+          "mean": 0.01,
+          "low": -0.02,
+          "high": 0.05
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 0.5,
+      "shift_a": -4,
+      "shift_b": -2,
+      "means": {
+        "trust": 1.36,
+        "shrink": 1.33,
+        "scope": 1.31
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.02,
+          "low": -0.06,
+          "high": 0.02
+        },
+        "scope-trust": {
+          "mean": -0.05,
+          "low": -0.13,
+          "high": 0.02
+        },
+        "shrink-trust": {
+          "mean": -0.03,
+          "low": -0.11,
+          "high": 0.04
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 0.5,
+      "shift_a": 2,
+      "shift_b": 4,
+      "means": {
+        "trust": 1.47,
+        "shrink": 1.49,
+        "scope": 1.51
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": 0.02,
+          "low": -0.06,
+          "high": 0.12
+        },
+        "scope-trust": {
+          "mean": 0.04,
+          "low": -0.06,
+          "high": 0.16
+        },
+        "shrink-trust": {
+          "mean": 0.02,
+          "low": -0.03,
+          "high": 0.09
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 1.0,
+      "shift_a": -3,
+      "shift_b": 3,
+      "means": {
+        "trust": 1.76,
+        "shrink": 1.76,
+        "scope": 1.71
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.05,
+          "low": -0.13,
+          "high": 0.02
+        },
+        "scope-trust": {
+          "mean": -0.05,
+          "low": -0.13,
+          "high": 0.01
+        },
+        "shrink-trust": {
+          "mean": 0.0,
+          "low": -0.06,
+          "high": 0.05
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 1.0,
+      "shift_a": -4,
+      "shift_b": 2,
+      "means": {
+        "trust": 1.76,
+        "shrink": 1.69,
+        "scope": 1.69
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": 0.0,
+          "low": -0.05,
+          "high": 0.05
+        },
+        "scope-trust": {
+          "mean": -0.07,
+          "low": -0.22,
+          "high": 0.05
+        },
+        "shrink-trust": {
+          "mean": -0.07,
+          "low": -0.21,
+          "high": 0.04
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 1.0,
+      "shift_a": -2,
+      "shift_b": 4,
+      "means": {
+        "trust": 1.67,
+        "shrink": 1.7,
+        "scope": 1.65
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.05,
+          "low": -0.16,
+          "high": 0.05
+        },
+        "scope-trust": {
+          "mean": -0.02,
+          "low": -0.14,
+          "high": 0.09
+        },
+        "shrink-trust": {
+          "mean": 0.03,
+          "low": -0.05,
+          "high": 0.12
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 1.0,
+      "shift_a": -4,
+      "shift_b": -2,
+      "means": {
+        "trust": 1.57,
+        "shrink": 1.56,
+        "scope": 1.52
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.04,
+          "low": -0.14,
+          "high": 0.06
+        },
+        "scope-trust": {
+          "mean": -0.05,
+          "low": -0.17,
+          "high": 0.06
+        },
+        "shrink-trust": {
+          "mean": -0.01,
+          "low": -0.05,
+          "high": 0.03
+        }
+      }
+    },
+    {
+      "layer": "source",
+      "fraction": 1.0,
+      "shift_a": 2,
+      "shift_b": 4,
+      "means": {
+        "trust": 1.69,
+        "shrink": 1.66,
+        "scope": 1.71
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": 0.05,
+          "low": -0.1,
+          "high": 0.2
+        },
+        "scope-trust": {
+          "mean": 0.02,
+          "low": -0.13,
+          "high": 0.16
+        },
+        "shrink-trust": {
+          "mean": -0.03,
+          "low": -0.09,
+          "high": 0.02
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 0.5,
+      "shift_a": -3,
+      "shift_b": 3,
+      "means": {
+        "trust": 1.63,
+        "shrink": 1.61,
+        "scope": 1.6
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.01,
+          "low": -0.06,
+          "high": 0.04
+        },
+        "scope-trust": {
+          "mean": -0.03,
+          "low": -0.09,
+          "high": 0.02
+        },
+        "shrink-trust": {
+          "mean": -0.02,
+          "low": -0.09,
+          "high": 0.04
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 0.5,
+      "shift_a": -4,
+      "shift_b": 2,
+      "means": {
+        "trust": 1.56,
+        "shrink": 1.52,
+        "scope": 1.54
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": 0.02,
+          "low": -0.05,
+          "high": 0.1
+        },
+        "scope-trust": {
+          "mean": -0.02,
+          "low": -0.09,
+          "high": 0.04
+        },
+        "shrink-trust": {
+          "mean": -0.04,
+          "low": -0.11,
+          "high": 0.02
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 0.5,
+      "shift_a": -2,
+      "shift_b": 4,
+      "means": {
+        "trust": 1.72,
+        "shrink": 1.71,
+        "scope": 1.7
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.01,
+          "low": -0.04,
+          "high": 0.02
+        },
+        "scope-trust": {
+          "mean": -0.02,
+          "low": -0.09,
+          "high": 0.04
+        },
+        "shrink-trust": {
+          "mean": -0.01,
+          "low": -0.07,
+          "high": 0.04
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 0.5,
+      "shift_a": -4,
+      "shift_b": -2,
+      "means": {
+        "trust": 1.46,
+        "shrink": 1.49,
+        "scope": 1.44
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.05,
+          "low": -0.13024999999999978,
+          "high": 0.01
+        },
+        "scope-trust": {
+          "mean": -0.02,
+          "low": -0.13,
+          "high": 0.08
+        },
+        "shrink-trust": {
+          "mean": 0.03,
+          "low": -0.04,
+          "high": 0.1
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 0.5,
+      "shift_a": 2,
+      "shift_b": 4,
+      "means": {
+        "trust": 1.78,
+        "shrink": 1.78,
+        "scope": 1.73
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.05,
+          "low": -0.11,
+          "high": 0.0
+        },
+        "scope-trust": {
+          "mean": -0.05,
+          "low": -0.12,
+          "high": 0.02
+        },
+        "shrink-trust": {
+          "mean": 0.0,
+          "low": -0.04,
+          "high": 0.04
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 1.0,
+      "shift_a": -3,
+      "shift_b": 3,
+      "means": {
+        "trust": 2.14,
+        "shrink": 2.12,
+        "scope": 2.12
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": 0.0,
+          "low": -0.06,
+          "high": 0.07
+        },
+        "scope-trust": {
+          "mean": -0.02,
+          "low": -0.08,
+          "high": 0.04
+        },
+        "shrink-trust": {
+          "mean": -0.02,
+          "low": -0.08,
+          "high": 0.03
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 1.0,
+      "shift_a": -4,
+      "shift_b": 2,
+      "means": {
+        "trust": 2.09,
+        "shrink": 2.01,
+        "scope": 1.94
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.07,
+          "low": -0.16,
+          "high": 0.01
+        },
+        "scope-trust": {
+          "mean": -0.15,
+          "low": -0.3,
+          "high": -0.02
+        },
+        "shrink-trust": {
+          "mean": -0.08,
+          "low": -0.19,
+          "high": 0.01
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 1.0,
+      "shift_a": -2,
+      "shift_b": 4,
+      "means": {
+        "trust": 2.18,
+        "shrink": 2.18,
+        "scope": 2.11
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.07,
+          "low": -0.14,
+          "high": -0.01
+        },
+        "scope-trust": {
+          "mean": -0.07,
+          "low": -0.15,
+          "high": 0.0
+        },
+        "shrink-trust": {
+          "mean": 0.0,
+          "low": -0.04,
+          "high": 0.04
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 1.0,
+      "shift_a": -4,
+      "shift_b": -2,
+      "means": {
+        "trust": 1.94,
+        "shrink": 1.72,
+        "scope": 1.7
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.02,
+          "low": -0.15,
+          "high": 0.09
+        },
+        "scope-trust": {
+          "mean": -0.24,
+          "low": -0.43,
+          "high": -0.06
+        },
+        "shrink-trust": {
+          "mean": -0.22,
+          "low": -0.36,
+          "high": -0.09
+        }
+      }
+    },
+    {
+      "layer": "sink",
+      "fraction": 1.0,
+      "shift_a": 2,
+      "shift_b": 4,
+      "means": {
+        "trust": 2.16,
+        "shrink": 2.05,
+        "scope": 2.01
+      },
+      "differences": {
+        "scope-shrink": {
+          "mean": -0.04,
+          "low": -0.15,
+          "high": 0.06
+        },
+        "scope-trust": {
+          "mean": -0.15,
+          "low": -0.29,
+          "high": -0.02
+        },
+        "shrink-trust": {
+          "mean": -0.11,
+          "low": -0.2,
+          "high": -0.02
+        }
+      }
+    }
+  ],
+  "clean": {
+    "means": {
+      "trust": 1.2,
+      "shrink": 1.23,
+      "scope": 1.18
+    },
+    "differences": {
+      "scope-shrink": {
+        "mean": -0.05,
+        "low": -0.12,
+        "high": 0.0
+      },
+      "scope-trust": {
+        "mean": -0.02,
+        "low": -0.06,
+        "high": 0.0
+      },
+      "shrink-trust": {
+        "mean": 0.03,
+        "low": -0.02,
+        "high": 0.1
+      }
+    }
+  }
+}
