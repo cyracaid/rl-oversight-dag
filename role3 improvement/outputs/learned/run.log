@@ -1,0 +1,31 @@
+training 15 (family, seed) pairs with 4 workers
+  ticket   s1: 26s
+  real     s1: 27s
+  real     s3: 27s
+  real     s2: 27s
+  ticket   s2: 46s
+  ticket   s3: 46s
+  modular  s2: 1356s
+  modular  s1: 1362s
+  modular  s3: 1372s
+  er       s1: 2366s
+  ba       s1: 3152s
+  er       s2: 3303s
+  er       s3: 3383s
+  ba       s2: 2901s
+  ba       s3: 1090s
+evaluating: /opt/anaconda3/bin/python3 run_benchmark.py --seeds 100 --start-seed 90000 --checkpoints outputs/v3/train_1/gnn_spike_observed.pt outputs/v3/train_1/dqn_spike.pt outputs/v3/train_2/gnn_spike_observed.pt outputs/v3/train_2/dqn_spike.pt outputs/v3/train_3/gnn_spike_observed.pt outputs/v3/train_3/dqn_spike.pt outputs/learned/real/train_1/gnn_real_observed.pt outputs/learned/real/train_1/dqn_real.pt outputs/learned/real/train_2/gnn_real_observed.pt outputs/learned/real/train_2/dqn_real.pt outputs/learned/real/train_3/gnn_real_observed.pt outputs/learned/real/train_3/dqn_real.pt outputs/learned/ticket/train_1/gnn_ticket_observed.pt outputs/learned/ticket/train_1/dqn_ticket.pt outputs/learned/ticket/train_2/gnn_ticket_observed.pt outputs/learned/ticket/train_2/dqn_ticket.pt outputs/learned/ticket/train_3/gnn_ticket_observed.pt outputs/learned/ticket/train_3/dqn_ticket.pt outputs/learned/modular/train_1/gnn_modular_observed.pt outputs/learned/modular/train_1/dqn_modular.pt outputs/learned/modular/train_2/gnn_modular_observed.pt outputs/learned/modular/train_2/dqn_modular.pt outputs/learned/modular/train_3/gnn_modular_observed.pt outputs/learned/modular/train_3/dqn_modular.pt outputs/learned/er/train_1/gnn_er_observed.pt outputs/learned/er/train_1/dqn_er.pt outputs/learned/er/train_2/gnn_er_observed.pt outputs/learned/er/train_2/dqn_er.pt outputs/learned/er/train_3/gnn_er_observed.pt outputs/learned/er/train_3/dqn_er.pt outputs/learned/ba/train_1/gnn_ba_observed.pt outputs/learned/ba/train_1/dqn_ba.pt outputs/learned/ba/train_2/gnn_ba_observed.pt outputs/learned/ba/train_2/dqn_ba.pt outputs/learned/ba/train_3/gnn_ba_observed.pt outputs/learned/ba/train_3/dqn_ba.pt --out outputs/v3-learned
+spike complete
+modular complete
+ba complete
+er complete
+real complete
+ticket complete
+
+family    marginal  best learned  best policy
+spike         0.66          0.96  oracle
+real          0.47          0.53  oracle
+ticket        0.29          0.31  oracle
+modular       8.78         13.24  oracle
+er           16.76         21.77  oracle
+ba           20.13         31.01  oracle

@@ -41,7 +41,7 @@ def optimize(net,target,optimizer,replay,rng,batch_size):
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument('--family',choices=['spike','modular','ba','er','real'],default='spike')
+    ap.add_argument('--family',choices=['spike','modular','ba','er','real','ticket'],default='spike')
     ap.add_argument('--episodes',type=int,default=80)
     ap.add_argument('--seed',type=int,default=1)
     ap.add_argument('--eval-seeds',type=int,default=10)
@@ -55,7 +55,7 @@ def main():
     torch.set_num_threads(1)
     rng=random.Random(args.seed);np.random.seed(args.seed);torch.manual_seed(args.seed)
     g=generate_graph(args.family,1)
-    budget=16 if args.family=='spike' else 8 if args.family=='real' else 50
+    budget=16 if args.family=='spike' else 8 if args.family in ('real','ticket') else 50
     net=GraphDQN(len(g.rates)+7)
     target=copy.deepcopy(net)
     optimizer=torch.optim.Adam(net.parameters(),lr=0.001)

@@ -89,7 +89,7 @@ directory-name-with-a-space dependency entirely.
 ## 7. Gaps that are still open
 
 - Role 4 (baselines/controls) and Role 5 have committed no code. The control set that exists is ours, not theirs.
-- No CI. Tests are run by hand: `role3 improvement` 27 pass, `role2_규리` 4 pass (checked today).
+- No CI. Tests are run by hand: `role3 improvement` 29 pass, `role2_규리` 4 pass (checked 2026-11-24).
 - `experiments/` and `role2_규리/` disagree on the sink definition for the sleep DAG (4 declared sinks vs
   childless nodes). Harmless while the tables stay separate; fatal if merged.
 - No measured confidence signal. Everything above assumes the confidence score has a known error model; the

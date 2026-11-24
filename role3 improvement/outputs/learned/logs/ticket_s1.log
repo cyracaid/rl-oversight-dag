@@ -1,0 +1,16 @@
+
+=== 2026-11-24 12:35:37 ticket s1 ===
+train  200/1000: sink errors=2
+train  400/1000: sink errors=0
+train  600/1000: sink errors=0
+train  800/1000: sink errors=1
+train 1000/1000: sink errors=1
+Validation selected episode 300: 0.300
+Saved model and training CSV to outputs/learned/ticket/train_1
+train   60/300: sink errors=1
+train  120/300: sink errors=1
+train  180/300: sink errors=0
+train  240/300: sink errors=0
+train  300/300: sink errors=0
+Validation selected episode 100: 0.367
+Saved model and training CSV to outputs/learned/ticket/train_1

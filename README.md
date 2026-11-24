@@ -92,8 +92,10 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Spike, 200 held-out graphs, budget 16 | adaptive marginal **1.130** | GNN 1.410 / 1.590 / 1.455 | rule wins on all 3 training seeds | `role2_규리/results/confidence-v1/` |
 | …same, untouched confirmation 2000–2199 | adaptive marginal **0.885** | GNN 1.185 / 1.325 / 1.275 | rule wins; GNN − marginal **+0.377 [+0.255, +0.510]** | `role2_규리/results/confirm-v1/` |
 | …same, 10× training budget (10,000 episodes) | adaptive marginal **0.885** | GNN 1.155 / 1.140 / 1.145 | still loses: GNN − marginal **+0.262 [+0.165, +0.365]** | `role2_규리/results/confirm-10x/` |
-| Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; learned CIs contain 0 | `role3 improvement/outputs/v3/` |
+| Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; paired CIs exclude 0 | `role3 improvement/outputs/v3/` |
+| Learned baselines on all 6 families (3 seeds, equal budget) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47 / 0.29** | GNN and DQN | rule wins in **all 36 (family, seed) cells**; gap grows with n: +0.04–0.08 at N=21, +5.2–17.0 at N=500; 34/36 CIs exclude 0 | `role3 improvement/outputs/v3-learned/learned_vs_marginal.md` |
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
+| Full baseline set with truth-reading reference, 6 families | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47 / 0.29** | `oracle` 0.52 / 3.78 / 13.28 / 9.84 / 0.39 / 0.28 | `type_prior` is far worse (3.76 on spike) → confidence carries signal; oracle gap 5–7 errors at N=500 is the measurable headroom | `role3 improvement/outputs/v3-baselines/` |
 | Hypothetical ticketing pipeline (synthetic prior, 21 nodes, budget 8) | marginal **0.29** | — | **ties** confidence 0.32: +0.03 [0.00, +0.08], 98/100 ties — no cross-domain advantage | `role3 improvement/outputs/ticket-v1/` |
 | Why spike wins and real/ticket tie: budget coverage | gain in caught fraction **+6.2 pp** at 20 % coverage, **+1.3 / +1.6 pp** at 38 %, **≤1 pp with CI touching 0 above 40 %**, exactly 0 at ≥2/3 | — | **one curve, not three findings**: gain decays with budget/n and becomes unmeasurable near 1/3 coverage; 16 reviews give +6.2 pp at n=80 but +0.3 pp at n=21 | `experiments/BOUNDARY_REPORT.md` |
 | Confidence corrupted (uniform noise, not recognised) | marginal **4.415** | adaptive marginal **3.150** | −1.265 [−1.545, −0.985] | `role2_규리/results/confidence-v1/` |
@@ -204,6 +206,7 @@ rendered page — no link opens raw markdown in the browser. Plans (`RL_PLAN`, `
 | Evidence-chain design | [EVIDENCE_CHAIN_DESIGN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) | — | [EVIDENCE_CHAIN_DESIGN_CN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html) |
 | Implementation spec | [IMPLEMENTATION_SPEC_EN](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html) | [IMPLEMENTATION_SPEC_KO](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html) | [网页版](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) · [md 渲染](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.html) |
 | Canonical line + reproduction receipts | [CROSS_IMPLEMENTATION_VALIDATION](CROSS_IMPLEMENTATION_VALIDATION.md) | [CROSS_IMPLEMENTATION_VALIDATION_KO](CROSS_IMPLEMENTATION_VALIDATION_KO.md) | — |
+| Benchmark specification — task, splits, baseline matrix, acceptance rules | [BENCHMARK_SPEC](BENCHMARK_SPEC.md) | — | — |
 | Boundary map — where graph-aware triage pays (budget coverage × graph shape) | [BOUNDARY_REPORT](experiments/BOUNDARY_REPORT.md) | — | — |
 | Measurement layer — what review receipts can and cannot answer | [MEASUREMENT_LAYER](triage_bench/MEASUREMENT_LAYER.md) | — | — |
 | SciForge export protocol (frozen pre-registration) + mock report | [PROTOCOL](sciforge_review/export/PROTOCOL.md) · [REPORT](sciforge_review/export/REPORT.md) | — | — |
@@ -267,7 +270,7 @@ experiments/                    (simulation & experiments)
 
 ```
 CROSS_IMPLEMENTATION_VALIDATION.md   Which line is canonical, what may not be compared, reproduction receipts
-role3 improvement/                   Frozen environment (dag_role3, 27 tests, hashed checkpoints, benchmark CSVs)
+role3 improvement/                   Frozen environment (dag_role3, 29 tests, hashed checkpoints, benchmark CSVs)
 role2_규리/                          Role 2 measurements: confidence robustness, planning, credit, KAIST nights
 ```
 
@@ -287,6 +290,9 @@ role2_규리/                          Role 2 measurements: confidence robustnes
 | Real queue recall@k (Table 1) | `python3 triage_bench/run_bench.py` | **Yes (auto-skips if missing)** |
 | M4-only headroom | `python3 triage_bench/run_m4_mining.py` | **Yes (auto-skips if missing)** |
 | Canonical benchmark (5 graph families, frozen checkpoints) | `cd "role3 improvement" && python3 run_benchmark.py --checkpoints outputs/v3/train_*/{dqn,gnn}_spike*.pt` | No |
+| Full baseline set (rules + truth-reading reference), 6 families | `cd "role3 improvement" && python3 run_benchmark.py --seeds 100 --start-seed 90000 --out outputs/v3-baselines` | No |
+| Learned baselines on the other 5 families (3 seeds, same budget) | `cd "role3 improvement" && python3 run_learned_baselines.py --jobs 4` | No |
+| Pair the learned policies against `marginal` (spec §7) | `cd "role3 improvement" && python3 report_learned_baselines.py` | No |
 | Canonical Role 2 contrasts (confidence, planning) | `cd role2_규리 && python3 evaluate_conditions.py --out … && python3 evaluate_planning.py --out …` | No |
 
 Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torch matplotlib`).

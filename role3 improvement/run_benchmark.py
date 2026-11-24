@@ -17,8 +17,9 @@ import numpy as np
 from dag_role3 import generate_graph, sample_episode
 from dag_role3.policies import run_public_policy
 
-RULES = ("none", "random", "confidence", "hub", "structural", "marginal")
-FAMILIES = ("spike", "modular", "ba", "er", "real")
+RULES = ("none", "random", "confidence", "hub", "structural", "type_prior", "marginal", "oracle")
+FAMILIES = ("spike", "modular", "ba", "er", "real", "ticket")
+# ``oracle`` reads hidden truth and is an evaluation-only reference, not a deployable policy.
 
 
 def load_policy(path):
@@ -100,7 +101,7 @@ def main():
             graph = generate_graph(family, seed)
             episode_seed = 20000 + seed
             snapshot = sample_episode(graph, episode_seed)
-            budget = {"spike": 16, "real": 8}.get(family, 50)
+            budget = {"spike": 16, "real": 8, "ticket": 8}.get(family, 50)
             for name, policy in policies.items():
                 started = time.perf_counter()
                 errors, actions = run_public_policy(graph, snapshot, policy, budget)

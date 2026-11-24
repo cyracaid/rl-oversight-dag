@@ -1,0 +1,16 @@
+
+=== 2026-11-24 12:35:37 real s2 ===
+train  200/1000: sink errors=1
+train  400/1000: sink errors=1
+train  600/1000: sink errors=1
+train  800/1000: sink errors=0
+train 1000/1000: sink errors=0
+Validation selected episode 900: 0.200
+Saved model and training CSV to outputs/learned/real/train_2
+train   60/300: sink errors=2
+train  120/300: sink errors=0
+train  180/300: sink errors=0
+train  240/300: sink errors=0
+train  300/300: sink errors=0
+Validation selected episode 200: 0.467
+Saved model and training CSV to outputs/learned/real/train_2

@@ -1,0 +1,16 @@
+
+=== 2026-11-24 13:52:13 ba s3 ===
+train  200/1000: sink errors=55
+train  400/1000: sink errors=20
+train  600/1000: sink errors=84
+train  800/1000: sink errors=108
+train 1000/1000: sink errors=149
+Validation selected episode 600: 34.767
+Saved model and training CSV to outputs/learned/ba/train_3
+train   60/300: sink errors=23
+train  120/300: sink errors=149
+train  180/300: sink errors=20
+train  240/300: sink errors=49
+train  300/300: sink errors=24
+Validation selected episode 100: 25.767
+Saved model and training CSV to outputs/learned/ba/train_3

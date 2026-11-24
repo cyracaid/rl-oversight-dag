@@ -1,0 +1,16 @@
+
+=== 2026-11-24 12:58:40 er s2 ===
+train  200/1000: sink errors=33
+train  400/1000: sink errors=55
+train  600/1000: sink errors=41
+train  800/1000: sink errors=34
+train 1000/1000: sink errors=24
+Validation selected episode 900: 27.733
+Saved model and training CSV to outputs/learned/er/train_2
+train   60/300: sink errors=39
+train  120/300: sink errors=30
+train  180/300: sink errors=37
+train  240/300: sink errors=22
+train  300/300: sink errors=25
+Validation selected episode 300: 26.400
+Saved model and training CSV to outputs/learned/er/train_2

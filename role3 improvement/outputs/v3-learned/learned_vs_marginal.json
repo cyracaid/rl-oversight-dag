@@ -1,0 +1,542 @@
+[
+  {
+    "family": "ba",
+    "learner": "gnn",
+    "delta": 16.97,
+    "lo": 12.81666666666667,
+    "hi": 21.556833333333334,
+    "wins": 1,
+    "ties": 0,
+    "losses": 99,
+    "seeds": [
+      "gnn_s1",
+      "gnn_s2",
+      "gnn_s3"
+    ]
+  },
+  {
+    "family": "ba",
+    "learner": "dqn",
+    "delta": 14.45,
+    "lo": 12.56325,
+    "hi": 16.730083333333333,
+    "wins": 0,
+    "ties": 0,
+    "losses": 100,
+    "seeds": [
+      "dqn_s1",
+      "dqn_s2",
+      "dqn_s3"
+    ]
+  },
+  {
+    "family": "ba",
+    "learner": "gnn_s1",
+    "delta": 10.88,
+    "lo": 7.33,
+    "hi": 15.310249999999996,
+    "wins": 5,
+    "ties": 9,
+    "losses": 86
+  },
+  {
+    "family": "ba",
+    "learner": "gnn_s2",
+    "delta": 23.7,
+    "lo": 16.34,
+    "hi": 31.871249999999982,
+    "wins": 0,
+    "ties": 2,
+    "losses": 98
+  },
+  {
+    "family": "ba",
+    "learner": "gnn_s3",
+    "delta": 16.33,
+    "lo": 11.42975,
+    "hi": 22.180249999999997,
+    "wins": 1,
+    "ties": 1,
+    "losses": 98
+  },
+  {
+    "family": "ba",
+    "learner": "dqn_s1",
+    "delta": 13.99,
+    "lo": 11.93975,
+    "hi": 16.3,
+    "wins": 0,
+    "ties": 2,
+    "losses": 98
+  },
+  {
+    "family": "ba",
+    "learner": "dqn_s2",
+    "delta": 13.1,
+    "lo": 11.15,
+    "hi": 15.33,
+    "wins": 0,
+    "ties": 1,
+    "losses": 99
+  },
+  {
+    "family": "ba",
+    "learner": "dqn_s3",
+    "delta": 16.26,
+    "lo": 13.8,
+    "hi": 19.15,
+    "wins": 0,
+    "ties": 0,
+    "losses": 100
+  },
+  {
+    "family": "er",
+    "learner": "gnn",
+    "delta": 8.946666666666665,
+    "lo": 7.556583333333334,
+    "hi": 10.393333333333334,
+    "wins": 4,
+    "ties": 2,
+    "losses": 94,
+    "seeds": [
+      "gnn_s1",
+      "gnn_s2",
+      "gnn_s3"
+    ]
+  },
+  {
+    "family": "er",
+    "learner": "dqn",
+    "delta": 5.633333333333334,
+    "lo": 4.733333333333334,
+    "hi": 6.596666666666668,
+    "wins": 0,
+    "ties": 3,
+    "losses": 97,
+    "seeds": [
+      "dqn_s1",
+      "dqn_s2",
+      "dqn_s3"
+    ]
+  },
+  {
+    "family": "er",
+    "learner": "gnn_s1",
+    "delta": 8.43,
+    "lo": 6.859750000000001,
+    "hi": 10.11,
+    "wins": 8,
+    "ties": 8,
+    "losses": 84
+  },
+  {
+    "family": "er",
+    "learner": "gnn_s2",
+    "delta": 8.16,
+    "lo": 6.7097500000000005,
+    "hi": 9.64,
+    "wins": 7,
+    "ties": 6,
+    "losses": 87
+  },
+  {
+    "family": "er",
+    "learner": "gnn_s3",
+    "delta": 10.25,
+    "lo": 8.52,
+    "hi": 12.1,
+    "wins": 4,
+    "ties": 6,
+    "losses": 90
+  },
+  {
+    "family": "er",
+    "learner": "dqn_s1",
+    "delta": 5.01,
+    "lo": 3.99,
+    "hi": 6.12,
+    "wins": 2,
+    "ties": 18,
+    "losses": 80
+  },
+  {
+    "family": "er",
+    "learner": "dqn_s2",
+    "delta": 6.01,
+    "lo": 5.02,
+    "hi": 7.04,
+    "wins": 0,
+    "ties": 8,
+    "losses": 92
+  },
+  {
+    "family": "er",
+    "learner": "dqn_s3",
+    "delta": 5.88,
+    "lo": 4.81,
+    "hi": 7.0,
+    "wins": 1,
+    "ties": 10,
+    "losses": 89
+  },
+  {
+    "family": "modular",
+    "learner": "gnn",
+    "delta": 6.256666666666666,
+    "lo": 5.513333333333332,
+    "hi": 7.056666666666667,
+    "wins": 1,
+    "ties": 1,
+    "losses": 98,
+    "seeds": [
+      "gnn_s1",
+      "gnn_s2",
+      "gnn_s3"
+    ]
+  },
+  {
+    "family": "modular",
+    "learner": "dqn",
+    "delta": 5.226666666666667,
+    "lo": 4.553333333333334,
+    "hi": 5.92,
+    "wins": 1,
+    "ties": 1,
+    "losses": 98,
+    "seeds": [
+      "dqn_s1",
+      "dqn_s2",
+      "dqn_s3"
+    ]
+  },
+  {
+    "family": "modular",
+    "learner": "gnn_s1",
+    "delta": 6.16,
+    "lo": 5.4,
+    "hi": 6.95,
+    "wins": 0,
+    "ties": 2,
+    "losses": 98
+  },
+  {
+    "family": "modular",
+    "learner": "gnn_s2",
+    "delta": 5.14,
+    "lo": 4.21,
+    "hi": 6.09,
+    "wins": 5,
+    "ties": 5,
+    "losses": 90
+  },
+  {
+    "family": "modular",
+    "learner": "gnn_s3",
+    "delta": 7.47,
+    "lo": 6.49,
+    "hi": 8.51,
+    "wins": 2,
+    "ties": 0,
+    "losses": 98
+  },
+  {
+    "family": "modular",
+    "learner": "dqn_s1",
+    "delta": 4.54,
+    "lo": 3.85,
+    "hi": 5.29,
+    "wins": 4,
+    "ties": 5,
+    "losses": 91
+  },
+  {
+    "family": "modular",
+    "learner": "dqn_s2",
+    "delta": 6.68,
+    "lo": 5.64,
+    "hi": 7.73,
+    "wins": 0,
+    "ties": 4,
+    "losses": 96
+  },
+  {
+    "family": "modular",
+    "learner": "dqn_s3",
+    "delta": 4.46,
+    "lo": 3.76,
+    "hi": 5.190249999999997,
+    "wins": 3,
+    "ties": 4,
+    "losses": 93
+  },
+  {
+    "family": "real",
+    "learner": "gnn",
+    "delta": 0.08,
+    "lo": 0.023333333333333334,
+    "hi": 0.14666666666666667,
+    "wins": 2,
+    "ties": 88,
+    "losses": 10,
+    "seeds": [
+      "gnn_s1",
+      "gnn_s2",
+      "gnn_s3"
+    ]
+  },
+  {
+    "family": "real",
+    "learner": "dqn",
+    "delta": 0.19333333333333333,
+    "lo": 0.12333333333333334,
+    "hi": 0.27,
+    "wins": 1,
+    "ties": 71,
+    "losses": 28,
+    "seeds": [
+      "dqn_s1",
+      "dqn_s2",
+      "dqn_s3"
+    ]
+  },
+  {
+    "family": "real",
+    "learner": "gnn_s1",
+    "delta": 0.09,
+    "lo": 0.01,
+    "hi": 0.18,
+    "wins": 2,
+    "ties": 90,
+    "losses": 8
+  },
+  {
+    "family": "real",
+    "learner": "gnn_s2",
+    "delta": 0.09,
+    "lo": 0.02,
+    "hi": 0.17,
+    "wins": 0,
+    "ties": 94,
+    "losses": 6
+  },
+  {
+    "family": "real",
+    "learner": "gnn_s3",
+    "delta": 0.06,
+    "lo": 0.01,
+    "hi": 0.12,
+    "wins": 0,
+    "ties": 95,
+    "losses": 5
+  },
+  {
+    "family": "real",
+    "learner": "dqn_s1",
+    "delta": 0.17,
+    "lo": 0.08,
+    "hi": 0.27,
+    "wins": 1,
+    "ties": 84,
+    "losses": 15
+  },
+  {
+    "family": "real",
+    "learner": "dqn_s2",
+    "delta": 0.26,
+    "lo": 0.16,
+    "hi": 0.38,
+    "wins": 0,
+    "ties": 80,
+    "losses": 20
+  },
+  {
+    "family": "real",
+    "learner": "dqn_s3",
+    "delta": 0.15,
+    "lo": 0.07,
+    "hi": 0.24,
+    "wins": 0,
+    "ties": 89,
+    "losses": 11
+  },
+  {
+    "family": "spike",
+    "learner": "gnn",
+    "delta": 0.40333333333333327,
+    "lo": 0.26,
+    "hi": 0.5866666666666667,
+    "wins": 0,
+    "ties": 60,
+    "losses": 40,
+    "seeds": [
+      "gnn_s1",
+      "gnn_s2",
+      "gnn_s3"
+    ]
+  },
+  {
+    "family": "spike",
+    "learner": "dqn",
+    "delta": 0.7066666666666666,
+    "lo": 0.5333333333333333,
+    "hi": 0.9033333333333333,
+    "wins": 0,
+    "ties": 38,
+    "losses": 62,
+    "seeds": [
+      "dqn_s1",
+      "dqn_s2",
+      "dqn_s3"
+    ]
+  },
+  {
+    "family": "spike",
+    "learner": "gnn_s1",
+    "delta": 0.3,
+    "lo": 0.14,
+    "hi": 0.5,
+    "wins": 0,
+    "ties": 84,
+    "losses": 16
+  },
+  {
+    "family": "spike",
+    "learner": "gnn_s2",
+    "delta": 0.51,
+    "lo": 0.31,
+    "hi": 0.74,
+    "wins": 0,
+    "ties": 71,
+    "losses": 29
+  },
+  {
+    "family": "spike",
+    "learner": "gnn_s3",
+    "delta": 0.4,
+    "lo": 0.22,
+    "hi": 0.61,
+    "wins": 0,
+    "ties": 80,
+    "losses": 20
+  },
+  {
+    "family": "spike",
+    "learner": "dqn_s1",
+    "delta": 0.87,
+    "lo": 0.63,
+    "hi": 1.13,
+    "wins": 1,
+    "ties": 50,
+    "losses": 49
+  },
+  {
+    "family": "spike",
+    "learner": "dqn_s2",
+    "delta": 0.57,
+    "lo": 0.38,
+    "hi": 0.8,
+    "wins": 0,
+    "ties": 66,
+    "losses": 34
+  },
+  {
+    "family": "spike",
+    "learner": "dqn_s3",
+    "delta": 0.68,
+    "lo": 0.48,
+    "hi": 0.89,
+    "wins": 0,
+    "ties": 61,
+    "losses": 39
+  },
+  {
+    "family": "ticket",
+    "learner": "gnn",
+    "delta": 0.03666666666666667,
+    "lo": -0.0033333333333333344,
+    "hi": 0.09,
+    "wins": 1,
+    "ties": 93,
+    "losses": 6,
+    "seeds": [
+      "gnn_s1",
+      "gnn_s2",
+      "gnn_s3"
+    ]
+  },
+  {
+    "family": "ticket",
+    "learner": "dqn",
+    "delta": 0.19999999999999996,
+    "lo": 0.12333333333333332,
+    "hi": 0.2866666666666666,
+    "wins": 0,
+    "ties": 73,
+    "losses": 27,
+    "seeds": [
+      "dqn_s1",
+      "dqn_s2",
+      "dqn_s3"
+    ]
+  },
+  {
+    "family": "ticket",
+    "learner": "gnn_s1",
+    "delta": 0.04,
+    "lo": -0.01,
+    "hi": 0.11,
+    "wins": 1,
+    "ties": 96,
+    "losses": 3
+  },
+  {
+    "family": "ticket",
+    "learner": "gnn_s2",
+    "delta": 0.05,
+    "lo": 0.01,
+    "hi": 0.11,
+    "wins": 0,
+    "ties": 96,
+    "losses": 4
+  },
+  {
+    "family": "ticket",
+    "learner": "gnn_s3",
+    "delta": 0.02,
+    "lo": -0.02,
+    "hi": 0.07,
+    "wins": 1,
+    "ties": 97,
+    "losses": 2
+  },
+  {
+    "family": "ticket",
+    "learner": "dqn_s1",
+    "delta": 0.19,
+    "lo": 0.1,
+    "hi": 0.29,
+    "wins": 1,
+    "ties": 83,
+    "losses": 16
+  },
+  {
+    "family": "ticket",
+    "learner": "dqn_s2",
+    "delta": 0.22,
+    "lo": 0.13,
+    "hi": 0.32,
+    "wins": 0,
+    "ties": 82,
+    "losses": 18
+  },
+  {
+    "family": "ticket",
+    "learner": "dqn_s3",
+    "delta": 0.19,
+    "lo": 0.1,
+    "hi": 0.29,
+    "wins": 0,
+    "ties": 85,
+    "losses": 15
+  }
+]

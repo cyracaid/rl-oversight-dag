@@ -1,0 +1,16 @@
+
+=== 2026-11-24 12:36:03 modular s1 ===
+train  200/1000: sink errors=27
+train  400/1000: sink errors=43
+train  600/1000: sink errors=33
+train  800/1000: sink errors=34
+train 1000/1000: sink errors=32
+Validation selected episode 700: 15.600
+Saved model and training CSV to outputs/learned/modular/train_1
+train   60/300: sink errors=24
+train  120/300: sink errors=24
+train  180/300: sink errors=12
+train  240/300: sink errors=16
+train  300/300: sink errors=8
+Validation selected episode 200: 15.267
+Saved model and training CSV to outputs/learned/modular/train_1

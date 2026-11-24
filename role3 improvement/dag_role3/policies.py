@@ -3,12 +3,16 @@ import random
 import numpy as np
 
 
-def marginal_scores(observation):
-    """Local derivative approximation, consistently evaluated at posterior source means."""
+def marginal_scores(observation, base_override=None):
+    """Local derivative approximation, consistently evaluated at posterior source means.
+
+    ``base_override`` is evaluation-only: passing the hidden source-error vector turns
+    this into the oracle seen in earlier revisions. Never expose it to a learned policy.
+    """
     f = observation["features"]
     n, k = len(f), f.shape[1] - 7
     # Reverse derivative of the mean-field expected number of wrong conclusions.
-    base = f[:, k + 2].astype(float)
+    base = f[:, k + 2].astype(float) if base_override is None else np.asarray(base_override, dtype=float)
     src, dst = observation["edge_index"]
     prob = observation["edge_probability"]
     effective = np.zeros(n)
@@ -67,17 +71,40 @@ def choose(observation: dict, name: str, rng: random.Random | None = None) -> in
 
 def run_public_policy(graph, snapshot, policy_name, budget, p_catch=0.9,
                       confidence_mode="normal"):
+    """Run one policy for one episode.
+
+    ``oracle`` reads the hidden source-error state and is an evaluation-only
+    reference, never a deployable policy. ``type_prior`` ignores confidence and
+    orders nodes by the base error rate of their type.
+    """
     from .environment import OversightEnv
     env = OversightEnv(graph, snapshot, budget=budget, p_catch=p_catch,
                        confidence_mode=confidence_mode)
     rng = random.Random(snapshot.seed + 981)
     if policy_name == "none":
         return env.no_review_score(), []
+    action_fn = None
+    if policy_name == "type_prior":
+        prior = np.asarray([graph.rates[t] for t in graph.types], dtype=float)
+
+        def action_fn(obs):
+            available = np.flatnonzero(obs["mask"])
+            return int(available[np.argmax(prior[available])])
+    elif policy_name == "oracle":
+        def action_fn(obs):
+            score = marginal_scores(obs, base_override=env._base)
+            available = np.flatnonzero(obs["mask"])
+            return int(available[np.argmax(score[available])])
     obs = env.observation()
     done = env.done
     actions = []
     while not done:
-        action = policy_name(obs) if callable(policy_name) else choose(obs, policy_name, rng)
+        if callable(policy_name):
+            action = policy_name(obs)
+        elif action_fn is not None:
+            action = action_fn(obs)
+        else:
+            action = choose(obs, policy_name, rng)
         actions.append(action)
         obs, reward, done, info = env.step(action)
     return env.final_audit()["final_sink_errors"], actions

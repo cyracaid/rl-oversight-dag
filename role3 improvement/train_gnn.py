@@ -33,7 +33,7 @@ def play(policy, family, graph_seed, episode_seed, budget, static=False,
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument('--family',choices=['spike','modular','ba','er','real'],default='spike')
+    ap.add_argument('--family',choices=['spike','modular','ba','er','real','ticket'],default='spike')
     ap.add_argument('--episodes',type=int,default=100)
     ap.add_argument('--seed',type=int,default=1)
     ap.add_argument('--variant',choices=['static','observed'],default='observed')
@@ -48,7 +48,7 @@ def main():
     torch.set_num_threads(1)
     random.seed(args.seed);np.random.seed(args.seed);torch.manual_seed(args.seed)
     graph=generate_graph(args.family,seed=1)
-    budget=16 if args.family=='spike' else 8 if args.family=='real' else 50
+    budget=16 if args.family=='spike' else 8 if args.family in ('real','ticket') else 50
     input_dim=len(graph.rates)+(2 if args.variant=='static' else 7)
     model=GNNScorer(input_dim)
     optim=torch.optim.Adam(model.parameters(), lr=0.003)

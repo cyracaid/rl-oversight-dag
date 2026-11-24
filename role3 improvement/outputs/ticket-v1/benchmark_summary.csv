@@ -1,0 +1,7 @@
+﻿family,policy,n_episodes,mean_sink_errors,std_sink_errors,p95_sink_errors,zero_error_rate,mean_saved_vs_none,gain_vs_confidence,paired_lo,paired_hi,wins,ties,losses
+ticket,none,100,1.87,1.0313764461812056,3.0,0.11,0.0,-1.55,-1.79,-1.33,0,24,76
+ticket,random,100,1.39,0.9733312577810996,3.0,0.22,0.48,-1.07,-1.29,-0.86,0,43,57
+ticket,confidence,100,0.32,0.6337319319839909,2.0,0.77,1.55,0.0,0.0,0.0,0,100,0
+ticket,hub,100,1.29,0.902241876682968,3.0,0.21,0.58,-0.97,-1.16025,-0.79,1,35,64
+ticket,structural,100,0.3,0.6113406364191519,2.0,0.78,1.57,0.02,-0.02,0.08,2,97,1
+ticket,marginal,100,0.29,0.6079440431453865,2.0,0.79,1.58,0.03,0.0,0.08,2,98,0

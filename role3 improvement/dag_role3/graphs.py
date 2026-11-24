@@ -15,6 +15,9 @@ import numpy as np
 
 SPIKE_RATES = (0.01, 0.03, 0.08, 0.15, 0.25)
 REAL_RATES = (0.35, 0.15, 0.12, 0.10, 0.08, 0.05)
+# Synthetic prior for the hypothetical ticketing pipeline. Not measured on tickets;
+# the numbers mirror the sleep prior only to keep type semantics comparable.
+TICKET_RATES = (0.35, 0.15, 0.12, 0.10, 0.08, 0.05)
 
 
 def scaled_rates(k: int = 10, s: float = 1.2):
@@ -225,6 +228,45 @@ def gen_real() -> DAG:
                sink_override=sinks, family="real", lam=0.9)
 
 
+# 21-node hypothetical ticketing pipeline, structure only. No ticket records exist
+# in this repository and none were used; rates are a stated synthetic prior.
+_TICKET_ROWS = [
+    ("ticket_created_at", 0, 0, ()),
+    ("first_response_at", 0, 0, ()),
+    ("resolved_at", 0, 0, ()),
+    ("reporter_id", 0, 5, ()),
+    ("channel", 0, 2, ()),
+    ("priority_raw", 0, 2, ()),
+    ("queue_raw", 0, 2, ()),
+    ("sla_policy_raw", 0, 3, ()),
+    ("assignee_id", 0, 2, ()),
+    ("response_minutes", 1, 1, ("ticket_created_at", "first_response_at")),
+    ("resolution_minutes", 1, 1, ("ticket_created_at", "resolved_at")),
+    ("priority_norm", 1, 2, ("priority_raw", "channel")),
+    ("assignee_team", 1, 2, ("assignee_id", "queue_raw")),
+    ("sla_target_minutes", 1, 3, ("sla_policy_raw", "priority_norm")),
+    ("response_ratio", 2, 4, ("response_minutes", "sla_target_minutes")),
+    ("resolution_ratio", 2, 4, ("resolution_minutes", "sla_target_minutes")),
+    ("breach_minutes", 2, 4, ("resolution_minutes", "sla_target_minutes")),
+    ("ticket_validity", 3, 0,
+     ("ticket_created_at", "first_response_at", "resolved_at")),
+    ("priority_consistency", 3, 2, ("priority_norm", "priority_raw")),
+    ("sla_compliance", 3, 3,
+     ("ticket_validity", "resolution_ratio", "sla_target_minutes")),
+    ("assignment_validity", 3, 2, ("assignee_team", "assignee_id")),
+]
+
+
+def gen_ticket() -> DAG:
+    names = [row[0] for row in _TICKET_ROWS]
+    lookup = {name: i for i, name in enumerate(names)}
+    parents = tuple(tuple(lookup[p] for p in r[3]) for r in _TICKET_ROWS)
+    sinks = tuple(i for i, r in enumerate(_TICKET_ROWS) if r[1] == 3)
+    return DAG(parents=parents, types=tuple(r[2] for r in _TICKET_ROWS),
+               rates=TICKET_RATES, names=tuple(names),
+               sink_override=sinks, family="ticket", lam=0.9)
+
+
 def generate_graph(family: str, seed: int = 1, n: int | None = None) -> DAG:
     if n is not None and n < 1:
         raise ValueError("n must be positive")
@@ -241,4 +283,8 @@ def generate_graph(family: str, seed: int = 1, n: int | None = None) -> DAG:
         if n not in (None, 21):
             raise ValueError("real has a fixed topology with 21 nodes")
         return gen_real()
-    raise ValueError("family must be spike, modular, ba, er or real")
+    if family == "ticket":
+        if n not in (None, 21):
+            raise ValueError("ticket has a fixed topology with 21 nodes")
+        return gen_ticket()
+    raise ValueError("family must be spike, modular, ba, er, real or ticket")

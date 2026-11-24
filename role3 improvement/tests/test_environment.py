@@ -6,7 +6,7 @@ from dag_role3 import DAG, generate_graph, EpisodeSnapshot, OversightEnv, propag
 
 class GraphTests(unittest.TestCase):
     def test_generators_are_dags_and_deterministic(self):
-        for family in ('spike','modular','ba','er','real'):
+        for family in ('spike','modular','ba','er','real','ticket'):
             g1 = generate_graph(family, 3)
             g2 = generate_graph(family, 3)
             self.assertEqual(g1.parents, g2.parents)
@@ -20,6 +20,13 @@ class GraphTests(unittest.TestCase):
         self.assertEqual(generate_graph('ba',1).n,500)
         self.assertEqual(generate_graph('real',1).n,21)
         self.assertEqual(len(generate_graph('real',1).sinks),4)
+        ticket = generate_graph('ticket',1)
+        self.assertEqual(ticket.n, 21)
+        self.assertEqual(ticket.family, 'ticket')
+        self.assertEqual(len(ticket.sinks), 4)
+        self.assertEqual(ticket.names[0], 'ticket_created_at')
+        with self.assertRaises(ValueError):
+            generate_graph('ticket', 1, n=20)
 
     def test_cycle_rejected(self):
         with self.assertRaises(ValueError):
@@ -106,6 +113,29 @@ class SemanticsTests(unittest.TestCase):
         self.assertNotIn('coins',obs)
         self.assertEqual(obs['features'].shape,(80,12))
         self.assertTrue(np.all(obs['features']>=0))
+
+
+class BaselineTests(unittest.TestCase):
+    def test_type_prior_orders_by_type_rate(self):
+        from dag_role3.policies import run_public_policy
+        g = DAG(parents=((), (), ()), types=(0, 1, 2), rates=(.1, .5, .9))
+        snap = EpisodeSnapshot((False, False, False), {}, {}, (.5, .5, .5), (.1, .1, .1), 7)
+        errors, actions = run_public_policy(g, snap, "type_prior", budget=1)
+        self.assertEqual(actions, [2])
+        self.assertEqual(errors, 0)
+
+    def test_oracle_reads_truth_and_is_not_a_deployable_policy(self):
+        from dag_role3.policies import run_public_policy
+        g = DAG(parents=((), (0,), (1,)), types=(0, 0, 0), rates=(.5,))
+        snap = EpisodeSnapshot(
+            (True, True, False),
+            {(0, 1): True, (1, 2): True},
+            {(0, 1): .9, (1, 2): .9},
+            (.9, .9, .9), (0., 0., 0.), 11)
+        # Confidence says every node is fine; only hidden truth distinguishes them.
+        errors, actions = run_public_policy(g, snap, "oracle", budget=2)
+        self.assertEqual(actions[0], 1)
+        self.assertEqual(errors, 0)
 
 
 if __name__=='__main__':unittest.main()
