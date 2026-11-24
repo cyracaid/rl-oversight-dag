@@ -50,3 +50,45 @@ def test_miss_update_is_a_bayes_update():
     assert 0.0 < miss_update(q, catch) < q
     # A perfect reviewer leaves no doubt when nothing is caught.
     assert miss_update(q, 1.0) == pytest.approx(0.0, abs=1e-9)
+
+
+def _fake_csv(tmp_path, dp5_minus_greedy):
+    """One real graph per budget, with dp placed at a chosen distance from greedy."""
+    import csv
+
+    path = tmp_path / "dp_episodes.csv"
+    fields = ["family", "graph_seed", "budget", "n", "none", "confidence",
+              "marginal", "greedy_exact", "dp"]
+    rows = []
+    for k in (1, 3, 5):
+        greedy = 2.0 / k
+        dp = greedy + (dp5_minus_greedy if k == 5 else 0.0)
+        rows.append({"family": "real", "graph_seed": 60000, "budget": k, "n": 21,
+                     "none": 2.5, "confidence": 2.2, "marginal": greedy,
+                     "greedy_exact": greedy, "dp": dp})
+    with path.open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(rows)
+    return tmp_path
+
+
+def test_report_rejects_a_planning_gain_above_the_falsification_bound(tmp_path):
+    """P2 bounds the *size* of the gain: a signed test would pass any gain at all."""
+    from exact_dp import report
+
+    out = _fake_csv(tmp_path, dp5_minus_greedy=-0.06)
+    report(out)
+    text = (out / "report.md").read_text()
+    p2 = [ln for ln in text.splitlines() if ln.startswith("| P2")][0]
+    assert "contradicted" in p2
+
+
+def test_report_keeps_a_gain_inside_the_bound_but_flags_the_nominal_miss(tmp_path):
+    from exact_dp import report
+
+    out = _fake_csv(tmp_path, dp5_minus_greedy=-0.022)
+    report(out)
+    p2 = [ln for ln in (out / "report.md").read_text().splitlines()
+          if ln.startswith("| P2")][0]
+    assert "holds" in p2 and "nominal 0.02 missed" in p2
