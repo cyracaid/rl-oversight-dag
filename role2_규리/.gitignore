@@ -6,6 +6,7 @@
 !/results/confirm-10x/episodes.csv
 !/results/corruption-v1/episodes.csv
 !/results/verify-v1/episodes.csv
+!/results/shrink-v1/episodes.csv
 !/results/feedback-v1/episodes.csv
 !/results/residual-v1/eval/episodes.csv
 !/results/planning-v1/episodes.csv

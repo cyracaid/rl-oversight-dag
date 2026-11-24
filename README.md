@@ -99,6 +99,7 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | …same, untouched confirmation 2000–2199 | marginal **4.185** | adaptive marginal **2.765** | −1.420 [−1.695, −1.150] | `role2_규리/results/confirm-v1/` |
 | Corruption boundary: locality × magnitude × coverage (200 fresh graphs) | trust **0.865** (= clean oracle) | global-mean gate **2.745** in the worst cell | fires 195/200 on a rank-preserving −1 shift (+1.82 error) but 0/200 when real errors are masked (+3.21 error) | `role2_규리/results/corruption-v1/` |
 | Probe-then-decide repair of that gate (pre-registered, 200 fresh graphs) | trust **0.935** | verify **0.935** (no worse than trusting at −1) | frozen verdict **failure**: 5 of 13 fired cells worse than trust, trigger still fires on harmless +3 shifts | `role2_규리/results/verify-v1/` |
+| Per-node mixture posterior instead of a global gate (pre-registered, 200 fresh graphs) | trust **1.050** (= clean oracle) | shrink **1.055** clean, **−0.370** where errors are masked | frozen verdict **success**: all four predictions hold, +0.105 [0.040, 0.175] at −1; boundary — a harmless *global* +2/+3 shift still loses +0.45 / +0.72 | `role2_규리/results/shrink-v1/` |
 | Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
 | Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
 
@@ -159,6 +160,20 @@ distorts the untouched nodes. Error masking is untouched: +2.985 [+2.710, +3.260
 identical. The `max|ΔP|` trigger measures shift magnitude, not harm — a repair needs per-node trust
 estimation, not a better global statistic. Korean report: `role2_규리/results/verify-v1/verify.md`; rerun with
 `./run_verify.sh`.
+
+**Per-node shrinkage follow-up (2026-11-24, pre-registered, verdict: success).** The decision variable,
+not the statistic, was the bug. A pre-registered policy (`role2_규리/PREREGISTER_SHRINK.md`) leaves the marginal
+rule and the budget untouched and only replaces each node's posterior with a two-component mixture — the score
+came from the clean distribution, or the same distribution shifted by an unknown delta — fitted by one scalar
+π = 0.15 on 70000–70029. On 200 further fresh graphs (seeds 3400–3599) it passes all four frozen predictions:
++0.105 [+0.040, +0.175] versus trusting on the rank-preserving −1 shift (gate: +1.915), clean cost +0.005
+[−0.025, +0.040], and **−0.370 [−0.520, −0.235]** where real errors are masked at +3 — the first repair that
+beats plain trust there. Its boundary is as sharp as the gate's: a harmless *global* upward shift is read as
+"clean nodes were pushed up", the true errors fall from rank 5.6 to 9.4, and the policy loses +0.72
+[+0.57, +0.88]. 44 of 112 cells are slightly worse than trusting, of which only those two exceed +0.20.
+Node-level posteriors identify *which* node moved, not *whether the whole graph did*, and masking still leaves
++2.72 [+2.45, +3.01] errors above oracle. Korean report: `role2_규리/results/shrink-v1/shrink.md`; rerun with
+`./run_shrink.sh`.
 
 ---
 
