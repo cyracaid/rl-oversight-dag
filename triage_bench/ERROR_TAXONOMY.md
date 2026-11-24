@@ -207,8 +207,12 @@ information-limited there too", which is a statement about the chain, not about 
 - Export shape: `SCIFORGE_ASK.md` §4, with `error_type` = §1 and the gaps in §4 listed
   as `null` rather than omitted.
 - Wire contract: `sciforge.review-handoff.v1` —
-  `evidenceDagHandoffDocumentSchema` in the same `contract.ts`, golden document at
-  `eval-cases/handoff/handoff.v1.example.json`, producer
-  `python -m evidence_dag.handoff`. Both sides test against the golden document, so
-  the shape cannot drift in one repo alone.
+  `evidenceDagHandoffDocumentSchema` in the same `contract.ts`, JSON Schema at
+  `eval-cases/handoff/handoff.v1.schema.json` (generated, freshness-tested), golden
+  document at `eval-cases/handoff/handoff.v1.example.json`, producer
+  `python -m evidence_dag.handoff [--closure sealed-closure.json]`. Both sides test
+  against the golden document, so the shape cannot drift in one repo alone.
+- Gap codes: `closure.gap_codes` is authoritative and comes from the seal, with its
+  digests. An empty list means the seal ran and found nothing; no seal supplied means
+  `closure: null` plus a `not_recorded` reason. The two are not interchangeable.
 - Read-only: this page changes no SciForge rule and no sleep data.

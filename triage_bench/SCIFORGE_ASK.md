@@ -63,14 +63,16 @@
 |---|---|
 | 文档版本 | `sciforge.review-handoff.v1` |
 | 契约（zod） | SciForge `packages/domains/evidence-dag/src/contract.ts` → `evidenceDagHandoffDocumentSchema` |
+| JSON Schema | 同包 `eval-cases/handoff/handoff.v1.schema.json`（从 zod 生成，测试保证不过期；Python 侧可直接用 `jsonschema` 校验） |
 | 金标准样例 | 同包 `eval-cases/handoff/handoff.v1.example.json` |
-| 生产者 | `python -m evidence_dag.handoff graph.json --project <label>` |
+| 生产者 | `python -m evidence_dag.handoff graph.json --project <label> [--closure closure.json]` |
 
-差异只在三处，消费端要按 v1 读：
+差异只在四处，消费端要按 v1 读：
 
 1. `corrections[].error_type` 是对象 `{"layer": "evidence"|"argument", "code": "..."}`，不是字符串。
 2. `corrections[].source` 恒为 `"audit"`——这些是机器发现，不是人工纠错；人工信号只能从 `receipts[].verdict` 反推。
-3. `receipts[].duration_min` 恒为 `null`，另有 `queue_latency_seconds`；`not_recorded` 把三个填不出的字段连同原因写死。
+3. `receipts[].duration_min` 恒为 `null`，另有 `queue_latency_seconds`；`not_recorded` 把填不出的字段连同原因写死。
+4. **gap code 现在能导了**，但要给 `--closure`：`closure.gap_codes` 来自 seal，带 `closure_digest` / `head_digest` / `policy_digest` / `sealed_at`。不给 closure 时 `closure` 为 `null`，`not_recorded` 说明「没有 seal 被评估」。空数组 ≠ null：前者是「seal 跑过、没发现缺口」，后者是「没跑」。
 
 ## 5. 边界（不改你们的规则）
 
