@@ -5,6 +5,19 @@
 > Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
+**What this concludes, in plain words.** The task is *which claim to check next* under a fixed review budget. That
+layer is exhausted: replacing our one-line rule with the **optimal** policy of the same model moves residual errors
+from 0.873 to 0.851 — 2.5 %. A smarter ranking is therefore not where an oversight system should spend its effort.
+Two things do block it: the signal we rank by (published confidence) is synthetic and unvalidated, and a delivery
+cannot currently say *which claims it checked and which it left alone*. We ship the second as a machine-checkable
+receipt, with its deletion test written down: delete the receipt and the delivery can no longer state what it covered.
+
+| layer | plain question | what we measured | verdict |
+|---|---|---|---|
+| ranking | which claim do I check next? | optimal policy of the same model is worth 2.5 % | **saturated** — do not invest here |
+| signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic | **unvalidated input** — the real blocker, needs measured calibration |
+| delivery | what did I cover, and what did I miss? | `receipt.json` + a deletion test | **load-bearing interface** — without it the question has no answer |
+
 **Status, 2026-11-10 — settled.** The Yonsei course track (STA3145) is final: the classroom content
 and the five-person division are decided, and those documents are frozen at tag
 `course-freeze-2026-11-10`. **Active work is now building SciForge** — see
