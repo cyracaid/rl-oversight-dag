@@ -156,7 +156,7 @@ unreadable source, `independence: not_independently_assessed`), and asserted on
 | `type` | ✓ | `claim` / `conclusion` / `source_assertion` / `artifact` / run and dataset node types |
 | `is_sink` | ✓ derived | no outgoing edge, or named in `closure.policy.requiredRecords` |
 | `src` / `dst` / `rel` | ✓ | generic edge extraction accepts `from`/`to`/`type` aliases |
-| `error_type` | ✓ | §1 above, two vocabularies |
+| `error_type` | ✓ | §1 above; exported as `{"layer", "code"}`, not a bare string |
 | `severity` | ✓ | already on every finding |
 | `agreed_by` | ✗ | single `reviewed_by`; no multi-reviewer consensus marker |
 | `reviewer_hash` | ✓ | `ReviewPacket.reviewed_by` |
@@ -206,4 +206,9 @@ information-limited there too", which is a statement about the chain, not about 
   `python/evidence_dag/audit.py` and `epistemic.py` (finding types).
 - Export shape: `SCIFORGE_ASK.md` §4, with `error_type` = §1 and the gaps in §4 listed
   as `null` rather than omitted.
+- Wire contract: `sciforge.review-handoff.v1` —
+  `evidenceDagHandoffDocumentSchema` in the same `contract.ts`, golden document at
+  `eval-cases/handoff/handoff.v1.example.json`, producer
+  `python -m evidence_dag.handoff`. Both sides test against the golden document, so
+  the shape cannot drift in one repo alone.
 - Read-only: this page changes no SciForge rule and no sleep data.

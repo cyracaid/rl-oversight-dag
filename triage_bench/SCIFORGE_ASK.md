@@ -57,6 +57,21 @@
 上面示例里的 `"stale_dataset"` 只是占位，实际取值是 15 个 finding type + 10 个 gap code。
 同页 §4 也标明了 `agreed_by` 和 `duration_min` 现在导不出来。
 
+**上面这段 JSON 现在是占位，不是契约。** 真实的导出已经实现，契约只有一个：
+
+| 项 | 位置 |
+|---|---|
+| 文档版本 | `sciforge.review-handoff.v1` |
+| 契约（zod） | SciForge `packages/domains/evidence-dag/src/contract.ts` → `evidenceDagHandoffDocumentSchema` |
+| 金标准样例 | 同包 `eval-cases/handoff/handoff.v1.example.json` |
+| 生产者 | `python -m evidence_dag.handoff graph.json --project <label>` |
+
+差异只在三处，消费端要按 v1 读：
+
+1. `corrections[].error_type` 是对象 `{"layer": "evidence"|"argument", "code": "..."}`，不是字符串。
+2. `corrections[].source` 恒为 `"audit"`——这些是机器发现，不是人工纠错；人工信号只能从 `receipts[].verdict` 反推。
+3. `receipts[].duration_min` 恒为 `null`，另有 `queue_latency_seconds`；`not_recorded` 把三个填不出的字段连同原因写死。
+
 ## 5. 边界（不改你们的规则）
 
 - **只读**：不写回、不产生收据、不盖章；建议器只输出排序和理由。
