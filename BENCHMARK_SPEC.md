@@ -237,7 +237,7 @@ than with a second, independent finding.
 
 ### Corrupted confidence: the repair family (pre-registered, seeds 3000–3899)
 
-This is a different axis from §6 above. Here the confidence *signal* is shifted, and the policies below try to
+This is a different axis from the standing table above. Here the confidence *signal* is shifted, and the policies below try to
 decide whether to trust it. All numbers are paired differences against plain trust inside one run; positive
 means more remaining errors than trusting. Each step was frozen in a `PREREGISTER_*.md` before its first seed.
 

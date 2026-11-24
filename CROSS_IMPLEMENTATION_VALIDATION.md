@@ -9,6 +9,12 @@ measurements are `role2_규리/results/`; `experiments/` is the earlier, smaller
 three agree: a deterministic marginal-value rule beats the learned policy, and on real data the per-node
 scheduling problem has almost no headroom left to win.
 
+The result that survives is therefore not the scheduler. It is the measurement of **which signal to trust**:
+a global gate that fails in both directions, a per-node repair that wins exactly where errors are masked, a
+per-graph repair that costs +0.005 errors on a harmless global shift where the per-node repair loses +0.81, and
+a measured boundary where both single-δ repairs collapse to plain trust. Two of those steps are self-declared
+failures and are kept as failures.
+
 ---
 
 ## 1. The three lines
@@ -47,11 +53,19 @@ The proposal should say so, and move the contribution to (a) estimating which si
 
 ## 4. What survives, and it is not "RL wins"
 
+Differences below are **policy − comparison**, paired inside one run; negative means fewer remaining errors.
+
 | Claim | Evidence | Status |
 |---|---|---|
 | A graph-aware value rule beats static confidence ordering | role3: marginal 0.66 vs 1.03 on spike, gains on all five shapes; role2: 1.130 vs 1.545 | supported |
-| Selecting the model when the confidence signal may be corrupted | role2: 4.415 → 3.150 under unrecognised uniform noise, −1.265 [−1.545, −0.985] (negative = fewer errors) | supported |
+| Selecting the model when the confidence signal may be corrupted | role2: 4.415 → 3.150 under unrecognised uniform noise, −1.265 [−1.545, −0.985] | supported |
 | Updating trust in the signal from review outcomes | role2: 3.075 vs 3.820 under within-type permutation, −0.745 [−0.975, −0.520] | supported |
+| Repairing corruption at the node level | role2: +0.105 [+0.040, +0.175] vs trust on the rank-preserving −1 shift; −0.370 [−0.520, −0.235] where errors are masked; +0.45/+0.72 on a harmless global +2/+3 | supported, with a boundary |
+| Repairing it at the graph level — one shared δ per graph | role2: +0.005 [+0.000, +0.015] vs trust at +3 (node repair +0.81); 112-cell mean 1.303 → 1.203; at −4 it lands on the clean oracle (0.94 vs 3.86) | supported |
+| The graph repair holds off its own δ grid | role2 boundary: mean \|δ error\| 0.174, map_q 0.991 at full coverage, 12/12 off-grid cells beat the node repair (mean −0.57) | supported |
+| One shared δ covers two layers moving by different amounts | role2 boundary: −0.016 vs the node repair, 3/8 cells better; absolute levels trust 2.15 / node 1.89 / graph 1.87 — both repairs fall back to trust | **contradicted** (prediction withdrawn) |
+| The rule's lead over confidence ordering survives a lower reviewer hit rate | role2 `p_catch`: sign holds at 0.60/0.75/0.90/1.00, +0.255 [+0.150, +0.375] … +0.530 [+0.370, +0.705] | supported |
+| …and the lead grows as the hit rate falls | pre-registered prediction P2 | **contradicted** (`inverted`) |
 | Planning two reviews ahead | role2: +0.035 [−0.025, +0.100] vs one-step mixture | **not supported** |
 | Residual GNN on top of the rule | role2: +0.022 [−0.018, +0.072] | **not supported** |
 | Per-review credit assignment improves the trained model | role2: 4.549 → 2.926 across 5 seeds | supported *as a training result* |
@@ -69,6 +83,7 @@ together in §13 of that file.
 | Published role3 table vs regenerated CSV | `run_benchmark.py` with the 6 frozen checkpoints | 5 families × (confidence, marginal, gain, CI) all match `변경내역.md` to printed precision |
 | role2 confidence study | `evaluate_conditions.py --graphs 200` | 21/21 cells identical to `results/confidence-v1/episodes.csv` |
 | role2 planning study | `evaluate_planning.py --graphs 200` | 12/12 cells identical; adaptive − mixture = +0.035 in both |
+| role2 boundary report (byte-level) | `report_scope_robust.py`, rendered twice from `episodes.csv` | identical sha256 (`ba2a2fc5…`); 6,400 rows, every row `reviews = 16` |
 
 role2 scripts now import the environment through `role2_규리/_env.py`, which prefers an installed
 `dag_role3` and falls back to the in-repo directory. `pip install -e "role3 improvement"` removes the
