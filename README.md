@@ -94,9 +94,11 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | …same, 10× training budget (10,000 episodes) | adaptive marginal **0.885** | GNN 1.155 / 1.140 / 1.145 | still loses: GNN − marginal **+0.262 [+0.165, +0.365]** | `role2_규리/results/confirm-10x/` |
 | Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; learned CIs contain 0 | `role3 improvement/outputs/v3/` |
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
+| Hypothetical ticketing pipeline (synthetic prior, 21 nodes, budget 8) | marginal **0.29** | — | **ties** confidence 0.32: +0.03 [0.00, +0.08], 98/100 ties — no cross-domain advantage | `role3 improvement/outputs/ticket-v1/` |
 | Confidence corrupted (uniform noise, not recognised) | marginal **4.415** | adaptive marginal **3.150** | −1.265 [−1.545, −0.985] | `role2_규리/results/confidence-v1/` |
 | …same, untouched confirmation 2000–2199 | marginal **4.185** | adaptive marginal **2.765** | −1.420 [−1.695, −1.150] | `role2_규리/results/confirm-v1/` |
 | Corruption boundary: locality × magnitude × coverage (200 fresh graphs) | trust **0.865** (= clean oracle) | global-mean gate **2.745** in the worst cell | fires 195/200 on a rank-preserving −1 shift (+1.82 error) but 0/200 when real errors are masked (+3.21 error) | `role2_규리/results/corruption-v1/` |
+| Probe-then-decide repair of that gate (pre-registered, 200 fresh graphs) | trust **0.935** | verify **0.935** (no worse than trusting at −1) | frozen verdict **failure**: 5 of 13 fired cells worse than trust, trigger still fires on harmless +3 shifts | `role2_규리/results/verify-v1/` |
 | Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
 | Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
 
@@ -142,6 +144,21 @@ not deployable policies. This sweep is exploratory, not a frozen confirmation te
 marginal rule rather than a learned scheduler. Korean report:
 `role2_규리/results/corruption-v1/corruption.md`; machine summary `corruption.json`; rerun with
 `./run_corruption.sh`.
+
+**Probe-then-decide follow-up (2026-11-24, pre-registered, verdict: failure).** Changing the fallback target
+is not enough. A pre-registered policy (`role2_규리/PREREGISTER_VERIFY.md`) spends 4 reviews only when the
+scores-as-is and rank-restored hypotheses disagree by more than a calibrated threshold, commits once by the
+probed flag likelihood ratio, and never falls back to the type prior. On 200 further fresh graphs
+(seeds 3200–3399) it removes the false-alarm cost: on the rank-preserving −1 shift it is
+**−0.015 [−0.055, +0.025]** versus trusting, where the gate cost +1.845 [+1.630, +2.075]. It still fails its frozen
+test. Of the 13 cells it fires on, 5 end worse than trusting (source layer at 100 %, −4: +0.375; uniform
+25 %, −3: +0.140), and the trigger keeps firing on harmless positive shifts (195/200 graphs at uniform +3).
+The gain is confined to corruption that is one monotone rescaling of every score (uniform 100 %: −2.52 at −4,
+−1.98 at −3) and disappears when only part of the graph is corrupted, because restoring all 80 magnitudes
+distorts the untouched nodes. Error masking is untouched: +2.985 [+2.710, +3.260] against the oracle, gate
+identical. The `max|ΔP|` trigger measures shift magnitude, not harm — a repair needs per-node trust
+estimation, not a better global statistic. Korean report: `role2_규리/results/verify-v1/verify.md`; rerun with
+`./run_verify.sh`.
 
 ---
 

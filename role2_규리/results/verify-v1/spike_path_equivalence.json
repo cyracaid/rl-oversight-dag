@@ -1,0 +1,9 @@
+{
+  "claim": "the uncommitted ticket additions (graphs.py, __init__.py) do not change spike-family graphs",
+  "scope": "generate_graph('spike', seed) for seeds 3200-3219 (topology, types, rates, names, lambda)",
+  "head_graphs_sha256": "1bbb7a0a732fb92adba96416faf2d66a68f3e8ba50b74a4a1cbacf96a2f2cce3",
+  "worktree_graphs_sha256": "5ef7d2a30e6c38596c755d0799e99543407a026bc3f217346e5e54bc700cb3c2",
+  "structure_sha256_head": "553604c4f863339f9defb8e809b90e1d6405105f255fa8a3240ecf759ba80114",
+  "structure_sha256_worktree": "553604c4f863339f9defb8e809b90e1d6405105f255fa8a3240ecf759ba80114",
+  "identical": true
+}

@@ -1,0 +1,1977 @@
+{
+  "clean": {
+    "oracle": 0.935,
+    "trust": 0.935,
+    "prior": 2.855,
+    "gate": 0.935,
+    "verify": 0.935
+  },
+  "grid": {
+    "uniform": {
+      "0.1": {
+        "-4.0": {
+          "detected": 9,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.11,
+            "prior": 2.855,
+            "gate": 1.245,
+            "verify": 1.225
+          },
+          "regret": {
+            "trust": 0.17500000000000004,
+            "gate": 0.31000000000000005,
+            "verify": 0.29000000000000004
+          },
+          "probe_mean": 2.48,
+          "rank_share": 0.44
+        },
+        "-3.0": {
+          "detected": 4,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.065,
+            "prior": 2.855,
+            "gate": 1.12,
+            "verify": 1.1
+          },
+          "regret": {
+            "trust": 0.1299999999999999,
+            "gate": 0.18500000000000005,
+            "verify": 0.16500000000000004
+          },
+          "probe_mean": 0.86,
+          "rank_share": 0.095
+        },
+        "-2.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.01,
+            "prior": 2.855,
+            "gate": 1.035,
+            "verify": 1.01
+          },
+          "regret": {
+            "trust": 0.07499999999999996,
+            "gate": 0.09999999999999987,
+            "verify": 0.07499999999999996
+          },
+          "probe_mean": 0.2,
+          "rank_share": 0.02
+        },
+        "-1.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.955,
+            "prior": 2.855,
+            "gate": 0.98,
+            "verify": 0.955
+          },
+          "regret": {
+            "trust": 0.019999999999999907,
+            "gate": 0.04499999999999993,
+            "verify": 0.019999999999999907
+          },
+          "probe_mean": 0.04,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.015,
+            "prior": 2.855,
+            "gate": 1.015,
+            "verify": 1.015
+          },
+          "regret": {
+            "trust": 0.07999999999999985,
+            "gate": 0.07999999999999985,
+            "verify": 0.07999999999999985
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.06,
+            "prior": 2.855,
+            "gate": 1.06,
+            "verify": 1.07
+          },
+          "regret": {
+            "trust": 0.125,
+            "gate": 0.125,
+            "verify": 0.135
+          },
+          "probe_mean": 0.16,
+          "rank_share": 0.01
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.27,
+            "prior": 2.855,
+            "gate": 1.27,
+            "verify": 1.27
+          },
+          "regret": {
+            "trust": 0.33499999999999996,
+            "gate": 0.33499999999999996,
+            "verify": 0.33499999999999996
+          },
+          "probe_mean": 0.16,
+          "rank_share": 0.005
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 196,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.85,
+            "prior": 2.855,
+            "gate": 2.86,
+            "verify": 2.1
+          },
+          "regret": {
+            "trust": 0.915,
+            "gate": 1.9249999999999998,
+            "verify": 1.165
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.795
+        },
+        "-3.0": {
+          "detected": 155,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.51,
+            "prior": 2.855,
+            "gate": 2.635,
+            "verify": 1.65
+          },
+          "regret": {
+            "trust": 0.575,
+            "gate": 1.6999999999999997,
+            "verify": 0.7149999999999999
+          },
+          "probe_mean": 3.54,
+          "rank_share": 0.66
+        },
+        "-2.0": {
+          "detected": 46,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.155,
+            "prior": 2.855,
+            "gate": 1.68,
+            "verify": 1.205
+          },
+          "regret": {
+            "trust": 0.21999999999999997,
+            "gate": 0.7449999999999999,
+            "verify": 0.27
+          },
+          "probe_mean": 1.08,
+          "rank_share": 0.17
+        },
+        "-1.0": {
+          "detected": 3,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.965,
+            "prior": 2.855,
+            "gate": 1.02,
+            "verify": 0.965
+          },
+          "regret": {
+            "trust": 0.029999999999999916,
+            "gate": 0.08499999999999996,
+            "verify": 0.029999999999999916
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.005
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.0,
+            "prior": 2.855,
+            "gate": 1.0,
+            "verify": 1.0
+          },
+          "regret": {
+            "trust": 0.06499999999999995,
+            "gate": 0.06499999999999995,
+            "verify": 0.06499999999999995
+          },
+          "probe_mean": 0.26,
+          "rank_share": 0.01
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.215,
+            "prior": 2.855,
+            "gate": 1.215,
+            "verify": 1.235
+          },
+          "regret": {
+            "trust": 0.28,
+            "gate": 0.28,
+            "verify": 0.30000000000000004
+          },
+          "probe_mean": 0.34,
+          "rank_share": 0.015
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.715,
+            "prior": 2.855,
+            "gate": 1.715,
+            "verify": 1.715
+          },
+          "regret": {
+            "trust": 0.78,
+            "gate": 0.78,
+            "verify": 0.78
+          },
+          "probe_mean": 0.44,
+          "rank_share": 0.025
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 200,
+          "means": {
+            "oracle": 0.935,
+            "trust": 2.77,
+            "prior": 2.855,
+            "gate": 2.855,
+            "verify": 2.705
+          },
+          "regret": {
+            "trust": 1.835,
+            "gate": 1.92,
+            "verify": 1.77
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.94
+        },
+        "-3.0": {
+          "detected": 200,
+          "means": {
+            "oracle": 0.935,
+            "trust": 2.165,
+            "prior": 2.855,
+            "gate": 2.855,
+            "verify": 2.135
+          },
+          "regret": {
+            "trust": 1.23,
+            "gate": 1.92,
+            "verify": 1.1999999999999997
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.89
+        },
+        "-2.0": {
+          "detected": 199,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.45,
+            "prior": 2.855,
+            "gate": 2.865,
+            "verify": 1.49
+          },
+          "regret": {
+            "trust": 0.5149999999999999,
+            "gate": 1.9300000000000002,
+            "verify": 0.5549999999999999
+          },
+          "probe_mean": 3.48,
+          "rank_share": 0.69
+        },
+        "-1.0": {
+          "detected": 36,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.005,
+            "prior": 2.855,
+            "gate": 1.475,
+            "verify": 1.04
+          },
+          "regret": {
+            "trust": 0.06999999999999984,
+            "gate": 0.54,
+            "verify": 0.10499999999999998
+          },
+          "probe_mean": 0.42,
+          "rank_share": 0.045
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.055,
+            "prior": 2.855,
+            "gate": 1.055,
+            "verify": 1.055
+          },
+          "regret": {
+            "trust": 0.11999999999999988,
+            "gate": 0.11999999999999988,
+            "verify": 0.11999999999999988
+          },
+          "probe_mean": 0.48,
+          "rank_share": 0.04
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.34,
+            "prior": 2.855,
+            "gate": 1.34,
+            "verify": 1.345
+          },
+          "regret": {
+            "trust": 0.405,
+            "gate": 0.405,
+            "verify": 0.4099999999999999
+          },
+          "probe_mean": 0.92,
+          "rank_share": 0.09
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.925,
+            "prior": 2.855,
+            "gate": 1.925,
+            "verify": 1.94
+          },
+          "regret": {
+            "trust": 0.99,
+            "gate": 0.99,
+            "verify": 1.005
+          },
+          "probe_mean": 1.24,
+          "rank_share": 0.07
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 200,
+          "means": {
+            "oracle": 0.935,
+            "trust": 3.615,
+            "prior": 2.855,
+            "gate": 2.855,
+            "verify": 1.095
+          },
+          "regret": {
+            "trust": 2.68,
+            "gate": 1.92,
+            "verify": 0.15999999999999992
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.995
+        },
+        "-3.0": {
+          "detected": 200,
+          "means": {
+            "oracle": 0.935,
+            "trust": 3.015,
+            "prior": 2.855,
+            "gate": 2.855,
+            "verify": 1.04
+          },
+          "regret": {
+            "trust": 2.08,
+            "gate": 1.92,
+            "verify": 0.10499999999999998
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.99
+        },
+        "-2.0": {
+          "detected": 200,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.78,
+            "prior": 2.855,
+            "gate": 2.855,
+            "verify": 1.03
+          },
+          "regret": {
+            "trust": 0.845,
+            "gate": 1.92,
+            "verify": 0.09499999999999997
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.94
+        },
+        "-1.0": {
+          "detected": 198,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.025,
+            "prior": 2.855,
+            "gate": 2.87,
+            "verify": 1.01
+          },
+          "regret": {
+            "trust": 0.08999999999999986,
+            "gate": 1.935,
+            "verify": 0.07499999999999996
+          },
+          "probe_mean": 1.74,
+          "rank_share": 0.3
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.94,
+            "prior": 2.855,
+            "gate": 0.94,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.004999999999999893,
+            "gate": 0.004999999999999893,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 1.86,
+          "rank_share": 0.28
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.935,
+            "prior": 2.855,
+            "gate": 0.935,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.0,
+            "gate": 0.0,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 3.92,
+          "rank_share": 0.895
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.935,
+            "prior": 2.855,
+            "gate": 0.935,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.0,
+            "gate": 0.0,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.975
+        }
+      }
+    },
+    "source": {
+      "0.1": {
+        "-4.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.975,
+            "prior": 2.855,
+            "gate": 1.0,
+            "verify": 0.98
+          },
+          "regret": {
+            "trust": 0.039999999999999925,
+            "gate": 0.06499999999999995,
+            "verify": 0.04499999999999993
+          },
+          "probe_mean": 0.14,
+          "rank_share": 0.01
+        },
+        "-3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.955,
+            "prior": 2.855,
+            "gate": 0.955,
+            "verify": 0.955
+          },
+          "regret": {
+            "trust": 0.019999999999999907,
+            "gate": 0.019999999999999907,
+            "verify": 0.019999999999999907
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.95,
+            "prior": 2.855,
+            "gate": 0.95,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.014999999999999902,
+            "gate": 0.014999999999999902,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 0.06,
+          "rank_share": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.94,
+            "prior": 2.855,
+            "gate": 0.94,
+            "verify": 0.94
+          },
+          "regret": {
+            "trust": 0.004999999999999893,
+            "gate": 0.004999999999999893,
+            "verify": 0.004999999999999893
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.95,
+            "prior": 2.855,
+            "gate": 0.95,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.014999999999999902,
+            "gate": 0.014999999999999902,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.995,
+            "prior": 2.855,
+            "gate": 0.995,
+            "verify": 0.995
+          },
+          "regret": {
+            "trust": 0.05999999999999994,
+            "gate": 0.05999999999999994,
+            "verify": 0.05999999999999994
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.005
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.035,
+            "prior": 2.855,
+            "gate": 1.035,
+            "verify": 1.035
+          },
+          "regret": {
+            "trust": 0.09999999999999987,
+            "gate": 0.09999999999999987,
+            "verify": 0.09999999999999987
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.0
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.035,
+            "prior": 2.855,
+            "gate": 1.06,
+            "verify": 1.07
+          },
+          "regret": {
+            "trust": 0.09999999999999987,
+            "gate": 0.125,
+            "verify": 0.135
+          },
+          "probe_mean": 0.98,
+          "rank_share": 0.185
+        },
+        "-3.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.0,
+            "prior": 2.855,
+            "gate": 1.025,
+            "verify": 1.015
+          },
+          "regret": {
+            "trust": 0.06499999999999995,
+            "gate": 0.08999999999999986,
+            "verify": 0.07999999999999985
+          },
+          "probe_mean": 0.26,
+          "rank_share": 0.025
+        },
+        "-2.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.97,
+            "prior": 2.855,
+            "gate": 0.995,
+            "verify": 0.97
+          },
+          "regret": {
+            "trust": 0.03499999999999992,
+            "gate": 0.05999999999999994,
+            "verify": 0.03499999999999992
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.01
+        },
+        "-1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.95,
+            "prior": 2.855,
+            "gate": 0.95,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.014999999999999902,
+            "gate": 0.014999999999999902,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 0.08,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.945,
+            "prior": 2.855,
+            "gate": 0.945,
+            "verify": 0.945
+          },
+          "regret": {
+            "trust": 0.009999999999999898,
+            "gate": 0.009999999999999898,
+            "verify": 0.009999999999999898
+          },
+          "probe_mean": 0.08,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.99,
+            "prior": 2.855,
+            "gate": 0.99,
+            "verify": 0.99
+          },
+          "regret": {
+            "trust": 0.05499999999999994,
+            "gate": 0.05499999999999994,
+            "verify": 0.05499999999999994
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.005
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.075,
+            "prior": 2.855,
+            "gate": 1.075,
+            "verify": 1.075
+          },
+          "regret": {
+            "trust": 0.1399999999999999,
+            "gate": 0.1399999999999999,
+            "verify": 0.1399999999999999
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.0
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 27,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.22,
+            "prior": 2.855,
+            "gate": 1.56,
+            "verify": 1.32
+          },
+          "regret": {
+            "trust": 0.2849999999999999,
+            "gate": 0.625,
+            "verify": 0.385
+          },
+          "probe_mean": 3.28,
+          "rank_share": 0.71
+        },
+        "-3.0": {
+          "detected": 12,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.125,
+            "prior": 2.855,
+            "gate": 1.285,
+            "verify": 1.145
+          },
+          "regret": {
+            "trust": 0.18999999999999995,
+            "gate": 0.34999999999999987,
+            "verify": 0.20999999999999996
+          },
+          "probe_mean": 1.1,
+          "rank_share": 0.205
+        },
+        "-2.0": {
+          "detected": 3,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.005,
+            "prior": 2.855,
+            "gate": 1.06,
+            "verify": 1.01
+          },
+          "regret": {
+            "trust": 0.06999999999999984,
+            "gate": 0.125,
+            "verify": 0.07499999999999996
+          },
+          "probe_mean": 0.32,
+          "rank_share": 0.04
+        },
+        "-1.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.945,
+            "prior": 2.855,
+            "gate": 0.97,
+            "verify": 0.945
+          },
+          "regret": {
+            "trust": 0.009999999999999898,
+            "gate": 0.03499999999999992,
+            "verify": 0.009999999999999898
+          },
+          "probe_mean": 0.02,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.965,
+            "prior": 2.855,
+            "gate": 0.965,
+            "verify": 0.965
+          },
+          "regret": {
+            "trust": 0.029999999999999916,
+            "gate": 0.029999999999999916,
+            "verify": 0.029999999999999916
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.115,
+            "prior": 2.855,
+            "gate": 1.115,
+            "verify": 1.115
+          },
+          "regret": {
+            "trust": 0.17999999999999994,
+            "gate": 0.17999999999999994,
+            "verify": 0.17999999999999994
+          },
+          "probe_mean": 0.24,
+          "rank_share": 0.02
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.285,
+            "prior": 2.855,
+            "gate": 1.285,
+            "verify": 1.285
+          },
+          "regret": {
+            "trust": 0.34999999999999987,
+            "gate": 0.34999999999999987,
+            "verify": 0.34999999999999987
+          },
+          "probe_mean": 0.26,
+          "rank_share": 0.02
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 198,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.595,
+            "prior": 2.855,
+            "gate": 2.86,
+            "verify": 1.97
+          },
+          "regret": {
+            "trust": 0.6599999999999999,
+            "gate": 1.9249999999999998,
+            "verify": 1.035
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.95
+        },
+        "-3.0": {
+          "detected": 161,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.385,
+            "prior": 2.855,
+            "gate": 2.66,
+            "verify": 1.49
+          },
+          "regret": {
+            "trust": 0.44999999999999996,
+            "gate": 1.725,
+            "verify": 0.5549999999999999
+          },
+          "probe_mean": 3.42,
+          "rank_share": 0.755
+        },
+        "-2.0": {
+          "detected": 44,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.15,
+            "prior": 2.855,
+            "gate": 1.61,
+            "verify": 1.185
+          },
+          "regret": {
+            "trust": 0.21499999999999986,
+            "gate": 0.675,
+            "verify": 0.25
+          },
+          "probe_mean": 1.12,
+          "rank_share": 0.195
+        },
+        "-1.0": {
+          "detected": 2,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.02,
+            "prior": 2.855,
+            "gate": 1.06,
+            "verify": 1.01
+          },
+          "regret": {
+            "trust": 0.08499999999999996,
+            "gate": 0.125,
+            "verify": 0.07499999999999996
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.01
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.99,
+            "prior": 2.855,
+            "gate": 0.99,
+            "verify": 1.005
+          },
+          "regret": {
+            "trust": 0.05499999999999994,
+            "gate": 0.05499999999999994,
+            "verify": 0.06999999999999984
+          },
+          "probe_mean": 0.14,
+          "rank_share": 0.005
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.205,
+            "prior": 2.855,
+            "gate": 1.205,
+            "verify": 1.205
+          },
+          "regret": {
+            "trust": 0.27,
+            "gate": 0.27,
+            "verify": 0.27
+          },
+          "probe_mean": 0.36,
+          "rank_share": 0.035
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.53,
+            "prior": 2.855,
+            "gate": 1.53,
+            "verify": 1.535
+          },
+          "regret": {
+            "trust": 0.595,
+            "gate": 0.595,
+            "verify": 0.5999999999999999
+          },
+          "probe_mean": 0.48,
+          "rank_share": 0.035
+        }
+      }
+    },
+    "sink": {
+      "0.1": {
+        "-4.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.975,
+            "prior": 2.855,
+            "gate": 0.975,
+            "verify": 0.98
+          },
+          "regret": {
+            "trust": 0.039999999999999925,
+            "gate": 0.039999999999999925,
+            "verify": 0.04499999999999993
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.01
+        },
+        "-3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.975,
+            "prior": 2.855,
+            "gate": 0.975,
+            "verify": 0.975
+          },
+          "regret": {
+            "trust": 0.039999999999999925,
+            "gate": 0.039999999999999925,
+            "verify": 0.039999999999999925
+          },
+          "probe_mean": 0.08,
+          "rank_share": 0.005
+        },
+        "-2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.95,
+            "prior": 2.855,
+            "gate": 0.95,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.014999999999999902,
+            "gate": 0.014999999999999902,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 0.08,
+          "rank_share": 0.005
+        },
+        "-1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.94,
+            "prior": 2.855,
+            "gate": 0.94,
+            "verify": 0.94
+          },
+          "regret": {
+            "trust": 0.004999999999999893,
+            "gate": 0.004999999999999893,
+            "verify": 0.004999999999999893
+          },
+          "probe_mean": 0.08,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.95,
+            "prior": 2.855,
+            "gate": 0.95,
+            "verify": 0.95
+          },
+          "regret": {
+            "trust": 0.014999999999999902,
+            "gate": 0.014999999999999902,
+            "verify": 0.014999999999999902
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.97,
+            "prior": 2.855,
+            "gate": 0.97,
+            "verify": 0.97
+          },
+          "regret": {
+            "trust": 0.03499999999999992,
+            "gate": 0.03499999999999992,
+            "verify": 0.03499999999999992
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.01,
+            "prior": 2.855,
+            "gate": 1.01,
+            "verify": 1.01
+          },
+          "regret": {
+            "trust": 0.07499999999999996,
+            "gate": 0.07499999999999996,
+            "verify": 0.07499999999999996
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 2,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.095,
+            "prior": 2.855,
+            "gate": 1.135,
+            "verify": 1.125
+          },
+          "regret": {
+            "trust": 0.15999999999999992,
+            "gate": 0.19999999999999996,
+            "verify": 0.18999999999999995
+          },
+          "probe_mean": 0.86,
+          "rank_share": 0.105
+        },
+        "-3.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.045,
+            "prior": 2.855,
+            "gate": 1.07,
+            "verify": 1.055
+          },
+          "regret": {
+            "trust": 0.10999999999999988,
+            "gate": 0.135,
+            "verify": 0.11999999999999988
+          },
+          "probe_mean": 0.34,
+          "rank_share": 0.04
+        },
+        "-2.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.99,
+            "prior": 2.855,
+            "gate": 1.015,
+            "verify": 0.99
+          },
+          "regret": {
+            "trust": 0.05499999999999994,
+            "gate": 0.07999999999999985,
+            "verify": 0.05499999999999994
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.005
+        },
+        "-1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.945,
+            "prior": 2.855,
+            "gate": 0.945,
+            "verify": 0.945
+          },
+          "regret": {
+            "trust": 0.009999999999999898,
+            "gate": 0.009999999999999898,
+            "verify": 0.009999999999999898
+          },
+          "probe_mean": 0.04,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.975,
+            "prior": 2.855,
+            "gate": 0.975,
+            "verify": 0.975
+          },
+          "regret": {
+            "trust": 0.039999999999999925,
+            "gate": 0.039999999999999925,
+            "verify": 0.039999999999999925
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.005
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.08,
+            "prior": 2.855,
+            "gate": 1.08,
+            "verify": 1.08
+          },
+          "regret": {
+            "trust": 0.14500000000000002,
+            "gate": 0.14500000000000002,
+            "verify": 0.14500000000000002
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.005
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.22,
+            "prior": 2.855,
+            "gate": 1.22,
+            "verify": 1.22
+          },
+          "regret": {
+            "trust": 0.2849999999999999,
+            "gate": 0.2849999999999999,
+            "verify": 0.2849999999999999
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.005
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 26,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.44,
+            "prior": 2.855,
+            "gate": 1.665,
+            "verify": 1.47
+          },
+          "regret": {
+            "trust": 0.5049999999999999,
+            "gate": 0.73,
+            "verify": 0.5349999999999999
+          },
+          "probe_mean": 3.34,
+          "rank_share": 0.55
+        },
+        "-3.0": {
+          "detected": 11,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.235,
+            "prior": 2.855,
+            "gate": 1.405,
+            "verify": 1.25
+          },
+          "regret": {
+            "trust": 0.30000000000000004,
+            "gate": 0.47,
+            "verify": 0.31499999999999995
+          },
+          "probe_mean": 1.08,
+          "rank_share": 0.12
+        },
+        "-2.0": {
+          "detected": 3,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.05,
+            "prior": 2.855,
+            "gate": 1.105,
+            "verify": 1.055
+          },
+          "regret": {
+            "trust": 0.11499999999999999,
+            "gate": 0.16999999999999993,
+            "verify": 0.11999999999999988
+          },
+          "probe_mean": 0.22,
+          "rank_share": 0.015
+        },
+        "-1.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.965,
+            "prior": 2.855,
+            "gate": 0.99,
+            "verify": 0.965
+          },
+          "regret": {
+            "trust": 0.029999999999999916,
+            "gate": 0.05499999999999994,
+            "verify": 0.029999999999999916
+          },
+          "probe_mean": 0.02,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.01,
+            "prior": 2.855,
+            "gate": 1.01,
+            "verify": 1.01
+          },
+          "regret": {
+            "trust": 0.07499999999999996,
+            "gate": 0.07499999999999996,
+            "verify": 0.07499999999999996
+          },
+          "probe_mean": 0.1,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.225,
+            "prior": 2.855,
+            "gate": 1.225,
+            "verify": 1.225
+          },
+          "regret": {
+            "trust": 0.29000000000000004,
+            "gate": 0.29000000000000004,
+            "verify": 0.29000000000000004
+          },
+          "probe_mean": 0.16,
+          "rank_share": 0.005
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.485,
+            "prior": 2.855,
+            "gate": 1.485,
+            "verify": 1.49
+          },
+          "regret": {
+            "trust": 0.55,
+            "gate": 0.55,
+            "verify": 0.5549999999999999
+          },
+          "probe_mean": 0.18,
+          "rank_share": 0.005
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 197,
+          "means": {
+            "oracle": 0.935,
+            "trust": 3.03,
+            "prior": 2.855,
+            "gate": 2.885,
+            "verify": 2.475
+          },
+          "regret": {
+            "trust": 2.0949999999999998,
+            "gate": 1.9499999999999997,
+            "verify": 1.54
+          },
+          "probe_mean": 4.0,
+          "rank_share": 0.7
+        },
+        "-3.0": {
+          "detected": 157,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.95,
+            "prior": 2.855,
+            "gate": 2.635,
+            "verify": 1.755
+          },
+          "regret": {
+            "trust": 1.015,
+            "gate": 1.6999999999999997,
+            "verify": 0.8199999999999998
+          },
+          "probe_mean": 3.74,
+          "rank_share": 0.56
+        },
+        "-2.0": {
+          "detected": 45,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.255,
+            "prior": 2.855,
+            "gate": 1.695,
+            "verify": 1.26
+          },
+          "regret": {
+            "trust": 0.31999999999999984,
+            "gate": 0.76,
+            "verify": 0.32499999999999996
+          },
+          "probe_mean": 0.88,
+          "rank_share": 0.09
+        },
+        "-1.0": {
+          "detected": 3,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.975,
+            "prior": 2.855,
+            "gate": 1.03,
+            "verify": 0.975
+          },
+          "regret": {
+            "trust": 0.039999999999999925,
+            "gate": 0.09499999999999997,
+            "verify": 0.039999999999999925
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.015
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.04,
+            "prior": 2.855,
+            "gate": 1.04,
+            "verify": 1.04
+          },
+          "regret": {
+            "trust": 0.10499999999999998,
+            "gate": 0.10499999999999998,
+            "verify": 0.10499999999999998
+          },
+          "probe_mean": 0.16,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.365,
+            "prior": 2.855,
+            "gate": 1.365,
+            "verify": 1.365
+          },
+          "regret": {
+            "trust": 0.42999999999999994,
+            "gate": 0.42999999999999994,
+            "verify": 0.42999999999999994
+          },
+          "probe_mean": 0.26,
+          "rank_share": 0.01
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.885,
+            "prior": 2.855,
+            "gate": 1.885,
+            "verify": 1.89
+          },
+          "regret": {
+            "trust": 0.95,
+            "gate": 0.95,
+            "verify": 0.9549999999999998
+          },
+          "probe_mean": 0.32,
+          "rank_share": 0.01
+        }
+      }
+    },
+    "error_nodes": {
+      "0.1": {
+        "-4.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.905,
+            "prior": 2.855,
+            "gate": 0.905,
+            "verify": 0.905
+          },
+          "regret": {
+            "trust": -0.030000000000000027,
+            "gate": -0.030000000000000027,
+            "verify": -0.030000000000000027
+          },
+          "probe_mean": 0.04,
+          "rank_share": 0.005
+        },
+        "-3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.905,
+            "prior": 2.855,
+            "gate": 0.905,
+            "verify": 0.905
+          },
+          "regret": {
+            "trust": -0.030000000000000027,
+            "gate": -0.030000000000000027,
+            "verify": -0.030000000000000027
+          },
+          "probe_mean": 0.04,
+          "rank_share": 0.005
+        },
+        "-2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.905,
+            "prior": 2.855,
+            "gate": 0.905,
+            "verify": 0.905
+          },
+          "regret": {
+            "trust": -0.030000000000000027,
+            "gate": -0.030000000000000027,
+            "verify": -0.030000000000000027
+          },
+          "probe_mean": 0.06,
+          "rank_share": 0.005
+        },
+        "-1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.915,
+            "prior": 2.855,
+            "gate": 0.915,
+            "verify": 0.915
+          },
+          "regret": {
+            "trust": -0.020000000000000018,
+            "gate": -0.020000000000000018,
+            "verify": -0.020000000000000018
+          },
+          "probe_mean": 0.08,
+          "rank_share": 0.005
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.035,
+            "prior": 2.855,
+            "gate": 1.035,
+            "verify": 1.045
+          },
+          "regret": {
+            "trust": 0.09999999999999987,
+            "gate": 0.09999999999999987,
+            "verify": 0.10999999999999988
+          },
+          "probe_mean": 0.14,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.2,
+            "prior": 2.855,
+            "gate": 1.2,
+            "verify": 1.2
+          },
+          "regret": {
+            "trust": 0.2649999999999999,
+            "gate": 0.2649999999999999,
+            "verify": 0.2649999999999999
+          },
+          "probe_mean": 0.16,
+          "rank_share": 0.005
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.415,
+            "prior": 2.855,
+            "gate": 1.415,
+            "verify": 1.415
+          },
+          "regret": {
+            "trust": 0.48,
+            "gate": 0.48,
+            "verify": 0.48
+          },
+          "probe_mean": 0.18,
+          "rank_share": 0.005
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.885,
+            "prior": 2.855,
+            "gate": 0.91,
+            "verify": 0.885
+          },
+          "regret": {
+            "trust": -0.050000000000000044,
+            "gate": -0.025000000000000022,
+            "verify": -0.050000000000000044
+          },
+          "probe_mean": 0.32,
+          "rank_share": 0.015
+        },
+        "-3.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.885,
+            "prior": 2.855,
+            "gate": 0.91,
+            "verify": 0.885
+          },
+          "regret": {
+            "trust": -0.050000000000000044,
+            "gate": -0.025000000000000022,
+            "verify": -0.050000000000000044
+          },
+          "probe_mean": 0.3,
+          "rank_share": 0.015
+        },
+        "-2.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.885,
+            "prior": 2.855,
+            "gate": 0.91,
+            "verify": 0.885
+          },
+          "regret": {
+            "trust": -0.050000000000000044,
+            "gate": -0.025000000000000022,
+            "verify": -0.050000000000000044
+          },
+          "probe_mean": 0.24,
+          "rank_share": 0.005
+        },
+        "-1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.9,
+            "prior": 2.855,
+            "gate": 0.9,
+            "verify": 0.9
+          },
+          "regret": {
+            "trust": -0.03500000000000003,
+            "gate": -0.03500000000000003,
+            "verify": -0.03500000000000003
+          },
+          "probe_mean": 0.16,
+          "rank_share": 0.005
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.115,
+            "prior": 2.855,
+            "gate": 1.115,
+            "verify": 1.125
+          },
+          "regret": {
+            "trust": 0.17999999999999994,
+            "gate": 0.17999999999999994,
+            "verify": 0.18999999999999995
+          },
+          "probe_mean": 0.12,
+          "rank_share": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.405,
+            "prior": 2.855,
+            "gate": 1.405,
+            "verify": 1.41
+          },
+          "regret": {
+            "trust": 0.47,
+            "gate": 0.47,
+            "verify": 0.47499999999999987
+          },
+          "probe_mean": 0.2,
+          "rank_share": 0.015
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.78,
+            "prior": 2.855,
+            "gate": 1.78,
+            "verify": 1.785
+          },
+          "regret": {
+            "trust": 0.845,
+            "gate": 0.845,
+            "verify": 0.8499999999999999
+          },
+          "probe_mean": 0.26,
+          "rank_share": 0.005
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.865,
+            "prior": 2.855,
+            "gate": 0.89,
+            "verify": 0.865
+          },
+          "regret": {
+            "trust": -0.07000000000000006,
+            "gate": -0.04500000000000004,
+            "verify": -0.07000000000000006
+          },
+          "probe_mean": 0.54,
+          "rank_share": 0.04
+        },
+        "-3.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.865,
+            "prior": 2.855,
+            "gate": 0.89,
+            "verify": 0.865
+          },
+          "regret": {
+            "trust": -0.07000000000000006,
+            "gate": -0.04500000000000004,
+            "verify": -0.07000000000000006
+          },
+          "probe_mean": 0.5,
+          "rank_share": 0.04
+        },
+        "-2.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.865,
+            "prior": 2.855,
+            "gate": 0.89,
+            "verify": 0.865
+          },
+          "regret": {
+            "trust": -0.07000000000000006,
+            "gate": -0.04500000000000004,
+            "verify": -0.07000000000000006
+          },
+          "probe_mean": 0.34,
+          "rank_share": 0.015
+        },
+        "-1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.88,
+            "prior": 2.855,
+            "gate": 0.88,
+            "verify": 0.88
+          },
+          "regret": {
+            "trust": -0.05500000000000005,
+            "gate": -0.05500000000000005,
+            "verify": -0.05500000000000005
+          },
+          "probe_mean": 0.18,
+          "rank_share": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.265,
+            "prior": 2.855,
+            "gate": 1.265,
+            "verify": 1.27
+          },
+          "regret": {
+            "trust": 0.32999999999999985,
+            "gate": 0.32999999999999985,
+            "verify": 0.33499999999999996
+          },
+          "probe_mean": 0.22,
+          "rank_share": 0.01
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.795,
+            "prior": 2.855,
+            "gate": 1.795,
+            "verify": 1.81
+          },
+          "regret": {
+            "trust": 0.8599999999999999,
+            "gate": 0.8599999999999999,
+            "verify": 0.875
+          },
+          "probe_mean": 0.5,
+          "rank_share": 0.03
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 2.585,
+            "prior": 2.855,
+            "gate": 2.585,
+            "verify": 2.585
+          },
+          "regret": {
+            "trust": 1.65,
+            "gate": 1.65,
+            "verify": 1.65
+          },
+          "probe_mean": 0.68,
+          "rank_share": 0.03
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 3,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.765,
+            "prior": 2.855,
+            "gate": 0.83,
+            "verify": 0.765
+          },
+          "regret": {
+            "trust": -0.17000000000000004,
+            "gate": -0.1050000000000001,
+            "verify": -0.17000000000000004
+          },
+          "probe_mean": 1.8,
+          "rank_share": 0.09
+        },
+        "-3.0": {
+          "detected": 3,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.765,
+            "prior": 2.855,
+            "gate": 0.83,
+            "verify": 0.78
+          },
+          "regret": {
+            "trust": -0.17000000000000004,
+            "gate": -0.1050000000000001,
+            "verify": -0.15500000000000003
+          },
+          "probe_mean": 1.7,
+          "rank_share": 0.085
+        },
+        "-2.0": {
+          "detected": 2,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.78,
+            "prior": 2.855,
+            "gate": 0.825,
+            "verify": 0.79
+          },
+          "regret": {
+            "trust": -0.15500000000000003,
+            "gate": -0.1100000000000001,
+            "verify": -0.14500000000000002
+          },
+          "probe_mean": 1.2,
+          "rank_share": 0.05
+        },
+        "-1.0": {
+          "detected": 1,
+          "means": {
+            "oracle": 0.935,
+            "trust": 0.815,
+            "prior": 2.855,
+            "gate": 0.84,
+            "verify": 0.82
+          },
+          "regret": {
+            "trust": -0.1200000000000001,
+            "gate": -0.09500000000000008,
+            "verify": -0.1150000000000001
+          },
+          "probe_mean": 0.44,
+          "rank_share": 0.01
+        },
+        "1.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 1.455,
+            "prior": 2.855,
+            "gate": 1.455,
+            "verify": 1.475
+          },
+          "regret": {
+            "trust": 0.52,
+            "gate": 0.52,
+            "verify": 0.54
+          },
+          "probe_mean": 0.7,
+          "rank_share": 0.04
+        },
+        "2.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 2.465,
+            "prior": 2.855,
+            "gate": 2.465,
+            "verify": 2.58
+          },
+          "regret": {
+            "trust": 1.5299999999999998,
+            "gate": 1.5299999999999998,
+            "verify": 1.645
+          },
+          "probe_mean": 2.28,
+          "rank_share": 0.1
+        },
+        "3.0": {
+          "detected": 0,
+          "means": {
+            "oracle": 0.935,
+            "trust": 3.87,
+            "prior": 2.855,
+            "gate": 3.87,
+            "verify": 3.92
+          },
+          "regret": {
+            "trust": 2.935,
+            "gate": 2.935,
+            "verify": 2.985
+          },
+          "probe_mean": 3.34,
+          "rank_share": 0.145
+        }
+      }
+    }
+  },
+  "fired_cells": 13,
+  "verify_worse_cells": 5,
+  "predictions": {
+    "p1_rank_preserving": true,
+    "p2_local_overcorrection": false,
+    "p3_masking_unfixable": true,
+    "p4_no_false_alarm": false
+  },
+  "verdict": "실패",
+  "bootstrap": {
+    "unit": "paired graph",
+    "draws": 10000,
+    "seed": 20261112,
+    "coverage": 0.95
+  },
+  "source_sha256": {
+    "manifest.json": "dee08e0642ee370dcf965d45a0e964ff3690f443e6c0b8a2a4e29b6d21d5ebcb",
+    "episodes.csv": "09da8077c9aeaed44f4077649f412cf8316aec48230cc5069f49d2e8f810a110",
+    "report_verify.py": "785abb0b099c16f4b6eebd31655a97fdc78eb476a3a0ad5d8c567f1d35e45bb6",
+    "PREREGISTER_VERIFY.md": "a21ba936d2815004ed5295795f2592870f4f4ad4d95f82bac15ad876bf08782a",
+    "rl_boundary.py": "6ad6a333b1eb00826d1c266d88a04ee14b6401b6ad6d0c1fced2264687f28482"
+  }
+}
