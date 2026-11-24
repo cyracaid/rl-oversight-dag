@@ -1,15 +1,16 @@
 """Locate the Role 3 environment and the shared experiment modules.
 
-Preferred: install the environment once, then nothing here touches ``sys.path``.
+Preferred: install the environment once.
 
     python -m pip install -e "role3 improvement"
 
-Without an install a fresh checkout must still work, so the in-repo directory is
-appended as a fallback. Keep this the only place that edits ``sys.path``.
+The in-repo directory is still appended, because Role 2 imports Role 3's entry
+scripts (``run_benchmark``, ``train_gnn``), which are not installed. Appending
+means an installed ``dag_role3`` still wins over the repo copy. Keep this the
+only place that edits ``sys.path``.
 """
 from __future__ import annotations
 
-from importlib.util import find_spec
 from pathlib import Path
 import sys
 
@@ -18,19 +19,22 @@ ROLE3 = ROOT / "role3 improvement"
 EXPERIMENTS = ROOT / "experiments"
 
 
-def _usable(module: str) -> bool:
-    return find_spec(module) is not None
-
-
 def ensure_role3() -> Path:
-    """Make ``dag_role3`` importable; an installed package wins over the repo copy."""
-    if not _usable("dag_role3") and str(ROLE3) not in sys.path:
-        sys.path.insert(0, str(ROLE3))
+    """Make the Role 3 directory importable.
+
+    Two different needs share one path: ``dag_role3`` (a package, which an
+    installed ``dag-role3`` should satisfy) and the Role 3 entry scripts
+    ``run_benchmark`` / ``train_gnn`` (which Role 2 imports directly and which
+    are never installed). Appending keeps an installed package winning while
+    still reaching the scripts.
+    """
+    if str(ROLE3) not in sys.path:
+        sys.path.append(str(ROLE3))
     return ROLE3
 
 
 def ensure_experiments() -> Path:
     """Make the shared helpers in ``experiments/`` importable."""
-    if not _usable("rl_boundary") and str(EXPERIMENTS) not in sys.path:
-        sys.path.insert(0, str(EXPERIMENTS))
+    if str(EXPERIMENTS) not in sys.path:
+        sys.path.append(str(EXPERIMENTS))
     return EXPERIMENTS
