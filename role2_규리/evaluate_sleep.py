@@ -8,7 +8,6 @@ import json
 import math
 import random
 import statistics
-import sys
 from collections import Counter, defaultdict
 from contextlib import ExitStack
 from datetime import timedelta
@@ -16,8 +15,9 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "experiments"))
+from _env import ROOT, ensure_experiments
+
+ensure_experiments()
 import cross_record_replay as original
 
 LABELS = ("C1_short_sleep", "C2_low_efficiency", "C3_irregular", "C4_data_quality")

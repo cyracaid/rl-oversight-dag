@@ -3,14 +3,15 @@
 from dataclasses import replace
 import math
 from pathlib import Path
-import sys
 import unittest
 
 import numpy as np
 
 from planning_policy import PlanningPolicy
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "role3 improvement"))
+from _env import ensure_role3
+
+ensure_role3()
 from dag_role3 import DAG, OversightEnv, sample_episode
 from dag_role3.policies import marginal_scores
 

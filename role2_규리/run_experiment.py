@@ -10,7 +10,7 @@ import sys
 
 
 ROLE2 = Path(__file__).resolve().parent
-ROLE3 = ROLE2.parent / "role3 improvement"
+from _env import ROLE3
 VARIANTS = ("static", "observed")
 FAMILY = "spike"
 PROFILES = {

@@ -7,14 +7,13 @@ import hashlib
 import json
 from pathlib import Path
 import platform
-import sys
 
 import numpy as np
 import torch
 
-ROOT = Path(__file__).resolve().parents[1]
-ROLE3 = ROOT / "role3 improvement"
-sys.path.insert(0, str(ROLE3))
+from _env import ROLE3, ROOT, ensure_role3
+
+ensure_role3()
 from dag_role3 import OversightEnv, generate_graph, sample_episode
 from dag_role3.graphs import SPIKE_RATES
 from dag_role3.policies import choose

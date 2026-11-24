@@ -6,12 +6,12 @@ import hashlib
 import json
 from pathlib import Path
 import re
-import sys
 
 import numpy as np
 
-EXPERIMENTS = Path(__file__).resolve().parents[1] / "experiments"
-sys.path.insert(0, str(EXPERIMENTS))
+from _env import EXPERIMENTS, ensure_experiments
+
+ensure_experiments()
 from rl_boundary import paired_bootstrap
 
 

@@ -14,9 +14,9 @@ import sys
 import numpy as np
 
 HERE = Path(__file__).resolve()
-ROOT = HERE.parents[1]
-ROLE3 = ROOT / "role3 improvement"
-sys.path.insert(0, str(ROLE3))
+from _env import ROLE3, ROOT, ensure_role3
+
+ensure_role3()
 from dag_role3 import OversightEnv, generate_graph, sample_episode
 from dag_role3.policies import choose
 from planning_policy import P_CATCH, WIDTH, PlanningPolicy
