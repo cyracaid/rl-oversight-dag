@@ -1,0 +1,9 @@
+/Users/sloblucyra/Documents/강화학습/role3 improvement/train_ppo.py:112: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  last = (float(policy_loss / n), float(value_loss / n), float(entropy / n))
+episode  200: p_loss=-0.000 v_loss=10.025 train_errors=4.50
+episode  400: p_loss=-0.007 v_loss=1.706 train_errors=2.62
+episode  600: p_loss=-0.005 v_loss=1.249 train_errors=1.38
+episode  800: p_loss=-0.003 v_loss=1.581 train_errors=0.75
+episode 1000: p_loss=-0.006 v_loss=4.936 train_errors=3.50
+selected episode 800: validation 1.100, in-sample eval 1.100

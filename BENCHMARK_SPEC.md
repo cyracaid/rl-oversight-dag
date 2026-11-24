@@ -59,6 +59,10 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | confirmation A | 2000–2199 | untouched confirmation (role 2 confidence study) |
 | corruption dev | 3000–3199 | corruption boundary sweep |
 | probe confirmation | 3200–3399 | pre-registered probe-then-decide |
+| repair (per-node) | 3400–3599 | `shrink-v1`, node-level posterior |
+| repair (per-graph) | 3600–3799 | `scope-v1`, one shared δ per graph |
+| repair boundary | 3800–3899 | `scope-robust-v1`, off-grid δ and two δ |
+| reviewer hit rate | 4000–4199 | pre-registered `p_catch` sweep |
 
 Rules: a seed block is spent once it has been used to choose a method or a threshold. Never re-tune on the
 reporting block. Do not report a mean from one block next to a mean from another block — raw means differ
@@ -97,6 +101,7 @@ Five layers. A table that omits a layer must say so.
 | L4 graph-aware rule | `adaptive_marginal` (choose signal model from public confidence, then `marginal`) | no | yes | role 2 only |
 | L4 belief | particle-filter belief greedy (`OversightEnv(..., particles=1024)`; not wired into `run_benchmark.py`) | no | yes | available in env, not in the suite table |
 | L5 learned | `dqn`, `gnn` (static and observed state), BC+FT | no | yes | all 6 families, 3 training seeds (`outputs/v3-learned/`) |
+| L5 learned | `ppo` (GNN actor, clipped surrogate, value baseline) | no | yes | `spike` only, 3 training seeds, fresh block 4200–4399 (`outputs/ppo-v1/`) |
 
 Learned-baseline coverage is complete as of 2026-11-24: 3 training seeds × 6 families, same budget as the
 original `spike` runs (GNN 1,000 episodes, DQN 300). The comparison against `marginal` is in
@@ -170,6 +175,37 @@ Provenance: this is a table fill, not an improvement claim. Checkpoints were sel
 only (60,000+), training used seeds 1–3, and the reporting block (90000–90099) was spent once. Any future
 method claiming a win here needs a block that has not been read; see §7 rule 4.
 
+### PPO, on a fresh block (4200–4399)
+
+Two learned architectures were already losing, and both are REINFORCE or value-based. A fair objection is
+that the optimizer, not the information, decided it. `PREREGISTER_PPO.md` fixed every hyperparameter before
+`train_ppo.py` existed; the block 4200–4399 had not been read by any experiment. Same model class, same
+1,000 episodes, same three training seeds, clipped surrogate plus a value baseline.
+
+Δ = PPO − `marginal`, paired over 200 graphs, 10,000 bootstrap draws:
+
+| seed | PPO | `marginal` | Δ [95 % CI] | W/T/L |
+|---|---:|---:|---|---|
+| `gnn_s1` | 1.225 | 0.875 | +0.350 [+0.230, +0.480] | 2/160/38 |
+| `gnn_s2` | 1.335 | 0.875 | +0.460 [+0.335, +0.600] | 3/138/59 |
+| `gnn_s3` | 1.340 | 0.875 | +0.465 [+0.325, +0.620] | 2/148/50 |
+
+Verdict `third-loss`: three seeds, all positive, all intervals exclude zero, no sign flip.
+
+P2 missed. The preregistered prediction was that PPO would land between `marginal` and the REINFORCE GNN,
+i.e. inside (0, +0.403); the observed mean is +0.425, and two of three seeds sit above the bound. The
+difference from REINFORCE (+0.403) is far inside the noise of either interval, so the honest statement is
+**PPO is indistinguishable from the REINFORCE GNN, not better than it**, and both are worse than the rule.
+The pre-registered falsifier (interval excluding zero on the negative side) did not fire.
+
+One detail worth reading rather than smoothing: 138–160 of 200 graphs are ties. PPO rarely beats `marginal`
+and rarely loses badly; it mostly reproduces the outcome. That is a statement about terminal errors, not
+about the policy's internal ordering, which this block does not measure.
+
+Absolute means here are not comparable with the table above: different graph seed block. Only the paired
+deltas travel, per §7 rule 4.
+
+
 ### Reviewer hit rate `p_catch` (pre-registered, seeds 4000–4199)
 
 Every run in this repository holds the reviewer hit rate at `p_catch = 0.9`. `PREREGISTER_P_CATCH.md` fixed the
@@ -198,6 +234,24 @@ Learned checkpoints were evaluated without retraining, so those rows answer only
 when the assumed hit rate is wrong. Their intervals stop separating from `confidence` at `p_catch = 0.60`
 (+0.080, +0.045, −0.035, all intervals containing zero), which is consistent with the same contraction rather
 than with a second, independent finding.
+
+### Corrupted confidence: the repair family (pre-registered, seeds 3000–3899)
+
+This is a different axis from §6 above. Here the confidence *signal* is shifted, and the policies below try to
+decide whether to trust it. All numbers are paired differences against plain trust inside one run; positive
+means more remaining errors than trusting. Each step was frozen in a `PREREGISTER_*.md` before its first seed.
+
+| step | policy | fresh graphs | verdict | result vs trusting |
+|---|---|---|---:|---|
+| global gate | `gate` | 3000–3199 | boundary measured | −1 shift: fires 195/200, **+1.82**; masked +3: 0/200, **+3.21** |
+| gate repair | `verify` | 3200–3399 | **failure** | −0.015 on −1, but 5 of 13 fired cells worse than trusting |
+| per-node posterior | `shrink` | 3400–3599 | success | +0.105 on −1; **−0.370** where errors are masked; +0.45 / +0.72 on a harmless global +2 / +3 |
+| per-graph posterior | `scope` | 3600–3799 | success | +0.005 at +3 (per-node +0.81); 112-cell mean 1.303 → **1.203**; −4 returns to the clean oracle (0.94 vs 3.86) |
+| boundary | `scope` | 3800–3899 | **partial success** | off-grid δ: mean \|δ error\| 0.174, 12/12 cells beat per-node; two δ: −0.016 vs per-node, all three policies within 2.15/1.89/1.87 |
+
+Do not read this table as a method win. The last row is the important one: with two simultaneous δ, neither
+single-δ family recovers. The declared claim is "the decision variable is the node, then the graph", not
+"`scope` is the best repair".
 
 ## 7. What counts as progress on this benchmark
 
@@ -259,6 +313,11 @@ python3 report_learned_baselines.py
 
 # reviewer hit-rate sweep (16 s, owns graph seeds 4000-4199)
 python3 sweep_p_catch.py && python3 report_p_catch.py
+
+# PPO, third learned architecture (3 seeds x 1000 episodes, ~5 min/seed)
+for s in 1 2 3; do python3 train_ppo.py --seed $s --out outputs/ppo-v1; done
+python3 evaluate_ppo.py --checkpoints outputs/ppo-v1/train_{1,2,3}/ppo_spike_observed.pt
+python3 report_ppo.py
 ```
 
 `outputs/v3/` is frozen at tag `role3-env-v3` and must not be overwritten.

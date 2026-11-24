@@ -1,0 +1,30 @@
+{
+  "block": [
+    4200,
+    4399
+  ],
+  "episode_offset": 20000,
+  "family": "spike",
+  "budget": 16,
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261124,
+  "checkpoints": [
+    {
+      "policy": "gnn_s1",
+      "path": "outputs/ppo-v1/train_1/ppo_spike_observed.pt",
+      "sha256": "0dfd110762233815df449f4158725c6476e147bc9b45384295f0beb7fdd0ad60"
+    },
+    {
+      "policy": "gnn_s2",
+      "path": "outputs/ppo-v1/train_2/ppo_spike_observed.pt",
+      "sha256": "1266dab0ea456a94ab60bdb577ff0622527a9dca39cb8d6fa51c5c1586d7fafa"
+    },
+    {
+      "policy": "gnn_s3",
+      "path": "outputs/ppo-v1/train_3/ppo_spike_observed.pt",
+      "sha256": "bc74c4fc071b49ea54d0175dfef34df2c8532b88cc0205579cc3d32418d6f6d6"
+    }
+  ],
+  "trainer_sha256": "60b02c9f3e4f1851e0f69a2445c31d53fdda79551643df567a4e079d5d1267a5",
+  "reference": "marginal"
+}
