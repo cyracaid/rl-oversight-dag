@@ -44,7 +44,7 @@ Brand it as:
 
 > **AI-for-Science: human review scheduling on research evidence chains.**
 > The method is general (any DAG of dependent AI outputs + a review budget).
-> The first real instantiation is our sleep-EMA pipeline (Maia ten Brink, Stanford Psychophysiology Lab, one year of data).
+> The first real instantiation is our sleep-EMA pipeline (the lab collaborator, a university sleep-research lab, one year of data).
 > The second instantiation is SciForge's evidence DAG (Zhangyang Gao, AI4Science, Shanghai AI Lab).
 
 | Layer | General (AI4Sci) | First instance (sleep) | Second instance (SciForge) |
@@ -71,7 +71,7 @@ We already have more data than we need for the course. The remaining work is **n
 
 | Data | Status | Owner |
 |---|---|---|
-| Sleep EMA 13,990 rows / 237 people | on Maia's side; we have the RDS + 75 corrections | Maia / 동채하 |
+| Sleep EMA 13,990 rows / 237 people | on 연구실 협력자's side; we have the RDS + 75 corrections | 연구실 협력자 / 동채하 |
 | 75 human corrections (27 consensus / 48 agree) | in `manual_error_correction_updated.csv` | 동채하 |
 | Synthetic DAGs (80 / 500, modular / BA / ER) | generated in code | Person 3 |
 | Real pipeline DAG (N=21) | hand-encoded from SCHEMA | Person 3 |
@@ -105,7 +105,7 @@ We already have more data than we need for the course. The remaining work is **n
 | **4** | Baselines + controls + optional third dataset | Gap C only if A fails; else controls |
 | **5 동채하** | Narrative + 郑心 liaison + literature synthesis + writing + presenting (English) | sleep 75 / 13,990; Gap B; Gap A ask |
 
-**Maia ten Brink** = data source + domain sanity-check on the sleep DAG. Not an RL method advisor.
+**the lab collaborator** = data source + domain sanity-check on the sleep DAG. Not an RL method advisor.
 **Zhangyang Gao** = SciForge landing + whether the formulation fits the platform. The AI method is the course project.
 
 ---
@@ -137,7 +137,7 @@ We already have more data than we need for the course. The remaining work is **n
 
 Say this:
 
-> We study **when a human should review AI output on a research evidence chain.** The formulation is general. We instantiate it first on a real sleep-EMA pipeline (one year of data from Maia ten Brink's lab at Stanford), then on SciForge's evidence DAG. We do not claim it works on every science domain. We claim the formulation transfers, and we test it on two instantiations. The course tools — bandit, MDP, Monte Carlo policy gradient, function approximation, DQN as a control — are the same tools this class taught. The negative result (bandit loses) is part of the contribution.
+> We study **when a human should review AI output on a research evidence chain.** The formulation is general. We instantiate it first on a real sleep-EMA pipeline (one year of data from a university sleep-research lab), then on SciForge's evidence DAG. We do not claim it works on every science domain. We claim the formulation transfers, and we test it on two instantiations. The course tools — bandit, MDP, Monte Carlo policy gradient, function approximation, DQN as a control — are the same tools this class taught. The negative result (bandit loses) is part of the contribution.
 
 > The same course tools answer the question that survived: with 16 reviews, estimate **which signal to trust** (a posterior over "the scores are usable", over "this node moved", over "the graph moved by δ") and act safely when the answer is "no". Measured, not asserted: a harmful repair is reported as a failure, and the boundary where the model stops is reported with the same weight as the win.
 

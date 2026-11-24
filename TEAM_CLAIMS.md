@@ -10,7 +10,7 @@ permalink: /TEAM_CLAIMS_EN.html
 
 > 5 people · 2 tracks · talk on **11/23**
 > One sentence: we study **where a human should look first** in a chain of dependent AI outputs.
-> First real data: sleep diaries (Maia ten Brink, Stanford). Second target: SciForge (Zhangyang Gao, Shanghai AI Lab).
+> First real data: sleep diaries (the lab collaborator, a university). Second target: SciForge (Zhangyang Gao, Shanghai AI Lab).
 
 ---
 
@@ -303,7 +303,7 @@ Nothing counts as verified until the named person reruns it.
 
 | Data | Do we have it? | Who touches it |
 |---|---|---|
-| sleep diaries 13,990 rows / 237 people | yes (Maia, one year) | Person 5 (counts), Person 3 (N=21 graph) |
+| sleep diaries 13,990 rows / 237 people | yes (the lab collaborator, one year) | Person 5 (counts), Person 3 (N=21 graph) |
 | 75 corrections (76% `order_error`, 27 consensus / 48 agree) | yes | Person 5 (motivation), Person 4 (split) |
 | synthetic graphs 80 / 500 | yes (code) | Person 3 |
 | real pipeline N=21 | yes (hand-encoded) | Person 3 |

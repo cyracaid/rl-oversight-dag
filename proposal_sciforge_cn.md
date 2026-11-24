@@ -8,7 +8,7 @@ layout: default
 <p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_en.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_ko.html">한국어</a> · <b>中文</b></p>
 
 小组课程项目提案 · STA3145 强化学习 · 深化版 2026-11-09
-睡眠数据：与 Maia ten Brink（Stanford Psychophysiology Lab）一年合作的 EMA。
+睡眠数据：与 某大学睡眠研究实验室一年合作的 EMA。
 应用：由 Zhangyang Gao 开发的 SciForge（AI4Science, Shanghai AI Lab）。本提案是为 SciForge 写的。
 > 本版在 SciForge 的证据链内部重述这份提案，并合入所有第二轮结果（GNN 打分器、CMDP 软预算、76% 的纠错、以及 2026 年的文献）。第 3 节和第 9 节是为 SciForge 新写的。
 

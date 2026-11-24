@@ -72,8 +72,7 @@ without softening.
 
 ## Ownership and boundary
 
-The data belongs to the sleep collaboration (Maia ten Brink, Stanford Psychophysiology
-Lab). Aggregate-only reporting per `TRACKS.md`; IRB decides what may leave the lab. This
+The data belongs to the sleep collaboration (a university sleep-research lab). Aggregate-only reporting per `TRACKS.md`; IRB decides what may leave the lab. This
 request asks for a de-identified node-level table, nothing else. No participant
 identifiers, no raw `*.rds`, nothing committed to the repo — the CSV stays local and only
 `calibration.json` + `calibration.md` are committed.

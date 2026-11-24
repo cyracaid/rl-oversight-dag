@@ -8,7 +8,7 @@ layout: default
 <p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html">English</a> · <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.html">中文</a></p>
 
 > STA3145 강화학습 · 팀 프로젝트 · 심화판 2026-11-09
-> 수면 데이터: Maia ten Brink(Stanford Psychophysiology Lab)와 1년 협업 EMA
+> 수면 데이터: 한 대학 수면 연구실와 1년 협업 EMA
 > 응용 대상: SciForge(Zhangyang Gao 개발, AI4Science, Shanghai AI Lab)
 > 영어판: `PROJECT_EN.md` · 중국어판: `PROJECT_CN.md`
 > 저장소: https://github.com/cyracaid/rl-oversight-dag

@@ -74,7 +74,7 @@ This matters for how the motivation is worded, so it is stated explicitly.
   errors". 76% is a fact about *correction types*; it is not yet evidence about *whose* mistake
   it was.
 
-**Action (1 hour, no new data):** ask Maia ten Brink / 동채하 whether a `source` column
+**Action (1 hour, no new data):** ask 연구실 협력자 / 동채하 whether a `source` column
 (participant entry vs parser vs downstream computation) can be added to the 75-row file. If it
 can, the motivation becomes much stronger and the "AI errors cluster" claim becomes defensible.
 If it cannot, the talk says "corrections cluster by type" and stops there.
@@ -262,7 +262,7 @@ in between (11/17–11/22) is rehearsal and polish, not more scope.
 | day | date | lane 1 (env / RL, people 2–3) | lane 2 (baselines / write-up, people 4–5) | gate |
 |---|---|---|---|---|
 | D0 | Mon 11/09 | freeze env; no new variants | verify every number regenerates from scripts; data-absent path | code frozen |
-| D1 | Tue 11/10 | **run the standard comparison overnight**: static / observed (5 seeds) | table shell + figure scripts; provenance question to Maia | — |
+| D1 | Tue 11/10 | **run the standard comparison overnight**: static / observed (5 seeds) | table shell + figure scripts; provenance question to the lab collaborator | — |
 | D2 | Wed 11/11 | **read-out by 18:00; write the paragraph** | — | **claim fixed** |
 | D3 | Thu 11/12 | 2-step greedy control; rerun anything the read-out breaks | controls: shuffle / flatten | — |
 | D4 | Fri 11/13 | reruns overnight (5 seeds each) | worst-of-n table | — |

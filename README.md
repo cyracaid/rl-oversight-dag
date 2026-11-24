@@ -2,7 +2,7 @@
 
 > STA3145 Reinforcement Learning · Group project. Under a limited review budget, we use RL to learn which node of a dependency graph to review, so that fewer errors reach the final conclusion.
 >
-> Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
+> Sleep data: one year of EMA collaboration with a university sleep-research lab.
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
 **What this concludes, in plain words.** The task is *which claim to check next* under a fixed review budget. Where
@@ -93,7 +93,7 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | `experiments/` | code | every number |
 | `triage_bench/` | code | the **real** review queue: recall@k, no simulator |
 
-**SciForge (AI4Science, Shanghai AI Lab, developed by Zhangyang Gao)** — the evidence-chain review layer, applied to sleep data from the one-year collaboration with Maia ten Brink (Stanford Psychophysiology Lab):
+**SciForge (AI4Science, Shanghai AI Lab, developed by Zhangyang Gao)** — the evidence-chain review layer, applied to sleep data from the one-year collaboration with a university sleep-research lab:
 
 | File | Language | For |
 |---|---|---|

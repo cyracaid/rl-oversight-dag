@@ -8,7 +8,7 @@ layout: default
 <p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_en.html">English</a> · <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_cn.html">中文</a></p>
 
 팀 과정 프로젝트 제안서 · STA3145 강화학습 · 심화판 2026-11-09
-수면 데이터: Maia ten Brink(Stanford Psychophysiology Lab)와 1년간의 EMA 협업.
+수면 데이터: 한 대학 수면 연구실와 1년간의 EMA 협업.
 응용: Zhangyang Gao가 개발한 SciForge(AI4Science, Shanghai AI Lab). 이 제안서는 SciForge를 위한 것이다.
 > 이 판은 제안서를 SciForge의 증거 체인 안에서 다시 진술하고, 2차 라운드 결과(GNN 점수기, CMDP 소프트 예산, 76% 교정, 2026년 문헌)를 모두 합쳤다. 3절과 9절은 SciForge를 위해 새로 쓴 것이다.
 

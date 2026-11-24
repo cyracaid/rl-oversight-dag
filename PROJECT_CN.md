@@ -8,7 +8,7 @@ layout: default
 <p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.html">한국어</a> · <b>中文</b></p>
 
 > STA3145 强化学习 · 小组项目 · 深化版 2026-11-09
-> 睡眠数据：与 Maia ten Brink（Stanford Psychophysiology Lab）一年合作的EMA数据
+> 睡眠数据：与 某大学睡眠研究实验室一年合作的EMA数据
 > 应用对象：SciForge（Zhangyang Gao 开发，AI4Science, Shanghai AI Lab）
 > 仓库：https://github.com/cyracaid/rl-oversight-dag
 

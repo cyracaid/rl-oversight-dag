@@ -8,7 +8,7 @@ layout: default
 <p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.html">中文</a></p>
 
 > STA3145 Reinforcement Learning · Group project · Deepened 2026-11-09
-> Sleep data: one year of collaboration with Maia ten Brink (Stanford Psychophysiology Lab)
+> Sleep data: one year of collaboration with a university sleep-research lab
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab)
 > Repo: https://github.com/cyracaid/rl-oversight-dag
 

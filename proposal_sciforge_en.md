@@ -8,7 +8,7 @@ layout: default
 <p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_ko.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/proposal_sciforge_cn.html">中文</a></p>
 
 Team course project proposal · STA3145 Reinforcement Learning · Deepened version 2026-11-09
-Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
+Sleep data: one year of EMA collaboration with a university sleep-research lab.
 Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab). This proposal is for SciForge.
 > This version restates the proposal inside SciForge's evidence chain and merges all second-round results (GNN scorer, CMDP soft budget, the 76% correction, and the 2026 literature). Sections 3 and 9 are new for SciForge.
 

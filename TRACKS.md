@@ -68,7 +68,7 @@ What is theirs, and only theirs:
 |---|---|---|
 | **郑心** (evidence-chain owner) | whether a suggester output may ever be recorded in the audit chain; the receipt fields; the granularity of their chain | propose a default, adapt to their answer, never assume it |
 | **Zhangyang Gao** (SciForge) | whether any of this enters the product | keep Stage 2 a design + offline result until they want more |
-| **Maia ten Brink** (sleep lab) | how the sleep data may be used and reported | aggregates only, IRB first |
+| **the lab collaborator** (sleep lab) | how the sleep data may be used and reported | aggregates only, IRB first |
 
 The distinction that matters: **they decide what happens inside their system; they do
 not decide what we claim in our course project.** A "no" from any of them closes a
