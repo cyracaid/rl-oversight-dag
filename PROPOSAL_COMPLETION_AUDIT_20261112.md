@@ -14,7 +14,7 @@
 | 3 | Q-learning、REINFORCE、GNN 等 | 已完成并有证据 | Q-learning：`dependency_review_sim.py`、`experiments/results.md`；MLP REINFORCE/PPO/DQN：`rl_methods_compare.py`、`methods_compare.json`；GNN：`rl_gnn_multiseed.py`、`gnn_results.json`、full-v1 checkpoints。Q-learning 属于旧 bandit 版本，不能混成当前序贯 GNN。实现并运行不等于赢过 baseline；CMDP/PPO 的后续升级未完成。 |
 | 4 | Belief particle filter | 已完成并有证据 | `experiments/belief.py`、`test_semantics.py`、`test_boundary.py`，并用于 full-v1。粒子近似有退化事件，不是精确后验。 |
 | 5 | Belief greedy baseline | 已完成并有证据 | `belief.py:gain/best_action`，full-v1 matched 平均 1.100；只看允许的 belief、结构及观测。期望收益在粒子近似下计算，proposal 的“exact expected”措辞过强。 |
-| 6 | 200 held-out graphs | 已完成并有证据 | `gnn_results.json`、`final_table.md`，full-v1 三份逐图结果均为 seeds 1000–1199；学习策略有 5 个训练种子。它们已反复用于开发，不能再当独立确认集；2000–2199 尚未运行。 |
+| 6 | 200 held-out graphs | 已完成并有证据（含独立确认） | `gnn_results.json`、`final_table.md`，full-v1 三份逐图结果均为 seeds 1000–1199；学习策略有 5 个训练种子。它们已反复用于开发，不能再当独立确认集。独立确认已于 2026-11-24 在未使用的 seeds 2000–2199 上运行：`role2_규리/results/confirm-v1/`，marginal 0.885 vs GNN 1.262，GNN−marginal +0.377 [+0.255, +0.510]；同集信号门控 −1.420 [−1.695, −1.150]。原始均值与开发集不可直接比较，仅配对差值可迁移；门控只在易分的均匀噪声上验证。 |
 | 7 | Confidence ablation | 已完成并有证据（旧消融，有限） | `rl_ablation.py`、`ablation_log.txt`：3 seeds ×12k，normal/noise/oracle=1.38/3.78/0.72，评估 legacy 图，不是 200 图 full-v1 消融。源码训练和评估均传入零邻接 `A0`，不能称已完成真实消息传递 GNN 的配对消融；未设置 torch 训练种子。日志最后 oracle-normal 的算术/标注也有错误，不能引用其机制归因。 |
 | 8 | RL 加 belief features | 已完成并有证据 | `rl_gnn_multiseed.py:features` 明确加入 P(base error)、P(error)、reviewed、flagged、budget。旧表 static/observed 均约1.56；full-v1 为1.517/1.709。未加入 entropy；不同运行不混为同一表。不能从失败唯一归因 credit assignment。 |
 | 9 | Gain features + GNN | 计划或设计 | `RL_PLAN.md` 提出 gain(i) 输入；当前 features 只有 K+2/K+7，未拼接 gain。`belief.gain()` 与 two-step 使用 gain 不是 gain-conditioned GNN。BC 模仿 greedy 也不能替代这项实验。 |
@@ -40,7 +40,7 @@
 1. 修订旧文档中“gain/n-step 已落地”“credit assignment 已确证”等超出证据的表述，保留旧结果原文件。
 2. 若继续课程 RL 扩展，另建 gain-conditioned GNN 与 AC/n-step 设计和运行产物；不把 BC/FT 改名充数。
 3. 非平稳性须先定义真实错误率随时间如何变化，再运行；静态模型误设结果不能替代。
-4. 独立确认和队友复现分开记录；确认集未运行前不能升级两步收益结论。
+4. 独立确认和队友复现分开记录：独立确认已于 2026-11-24 在 seeds 2000–2199 上完成（见第 6 行），两步收益仍只有开发集证据；队友从干净环境重跑仍无证据。
 5. SciForge 主系统集成是独立工程工作流，需真实接口/端到端验收；API开发诊断亦仍无成功生成证据。
 
 本审计不自动启动训练、部署、提交或推送，也不修改用户已有源码与结果。

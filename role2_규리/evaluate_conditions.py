@@ -66,12 +66,21 @@ def main():
     parser.add_argument("--out", type=Path, required=True, help="new output directory")
     parser.add_argument("--start", type=int, default=91000, help="first evaluation graph seed")
     parser.add_argument("--graphs", type=int, default=200, help="number of paired graphs")
+    parser.add_argument("--confirm", action="store_true",
+                        help="run the untouched confirmation range [2000, 2200): seeds 2000..2199, "
+                             "never used for development. Ignores --start; --graphs may shrink it for a smoke test.")
     parser.add_argument("--checkpoints", type=Path, nargs="+", default=[
         ROLE3 / "outputs" / "v3" / f"train_{seed}" / "gnn_spike_observed.pt"
         for seed in (1, 2, 3)
     ])
     args = parser.parse_args()
-    if args.graphs < 1 or args.start < 90000 or args.start + args.graphs > 100000:
+    if args.confirm:
+        if args.start != 91000:
+            parser.error("--confirm fixes graph seeds to start at 2000; do not pass --start")
+        if not 1 <= args.graphs <= 200:
+            parser.error("--confirm allows 1..200 graphs (full confirmation set is 200: seeds 2000..2199)")
+        args.start = 2000
+    elif args.graphs < 1 or args.start < 90000 or args.start + args.graphs > 100000:
         parser.error("select a positive graph count within the test range [90000, 100000)")
 
     marginal = partial(choose, name="marginal")

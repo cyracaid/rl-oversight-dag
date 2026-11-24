@@ -256,7 +256,7 @@ Each ingredient exists. The combination does not (we did not find it).
 5. GNN vs belief greedy: belief greedy wins by 0.42 ± 0.15 on 200 held-out graphs. Belief greedy assumes the confidence model and edge probabilities are known exactly; test it under misspecification before treating it as an upper bound for deployable policies.
 6. GNN + PPO not converged (~5.60).
 7. Dual-critic CMDP not built (naive 2.15 with a fixed seed; 4.85 unseeded).
-8. Belief greedy assumes the confidence model and edge probabilities are known exactly; misspecification was tested on the development set in boundary-full-v1 (see 10b); the independent confirmation set has not been run.
+8. Belief greedy assumes the confidence model and edge probabilities are known exactly; misspecification was tested on the development set in boundary-full-v1 (see 10b). The independent confirmation set (seeds 2000-2199) has since been run on 2026-11-24: matched marginal 0.885 vs GNN 1.262, GNN − marginal +0.377 [+0.255, +0.510]; signal gate under corruption −1.420 [−1.695, −1.150].
 9. SciForge: confidence field on nodes; real graph size / edge types.
 10. Consensus / Hard split (27 / 48) — labels exist, evaluation not run.
 11. BestReject (arXiv:2409.20489) = our calibrated threshold — claim dropped as unverified.
@@ -326,13 +326,14 @@ conflicts with the saved JSON and was marked inadmissible in the pre-registratio
 section and must not be cited**. The earlier attribution of the gap to credit assignment is withdrawn too. KL
 fine-tuning is a separately listed exploratory intervention and is not reported as a conclusion here.
 
-**Limits.** The independent confirmation set (graph seeds 2000-2199) has not been run; planner intervals
+**Limits.** The independent confirmation set (graph seeds 2000-2199) has now been run on 2026-11-24 and the
+confidence study replicated (see 10b); planner intervals
 resample graphs only; five training seeds; the synthetic DAG does not test semantic verification of real
 sleep claims, evidence availability, judgement reliability or cost.
 
 **Open items for SciForge.** (1) the one-step value `gain(i)` as a feature; (2) trust-region size and early
-stopping; (3) broader misspecification (drifting type rates, etc.); (4) to confirm two-step planning, freeze the
-candidate and matched condition first, then have the user run the independent confirmation.
+stopping; (3) broader misspecification (drifting type rates, etc.); (4) two-step planning is still not
+confirmed on an independent set: freeze the candidate and matched condition first, then run on an unused range.
 
 ---
 

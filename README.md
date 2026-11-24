@@ -13,7 +13,7 @@ for the open items; the build brief lives in the team's Feishu wiki.
 
 **New here?** [One-page reading guide](https://cyracaid.github.io/rl-oversight-dag/READING.html) — who should read which document, five plain words, and what to skip. (中文速览在文末。)
 
-**Latest RL results · 2026-11-12:** [한국어 결과 요약](experiments/BOUNDARY_RESULTS_KO.md) · [中文详细解释](experiments/BOUNDARY_FULL_V1_INTERPRETATION.md) · [Preregistration](experiments/BOUNDARY_PREREG.md). Five training seeds, 200 development graphs: belief greedy 1.100, two-step greedy 1.020, BC 1.201, BC+FT 1.525 sink errors (lower is better). Current RL policies do not outperform belief greedy; independent confirmation has not run. [Saved synthetic results and checkpoints](runs/boundary-full-v1/).
+**Latest RL results · 2026-11-12:** [한국어 결과 요약](experiments/BOUNDARY_RESULTS_KO.md) · [中文详细解释](experiments/BOUNDARY_FULL_V1_INTERPRETATION.md) · [Preregistration](experiments/BOUNDARY_PREREG.md). Five training seeds, 200 development graphs: belief greedy 1.100, two-step greedy 1.020, BC 1.201, BC+FT 1.525 sink errors (lower is better). Current RL policies do not outperform belief greedy; this now replicates on the untouched confirmation set (seeds 2000–2199): GNN − marginal **+0.377 [+0.255, +0.510]**. [Saved synthetic results and checkpoints](runs/boundary-full-v1/).
 
 **Who does what (visual, EN / 한국어 / 中文):** [PLAN.html](PLAN.html) — dependency graph, 8-day schedule, four interfaces, three gates. Built from one source: `python3 tools/build_plan.py`. Text version: [GENERALIZATION_PLAN.md](GENERALIZATION_PLAN.md).
 
@@ -90,15 +90,25 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Question | Simple rule | Learned policy | Verdict | Source |
 |---|---|---|---|---|
 | Spike, 200 held-out graphs, budget 16 | adaptive marginal **1.130** | GNN 1.410 / 1.590 / 1.455 | rule wins on all 3 training seeds | `role2_규리/results/confidence-v1/` |
+| …same, untouched confirmation 2000–2199 | adaptive marginal **0.885** | GNN 1.185 / 1.325 / 1.275 | rule wins; GNN − marginal **+0.377 [+0.255, +0.510]** | `role2_규리/results/confirm-v1/` |
 | Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; learned CIs contain 0 | `role3 improvement/outputs/v3/` |
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
 | Confidence corrupted (uniform noise, not recognised) | marginal **4.415** | adaptive marginal **3.150** | −1.265 [−1.545, −0.985] | `role2_규리/results/confidence-v1/` |
+| …same, untouched confirmation 2000–2199 | marginal **4.185** | adaptive marginal **2.765** | −1.420 [−1.695, −1.150] | `role2_규리/results/confirm-v1/` |
 | Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
 | Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
 
 The claim these support is **estimating which signal to trust, and staying safe when it cannot be trusted** —
 not "the RL policy beats the rules". The learned policy loses to a deterministic two-step rule in the same
 study that shows it improved (`role2_규리/results/credit-v1/confirmation/`).
+
+**Confirmed on an untouched set (2026-11-24).** Seeds 2000–2199 were never used for development. Re-running
+the confidence study there reproduces both core claims and leaves the paired deltas essentially unchanged:
+GNN − marginal +0.355 → **+0.377 [+0.255, +0.510]**; signal gate −1.265 → **−1.420 [−1.695, −1.150]**. The
+absolute means move (marginal 1.130 → 0.885) because this set is easier, so raw means are **not** comparable
+across sets — only the paired deltas transfer. Caveat: the gate separates the synthetic uniform-noise
+corruption almost perfectly (199/200 graphs correctly labelled), so it is evidence for *detectable
+mean-shift* corruption, not for subtle or local corruption.
 
 ---
 
@@ -218,4 +228,4 @@ Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torc
 - **N=500 results are heuristics, not RL.** Deployable belief greedy: BA 12.8 vs threshold 37.6; on modular/ER it is only slightly better than the threshold.
 - **Real-pipeline DAG (N=21): threshold 0.50 vs no-review 2.12** — the application-value result on our actual lab pipeline.
 - **Real review queue (1,048 flags, 68 human-confirmed errors, 6.5% precision):** one rule ("M1-bearing first") reaches **84% of errors in 13% of the queue**; the pipeline's own order is *worse than random*. Errors cluster inside participants (variance/mean 2.00 vs null 1.10, p=0.0005), but ranking participants adds **no significant** gain over the row rule (@400 +7.3% [−8.6%, +10.0%]). Inside the 885 M4-only flags a grouped model gets **AUC 0.467** and adaptive belief **P@200 1.5%** vs 1.24% base — no headroom. That makes 84% an **information ceiling**, not a win: 7 of 72 corrections are never flagged at all, so no ranking policy can reach them. See `triage_bench/CEILING.md`.
-- All numbers were produced by an AI agent and have not been independently verified; Section 12 of `PROJECT_EN.md` lists the full checklist.
+- All numbers were produced by an AI agent and have not been independently verified, except the 2000–2199 confirmation re-run above, which the repository owner executed end-to-end from the committed scripts; Section 12 of `PROJECT_EN.md` lists the full checklist.
