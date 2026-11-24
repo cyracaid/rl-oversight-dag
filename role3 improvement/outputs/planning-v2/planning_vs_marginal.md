@@ -13,8 +13,8 @@ Pre-registration: `PREREGISTER_PLANNING_V2.md`. Verdict code: `report_planning.p
 
 ## How to read the two variants
 
-- `modular`: `catch` -0.009, `full` -0.833. The two variants do not separate: the miss branch is not what moves the result.
-- `spike`: `catch` +0.031, `full` -1.188. The two variants do not separate: the miss branch is not what moves the result.
+- `modular`: `catch` -0.009, `full` -0.833. `full` is *lower* by 0.82, so trusting the environment's miss update is costly rather than merely irrelevant: the update is a heuristic, and a depth-two planner reads a likely miss as a belief drop it can collect. Read `catch` for the horizon and `full` for the size of that artifact.
+- `spike`: `catch` +0.031, `full` -1.188. `full` is *lower* by 1.22, so trusting the environment's miss update is costly rather than merely irrelevant: the update is a heuristic, and a depth-two planner reads a likely miss as a belief drop it can collect. Read `catch` for the horizon and `full` for the size of that artifact.
 
 ## What this settles and what it does not
 

@@ -85,15 +85,24 @@ def render(summary):
     for entry in summary:
         catch = next(v for v in entry["variants"] if v["policy"] == "plan2_catch")
         full = next(v for v in entry["variants"] if v["policy"] == "plan2_full")
+        gap = full["recovery"] - catch["recovery"]
+        if gap > 0.02:
+            reading = ("`full` is higher, and that difference is the miss-branch artifact, "
+                       "not planning: a missed review lowers the belief, so the planner "
+                       "prefers nodes likely to be missed.")
+        elif gap < -0.02:
+            reading = ("`full` is *lower* by "
+                       f"{abs(gap):.2f}, so trusting the environment's miss update is "
+                       "costly rather than merely irrelevant: the update is a heuristic, "
+                       "and a depth-two planner reads a likely miss as a belief drop it "
+                       "can collect. Read `catch` for the horizon and `full` for the size "
+                       "of that artifact.")
+        else:
+            reading = ("The two variants do not separate: the miss branch is not what "
+                       "moves the result.")
         lines.append(
             f"- `{entry['family']}`: `catch` {catch['recovery']:+.3f}, "
-            f"`full` {full['recovery']:+.3f}. "
-            + ("`full` is higher, and that difference is the miss-branch artifact, "
-               "not planning: a missed review lowers the belief, so the planner "
-               "prefers nodes likely to be missed."
-               if full["recovery"] > catch["recovery"] + 0.02 else
-               "The two variants do not separate: the miss branch is not what "
-               "moves the result."))
+            f"`full` {full['recovery']:+.3f}. {reading}")
     lines += [
         "",
         "## What this settles and what it does not",
