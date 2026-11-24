@@ -34,6 +34,14 @@ def test_cost_without_reviews_is_the_prior_expectation(model):
     assert 0.0 <= model.cost(0, 0) <= len(graph.sinks)
 
 
+def test_marginal_reimplementation_matches_the_deployed_rule(model):
+    """The rule in `policies` and the rule inside the DP must pick the same node."""
+    from dag_role3 import OversightEnv, policies
+
+    env = OversightEnv(model.graph, model.snapshot, budget=16)
+    assert policies.choose(env.observation(), "marginal") == model.marginal_policy(0, 0, None)
+
+
 def test_miss_update_is_a_bayes_update():
     from exact_dp import miss_update
 

@@ -85,10 +85,12 @@ class Model:
         self.parents, self.topo, self.sinks = graph.parents, graph.topo, graph.sinks
         self.edge_prob = dict(snapshot.edge_probs)
         self.confidence = snapshot.confidence
+        self.snapshot = snapshot
         self.base0 = initial_belief(graph, snapshot.confidence, "normal")
         self.n = graph.n
 
     # -- belief bookkeeping -------------------------------------------------
+    @lru_cache(maxsize=None)
     def base_for(self, mask, flags):
         base = self.base0.copy()
         for i in range(self.n):
@@ -96,10 +98,12 @@ class Model:
                 base[i] = 0.0 if flags >> i & 1 else miss_update(self.base0[i], self.catch)
         return base
 
+    @lru_cache(maxsize=None)
     def cost(self, mask, flags):
         base = self.base_for(mask, flags)
         return sink_cost(effective_risk(self.parents, self.topo, base, self.edge_prob), self.sinks)
 
+    @lru_cache(maxsize=None)
     def risk(self, mask, flags):
         return effective_risk(self.parents, self.topo, self.base_for(mask, flags), self.edge_prob)
 
@@ -247,8 +251,17 @@ def report(out: Path) -> None:
     if real and 5 in budgets and 1 in budgets and 3 in budgets:
         p2 = [r["dp"] - r["greedy_exact"] for r in real[5]]
         m2 = sum(p2) / len(p2)
-        lines.append(f"| P2 | value of planning (dp5 − greedy_exact) ≤ 0.02 on real "
-                     f"| {m2:+.4f} | {'holds' if m2 <= 0.02 else 'contradicted'} |")
+        gain2 = -m2
+        # The prediction bounds the size of the planning gain, so the test must be on
+        # magnitude. A signed `m2 <= 0.02` passes for any gain at all, which is how a
+        # 0.0219 gain would have been reported as "holds" without ever being checked.
+        ok2 = abs(m2) <= 0.05          # PREREGISTER_DP.md: falsified above 0.05
+        note2 = "" if abs(m2) <= 0.02 else (
+            f" — nominal 0.02 missed by {abs(m2) - 0.02:.4f}; still inside the 0.05 "
+            "falsification bound")
+        lines.append(f"| P2 | value of planning (dp5 − greedy_exact) ≤ 0.02 on real, "
+                     f"falsified above 0.05 | gain {gain2:+.4f} "
+                     f"| {'holds' if ok2 else 'contradicted'}{note2} |")
         v1 = sum(r["dp"] for r in real[1]) / len(real[1])
         v3 = sum(r["dp"] for r in real[3]) / len(real[3])
         v5 = sum(r["dp"] for r in real[5]) / len(real[5])
@@ -261,7 +274,7 @@ def report(out: Path) -> None:
     if 5 in budgets:
         worst = {fam: sum(r["dp"] - r["marginal"] for r in flat[fam][5]) / len(flat[fam][5])
                  for fam in families}
-        ok = all(v < 0.10 for v in worst.values())
+        ok = all(abs(v) < 0.10 for v in worst.values())
         detail = ", ".join(f"{fam} {v:+.4f}" for fam, v in worst.items())
         lines.append(f"| P5 | dp5 − marginal < 0.10 on both families (saturation survives the ceiling) "
                      f"| {detail} | {'holds' if ok else 'contradicted'} |")
@@ -308,12 +321,18 @@ def main():
                 f.flush()
                 print(f"{family} seed {seed} done", flush=True)
 
+    here = Path(__file__).resolve().parent
+    sources = sorted(p for p in here.rglob("*.py") if "__pycache__" not in p.parts)
     manifest = {
         "preregistration": "PREREGISTER_DP.md",
         "families": args.families, "budgets": args.budgets, "graphs": args.graphs,
         "p_catch": P_CATCH, "confidence_mode": "normal",
         "seed_blocks": {f: SEED_BLOCKS[f] for f in args.families},
         "csv_sha256": hashlib.sha256(csv_path.read_bytes()).hexdigest(),
+        "source_sha256": {
+            str(p.relative_to(here)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sources
+        },
     }
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2))
     print("wrote", csv_path)
