@@ -66,15 +66,18 @@ plain trust (2.15 / 1.89 / 1.87). The `p_catch` trend did not come out as predic
 | 3800–3899 | boundary experiment |
 | 4000–4199 | `p_catch` sweep |
 | 4200–4399 | PPO baseline (`outputs/ppo-v1/`, `PREREGISTER_PPO.md`) |
-| 4000–4999 (200-blocks) / 5200–5399 | planning v2, `PREREGISTER_PLANNING_V2.md` |
+| 4400–4599 | sampled counterfactual value (`PREREGISTER_EXACT_VALUE.md`) |
+| 4600–4799 | **void** — smoke runs only (4600–4603), excluded from every result |
+| 4800–4999 | belief-value decomposition (`PREREGISTER_BELIEF_DECOMPOSITION.md`) |
+| 5200–5399 | depth-2 planning (`PREREGISTER_PLANNING_V2.md`) |
 | 60000–60023 | exact DP ceiling (`outputs/dp-ceiling/`, `PREREGISTER_DP.md`) |
 | 70000–70099 | calibration (parameters fitted here only) |
 | 91000–91199 / 92000–92199 / 93000–93199 / 94000–94199 | assess / feedback / residual / planning |
 
-Next free block: **5600–5799**, then **60000 and up minus the DP block**. Rerunning a spent
+Next free block: **5000–5199**, then **5400–5599**, then **60024 and up**. Rerunning a spent
 block is a rules violation, not a re-check; the results are already byte-reproducible. (This
-line said "4200 and up" until 2026-11-24; the PPO run spent 4200–4399 and planning v2 claimed
-4000–4999 / 5200–5399, so the ledger moved. The earlier "mixed δ at 4200–4299" suggestion was
+line said "4200 and up" until 2026-11-24; four later blocks had gone unrecorded here, so the
+ledger listed less than it should have. The earlier "mixed δ at 4200–4299" suggestion was
 stale for the same reason.)
 
 ## 5. Why the numbers can be trusted mechanically
@@ -91,8 +94,8 @@ stale for the same reason.)
 
 1. **Mixed δ inside one layer** — the only real hole. The boundary experiment moved
    two disjoint layers by two deltas; it never moved one layer by two different
-   deltas. 100 graphs, 20 cells, same cost as the boundary run. Seeds 5600–5699 (the
-   earlier 4200–4299 suggestion is inside the planning v2 range and is no longer free).
+   deltas. 100 graphs, 20 cells, same cost as the boundary run. Seeds 5000–5099 (the
+   earlier 4200–4299 suggestion is spent, and 4400–4999 / 5200–5399 are taken).
 2. **`p_catch` × `scope`** — at a 0.60 hit rate, is δ still estimated? This is the
    only meaningful crossing of the two lines.
 3. Real `n = 21` pipeline with `scope` — expected negative, optional, not for the
