@@ -303,7 +303,8 @@ def render(manifest, cells, verdict_cells, graphs, result):
             "사라졌고, 깨끗한 비용도 상한 안이며, 112셀 평균에서 shrink를 capacity 손해 없이 "
             "대체했다. 즉 **\"노드가 움직였나\"가 아니라 \"그래프가 움직였나\"를 물으면 전역 이동을 "
             "되돌릴 수 있다.**", "",
-            "다만 이 성공은 shrink가 잘하던 셀을 포기해서 산 것이다. 아래 표의 음수 칸이 그 값이다.",
+            "다만 이 성공은 shrink가 잘하던 셀을 포기해서 산 것이다. 아래 `scope − shrink` 표에서 "
+            "양수인 칸이 그 값이다(양수 = shrink보다 나쁨).",
         ])
     elif result["verdict"] == "부분 성공":
         lines.extend([

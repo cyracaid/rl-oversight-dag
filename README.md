@@ -101,6 +101,7 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Corruption boundary: locality × magnitude × coverage (200 fresh graphs) | trust **0.865** (= clean oracle) | global-mean gate **2.745** in the worst cell | fires 195/200 on a rank-preserving −1 shift (+1.82 error) but 0/200 when real errors are masked (+3.21 error) | `role2_규리/results/corruption-v1/` |
 | Probe-then-decide repair of that gate (pre-registered, 200 fresh graphs) | trust **0.935** | verify **0.935** (no worse than trusting at −1) | frozen verdict **failure**: 5 of 13 fired cells worse than trust, trigger still fires on harmless +3 shifts | `role2_규리/results/verify-v1/` |
 | Per-node mixture posterior instead of a global gate (pre-registered, 200 fresh graphs) | trust **1.050** (= clean oracle) | shrink **1.055** clean, **−0.370** where errors are masked | frozen verdict **success**: all four predictions hold, +0.105 [0.040, 0.175] at −1; boundary — a harmless *global* +2/+3 shift still loses +0.45 / +0.72 | `role2_규리/results/shrink-v1/` |
+| Two-level scope posterior: is the *graph* shifted, and by how much? (pre-registered, 200 fresh graphs) | trust **0.940** (= clean oracle) | scope **0.945** clean, **0.94** at the 100 % −4 shift (trust 3.86, shrink 2.92) | frozen verdict **success**: all six predictions hold; harmless global +3 **+0.005 [+0.000, +0.015]** (shrink +0.81) and +2 +0.010; pays back shrink's masking gain **+0.325 [+0.195, +0.470]**; 112-cell mean 1.303 → 1.266 → **1.203** | `role2_규리/results/scope-v1/` |
 | Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
 | Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
 
@@ -175,6 +176,17 @@ beats plain trust there. Its boundary is as sharp as the gate's: a harmless *glo
 Node-level posteriors identify *which* node moved, not *whether the whole graph did*, and masking still leaves
 +2.72 [+2.45, +3.01] errors above oracle. Korean report: `role2_규리/results/shrink-v1/shrink.md`; rerun with
 `./run_shrink.sh`.
+
+The decision variable then moved up one level. `shrink` judges each node separately, so a harmless global shift reads as
+"every clean node moved": it loses +0.72 at global +3. A pre-registered two-level model (`role2_규리/PREREGISTER_SCOPE_V2.md`)
+competes "nothing moved" (q = 0) against "a fraction q of the 80 nodes moved by one shared δ" — one δ per graph, because that
+is what the generator does — with p0 = 0.20 fitted only on 70000–70029. On 200 further fresh graphs (seeds 3600–3799) all six
+frozen predictions hold: global +3 costs +0.005 [+0.000, +0.015] versus trusting, +2 costs +0.010, clean +0.005, partial 50 %/−3
+**−0.515**, and the 112-cell mean falls from trust 1.303 and shrink 1.266 to **1.203**. At a full −4 shift the posterior undoes δ
+and the policy lands on the clean oracle (0.94 versus trust 3.86). The payment was declared in advance: a masked graph is
+indistinguishable from a clean one by scores alone, so q = 0 wins and shrink's −0.36 gain is given back (+0.325 [+0.195, +0.470]
+worse than shrink, still no worse than trusting). 45 of 112 cells beat trusting, 55 are worse, none by more than +0.06.
+Korean report: `role2_규리/results/scope-v1/scope.md`; rerun with `./run_scope.sh`.
 
 ---
 

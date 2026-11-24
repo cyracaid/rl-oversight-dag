@@ -1,0 +1,2242 @@
+{
+  "grid": {
+    "clean": {
+      "0.0": {
+        "0.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.94,
+            "prior": 3.05,
+            "gate": 0.94,
+            "shrink": 0.97,
+            "scope": 0.945
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.025000000000000022,
+          "shrink_trust": 0.030000000000000027
+        }
+      }
+    },
+    "uniform": {
+      "0.1": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.215,
+            "prior": 3.05,
+            "gate": 1.355,
+            "shrink": 1.17,
+            "scope": 1.235
+          },
+          "scope_trust": 0.020000000000000018,
+          "scope_shrink": 0.06500000000000017,
+          "shrink_trust": -0.04500000000000015
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.145,
+            "prior": 3.05,
+            "gate": 1.235,
+            "shrink": 1.105,
+            "scope": 1.155
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": 0.050000000000000044,
+          "shrink_trust": -0.040000000000000036
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.025,
+            "prior": 3.05,
+            "gate": 1.05,
+            "shrink": 1.035,
+            "scope": 1.035
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": 0.0,
+          "shrink_trust": 0.010000000000000009
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.98,
+            "prior": 3.05,
+            "gate": 0.98,
+            "shrink": 0.975,
+            "scope": 0.98
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.0050000000000000044,
+          "shrink_trust": -0.0050000000000000044
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.025,
+            "prior": 3.05,
+            "gate": 1.025,
+            "shrink": 1.025,
+            "scope": 1.025
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.0,
+          "shrink_trust": 0.0
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.125,
+            "prior": 3.05,
+            "gate": 1.125,
+            "shrink": 1.135,
+            "scope": 1.125
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.010000000000000009
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.315,
+            "prior": 3.05,
+            "gate": 1.315,
+            "shrink": 1.315,
+            "scope": 1.29
+          },
+          "scope_trust": -0.02499999999999991,
+          "scope_shrink": -0.02499999999999991,
+          "shrink_trust": 0.0
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.985,
+            "prior": 3.05,
+            "gate": 3.03,
+            "shrink": 1.705,
+            "scope": 1.68
+          },
+          "scope_trust": -0.30500000000000016,
+          "scope_shrink": -0.025000000000000133,
+          "shrink_trust": -0.28
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.725,
+            "prior": 3.05,
+            "gate": 2.735,
+            "shrink": 1.51,
+            "scope": 1.58
+          },
+          "scope_trust": -0.14500000000000002,
+          "scope_shrink": 0.07000000000000006,
+          "shrink_trust": -0.21500000000000008
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.305,
+            "prior": 3.05,
+            "gate": 1.91,
+            "shrink": 1.31,
+            "scope": 1.285
+          },
+          "scope_trust": -0.020000000000000018,
+          "scope_shrink": -0.025000000000000133,
+          "shrink_trust": 0.0050000000000001155
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.035,
+            "prior": 3.05,
+            "gate": 1.135,
+            "shrink": 1.015,
+            "scope": 1.035
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.020000000000000018,
+          "shrink_trust": -0.020000000000000018
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.045,
+            "prior": 3.05,
+            "gate": 1.045,
+            "shrink": 1.08,
+            "scope": 1.05
+          },
+          "scope_trust": 0.0050000000000001155,
+          "scope_shrink": -0.030000000000000027,
+          "shrink_trust": 0.03500000000000014
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.365,
+            "prior": 3.05,
+            "gate": 1.365,
+            "shrink": 1.36,
+            "scope": 1.37
+          },
+          "scope_trust": 0.0050000000000001155,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": -0.004999999999999893
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.81,
+            "prior": 3.05,
+            "gate": 1.81,
+            "shrink": 1.72,
+            "scope": 1.67
+          },
+          "scope_trust": -0.14000000000000012,
+          "scope_shrink": -0.050000000000000044,
+          "shrink_trust": -0.09000000000000008
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 2.74,
+            "prior": 3.05,
+            "gate": 3.05,
+            "shrink": 2.43,
+            "scope": 1.875
+          },
+          "scope_trust": -0.8650000000000002,
+          "scope_shrink": -0.5550000000000002,
+          "shrink_trust": -0.31000000000000005
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 2.29,
+            "prior": 3.05,
+            "gate": 3.05,
+            "shrink": 2.025,
+            "scope": 1.775
+          },
+          "scope_trust": -0.5150000000000001,
+          "scope_shrink": -0.25,
+          "shrink_trust": -0.2650000000000001
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.595,
+            "prior": 3.05,
+            "gate": 3.05,
+            "shrink": 1.475,
+            "scope": 1.4
+          },
+          "scope_trust": -0.19500000000000006,
+          "scope_shrink": -0.07500000000000018,
+          "shrink_trust": -0.11999999999999988
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.09,
+            "prior": 3.05,
+            "gate": 1.715,
+            "shrink": 1.085,
+            "scope": 1.05
+          },
+          "scope_trust": -0.040000000000000036,
+          "scope_shrink": -0.03499999999999992,
+          "shrink_trust": -0.0050000000000001155
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.07,
+            "prior": 3.05,
+            "gate": 1.07,
+            "shrink": 1.105,
+            "scope": 1.055
+          },
+          "scope_trust": -0.015000000000000124,
+          "scope_shrink": -0.050000000000000044,
+          "shrink_trust": 0.03499999999999992
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.52,
+            "prior": 3.05,
+            "gate": 1.52,
+            "shrink": 1.515,
+            "scope": 1.395
+          },
+          "scope_trust": -0.125,
+          "scope_shrink": -0.11999999999999988,
+          "shrink_trust": -0.0050000000000001155
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 2.085,
+            "prior": 3.05,
+            "gate": 2.085,
+            "shrink": 1.895,
+            "scope": 1.775
+          },
+          "scope_trust": -0.31000000000000005,
+          "scope_shrink": -0.1200000000000001,
+          "shrink_trust": -0.18999999999999995
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 3.86,
+            "prior": 3.05,
+            "gate": 3.05,
+            "shrink": 2.92,
+            "scope": 0.94
+          },
+          "scope_trust": -2.92,
+          "scope_shrink": -1.98,
+          "shrink_trust": -0.94
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 3.07,
+            "prior": 3.05,
+            "gate": 3.05,
+            "shrink": 2.57,
+            "scope": 0.94
+          },
+          "scope_trust": -2.13,
+          "scope_shrink": -1.63,
+          "shrink_trust": -0.5
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.88,
+            "prior": 3.05,
+            "gate": 3.05,
+            "shrink": 1.805,
+            "scope": 0.945
+          },
+          "scope_trust": -0.9349999999999999,
+          "scope_shrink": -0.86,
+          "shrink_trust": -0.07499999999999996
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.03,
+            "prior": 3.05,
+            "gate": 3.0,
+            "shrink": 1.105,
+            "scope": 0.95
+          },
+          "scope_trust": -0.08000000000000007,
+          "scope_shrink": -0.15500000000000003,
+          "shrink_trust": 0.07499999999999996
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.935,
+            "prior": 3.05,
+            "gate": 0.935,
+            "shrink": 1.085,
+            "scope": 0.95
+          },
+          "scope_trust": 0.014999999999999902,
+          "scope_shrink": -0.135,
+          "shrink_trust": 0.1499999999999999
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.935,
+            "prior": 3.05,
+            "gate": 0.935,
+            "shrink": 1.495,
+            "scope": 0.945
+          },
+          "scope_trust": 0.009999999999999898,
+          "scope_shrink": -0.5500000000000002,
+          "shrink_trust": 0.56
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.935,
+            "prior": 3.05,
+            "gate": 0.935,
+            "shrink": 1.745,
+            "scope": 0.94
+          },
+          "scope_trust": 0.004999999999999893,
+          "scope_shrink": -0.8050000000000002,
+          "shrink_trust": 0.81
+        }
+      }
+    },
+    "source": {
+      "0.1": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.97,
+            "prior": 3.05,
+            "gate": 0.97,
+            "shrink": 0.98,
+            "scope": 0.975
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.0050000000000000044,
+          "shrink_trust": 0.010000000000000009
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.95,
+            "prior": 3.05,
+            "gate": 0.95,
+            "shrink": 0.98,
+            "scope": 0.96
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": -0.020000000000000018,
+          "shrink_trust": 0.030000000000000027
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.955,
+            "prior": 3.05,
+            "gate": 0.955,
+            "shrink": 0.985,
+            "scope": 0.96
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.025000000000000022,
+          "shrink_trust": 0.030000000000000027
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.945,
+            "prior": 3.05,
+            "gate": 0.945,
+            "shrink": 0.97,
+            "scope": 0.945
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": -0.025000000000000022,
+          "shrink_trust": 0.025000000000000022
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.965,
+            "prior": 3.05,
+            "gate": 0.965,
+            "shrink": 0.975,
+            "scope": 0.965
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.010000000000000009
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.98,
+            "prior": 3.05,
+            "gate": 0.98,
+            "shrink": 0.98,
+            "scope": 0.98
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.0,
+          "shrink_trust": 0.0
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.005,
+            "prior": 3.05,
+            "gate": 1.005,
+            "shrink": 1.01,
+            "scope": 1.02
+          },
+          "scope_trust": 0.015000000000000124,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": 0.0050000000000001155
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.025,
+            "prior": 3.05,
+            "gate": 1.095,
+            "shrink": 1.045,
+            "scope": 1.035
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.020000000000000018
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.03,
+            "prior": 3.05,
+            "gate": 1.06,
+            "shrink": 1.04,
+            "scope": 1.03
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.010000000000000009
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.975,
+            "prior": 3.05,
+            "gate": 0.975,
+            "shrink": 0.97,
+            "scope": 0.975
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.0050000000000000044,
+          "shrink_trust": -0.0050000000000000044
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.955,
+            "prior": 3.05,
+            "gate": 0.955,
+            "shrink": 0.94,
+            "scope": 0.955
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.015000000000000013,
+          "shrink_trust": -0.015000000000000013
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.97,
+            "prior": 3.05,
+            "gate": 0.97,
+            "shrink": 1.01,
+            "scope": 1.005
+          },
+          "scope_trust": 0.03499999999999992,
+          "scope_shrink": -0.0050000000000001155,
+          "shrink_trust": 0.040000000000000036
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.06,
+            "prior": 3.05,
+            "gate": 1.06,
+            "shrink": 1.05,
+            "scope": 1.065
+          },
+          "scope_trust": 0.004999999999999893,
+          "scope_shrink": 0.014999999999999902,
+          "shrink_trust": -0.010000000000000009
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.135,
+            "prior": 3.05,
+            "gate": 1.135,
+            "shrink": 1.09,
+            "scope": 1.06
+          },
+          "scope_trust": -0.07499999999999996,
+          "scope_shrink": -0.030000000000000027,
+          "shrink_trust": -0.04499999999999993
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.21,
+            "prior": 3.05,
+            "gate": 1.615,
+            "shrink": 1.18,
+            "scope": 1.205
+          },
+          "scope_trust": -0.004999999999999893,
+          "scope_shrink": 0.025000000000000133,
+          "shrink_trust": -0.030000000000000027
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.1,
+            "prior": 3.05,
+            "gate": 1.255,
+            "shrink": 1.105,
+            "scope": 1.13
+          },
+          "scope_trust": 0.029999999999999805,
+          "scope_shrink": 0.02499999999999991,
+          "shrink_trust": 0.004999999999999893
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.02,
+            "prior": 3.05,
+            "gate": 1.115,
+            "shrink": 1.02,
+            "scope": 1.005
+          },
+          "scope_trust": -0.015000000000000124,
+          "scope_shrink": -0.015000000000000124,
+          "shrink_trust": 0.0
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.945,
+            "prior": 3.05,
+            "gate": 0.945,
+            "shrink": 0.94,
+            "scope": 0.945
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.0050000000000000044,
+          "shrink_trust": -0.0050000000000000044
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.995,
+            "prior": 3.05,
+            "gate": 0.995,
+            "shrink": 1.03,
+            "scope": 1.0
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.030000000000000027,
+          "shrink_trust": 0.03500000000000003
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.185,
+            "prior": 3.05,
+            "gate": 1.185,
+            "shrink": 1.125,
+            "scope": 1.13
+          },
+          "scope_trust": -0.05500000000000016,
+          "scope_shrink": 0.004999999999999893,
+          "shrink_trust": -0.06000000000000005
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.33,
+            "prior": 3.05,
+            "gate": 1.33,
+            "shrink": 1.295,
+            "scope": 1.265
+          },
+          "scope_trust": -0.06500000000000017,
+          "scope_shrink": -0.030000000000000027,
+          "shrink_trust": -0.03500000000000014
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.745,
+            "prior": 3.05,
+            "gate": 3.015,
+            "shrink": 1.525,
+            "scope": 1.44
+          },
+          "scope_trust": -0.30500000000000016,
+          "scope_shrink": -0.08499999999999996,
+          "shrink_trust": -0.2200000000000002
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.41,
+            "prior": 3.05,
+            "gate": 2.715,
+            "shrink": 1.33,
+            "scope": 1.38
+          },
+          "scope_trust": -0.030000000000000027,
+          "scope_shrink": 0.04999999999999982,
+          "shrink_trust": -0.07999999999999985
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.125,
+            "prior": 3.05,
+            "gate": 1.815,
+            "shrink": 1.095,
+            "scope": 1.165
+          },
+          "scope_trust": 0.040000000000000036,
+          "scope_shrink": 0.07000000000000006,
+          "shrink_trust": -0.030000000000000027
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.975,
+            "prior": 3.05,
+            "gate": 1.045,
+            "shrink": 0.975,
+            "scope": 0.97
+          },
+          "scope_trust": -0.0050000000000000044,
+          "scope_shrink": -0.0050000000000000044,
+          "shrink_trust": 0.0
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.055,
+            "prior": 3.05,
+            "gate": 1.055,
+            "shrink": 1.065,
+            "scope": 1.05
+          },
+          "scope_trust": -0.004999999999999893,
+          "scope_shrink": -0.014999999999999902,
+          "shrink_trust": 0.010000000000000009
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.38,
+            "prior": 3.05,
+            "gate": 1.38,
+            "shrink": 1.285,
+            "scope": 1.345
+          },
+          "scope_trust": -0.03499999999999992,
+          "scope_shrink": 0.06000000000000005,
+          "shrink_trust": -0.09499999999999997
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.635,
+            "prior": 3.05,
+            "gate": 1.635,
+            "shrink": 1.505,
+            "scope": 1.555
+          },
+          "scope_trust": -0.08000000000000007,
+          "scope_shrink": 0.050000000000000044,
+          "shrink_trust": -0.13000000000000012
+        }
+      }
+    },
+    "sink": {
+      "0.1": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.985,
+            "prior": 3.05,
+            "gate": 0.985,
+            "shrink": 1.005,
+            "scope": 0.995
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": -0.009999999999999898,
+          "shrink_trust": 0.019999999999999907
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.995,
+            "prior": 3.05,
+            "gate": 0.995,
+            "shrink": 0.995,
+            "scope": 1.005
+          },
+          "scope_trust": 0.009999999999999898,
+          "scope_shrink": 0.009999999999999898,
+          "shrink_trust": 0.0
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.95,
+            "prior": 3.05,
+            "gate": 0.95,
+            "shrink": 0.975,
+            "scope": 0.965
+          },
+          "scope_trust": 0.015000000000000013,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.025000000000000022
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.93,
+            "prior": 3.05,
+            "gate": 0.93,
+            "shrink": 0.965,
+            "scope": 0.945
+          },
+          "scope_trust": 0.014999999999999902,
+          "scope_shrink": -0.020000000000000018,
+          "shrink_trust": 0.03499999999999992
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.955,
+            "prior": 3.05,
+            "gate": 0.955,
+            "shrink": 0.985,
+            "scope": 0.96
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.025000000000000022,
+          "shrink_trust": 0.030000000000000027
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.995,
+            "prior": 3.05,
+            "gate": 0.995,
+            "shrink": 1.03,
+            "scope": 1.0
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.030000000000000027,
+          "shrink_trust": 0.03500000000000003
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.04,
+            "prior": 3.05,
+            "gate": 1.04,
+            "shrink": 1.075,
+            "scope": 1.06
+          },
+          "scope_trust": 0.020000000000000018,
+          "scope_shrink": -0.014999999999999902,
+          "shrink_trust": 0.03499999999999992
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.145,
+            "prior": 3.05,
+            "gate": 1.17,
+            "shrink": 1.09,
+            "scope": 1.1
+          },
+          "scope_trust": -0.04499999999999993,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": -0.05499999999999994
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.075,
+            "prior": 3.05,
+            "gate": 1.1,
+            "shrink": 1.075,
+            "scope": 1.07
+          },
+          "scope_trust": -0.004999999999999893,
+          "scope_shrink": -0.004999999999999893,
+          "shrink_trust": 0.0
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.03,
+            "prior": 3.05,
+            "gate": 1.03,
+            "shrink": 1.025,
+            "scope": 1.03
+          },
+          "scope_trust": 0.0,
+          "scope_shrink": 0.0050000000000001155,
+          "shrink_trust": -0.0050000000000001155
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.01,
+            "prior": 3.05,
+            "gate": 1.01,
+            "shrink": 0.99,
+            "scope": 1.0
+          },
+          "scope_trust": -0.010000000000000009,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": -0.020000000000000018
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.995,
+            "prior": 3.05,
+            "gate": 0.995,
+            "shrink": 1.04,
+            "scope": 1.0
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.040000000000000036,
+          "shrink_trust": 0.04500000000000004
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.105,
+            "prior": 3.05,
+            "gate": 1.105,
+            "shrink": 1.12,
+            "scope": 1.1
+          },
+          "scope_trust": -0.004999999999999893,
+          "scope_shrink": -0.020000000000000018,
+          "shrink_trust": 0.015000000000000124
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.2,
+            "prior": 3.05,
+            "gate": 1.2,
+            "shrink": 1.225,
+            "scope": 1.21
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": -0.015000000000000124,
+          "shrink_trust": 0.025000000000000133
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.585,
+            "prior": 3.05,
+            "gate": 1.93,
+            "shrink": 1.505,
+            "scope": 1.515
+          },
+          "scope_trust": -0.07000000000000006,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": -0.08000000000000007
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.375,
+            "prior": 3.05,
+            "gate": 1.585,
+            "shrink": 1.355,
+            "scope": 1.41
+          },
+          "scope_trust": 0.03499999999999992,
+          "scope_shrink": 0.05499999999999994,
+          "shrink_trust": -0.020000000000000018
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.165,
+            "prior": 3.05,
+            "gate": 1.25,
+            "shrink": 1.125,
+            "scope": 1.195
+          },
+          "scope_trust": 0.030000000000000027,
+          "scope_shrink": 0.07000000000000006,
+          "shrink_trust": -0.040000000000000036
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.025,
+            "prior": 3.05,
+            "gate": 1.025,
+            "shrink": 1.02,
+            "scope": 1.02
+          },
+          "scope_trust": -0.004999999999999893,
+          "scope_shrink": 0.0,
+          "shrink_trust": -0.004999999999999893
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.995,
+            "prior": 3.05,
+            "gate": 0.995,
+            "shrink": 1.025,
+            "scope": 1.0
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.02499999999999991,
+          "shrink_trust": 0.029999999999999916
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.21,
+            "prior": 3.05,
+            "gate": 1.21,
+            "shrink": 1.22,
+            "scope": 1.23
+          },
+          "scope_trust": 0.020000000000000018,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": 0.010000000000000009
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.445,
+            "prior": 3.05,
+            "gate": 1.445,
+            "shrink": 1.445,
+            "scope": 1.415
+          },
+          "scope_trust": -0.030000000000000027,
+          "scope_shrink": -0.030000000000000027,
+          "shrink_trust": 0.0
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 3.37,
+            "prior": 3.05,
+            "gate": 3.06,
+            "shrink": 2.21,
+            "scope": 1.79
+          },
+          "scope_trust": -1.58,
+          "scope_shrink": -0.41999999999999993,
+          "shrink_trust": -1.1600000000000001
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 2.245,
+            "prior": 3.05,
+            "gate": 2.875,
+            "shrink": 1.855,
+            "scope": 1.725
+          },
+          "scope_trust": -0.52,
+          "scope_shrink": -0.1299999999999999,
+          "shrink_trust": -0.3900000000000001
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.42,
+            "prior": 3.05,
+            "gate": 1.97,
+            "shrink": 1.42,
+            "scope": 1.41
+          },
+          "scope_trust": -0.010000000000000009,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.0
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.05,
+            "prior": 3.05,
+            "gate": 1.135,
+            "shrink": 1.05,
+            "scope": 1.055
+          },
+          "scope_trust": 0.004999999999999893,
+          "scope_shrink": 0.004999999999999893,
+          "shrink_trust": 0.0
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.05,
+            "prior": 3.05,
+            "gate": 1.05,
+            "shrink": 1.07,
+            "scope": 1.055
+          },
+          "scope_trust": 0.004999999999999893,
+          "scope_shrink": -0.015000000000000124,
+          "shrink_trust": 0.020000000000000018
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.375,
+            "prior": 3.05,
+            "gate": 1.375,
+            "shrink": 1.425,
+            "scope": 1.44
+          },
+          "scope_trust": 0.06499999999999995,
+          "scope_shrink": 0.014999999999999902,
+          "shrink_trust": 0.050000000000000044
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.865,
+            "prior": 3.05,
+            "gate": 1.865,
+            "shrink": 1.77,
+            "scope": 1.76
+          },
+          "scope_trust": -0.10499999999999998,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": -0.09499999999999997
+        }
+      }
+    },
+    "error_nodes": {
+      "0.1": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.915,
+            "prior": 3.05,
+            "gate": 0.915,
+            "shrink": 0.93,
+            "scope": 0.925
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": -0.0050000000000000044,
+          "shrink_trust": 0.015000000000000013
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.915,
+            "prior": 3.05,
+            "gate": 0.915,
+            "shrink": 0.93,
+            "scope": 0.92
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.015000000000000013
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.915,
+            "prior": 3.05,
+            "gate": 0.915,
+            "shrink": 0.93,
+            "scope": 0.92
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.015000000000000013
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.92,
+            "prior": 3.05,
+            "gate": 0.92,
+            "shrink": 0.935,
+            "scope": 0.925
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.015000000000000013
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.075,
+            "prior": 3.05,
+            "gate": 1.075,
+            "shrink": 1.085,
+            "scope": 1.08
+          },
+          "scope_trust": 0.0050000000000001155,
+          "scope_shrink": -0.004999999999999893,
+          "shrink_trust": 0.010000000000000009
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.23,
+            "prior": 3.05,
+            "gate": 1.23,
+            "shrink": 1.22,
+            "scope": 1.225
+          },
+          "scope_trust": -0.004999999999999893,
+          "scope_shrink": 0.0050000000000001155,
+          "shrink_trust": -0.010000000000000009
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.355,
+            "prior": 3.05,
+            "gate": 1.355,
+            "shrink": 1.35,
+            "scope": 1.365
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": 0.014999999999999902,
+          "shrink_trust": -0.004999999999999893
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.915,
+            "prior": 3.05,
+            "gate": 0.915,
+            "shrink": 0.93,
+            "scope": 0.93
+          },
+          "scope_trust": 0.015000000000000013,
+          "scope_shrink": 0.0,
+          "shrink_trust": 0.015000000000000013
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.915,
+            "prior": 3.05,
+            "gate": 0.915,
+            "shrink": 0.93,
+            "scope": 0.93
+          },
+          "scope_trust": 0.015000000000000013,
+          "scope_shrink": 0.0,
+          "shrink_trust": 0.015000000000000013
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.915,
+            "prior": 3.05,
+            "gate": 0.915,
+            "shrink": 0.93,
+            "scope": 0.925
+          },
+          "scope_trust": 0.010000000000000009,
+          "scope_shrink": -0.0050000000000000044,
+          "shrink_trust": 0.015000000000000013
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.925,
+            "prior": 3.05,
+            "gate": 0.925,
+            "shrink": 0.94,
+            "scope": 0.93
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.009999999999999898,
+          "shrink_trust": 0.014999999999999902
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.12,
+            "prior": 3.05,
+            "gate": 1.12,
+            "shrink": 1.16,
+            "scope": 1.14
+          },
+          "scope_trust": 0.019999999999999796,
+          "scope_shrink": -0.020000000000000018,
+          "shrink_trust": 0.039999999999999813
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.47,
+            "prior": 3.05,
+            "gate": 1.47,
+            "shrink": 1.47,
+            "scope": 1.46
+          },
+          "scope_trust": -0.010000000000000009,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.0
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.93,
+            "prior": 3.05,
+            "gate": 1.93,
+            "shrink": 1.82,
+            "scope": 1.935
+          },
+          "scope_trust": 0.0050000000000001155,
+          "scope_shrink": 0.11499999999999999,
+          "shrink_trust": -0.10999999999999988
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.79,
+            "prior": 3.05,
+            "gate": 0.79,
+            "shrink": 0.8,
+            "scope": 0.805
+          },
+          "scope_trust": 0.015000000000000013,
+          "scope_shrink": 0.0050000000000000044,
+          "shrink_trust": 0.010000000000000009
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.79,
+            "prior": 3.05,
+            "gate": 0.79,
+            "shrink": 0.8,
+            "scope": 0.81
+          },
+          "scope_trust": 0.020000000000000018,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": 0.010000000000000009
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.795,
+            "prior": 3.05,
+            "gate": 0.795,
+            "shrink": 0.805,
+            "scope": 0.81
+          },
+          "scope_trust": 0.015000000000000013,
+          "scope_shrink": 0.0050000000000000044,
+          "shrink_trust": 0.010000000000000009
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.83,
+            "prior": 3.05,
+            "gate": 0.83,
+            "shrink": 0.845,
+            "scope": 0.835
+          },
+          "scope_trust": 0.0050000000000000044,
+          "scope_shrink": -0.010000000000000009,
+          "shrink_trust": 0.015000000000000013
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.275,
+            "prior": 3.05,
+            "gate": 1.275,
+            "shrink": 1.27,
+            "scope": 1.28
+          },
+          "scope_trust": 0.0050000000000001155,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": -0.004999999999999893
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.925,
+            "prior": 3.05,
+            "gate": 1.925,
+            "shrink": 1.92,
+            "scope": 1.92
+          },
+          "scope_trust": -0.0050000000000001155,
+          "scope_shrink": 0.0,
+          "shrink_trust": -0.0050000000000001155
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 2.82,
+            "prior": 3.05,
+            "gate": 2.82,
+            "shrink": 2.535,
+            "scope": 2.805
+          },
+          "scope_trust": -0.01499999999999968,
+          "scope_shrink": 0.27,
+          "shrink_trust": -0.2849999999999997
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.695,
+            "prior": 3.05,
+            "gate": 0.715,
+            "shrink": 0.695,
+            "scope": 0.725
+          },
+          "scope_trust": 0.030000000000000027,
+          "scope_shrink": 0.030000000000000027,
+          "shrink_trust": 0.0
+        },
+        "-3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.695,
+            "prior": 3.05,
+            "gate": 0.715,
+            "shrink": 0.7,
+            "scope": 0.73
+          },
+          "scope_trust": 0.03500000000000003,
+          "scope_shrink": 0.030000000000000027,
+          "shrink_trust": 0.0050000000000000044
+        },
+        "-2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.7,
+            "prior": 3.05,
+            "gate": 0.7,
+            "shrink": 0.705,
+            "scope": 0.74
+          },
+          "scope_trust": 0.040000000000000036,
+          "scope_shrink": 0.03500000000000003,
+          "shrink_trust": 0.0050000000000000044
+        },
+        "-1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 0.775,
+            "prior": 3.05,
+            "gate": 0.775,
+            "shrink": 0.79,
+            "scope": 0.79
+          },
+          "scope_trust": 0.015000000000000013,
+          "scope_shrink": 0.0,
+          "shrink_trust": 0.015000000000000013
+        },
+        "1.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 1.625,
+            "prior": 3.05,
+            "gate": 1.625,
+            "shrink": 1.605,
+            "scope": 1.615
+          },
+          "scope_trust": -0.010000000000000009,
+          "scope_shrink": 0.010000000000000009,
+          "shrink_trust": -0.020000000000000018
+        },
+        "2.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 2.85,
+            "prior": 3.05,
+            "gate": 2.85,
+            "shrink": 2.705,
+            "scope": 2.82
+          },
+          "scope_trust": -0.03000000000000025,
+          "scope_shrink": 0.11499999999999977,
+          "shrink_trust": -0.14500000000000002
+        },
+        "3.0": {
+          "means": {
+            "oracle": 0.94,
+            "trust": 4.065,
+            "prior": 3.05,
+            "gate": 4.065,
+            "shrink": 3.705,
+            "scope": 4.03
+          },
+          "scope_trust": -0.03500000000000014,
+          "scope_shrink": 0.3250000000000002,
+          "shrink_trust": -0.3600000000000003
+        }
+      }
+    }
+  },
+  "grid_mean": {
+    "trust": 1.3026339285714283,
+    "gate": 1.4298660714285714,
+    "shrink": 1.2655803571428572,
+    "prior": 3.05,
+    "scope": 1.203125
+  },
+  "predictions": {
+    "p1_global_up3": true,
+    "p2_global_up2": true,
+    "p3_masking_guard": true,
+    "p4_clean_cost": true,
+    "p5a_partial_50": true,
+    "p5b_partial_25": true,
+    "p6_grid_mean": true
+  },
+  "prediction_values": {
+    "p1_global_up3": {
+      "delta": 0.004999999999999893,
+      "relation": "<=",
+      "bar": 0.2,
+      "reference": "trust",
+      "cell": [
+        "uniform",
+        1.0,
+        3.0
+      ]
+    },
+    "p2_global_up2": {
+      "delta": 0.009999999999999898,
+      "relation": "<=",
+      "bar": 0.2,
+      "reference": "trust",
+      "cell": [
+        "uniform",
+        1.0,
+        2.0
+      ]
+    },
+    "p3_masking_guard": {
+      "delta": -0.03500000000000014,
+      "relation": "<=",
+      "bar": 0.2,
+      "reference": "trust",
+      "cell": [
+        "error_nodes",
+        1.0,
+        3.0
+      ]
+    },
+    "p4_clean_cost": {
+      "delta": 0.0050000000000000044,
+      "relation": "<=",
+      "bar": 0.05,
+      "reference": "trust",
+      "cell": [
+        "clean",
+        0.0,
+        0.0
+      ]
+    },
+    "p5a_partial_50": {
+      "delta": -0.5150000000000001,
+      "relation": "<=",
+      "bar": 0.1,
+      "reference": "trust",
+      "cell": [
+        "uniform",
+        0.5,
+        -3.0
+      ]
+    },
+    "p5b_partial_25": {
+      "delta": -0.14500000000000002,
+      "relation": "<=",
+      "bar": 0.1,
+      "reference": "trust",
+      "cell": [
+        "uniform",
+        0.25,
+        -3.0
+      ]
+    },
+    "p6_grid_mean": {
+      "delta": -0.062455357142857215,
+      "relation": "<=",
+      "bar": 0.1,
+      "reference": "shrink",
+      "cell": "112-cell mean"
+    }
+  },
+  "verdict": "성공",
+  "primary_holds": true,
+  "secondary_failures": [],
+  "total_cells": 112,
+  "cells_worse_than_trust": [
+    [
+      "uniform",
+      1.0,
+      3.0
+    ],
+    [
+      "source",
+      0.25,
+      2.0
+    ],
+    [
+      "sink",
+      1.0,
+      -1.0
+    ],
+    [
+      "sink",
+      1.0,
+      1.0
+    ],
+    [
+      "source",
+      0.1,
+      -4.0
+    ],
+    [
+      "source",
+      0.1,
+      -2.0
+    ],
+    [
+      "source",
+      0.5,
+      1.0
+    ],
+    [
+      "sink",
+      0.1,
+      1.0
+    ],
+    [
+      "sink",
+      0.1,
+      2.0
+    ],
+    [
+      "sink",
+      0.25,
+      1.0
+    ],
+    [
+      "sink",
+      0.5,
+      1.0
+    ],
+    [
+      "error_nodes",
+      0.1,
+      -3.0
+    ],
+    [
+      "error_nodes",
+      0.1,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      0.1,
+      -1.0
+    ],
+    [
+      "error_nodes",
+      0.25,
+      -1.0
+    ],
+    [
+      "error_nodes",
+      0.5,
+      -1.0
+    ],
+    [
+      "uniform",
+      0.25,
+      1.0
+    ],
+    [
+      "uniform",
+      0.25,
+      2.0
+    ],
+    [
+      "error_nodes",
+      0.1,
+      1.0
+    ],
+    [
+      "error_nodes",
+      0.25,
+      3.0
+    ],
+    [
+      "error_nodes",
+      0.5,
+      1.0
+    ],
+    [
+      "uniform",
+      1.0,
+      2.0
+    ],
+    [
+      "sink",
+      0.1,
+      -3.0
+    ],
+    [
+      "uniform",
+      0.1,
+      -3.0
+    ],
+    [
+      "uniform",
+      0.1,
+      -2.0
+    ],
+    [
+      "source",
+      0.1,
+      -3.0
+    ],
+    [
+      "source",
+      0.25,
+      -4.0
+    ],
+    [
+      "sink",
+      0.1,
+      -4.0
+    ],
+    [
+      "sink",
+      0.25,
+      3.0
+    ],
+    [
+      "error_nodes",
+      0.1,
+      -4.0
+    ],
+    [
+      "error_nodes",
+      0.1,
+      3.0
+    ],
+    [
+      "error_nodes",
+      0.25,
+      -2.0
+    ],
+    [
+      "uniform",
+      1.0,
+      1.0
+    ],
+    [
+      "sink",
+      0.1,
+      -1.0
+    ],
+    [
+      "sink",
+      0.1,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      0.25,
+      -4.0
+    ],
+    [
+      "error_nodes",
+      0.25,
+      -3.0
+    ],
+    [
+      "error_nodes",
+      0.5,
+      -4.0
+    ],
+    [
+      "error_nodes",
+      0.5,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      -1.0
+    ],
+    [
+      "source",
+      0.1,
+      3.0
+    ],
+    [
+      "error_nodes",
+      0.25,
+      1.0
+    ],
+    [
+      "uniform",
+      0.1,
+      -4.0
+    ],
+    [
+      "sink",
+      0.1,
+      3.0
+    ],
+    [
+      "sink",
+      0.5,
+      2.0
+    ],
+    [
+      "error_nodes",
+      0.5,
+      -3.0
+    ],
+    [
+      "source",
+      0.5,
+      -3.0
+    ],
+    [
+      "sink",
+      0.5,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      -4.0
+    ],
+    [
+      "source",
+      0.25,
+      1.0
+    ],
+    [
+      "sink",
+      0.5,
+      -3.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      -3.0
+    ],
+    [
+      "source",
+      1.0,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      -2.0
+    ],
+    [
+      "sink",
+      1.0,
+      2.0
+    ]
+  ],
+  "cells_better_than_trust": [
+    [
+      "uniform",
+      1.0,
+      -4.0
+    ],
+    [
+      "uniform",
+      1.0,
+      -3.0
+    ],
+    [
+      "sink",
+      1.0,
+      -4.0
+    ],
+    [
+      "uniform",
+      1.0,
+      -2.0
+    ],
+    [
+      "uniform",
+      0.5,
+      -4.0
+    ],
+    [
+      "sink",
+      1.0,
+      -3.0
+    ],
+    [
+      "uniform",
+      0.5,
+      -3.0
+    ],
+    [
+      "uniform",
+      0.5,
+      3.0
+    ],
+    [
+      "uniform",
+      0.25,
+      -4.0
+    ],
+    [
+      "source",
+      1.0,
+      -4.0
+    ],
+    [
+      "uniform",
+      0.5,
+      -2.0
+    ],
+    [
+      "uniform",
+      0.25,
+      -3.0
+    ],
+    [
+      "uniform",
+      0.25,
+      3.0
+    ],
+    [
+      "uniform",
+      0.5,
+      2.0
+    ],
+    [
+      "sink",
+      1.0,
+      3.0
+    ],
+    [
+      "uniform",
+      1.0,
+      -1.0
+    ],
+    [
+      "source",
+      1.0,
+      3.0
+    ],
+    [
+      "source",
+      0.25,
+      3.0
+    ],
+    [
+      "sink",
+      0.5,
+      -4.0
+    ],
+    [
+      "source",
+      0.5,
+      3.0
+    ],
+    [
+      "source",
+      0.5,
+      2.0
+    ],
+    [
+      "sink",
+      0.25,
+      -4.0
+    ],
+    [
+      "uniform",
+      0.5,
+      -1.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      3.0
+    ],
+    [
+      "source",
+      1.0,
+      2.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      2.0
+    ],
+    [
+      "source",
+      1.0,
+      -3.0
+    ],
+    [
+      "sink",
+      0.5,
+      3.0
+    ],
+    [
+      "uniform",
+      0.1,
+      3.0
+    ],
+    [
+      "uniform",
+      0.25,
+      -2.0
+    ],
+    [
+      "uniform",
+      0.5,
+      1.0
+    ],
+    [
+      "source",
+      0.5,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      0.5,
+      3.0
+    ],
+    [
+      "sink",
+      0.25,
+      -1.0
+    ],
+    [
+      "sink",
+      1.0,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      0.25,
+      2.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      1.0
+    ],
+    [
+      "error_nodes",
+      0.5,
+      2.0
+    ],
+    [
+      "source",
+      1.0,
+      -1.0
+    ],
+    [
+      "source",
+      0.5,
+      -4.0
+    ],
+    [
+      "source",
+      1.0,
+      1.0
+    ],
+    [
+      "sink",
+      0.25,
+      -3.0
+    ],
+    [
+      "sink",
+      0.25,
+      2.0
+    ],
+    [
+      "sink",
+      0.5,
+      -1.0
+    ],
+    [
+      "error_nodes",
+      0.1,
+      2.0
+    ]
+  ],
+  "best_cells": [
+    [
+      "uniform",
+      1.0,
+      -4.0
+    ],
+    [
+      "uniform",
+      1.0,
+      -3.0
+    ],
+    [
+      "sink",
+      1.0,
+      -4.0
+    ],
+    [
+      "uniform",
+      1.0,
+      -2.0
+    ],
+    [
+      "uniform",
+      0.5,
+      -4.0
+    ]
+  ],
+  "worst_cells": [
+    [
+      "sink",
+      1.0,
+      2.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      -2.0
+    ],
+    [
+      "source",
+      1.0,
+      -2.0
+    ],
+    [
+      "error_nodes",
+      1.0,
+      -3.0
+    ],
+    [
+      "sink",
+      0.5,
+      -3.0
+    ]
+  ],
+  "bootstrap": {
+    "unit": "paired graph",
+    "draws": 10000,
+    "seed": 20261112,
+    "coverage": 0.95
+  },
+  "frozen": {
+    "predictions": [
+      [
+        "p1_global_up3",
+        "uniform",
+        1.0,
+        3.0,
+        "trust",
+        "<=",
+        0.2
+      ],
+      [
+        "p2_global_up2",
+        "uniform",
+        1.0,
+        2.0,
+        "trust",
+        "<=",
+        0.2
+      ],
+      [
+        "p3_masking_guard",
+        "error_nodes",
+        1.0,
+        3.0,
+        "trust",
+        "<=",
+        0.2
+      ],
+      [
+        "p4_clean_cost",
+        "clean",
+        0.0,
+        0.0,
+        "trust",
+        "<=",
+        0.05
+      ],
+      [
+        "p5a_partial_50",
+        "uniform",
+        0.5,
+        -3.0,
+        "trust",
+        "<=",
+        0.1
+      ],
+      [
+        "p5b_partial_25",
+        "uniform",
+        0.25,
+        -3.0,
+        "trust",
+        "<=",
+        0.1
+      ]
+    ],
+    "grid_mean_bar": 0.1
+  },
+  "source_sha256": {
+    "manifest.json": "53b5ff7bda8a1a401a5035bfd59e7f3f9f3ada94f20920359a8bb47ac7304a5a",
+    "episodes.csv": "43090fee0bdb7e39bb3215fb5db62c14f029db185c307a2b8bd264f914526ea3",
+    "report_scope.py": "f1c2d4ac9ce5dadf92541aa1ea3b35c57611772010c32368a9bffc8e875c1b04",
+    "PREREGISTER_SCOPE_V2.md": "e79432e334b5375f24f065d897adc7cdadc0a13706a2a8a2f6e6f26cf5bc97bc",
+    "rl_boundary.py": "6ad6a333b1eb00826d1c266d88a04ee14b6401b6ad6d0c1fced2264687f28482"
+  }
+}
