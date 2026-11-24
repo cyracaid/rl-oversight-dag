@@ -1,0 +1,73 @@
+{
+  "preregistration": "PREREGISTER_DP.md",
+  "families": [
+    "real",
+    "ticket"
+  ],
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "graphs": 12,
+  "p_catch": 0.9,
+  "confidence_mode": "normal",
+  "seed_blocks": {
+    "real": [
+      5000,
+      12
+    ],
+    "ticket": [
+      5012,
+      12
+    ]
+  },
+  "csv_sha256": "d74e21370dea64779a213db70548631a90bffda9cab538beb6d8f8a1e5788c8e",
+  "source_sha256": {
+    "belief_decomposition.py": "ad9ca6aa507828397332761029d9f2b8ff7abb1374596b4eb73c4121245bc799",
+    "compare_beliefs.py": "1b7d23050611c70a8d7f0326e2336eb1e53c6abeae19d663a3bbd21ccb305e95",
+    "dag_role3/__init__.py": "49f216d8142d067b63ab066cb1b447a22e62b7f681af5f7d61d8d7faed0b7c43",
+    "dag_role3/belief.py": "2d7596915bb0ef180304ccd244aabf2f3a20ed97e82fd70423516a4caa8c8ed7",
+    "dag_role3/counterfactual.py": "3e9282e60adf4343b6bacb29540923d06f7093fd4fe831f84889a6a9363c3e39",
+    "dag_role3/environment.py": "c9844ed5b4cf7f2387db986d4f2cfc372e461c6d6660dd93088af743ba76d9dd",
+    "dag_role3/graphs.py": "5ef7d2a30e6c38596c755d0799e99543407a026bc3f217346e5e54bc700cb3c2",
+    "dag_role3/models.py": "1be5c823a10463b9a89fa45c0cc00157011bad1bec4a96d6faae094e071e5094",
+    "dag_role3/planning.py": "566c640a38f0a58729a1f0a28f2ee60a48656c24c723095e7751e7594e897e6e",
+    "dag_role3/policies.py": "aa870b9a2152361bdb2145459715cf0a559fd801fadc4e5fe7864ef19422b715",
+    "dag_role3/supervisor.py": "d28af44ab459a525ec5102524c24de90c6f15b948d09ba4c2711631f3d201c41",
+    "dag_role3/training.py": "0d2d3ce7fc99d56ea6eadf6c20cc4e3a6592f4888125f88b31234804c348281c",
+    "evaluate_ppo.py": "033657661cd5a413cad0c7b33f672fc8bb9a9650e4beb2d0c46601da3062f5a6",
+    "exact_dp.py": "61285fc105c8b0cc4cdc882da3f86efc4f1f19244bff737fa2b38370f7d875c7",
+    "report_belief.py": "3251da11417d85b0de484760faedf56ac5ea2119f487f016248d615ce219c9bd",
+    "report_learned_baselines.py": "9947317765dc3ee934b761dcb042f3a67b0bd66c1945d541bc8a6e8385b72147",
+    "report_p_catch.py": "31a1be44d8bb1a7053271500e4a2b9098dfdf28a356754a63dc2db6beca420da",
+    "report_planning.py": "12219722a90896067026b4808644c984c959fe0431c571aef87bc96e590f9146",
+    "report_ppo.py": "ef7544758ad963ade191da5fe3a1dc33f69bd6026f75a8d6394c4604248fdfb5",
+    "report_supervisor.py": "41358b24fdd8ca38aa90c147b90c04706db7fc6a913a8d7c835f31071fa223a0",
+    "report_value.py": "0c70d134d3814301d08762da639352e1799f3a000a96ea2a7b27a29384e31e4a",
+    "reproduce.py": "278d1cbd7154be1adf9a01c1bb2a518353963f5753c230ef1e2730e27a153d54",
+    "run_benchmark.py": "e596d45ed3fff21d13102e8a506508a965f11903eb7a9472e4a9ef69f82c41fd",
+    "run_demo.py": "7d9399256cc1bcc1e7938ae363621c9b1555263faebade11615183f033a91fe2",
+    "run_learned_baselines.py": "8eed6bab34564539c78bdc9249a2ffde2ddd909f80294eb8d1ff52922f947b41",
+    "run_planning_check.py": "1c0d1e72f5f92a5651e4f45d484a45edf9399c11168d4422fa03d29e727ff4c6",
+    "run_supervisor_check.py": "da6c311ef31c2b3efe88f56a136a40547c784230f8236f5d0d45a3d39fffd920",
+    "run_value_check.py": "bbafe96f4ccedda8b51f590f6e8e71e3a6391c3df17ee309a7f04ca1181fc655",
+    "sweep_p_catch.py": "98523cc12f42a8466ddaa9721429d178c0cf03a6a6db58e4937a15ccf317aa4b",
+    "tests/test_belief_decomposition.py": "46af6603a913dc879de67f0ac59fb71128d67be31494b856c390e59d7344ed52",
+    "tests/test_counterfactual.py": "12ef2f110fb8bad1c2840b2ec10d951ba06025d97f61d5974ce672a374e9e4fa",
+    "tests/test_environment.py": "32201bcf402f306cbd043581f6b98120770ce373c7756948b17386a7d9fad663",
+    "tests/test_exact_dp.py": "b2cea34d58479e0e0ea74d7ca5b83d990a81a9d1168b58af0e4cfec086053f44",
+    "tests/test_models.py": "3e76888fe7d9206c6c5eb8104ed0965b12000852dc655be94a2596f4b18f43a9",
+    "tests/test_p_catch_report.py": "108cdf8045e3107bb0b71046466c6cf07ef39caf64d6e934af964de691178bb0",
+    "tests/test_planning.py": "a55bf8beabe01146cc6159f62b11757238b87d97ccaaec03b596f25884ec1c70",
+    "tests/test_ppo_report.py": "20224193edd09205149be33e5ac272605beeacf64b86c32043c6dd47bec79551",
+    "tests/test_revision.py": "3e36f0998b12f171ddd637904ce79daf284c507359d2784b79255e8331f23a2e",
+    "tests/test_supervisor.py": "d3924745e95f3bf55610f0781f9e70d5d30c542b6b3e790af6348e1534c17d3b",
+    "tests/test_v3.py": "a7dd77b3d6bbcd0e9d5fb4b83de11b0a8a9c6507d48071c9e7839ce91a5480d2",
+    "train_dqn.py": "7c07c34dd2bec9cbf68fcf18646f7e03c7f6d27477e9b07c87e00e120b60b7bd",
+    "train_gnn.py": "63ab891306efa47ee3f8316583cd9af83ed1d3c8eff866d1b1a40c356c8900e1",
+    "train_ppo.py": "60b02c9f3e4f1851e0f69a2445c31d53fdda79551643df567a4e079d5d1267a5"
+  }
+}

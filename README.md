@@ -7,7 +7,7 @@
 
 **What this concludes, in plain words.** The task is *which claim to check next* under a fixed review budget. Where
 the optimum is computable, that layer is nearly exhausted: on the two 21-node pipelines, at budget ≤ 5, replacing our
-one-line rule with the **optimal** policy of the same model moves residual errors from 0.873 to 0.851 — 2.5 %. On the
+one-line rule with the **optimal** policy of the same model moves residual errors from 0.705 to 0.675 — 4.2 %. On the
 500-node families the optimum is out of reach; there a depth-two lookahead over the same belief changes 5 of 923
 errors, and the only variant that gains anything is the one that trusts the environment's approximate miss update,
 which costs 485 of 923 errors when it is wrong. A smarter ranking is not where this system should spend its effort.
@@ -20,7 +20,7 @@ it is deleted the question "how many errors did we not cover" has no answer at a
 
 | layer | plain question | what we measured | verdict |
 |---|---|---|---|
-| ranking | which claim do I check next? | optimal policy of the same model is worth 2.5 % where computable (21 nodes, budget ≤ 5); depth-two lookahead is worth 5 of 923 errors at N=500 | **saturated** — do not invest here |
+| ranking | which claim do I check next? | optimal policy of the same model is worth 4.2 % where computable (21 nodes, budget ≤ 5); depth-two lookahead is worth 5 of 923 errors at N=500 | **saturated** — do not invest here |
 | signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic | **unvalidated input** — the real blocker, needs measured calibration |
 | delivery | what did I cover, and what did I miss? | receipt names 89.8–97.8 % of surviving errors as uncovered; 800/800 runs unchanged; deleting it removes the question | **load-bearing interface** — without it the question has no answer |
 
@@ -123,7 +123,7 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Sampled counterfactual value instead of mean-field (block 4400–4599) | modular **8.780** / spike **0.890** | 8.785 / 0.900 | **negative**: recovery −0.049 on modular, unseparated on spike — fixing the independence assumption in the one-step score does not close the oracle gap | `role3 improvement/outputs/value-v1/` |
 | Belief values, order preserved: logit temperature (pre-registered, 200 fresh graphs) | modular `marginal` **8.820** | best γ 1.25 → 8.825 | frozen verdict **`policy-bound`**: +0.016 [−0.055, +0.072], 46 better / 142 tie / 12 worse, and **−1 error of a 978-error gap**. Every distortion is neutral at best; γ = 0.5 costs 1.49 errors. The gap is not a probability-scale error. Spike: `calibration-partial` (+0.105 [+0.026, +0.211] pointwise, but **0 of 49** aggregate errors closed) | `role3 improvement/outputs/belief-v1/` |
 | Depth-two planning on the same model (pre-registered, 5200–5399) | modular **8.915** / spike **0.860** | `plan2_catch` 8.940 / 0.855 | frozen verdict **`informational`**: modular −0.009 [−0.023, +0.001], **−5 of 923** errors, action unchanged on 191/200 graphs; spike +1 of 49 with the interval starting at zero. The horizon is not the bottleneck at width 6/4. The second variant, which instead trusts the environment's miss update, is **far worse**: −485 of 923 and −259 of 49 | `role3 improvement/outputs/planning-v2/` |
-| Exact DP ceiling inside the rule's own model (block 60000, 21 nodes, budget ≤5) | `real` marginal **0.873** / `ticket` **0.419** | optimal `dp5` 0.851 / 0.413 | the whole horizon is worth **2.5 % / 1.4 %** of the rule's errors (−0.022 [−0.050, −0.006], −0.006 [−0.010, −0.003]); exact one-step lookahead equals the rule on 12/12 graphs, so the deployed rule is within single-digit percent of the optimum *of its own model* while the oracle gap asks for a third to a half | `role3 improvement/outputs/dp-ceiling/` |
+| Exact DP ceiling inside the rule's own model (block 5000–5023, 21 nodes, budget ≤5) | `real` marginal **0.705** / `ticket` **0.404** | optimal `dp5` 0.675 / 0.402 | the whole horizon is worth **4.2 % / 0.5 %** of the rule's errors (−0.030 [−0.065, −0.008], −0.002); exact one-step lookahead equals the rule on 12/12 graphs, so the deployed rule is within single-digit percent of the optimum *of its own model* while the oracle gap asks for a third to a half. The first run sat on the model-selection block 60000–60023 and is kept only as a sensitivity check | `role3 improvement/outputs/dp-ceiling-fresh/` |
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
 | Full baseline set with truth-reading reference, 6 families | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47 / 0.29** | `oracle` 0.52 / 3.78 / 13.28 / 9.84 / 0.39 / 0.28 | `type_prior` is far worse (3.76 on spike) → confidence carries signal; oracle gap 5–7 errors at N=500 is the measurable headroom | `role3 improvement/outputs/v3-baselines/` |
 | Hypothetical ticketing pipeline (synthetic prior, 21 nodes, budget 8) | marginal **0.29** | — | **ties** confidence 0.32: +0.03 [0.00, +0.08], 98/100 ties — no cross-domain advantage | `role3 improvement/outputs/ticket-v1/` |

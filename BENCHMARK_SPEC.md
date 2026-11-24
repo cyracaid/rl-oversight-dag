@@ -68,14 +68,15 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | void | 4600–4799 | smoke runs only (4600–4603); excluded from every result |
 | belief values | 4800–4999 | pre-registered logit-temperature grid (`outputs/belief-v1/`) |
 | depth-two planning | 5200–5399 | pre-registered planner, `outputs/planning-v2/` |
+| exact DP ceiling | 5000–5023 | `outputs/dp-ceiling-fresh/` (rerun; the first run sat on the validation block) |
 | coverage receipt | 5400–5599 | pre-registered receipt / deletion test, `outputs/supervisor-v1/` |
-| exact DP ceiling | 60000–60023 | pre-registered exact optimum, `outputs/dp-ceiling/` — overlaps `validation`, see note |
 
 Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in
 the repo", and that sentence is wrong — `dag_role3/training.py` draws `BestValidation` graphs from 60000 onward.
 The overlap does not touch the DP claim, because the exact optimum solves a fixed belief model with nothing fitted,
 but the validation block must be treated as partly spent: future validation uses **60100–60129**, and no DP number
-may be cited as coming from a block that was clean.
+may be cited as coming from a block that was clean. The ceiling was therefore rerun on 5000–5023
+(`outputs/dp-ceiling-fresh/`); the 60000–60023 run stays as a sensitivity check and is labelled as such everywhere.
 
 Rules: a seed block is spent once it has been used to choose a method or a threshold. Never re-tune on the
 reporting block. Do not report a mean from one block next to a mean from another block — raw means differ
@@ -315,18 +316,19 @@ measured.
 
 **The in-model ceiling, measured where the model is solvable.** A depth-two probe is not a ceiling, so
 `exact_dp.py` (`PREREGISTER_DP.md`) solves the same belief MDP exactly on `real` and `ticket` — 21 nodes,
-12 graphs, budgets 1–5, block 60000. Two numbers matter here. The *exact* one-step lookahead equals the rule's
-derivative score on 12/12 graphs (mean +0.0001), which is the multilinear identity of item 3 above, measured
-again through a different code path. And the optimal five-step policy is worth
-`dp5 − marginal` = −0.022 [−0.050, −0.006] on `real` (2.5 % of the rule's 0.873) and −0.006 [−0.010, −0.003]
-on `ticket` (1.4 % of 0.419). The entire horizon inside the model is therefore worth single-digit percent,
+12 graphs, budgets 1–5, block 5000–5023. Two numbers matter here. The *exact* one-step lookahead equals the
+rule's derivative score on 12/12 graphs (mean +0.0006), which is the multilinear identity of item 3 above,
+measured again through a different code path. And the optimal five-step policy is worth
+`dp5 − marginal` = −0.030 [−0.065, −0.008] on `real` (4.2 % of the rule's 0.705) and −0.002 [−0.003, −0.000]
+on `ticket` (0.5 % of 0.404). The entire horizon inside the model is therefore worth single-digit percent,
 while the `oracle` gap asks for a third to a half of the rule's errors.
 
 Read with the same care as everything else: the DP's miss update uses the local risk instead of the inherited
 one (a declared deviation, so that delta is planning *plus* the difference), the graphs are 21 nodes at budget
 ≤5, and `modular` at N=500 cannot be solved this way — its ceiling stays unmeasured, with the depth-two probe
-as the only evidence. `outputs/dp-ceiling/report.md`; a signed-comparison error in its own P2 check was amended
-after the run, in the direction that makes the result worse.
+as the only evidence. `outputs/dp-ceiling-fresh/report.md` (block 5000–5023); the first run on the model-selection
+block 60000–60023 is kept as a sensitivity check and moves nothing, and a signed-comparison error in its own P2
+check was amended after the run, in the direction that makes the result worse.
 
 
 
@@ -404,7 +406,7 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
 | belief values, order preserved (logit temperature) | `policy-bound` on modular (+0.016 [−0.055, +0.072]; −1 of 978 errors); `calibration-partial` on spike but 0 of 49 closed | `role3 improvement/outputs/belief-v1/` |
 | depth-two planning on the mean-field model | closes −5 of 923 `modular` errors (−0.009 [−0.023, +0.001]); spike +1 of 49, interval from zero | `role3 improvement/outputs/planning-v2/` |
 | a planner that trusts the environment's miss update | costs 485 of 923 errors on `modular`, 259 of 49 on `spike` | `role3 improvement/outputs/planning-v2/` |
-| exact optimal policy inside the rule's own model | closes ≤2.5 % of the rule's errors (`dp5 − marginal` −0.022 on `real`, −0.006 on `ticket`; 21 nodes, budget 5) | `role3 improvement/outputs/dp-ceiling/` |
+| exact optimal policy inside the rule's own model | closes ≤4.2 % of the rule's errors (`dp5 − marginal` −0.030 [−0.065, −0.008] on `real`, −0.002 on `ticket`; 21 nodes, budget 5, block 5000–5023) | `role3 improvement/outputs/dp-ceiling-fresh/` |
 
 ## 9. Open gaps
 
@@ -421,8 +423,8 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
    `policy-bound` on `modular` (+0.016 [−0.055, +0.072], one error of 978) and closes nothing on `spike`;
    (c) depth-two planning on the same model (block 5200–5399) closes −5 of 923 `modular` errors
    (−0.009 [−0.023, +0.001]) and +1 of 49 on `spike`, with the action unchanged on 191 of 200 graphs;
-   (d) an exact DP ceiling, where the model is small enough to solve, is worth 2.5 % of the rule's errors on
-   `real` and 1.4 % on `ticket` (block 60000, 21 nodes, budget ≤5), so the rule is within single-digit percent
+   (d) an exact DP ceiling, where the model is small enough to solve, is worth 4.2 % of the rule's errors on
+   `real` and 0.5 % on `ticket` (block 5000–5023, 21 nodes, budget ≤5), so the rule is within single-digit percent
    of the optimum *of its own model* while the `oracle` gap asks for a third to a half of its errors. The
    mechanical explanations inside the mean-field model are therefore exhausted, and the residual is attributed
    to the belief's **information**: the public belief ranks the truth at 0.966 AUC while the rule needs the

@@ -31,13 +31,14 @@ per-graph repair also survives drift that does not sit on its grid: mean δ erro
 0.174, and all 12 off-grid cells beat the per-node repair.
 
 **And the scheduling null is not our heuristic's fault.** Solve the mean-field belief
-model exactly on 24 fresh graphs (seeds 60000–60023, K∈{1..5}) and the best policy in
-that model is only 0.022 expected sink errors better than the deployed
-rule on real data, CI [0.006, 0.050] as a gain (the tables report policy−comparison, so
-they show −0.022 [−0.050, −0.006]); 0.006 on ticket. Planning value is sub-linear in K
-(ratio 1.73), so this is not a horizon problem either. Caveat that must travel with the
+model exactly on 24 graphs (seeds 5000–5023, K∈{1..5}) and the best policy in
+that model is only 0.030 expected sink errors better than the deployed
+rule on real data, CI [0.008, 0.065] as a gain (the tables report policy−comparison, so
+they show −0.030 [−0.065, −0.008]); 0.002 on ticket. Planning value is sub-linear in K
+(ratio 1.81), so this is not a horizon problem either. Caveat that must travel with the
 number: this is the optimum of *our approximation*, not of the POMDP
-(`PREREGISTER_DP.md`, `outputs/dp-ceiling/report.md`).
+(`PREREGISTER_DP.md`, `outputs/dp-ceiling-fresh/report.md`; the first run sat on the
+model-selection block 60000–60023, and its rerun is in that folder's `AMENDMENT.md`).
 
 **Cannot claim.** Learned policies do not beat the deterministic rule (rule still
 wins by 0.377). The repair does not rescue the masking case: it hands back the
@@ -78,12 +79,14 @@ plain trust (2.15 / 1.89 / 1.87). The `p_catch` trend did not come out as predic
 | 4400–4599 | sampled counterfactual value (`PREREGISTER_EXACT_VALUE.md`) |
 | 4600–4799 | **void** — smoke runs only (4600–4603), excluded from every result |
 | 4800–4999 | belief-value decomposition (`PREREGISTER_BELIEF_DECOMPOSITION.md`) |
+| 5000–5023 | exact DP ceiling (`outputs/dp-ceiling-fresh/`, `PREREGISTER_DP.md`) |
 | 5200–5399 | depth-2 planning (`PREREGISTER_PLANNING_V2.md`) |
-| 60000–60023 | exact DP ceiling (`outputs/dp-ceiling/`, `PREREGISTER_DP.md`) |
+| 5400–5599 | coverage receipt (`PREREGISTER_SUPERVISOR.md`) |
+| 60000–60029 | model-selection validation (not a result block; 60100–60129 from now on) |
 | 70000–70099 | calibration (parameters fitted here only) |
 | 91000–91199 / 92000–92199 / 93000–93199 / 94000–94199 | assess / feedback / residual / planning |
 
-Next free block: **5000–5199**, then **5400–5599**, then **60024 and up**. Rerunning a spent
+Next free block: **5024–5199**, then **5600–59999**, then **60130 and up**. Rerunning a spent
 block is a rules violation, not a re-check; the results are already byte-reproducible. (This
 line said "4200 and up" until 2026-11-24; four later blocks had gone unrecorded here, so the
 ledger listed less than it should have. The earlier "mixed δ at 4200–4299" suggestion was

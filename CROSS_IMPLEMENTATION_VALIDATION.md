@@ -52,8 +52,8 @@ The proposal should say so, and move the contribution to (a) estimating which si
 (b) behaving safely when it cannot.
 
 That conclusion used to rest on "our rule finds nothing", which a reviewer can answer with "your rule is
-weak". It no longer does: the exact optimum of the rule's own belief model is 0.022 errors better on real
-data (§4, `outputs/dp-ceiling/`), so the headroom is in the model and the data, not in the scheduler.
+weak". It no longer does: the exact optimum of the rule's own belief model is 0.030 errors better on real
+data (§4, `outputs/dp-ceiling-fresh/`), so the headroom is in the model and the data, not in the scheduler.
 
 ## 4. What survives, and it is not "RL wins"
 
@@ -73,7 +73,7 @@ Differences below are **policy − comparison**, paired inside one run; negative
 | Planning two reviews ahead | role2: +0.035 [−0.025, +0.100] vs one-step mixture | **not supported** |
 | Residual GNN on top of the rule | role2: +0.022 [−0.018, +0.072] | **not supported** |
 | A third architecture (PPO) on the same environment | role3 `outputs/ppo-v1/`, 200 fresh graphs, seeds 4200–4399: +0.350 / +0.460 / +0.465 vs `marginal`, every CI excludes 0, inside the pre-registered REINFORCE bound | **third loss** — indistinguishable from REINFORCE, not better |
-| The rule is near the best policy *inside its own model* | role3 `outputs/dp-ceiling/`, exact DP on 24 fresh graphs (60000–60023), K∈{1..5}: `dp_5 − marginal` = −0.022 [−0.050, −0.006] real, −0.006 [−0.010, −0.003] ticket; planning is sub-linear (ratio 1.73) | supported — the ceiling is 0.022 errors away, so the §3 null is about the problem, not our heuristic |
+| The rule is near the best policy *inside its own model* | role3 `outputs/dp-ceiling-fresh/`, exact DP on 24 graphs (5000–5023), K∈{1..5}: `dp_5 − marginal` = −0.030 [−0.065, −0.008] real, −0.002 ticket; planning is sub-linear (ratio 1.81) | supported — the ceiling is 0.030 errors away, so the §3 null is about the problem, not our heuristic |
 | Per-review credit assignment improves the trained model | role2: 4.549 → 2.926 across 5 seeds | supported *as a training result* |
 | …therefore the trained model is deployable | role2 field comparison: 2.945 vs two-step rule 2.765 | **contradicted** |
 | Per-node scheduling helps on real data | §3 above, four nulls | **not supported** |
@@ -113,11 +113,12 @@ directory-name-with-a-space dependency entirely.
 - No CI. Tests are run by hand: `role3 improvement` 78 pass, `role2_규리` 4 pass (checked 2026-11-24).
 - The DP ceiling is the exact optimum of the **mean-field belief model the rule optimises**, not of the
   POMDP. It also uses a node-local miss-update instead of the environment's inherited-risk one (identical
-  on source nodes, declared in `PREREGISTER_DP.md`). So "0.022 short of optimal" means short of optimal
+  on source nodes, declared in `PREREGISTER_DP.md`). So "0.030 short of optimal" means short of optimal
   *inside our own approximation*; a better model could move the ceiling. P2's point
-  estimate (0.0219) slightly overshoots its nominal 0.02 and stays inside the pre-registered
-  0.05 falsification bound; `outputs/dp-ceiling/AMENDMENT.md` records that the verdict code
-  was corrected to test magnitude rather than sign after the first report.
+  estimate (0.0283) overshoots its nominal 0.02 and stays inside the pre-registered
+  0.05 falsification bound; `outputs/dp-ceiling-fresh/AMENDMENT.md` records both that
+  the verdict code was corrected to test magnitude rather than sign, and that the block
+  was moved off the model-selection range 60000–60023 onto 5000–5023.
 - `experiments/` and `role2_규리/` disagree on the sink definition for the sleep DAG (4 declared sinks vs
   childless nodes). Harmless while the tables stay separate; fatal if merged.
 - No measured confidence signal. Everything above assumes the confidence score has a known error model; the

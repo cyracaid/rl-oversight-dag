@@ -32,7 +32,7 @@ ahead on held-out graphs — PPO by +0.35 to +0.47 errors per graph, the 10× ru
 We then spend four pre-registered experiments on the rule's remaining gap to an
 oracle and close every mechanical explanation: not the one-step value (−0.049
 recovery), not the belief's probability scale (−1 error of 978), not the horizon —
-exact five-step planning *inside the rule's own model* is worth 0.022 errors against
+exact five-step planning *inside the rule's own model* is worth 0.030 errors against
 a 5–7-error gap to the oracle. What is left is information the confidence channel
 does not carry.
 
@@ -336,10 +336,13 @@ heuristic: a planner reads "this node will probably be missed, so its belief wil
 drop" as an improvement. That is a statement about the update, not about planning.
 
 **6.4 The exact optimum agrees.** A dynamic program over the rule's own belief model
-(block 60000–60023, five predictions frozen first) gives `dp − marginal` = −0.0219 on
-`real` and −0.0059 on `ticket`, against a 5–7-error gap. Planning value is
-sub-linear (ratio 1.73), `dp₃` equals exhaustive greedy to 1e-9, and the saturation
-test holds on both families.
+(block 5000–5023, five predictions frozen first) gives `dp − marginal` = −0.030
+[−0.065, −0.008] on `real` (4.2 % of the rule's residual) and −0.002 on `ticket`,
+against a 5–7-error gap. Planning value is
+sub-linear (ratio 1.81), `dp₃` equals exhaustive greedy to 1e-9, and the saturation
+test holds on both families. The first run sat on the model-selection block
+60000–60023; it is kept as a sensitivity check and moves no verdict
+(`outputs/dp-ceiling-fresh/AMENDMENT.md`).
 
 So the gap is not lookahead, not the one-step value, and not the probability scale.
 What remains is **information the confidence channel does not carry**. The one
@@ -357,7 +360,7 @@ have been.
 
 **What the ceiling is, exactly.** The DP is the optimum of the *mean-field model the
 rule optimises*, not of the POMDP, and it uses a node-local miss update (identical
-on source nodes). "0.022 short of optimal" therefore means short of optimal inside
+on source nodes). "0.030 short of optimal" therefore means short of optimal inside
 our own approximation. A better model could move the ceiling; that is the open cell.
 
 ### 6.5 What a delivery can say about its own coverage
@@ -582,7 +585,7 @@ mean-field rule is competitive at all.
 
 **Belief-space control and active perception.** `marginal` is a one-step lookahead
 in a mean-field belief; the DP ceiling in §6.4 is the exact solution of the same
-belief MDP. The result that exact planning over that model buys 0.022 errors is a
+belief MDP. The result that exact planning over that model buys 0.030 errors is a
 statement about the model, not the planner, and it is why we frame the remaining gap
 as an information problem.
 
@@ -674,7 +677,7 @@ scheduler is where the error lives.
 | 5.2 | `p_catch` sweep, verdict `inverted` | `PREREGISTER_P_CATCH.md`, block 4000–4199 |
 | 6.1–6.2 | counterfactual value, belief rescaling | blocks 4400–4599, 4800–4999 |
 | 6.3 | depth-two planning | `PREREGISTER_PLANNING_V2.md`, block 5200–5399 |
-| 6.4 | DP ceiling, P1–P5, amendment | `role3 improvement/outputs/dp-ceiling/{report,AMENDMENT}.md` |
+| 6.4 | DP ceiling, P1–P5, amendment | `role3 improvement/outputs/dp-ceiling-fresh/{report,AMENDMENT}.md` |
 | 6.5 | receipt table, 0.898 vs 0.90, 10.2 / 14.9 % | `role3 improvement/outputs/supervisor-v1/receipt_vs_silent.md` |
 | 7.1–7.2 | 13,990 / 237; 53 replay; 159/159 | `experiments/replay_manual_corrections.py`, `runs/replay-manual-corrections/` |
 | 7.3 | across-record replay, 99.8 % / 2.9 % | `experiments/cross_record_replay.py`, `runs/cross-record-replay/` |

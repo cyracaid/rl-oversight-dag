@@ -28,6 +28,23 @@ from dag_role3 import generate_graph, sample_episode
 from dag_role3.environment import initial_belief
 
 SEED_BLOCKS = {"real": (60000, 12), "ticket": (60012, 12)}
+
+
+def parse_seed_starts(spec):
+    """`real=5400,ticket=5412` -> {"real": 5400, "ticket": 5412}.
+
+    The block a run reports on must be visible on the command line, not only in a
+    module constant: the first run reported on 60000–60023 while that block was also
+    the model-selection validation set (see `outputs/dp-ceiling-fresh/AMENDMENT.md`).
+    """
+    starts = {}
+    for part in spec.split(","):
+        family, _, start = part.partition("=")
+        family = family.strip()
+        if family not in SEED_BLOCKS:
+            raise SystemExit(f"unknown family {family!r}; known: {sorted(SEED_BLOCKS)}")
+        starts[family] = int(start)
+    return starts
 BUDGETS = (1, 2, 3, 4, 5)
 P_CATCH = 0.9
 
@@ -291,9 +308,18 @@ def main():
     ap.add_argument("--families", nargs="+", default=["real", "ticket"])
     ap.add_argument("--budgets", nargs="+", type=int, default=list(BUDGETS))
     ap.add_argument("--graphs", type=int, default=12)
+    ap.add_argument("--seed-starts", default=None,
+                    help="per-family first graph seed, e.g. real=5400,ticket=5412; "
+                         "defaults to the frozen block in SEED_BLOCKS")
     ap.add_argument("--out", default="outputs/dp-ceiling")
     ap.add_argument("--report", action="store_true", help="evaluate frozen predictions from the CSV")
     args = ap.parse_args()
+
+    starts = dict(SEED_BLOCKS)
+    if args.seed_starts:
+        for family, start in parse_seed_starts(args.seed_starts).items():
+            starts[family] = (start, args.graphs)
+    blocks_used = {f: [starts[f][0], args.graphs] for f in args.families}
 
     out = Path(args.out)
     if args.report:
@@ -311,7 +337,7 @@ def main():
         if csv_path.stat().st_size == 0:
             f.write(header + "\n")
         for family in args.families:
-            start, _ = SEED_BLOCKS[family]
+            start, _ = starts[family]
             for i in range(args.graphs):
                 seed = start + i
                 if (family, seed) in done:
@@ -327,7 +353,7 @@ def main():
         "preregistration": "PREREGISTER_DP.md",
         "families": args.families, "budgets": args.budgets, "graphs": args.graphs,
         "p_catch": P_CATCH, "confidence_mode": "normal",
-        "seed_blocks": {f: SEED_BLOCKS[f] for f in args.families},
+        "seed_blocks": blocks_used,
         "csv_sha256": hashlib.sha256(csv_path.read_bytes()).hexdigest(),
         "source_sha256": {
             str(p.relative_to(here)): hashlib.sha256(p.read_bytes()).hexdigest()
