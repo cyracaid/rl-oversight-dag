@@ -1,0 +1,885 @@
+{
+  "header": {
+    "participants": 196,
+    "nights": 2372,
+    "run_len": 4,
+    "seeds": 20,
+    "cost": "attempts",
+    "budgets": [
+      2,
+      3,
+      4
+    ],
+    "catch": 0.9,
+    "shift_min": 90.0,
+    "mid_suspect_min": 45.0
+  },
+  "policies": {
+    "block_order|attempts|b2": {
+      "none": {
+        "mean": 1.733,
+        "se": 0.0086,
+        "pct_record_clean": 0.0,
+        "trials": 178
+      },
+      "night_random": {
+        "mean": 1.579,
+        "se": 0.0116,
+        "pct_record_clean": 8.4,
+        "trials": 178
+      },
+      "night_qc": {
+        "mean": 0.174,
+        "se": 0.0087,
+        "pct_record_clean": 86.6,
+        "trials": 178
+      },
+      "night_extreme": {
+        "mean": 1.584,
+        "se": 0.0115,
+        "pct_record_clean": 8.3,
+        "trials": 178
+      },
+      "night_mid": {
+        "mean": 1.592,
+        "se": 0.0114,
+        "pct_record_clean": 7.7,
+        "trials": 178
+      },
+      "block2_qc": {
+        "mean": 0.006,
+        "se": 0.0015,
+        "pct_record_clean": 99.5,
+        "trials": 178
+      },
+      "block3_qc": {
+        "mean": 0.006,
+        "se": 0.0015,
+        "pct_record_clean": 99.5,
+        "trials": 178
+      },
+      "block2_shift": {
+        "mean": 0.919,
+        "se": 0.0158,
+        "pct_record_clean": 46.5,
+        "trials": 178
+      },
+      "block3_shift": {
+        "mean": 0.589,
+        "se": 0.0146,
+        "pct_record_clean": 65.6,
+        "trials": 178
+      },
+      "block3_mid": {
+        "mean": 0.575,
+        "se": 0.0145,
+        "pct_record_clean": 66.4,
+        "trials": 178
+      },
+      "oracle": {
+        "mean": 0.004,
+        "se": 0.0013,
+        "pct_record_clean": 99.6,
+        "trials": 178
+      }
+    },
+    "block_order|attempts|b3": {
+      "none": {
+        "mean": 1.733,
+        "se": 0.0086,
+        "pct_record_clean": 0.0,
+        "trials": 178
+      },
+      "night_random": {
+        "mean": 1.331,
+        "se": 0.0144,
+        "pct_record_clean": 22.9,
+        "trials": 178
+      },
+      "night_qc": {
+        "mean": 0.013,
+        "se": 0.0023,
+        "pct_record_clean": 98.7,
+        "trials": 178
+      },
+      "night_extreme": {
+        "mean": 1.349,
+        "se": 0.0143,
+        "pct_record_clean": 22.1,
+        "trials": 178
+      },
+      "night_mid": {
+        "mean": 1.359,
+        "se": 0.0141,
+        "pct_record_clean": 20.8,
+        "trials": 178
+      },
+      "block2_qc": {
+        "mean": 0.002,
+        "se": 0.0009,
+        "pct_record_clean": 99.9,
+        "trials": 178
+      },
+      "block3_qc": {
+        "mean": 0.002,
+        "se": 0.001,
+        "pct_record_clean": 99.9,
+        "trials": 178
+      },
+      "block2_shift": {
+        "mean": 0.52,
+        "se": 0.0141,
+        "pct_record_clean": 70.0,
+        "trials": 178
+      },
+      "block3_shift": {
+        "mean": 0.142,
+        "se": 0.0082,
+        "pct_record_clean": 91.4,
+        "trials": 178
+      },
+      "block3_mid": {
+        "mean": 0.139,
+        "se": 0.0081,
+        "pct_record_clean": 91.5,
+        "trials": 178
+      },
+      "oracle": {
+        "mean": 0.001,
+        "se": 0.0006,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      }
+    },
+    "block_order|attempts|b4": {
+      "none": {
+        "mean": 1.733,
+        "se": 0.0086,
+        "pct_record_clean": 0.0,
+        "trials": 178
+      },
+      "night_random": {
+        "mean": 1.049,
+        "se": 0.0157,
+        "pct_record_clean": 39.3,
+        "trials": 178
+      },
+      "night_qc": {
+        "mean": 0.0,
+        "se": 0.0003,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      },
+      "night_extreme": {
+        "mean": 1.059,
+        "se": 0.0158,
+        "pct_record_clean": 38.8,
+        "trials": 178
+      },
+      "night_mid": {
+        "mean": 1.065,
+        "se": 0.0156,
+        "pct_record_clean": 37.9,
+        "trials": 178
+      },
+      "block2_qc": {
+        "mean": 0.0,
+        "se": 0.0,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      },
+      "block3_qc": {
+        "mean": 0.0,
+        "se": 0.0,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      },
+      "block2_shift": {
+        "mean": 0.168,
+        "se": 0.0089,
+        "pct_record_clean": 89.7,
+        "trials": 178
+      },
+      "block3_shift": {
+        "mean": 0.01,
+        "se": 0.0022,
+        "pct_record_clean": 99.4,
+        "trials": 178
+      },
+      "block3_mid": {
+        "mean": 0.012,
+        "se": 0.0024,
+        "pct_record_clean": 99.2,
+        "trials": 178
+      },
+      "oracle": {
+        "mean": 0.0,
+        "se": 0.0,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      }
+    },
+    "block_waso|attempts|b2": {
+      "none": {
+        "mean": 0.046,
+        "se": 0.0038,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.041,
+        "se": 0.0036,
+        "pct_record_clean": 3.0,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.045,
+        "se": 0.0038,
+        "pct_record_clean": 4.4,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.041,
+        "se": 0.0035,
+        "pct_record_clean": 3.5,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.042,
+        "se": 0.0037,
+        "pct_record_clean": 5.6,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.036,
+        "se": 0.0035,
+        "pct_record_clean": 19.8,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.022,
+        "se": 0.0025,
+        "pct_record_clean": 28.8,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.029,
+        "se": 0.003,
+        "pct_record_clean": 20.6,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.019,
+        "se": 0.0023,
+        "pct_record_clean": 28.9,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.018,
+        "se": 0.0022,
+        "pct_record_clean": 28.6,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 39.8,
+        "trials": 188
+      }
+    },
+    "block_waso|attempts|b3": {
+      "none": {
+        "mean": 0.046,
+        "se": 0.0038,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.033,
+        "se": 0.0032,
+        "pct_record_clean": 7.2,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.041,
+        "se": 0.0036,
+        "pct_record_clean": 13.3,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.036,
+        "se": 0.0033,
+        "pct_record_clean": 8.1,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.037,
+        "se": 0.0034,
+        "pct_record_clean": 14.0,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.021,
+        "se": 0.0025,
+        "pct_record_clean": 29.7,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.014,
+        "se": 0.0019,
+        "pct_record_clean": 37.0,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.019,
+        "se": 0.0024,
+        "pct_record_clean": 28.9,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.013,
+        "se": 0.0019,
+        "pct_record_clean": 36.3,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.015,
+        "se": 0.0021,
+        "pct_record_clean": 35.8,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 40.6,
+        "trials": 188
+      }
+    },
+    "block_waso|attempts|b4": {
+      "none": {
+        "mean": 0.046,
+        "se": 0.0038,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.028,
+        "se": 0.0029,
+        "pct_record_clean": 11.9,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.033,
+        "se": 0.0032,
+        "pct_record_clean": 21.8,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.03,
+        "se": 0.003,
+        "pct_record_clean": 14.2,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.032,
+        "se": 0.0032,
+        "pct_record_clean": 21.7,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.013,
+        "se": 0.0019,
+        "pct_record_clean": 36.4,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 39.7,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.013,
+        "se": 0.0018,
+        "pct_record_clean": 36.3,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 39.7,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 39.8,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 40.8,
+        "trials": 188
+      }
+    },
+    "block_shift|attempts|b2": {
+      "none": {
+        "mean": 0.234,
+        "se": 0.0069,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.223,
+        "se": 0.0068,
+        "pct_record_clean": 5.3,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.18,
+        "se": 0.0062,
+        "pct_record_clean": 32.4,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.214,
+        "se": 0.0067,
+        "pct_record_clean": 5.3,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.119,
+        "se": 0.0053,
+        "pct_record_clean": 49.3,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.075,
+        "se": 0.0043,
+        "pct_record_clean": 71.6,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.051,
+        "se": 0.0036,
+        "pct_record_clean": 78.7,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.046,
+        "se": 0.0034,
+        "pct_record_clean": 76.7,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.038,
+        "se": 0.0031,
+        "pct_record_clean": 79.9,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.04,
+        "se": 0.0032,
+        "pct_record_clean": 79.8,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.027,
+        "se": 0.0026,
+        "pct_record_clean": 86.2,
+        "trials": 188
+      }
+    },
+    "block_shift|attempts|b3": {
+      "none": {
+        "mean": 0.234,
+        "se": 0.0069,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.197,
+        "se": 0.0065,
+        "pct_record_clean": 13.6,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.128,
+        "se": 0.0054,
+        "pct_record_clean": 55.6,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.187,
+        "se": 0.0063,
+        "pct_record_clean": 15.0,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.074,
+        "se": 0.0042,
+        "pct_record_clean": 67.1,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.043,
+        "se": 0.0033,
+        "pct_record_clean": 81.6,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.032,
+        "se": 0.0029,
+        "pct_record_clean": 85.0,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.031,
+        "se": 0.0028,
+        "pct_record_clean": 84.0,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.03,
+        "se": 0.0028,
+        "pct_record_clean": 85.4,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.031,
+        "se": 0.0028,
+        "pct_record_clean": 85.3,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.023,
+        "se": 0.0024,
+        "pct_record_clean": 88.0,
+        "trials": 188
+      }
+    },
+    "block_shift|attempts|b4": {
+      "none": {
+        "mean": 0.234,
+        "se": 0.0069,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.166,
+        "se": 0.006,
+        "pct_record_clean": 26.3,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.083,
+        "se": 0.0045,
+        "pct_record_clean": 70.1,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.158,
+        "se": 0.0059,
+        "pct_record_clean": 27.3,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.049,
+        "se": 0.0035,
+        "pct_record_clean": 77.5,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.028,
+        "se": 0.0027,
+        "pct_record_clean": 86.0,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.024,
+        "se": 0.0025,
+        "pct_record_clean": 87.0,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.025,
+        "se": 0.0025,
+        "pct_record_clean": 87.1,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.026,
+        "se": 0.0026,
+        "pct_record_clean": 86.8,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.026,
+        "se": 0.0026,
+        "pct_record_clean": 86.9,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.022,
+        "se": 0.0024,
+        "pct_record_clean": 88.1,
+        "trials": 188
+      }
+    }
+  },
+  "paired": {
+    "block_order|attempts|b2|block3_qc-night_qc": {
+      "delta": -0.168,
+      "ci95": [
+        -0.186,
+        -0.149
+      ]
+    },
+    "block_order|attempts|b2|block3_shift-night_qc": {
+      "delta": 0.415,
+      "ci95": [
+        0.381,
+        0.447
+      ]
+    },
+    "block_order|attempts|b2|block3_mid-night_qc": {
+      "delta": 0.401,
+      "ci95": [
+        0.366,
+        0.44
+      ]
+    },
+    "block_order|attempts|b2|night_mid-night_qc": {
+      "delta": 1.417,
+      "ci95": [
+        1.391,
+        1.446
+      ]
+    },
+    "block_order|attempts|b3|block3_qc-night_qc": {
+      "delta": -0.012,
+      "ci95": [
+        -0.017,
+        -0.007
+      ]
+    },
+    "block_order|attempts|b3|block3_shift-night_qc": {
+      "delta": 0.128,
+      "ci95": [
+        0.115,
+        0.143
+      ]
+    },
+    "block_order|attempts|b3|block3_mid-night_qc": {
+      "delta": 0.126,
+      "ci95": [
+        0.112,
+        0.139
+      ]
+    },
+    "block_order|attempts|b3|night_mid-night_qc": {
+      "delta": 1.346,
+      "ci95": [
+        1.325,
+        1.367
+      ]
+    },
+    "block_order|attempts|b4|block3_qc-night_qc": {
+      "delta": -0.0,
+      "ci95": [
+        -0.001,
+        0.0
+      ]
+    },
+    "block_order|attempts|b4|block3_shift-night_qc": {
+      "delta": 0.009,
+      "ci95": [
+        0.006,
+        0.013
+      ]
+    },
+    "block_order|attempts|b4|block3_mid-night_qc": {
+      "delta": 0.012,
+      "ci95": [
+        0.007,
+        0.017
+      ]
+    },
+    "block_order|attempts|b4|night_mid-night_qc": {
+      "delta": 1.064,
+      "ci95": [
+        1.037,
+        1.092
+      ]
+    },
+    "block_waso|attempts|b2|block3_qc-night_qc": {
+      "delta": -0.022,
+      "ci95": [
+        -0.025,
+        -0.019
+      ]
+    },
+    "block_waso|attempts|b2|block3_shift-night_qc": {
+      "delta": -0.026,
+      "ci95": [
+        -0.029,
+        -0.023
+      ]
+    },
+    "block_waso|attempts|b2|block3_mid-night_qc": {
+      "delta": -0.026,
+      "ci95": [
+        -0.029,
+        -0.024
+      ]
+    },
+    "block_waso|attempts|b2|night_mid-night_qc": {
+      "delta": -0.002,
+      "ci95": [
+        -0.004,
+        -0.001
+      ]
+    },
+    "block_waso|attempts|b3|block3_qc-night_qc": {
+      "delta": -0.027,
+      "ci95": [
+        -0.03,
+        -0.023
+      ]
+    },
+    "block_waso|attempts|b3|block3_shift-night_qc": {
+      "delta": -0.028,
+      "ci95": [
+        -0.032,
+        -0.025
+      ]
+    },
+    "block_waso|attempts|b3|block3_mid-night_qc": {
+      "delta": -0.026,
+      "ci95": [
+        -0.029,
+        -0.023
+      ]
+    },
+    "block_waso|attempts|b3|night_mid-night_qc": {
+      "delta": -0.005,
+      "ci95": [
+        -0.007,
+        -0.002
+      ]
+    },
+    "block_waso|attempts|b4|block3_qc-night_qc": {
+      "delta": -0.022,
+      "ci95": [
+        -0.025,
+        -0.018
+      ]
+    },
+    "block_waso|attempts|b4|block3_shift-night_qc": {
+      "delta": -0.022,
+      "ci95": [
+        -0.025,
+        -0.018
+      ]
+    },
+    "block_waso|attempts|b4|block3_mid-night_qc": {
+      "delta": -0.022,
+      "ci95": [
+        -0.025,
+        -0.018
+      ]
+    },
+    "block_waso|attempts|b4|night_mid-night_qc": {
+      "delta": -0.0,
+      "ci95": [
+        -0.001,
+        0.0
+      ]
+    },
+    "block_shift|attempts|b2|block3_qc-night_qc": {
+      "delta": -0.13,
+      "ci95": [
+        -0.141,
+        -0.119
+      ]
+    },
+    "block_shift|attempts|b2|block3_shift-night_qc": {
+      "delta": -0.142,
+      "ci95": [
+        -0.152,
+        -0.132
+      ]
+    },
+    "block_shift|attempts|b2|block3_mid-night_qc": {
+      "delta": -0.14,
+      "ci95": [
+        -0.149,
+        -0.131
+      ]
+    },
+    "block_shift|attempts|b2|night_mid-night_qc": {
+      "delta": -0.061,
+      "ci95": [
+        -0.072,
+        -0.05
+      ]
+    },
+    "block_shift|attempts|b3|block3_qc-night_qc": {
+      "delta": -0.096,
+      "ci95": [
+        -0.103,
+        -0.088
+      ]
+    },
+    "block_shift|attempts|b3|block3_shift-night_qc": {
+      "delta": -0.098,
+      "ci95": [
+        -0.106,
+        -0.09
+      ]
+    },
+    "block_shift|attempts|b3|block3_mid-night_qc": {
+      "delta": -0.097,
+      "ci95": [
+        -0.105,
+        -0.089
+      ]
+    },
+    "block_shift|attempts|b3|night_mid-night_qc": {
+      "delta": -0.054,
+      "ci95": [
+        -0.06,
+        -0.048
+      ]
+    },
+    "block_shift|attempts|b4|block3_qc-night_qc": {
+      "delta": -0.06,
+      "ci95": [
+        -0.064,
+        -0.055
+      ]
+    },
+    "block_shift|attempts|b4|block3_shift-night_qc": {
+      "delta": -0.057,
+      "ci95": [
+        -0.062,
+        -0.053
+      ]
+    },
+    "block_shift|attempts|b4|block3_mid-night_qc": {
+      "delta": -0.057,
+      "ci95": [
+        -0.061,
+        -0.052
+      ]
+    },
+    "block_shift|attempts|b4|night_mid-night_qc": {
+      "delta": -0.034,
+      "ci95": [
+        -0.039,
+        -0.029
+      ]
+    }
+  }
+}

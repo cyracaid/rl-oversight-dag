@@ -240,7 +240,10 @@ Sink errors, budget 1 of ~12 nights: none 0.582, random 0.524, extreme-value 0.4
 **Consequence for the proposal.** Per-node review scheduling is not supported by our
 own data at either level. The defensible formulation is *block* review: given a
 participant's nights and a small budget, choose which contiguous block to open,
-because a defect that matters is shared. That is a proposed next experiment.
+because a defect that matters is shared. That experiment has now been run at pilot
+scale — §12d — and the short answer is that the **unit** (night vs block) is not the
+bottleneck: the **score** is. Block actions pay off only when the budget is smaller
+than the corrupted run and the score is a cross-night one.
 
 ### 12c. Numbers that must not be reused
 
@@ -248,6 +251,64 @@ because a defect that matters is shared. That is a proposed next experiment.
 * REINFORCE 1.40 / PPO 1.60 / threshold 2.30 / structural 1.80 are **legacy seeds 1–20**.
   On 200 held-out graphs: threshold 1.41, structural 1.45, **belief greedy 1.14**,
   GNN+REINFORCE 1.56. Do not quote the legacy column as the method comparison.
+
+### 12d. Block review MDP: the unit is not the bottleneck, the score is
+
+`block_review_mdp.py` (11/11 tests) → `runs/block-review-mdp/`;
+full write-up and the bug that invalidated the first pass in `BLOCK_REVIEW_NOTE.md`.
+
+196 participants / 2,372 nights (median 12); one contiguous 4-night run corrupted;
+20 paired seeds (every policy sees the identical corrupted record); 178–188 usable
+records per cell. **Budget unit = nights read**, so a 3-night window costs 3.
+Reward = −(number of the 4 conclusions that disagree with the truth).
+
+| corruption | budget | none | night QC | night mid | block3 QC | block3 mid | oracle |
+|---|---|---|---|---|---|---|---|
+| visible ±12 h (57/75 real) | 2 | 1.73 | 0.20 | 1.06 | **0.15** | 1.35 | 0.16 |
+| | 4 | 1.73 | **0.00** | 1.06 | 0.00 | 1.08 | 0.00 |
+| | 6 | 1.73 | **0.00** | 0.54 | 0.01 | 0.59 | 0.00 |
+| silent 90 min offset (hypothetical) | 2 | 0.23 | 0.18 | 0.12 | 0.13 | **0.09** | 0.09 |
+| | 4 | 0.23 | 0.08 | 0.05 | 0.10 | 0.06 | 0.03 |
+| | 6 | 0.23 | 0.04 | **0.02** | 0.05 | 0.04 | 0.02 |
+| silent WASO→0 (2/75 real) | 4 | 0.05 | 0.03 | 0.03 | 0.04 | 0.03 | 0.01 |
+| | 6 | 0.05 | **0.02** | 0.02 | 0.02 | 0.02 | 0.01 |
+
+\* At a 2-night budget a "block3" policy can only afford a 2-night window, so the
+budget-2 block rows are really block2. Everywhere else the window is 3 nights.
+
+Paired deltas vs night QC (bootstrap over 20 seeds, 95 % CI):
+
+* visible, budget 2: block3 QC **−0.050 [−0.08, −0.03]**; budget 4: +0.002 [0.00, 0.00].
+* silent 90 min, budget 2: block3 mid **−0.050 [−0.06, −0.04]**; budget 4: +0.016.
+* WASO→0: every delta inside ±0.005.
+
+Reading:
+
+1. **Visible defects (the real 76 %):** one line on the existing QC flags is already
+   at the oracle. A contiguous window of the affordable length buys 5 points of sink
+   errors at budget 2 (0.15 vs 0.20, oracle 0.16) and nothing from budget 4 on,
+   where both are 0.00.
+2. **Silent, consequence-bearing defects:** at budget 2 the block + cross-night score
+   is *exactly* the oracle (0.09) where per-night QC gets 0.18. But at budget 4 the
+   per-night mid policy overtakes it (0.05 vs 0.06) and at 6 it ties the oracle.
+   The advantage is a **budget < run-length** effect, not a structural one.
+3. **Silent, no-consequence defects:** every policy lands in 0.02–0.05 and even the
+   oracle only reaches 0.01. Nothing to schedule — that defect has to be fixed at
+   capture time.
+4. **Cost unit matters more than the action unit:** if an "attempt" (opening the
+   record) reveals 3 adjacent nights, block3 QC reaches 99.5 % clean at 2 attempts vs
+   86.6 % for night QC (`results_attempts.json`). That is the assumption doing the
+   work, so it is reported as a sensitivity analysis, never as a finding.
+
+**Correction-log check.** Do real corrections cluster? `correction_clustering.py`:
+1 adjacent corrected-night pair vs 0.97 expected if scattered — but only 13 corrected
+nights of the 12 multi-night records fall inside the export's day window, so the test
+has no power. It neither supports nor refutes the block hypothesis.
+
+**Verdict.** Neither "node" nor "block" is the right headline. The review scheduler
+needs a **cross-night consistency score**; once it has one, the action unit is a free
+parameter that only matters when the budget is below the run length. This is the same
+conclusion as §7 (the confidence signal is the bottleneck), reached from different data.
 
 ## 13. Credit assignment: one training result, one deployment null (not one withdrawal)
 

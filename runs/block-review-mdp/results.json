@@ -1,0 +1,885 @@
+{
+  "header": {
+    "participants": 196,
+    "nights": 2372,
+    "run_len": 4,
+    "seeds": 20,
+    "cost": "nights",
+    "budgets": [
+      2,
+      4,
+      6
+    ],
+    "catch": 0.9,
+    "shift_min": 90.0,
+    "mid_suspect_min": 45.0
+  },
+  "policies": {
+    "block_order|nights|b2": {
+      "none": {
+        "mean": 1.733,
+        "se": 0.0086,
+        "pct_record_clean": 0.0,
+        "trials": 178
+      },
+      "night_random": {
+        "mean": 1.594,
+        "se": 0.0113,
+        "pct_record_clean": 7.6,
+        "trials": 178
+      },
+      "night_qc": {
+        "mean": 0.201,
+        "se": 0.0092,
+        "pct_record_clean": 84.7,
+        "trials": 178
+      },
+      "night_extreme": {
+        "mean": 1.587,
+        "se": 0.0115,
+        "pct_record_clean": 8.3,
+        "trials": 178
+      },
+      "night_mid": {
+        "mean": 1.589,
+        "se": 0.0114,
+        "pct_record_clean": 7.8,
+        "trials": 178
+      },
+      "block2_qc": {
+        "mean": 0.168,
+        "se": 0.0087,
+        "pct_record_clean": 88.9,
+        "trials": 178
+      },
+      "block3_qc": {
+        "mean": 0.151,
+        "se": 0.0083,
+        "pct_record_clean": 89.7,
+        "trials": 178
+      },
+      "block2_shift": {
+        "mean": 1.355,
+        "se": 0.0142,
+        "pct_record_clean": 21.5,
+        "trials": 178
+      },
+      "block3_shift": {
+        "mean": 1.35,
+        "se": 0.0143,
+        "pct_record_clean": 22.0,
+        "trials": 178
+      },
+      "block3_mid": {
+        "mean": 1.35,
+        "se": 0.0143,
+        "pct_record_clean": 21.8,
+        "trials": 178
+      },
+      "oracle": {
+        "mean": 0.157,
+        "se": 0.0085,
+        "pct_record_clean": 90.1,
+        "trials": 178
+      }
+    },
+    "block_order|nights|b4": {
+      "none": {
+        "mean": 1.733,
+        "se": 0.0086,
+        "pct_record_clean": 0.0,
+        "trials": 178
+      },
+      "night_random": {
+        "mean": 1.023,
+        "se": 0.0157,
+        "pct_record_clean": 40.5,
+        "trials": 178
+      },
+      "night_qc": {
+        "mean": 0.001,
+        "se": 0.0004,
+        "pct_record_clean": 99.9,
+        "trials": 178
+      },
+      "night_extreme": {
+        "mean": 1.061,
+        "se": 0.0158,
+        "pct_record_clean": 38.6,
+        "trials": 178
+      },
+      "night_mid": {
+        "mean": 1.061,
+        "se": 0.0156,
+        "pct_record_clean": 38.2,
+        "trials": 178
+      },
+      "block2_qc": {
+        "mean": 0.007,
+        "se": 0.0018,
+        "pct_record_clean": 99.4,
+        "trials": 178
+      },
+      "block3_qc": {
+        "mean": 0.003,
+        "se": 0.0011,
+        "pct_record_clean": 99.8,
+        "trials": 178
+      },
+      "block2_shift": {
+        "mean": 0.915,
+        "se": 0.0157,
+        "pct_record_clean": 46.5,
+        "trials": 178
+      },
+      "block3_shift": {
+        "mean": 1.072,
+        "se": 0.0157,
+        "pct_record_clean": 38.1,
+        "trials": 178
+      },
+      "block3_mid": {
+        "mean": 1.076,
+        "se": 0.0157,
+        "pct_record_clean": 37.9,
+        "trials": 178
+      },
+      "oracle": {
+        "mean": 0.003,
+        "se": 0.0009,
+        "pct_record_clean": 99.7,
+        "trials": 178
+      }
+    },
+    "block_order|nights|b6": {
+      "none": {
+        "mean": 1.733,
+        "se": 0.0086,
+        "pct_record_clean": 0.0,
+        "trials": 178
+      },
+      "night_random": {
+        "mean": 0.493,
+        "se": 0.0139,
+        "pct_record_clean": 71.4,
+        "trials": 178
+      },
+      "night_qc": {
+        "mean": 0.0,
+        "se": 0.0,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      },
+      "night_extreme": {
+        "mean": 0.559,
+        "se": 0.0146,
+        "pct_record_clean": 68.2,
+        "trials": 178
+      },
+      "night_mid": {
+        "mean": 0.535,
+        "se": 0.0142,
+        "pct_record_clean": 69.2,
+        "trials": 178
+      },
+      "block2_qc": {
+        "mean": 0.0,
+        "se": 0.0003,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      },
+      "block3_qc": {
+        "mean": 0.007,
+        "se": 0.0018,
+        "pct_record_clean": 99.5,
+        "trials": 178
+      },
+      "block2_shift": {
+        "mean": 0.514,
+        "se": 0.0141,
+        "pct_record_clean": 70.2,
+        "trials": 178
+      },
+      "block3_shift": {
+        "mean": 0.574,
+        "se": 0.0145,
+        "pct_record_clean": 66.5,
+        "trials": 178
+      },
+      "block3_mid": {
+        "mean": 0.586,
+        "se": 0.0146,
+        "pct_record_clean": 65.6,
+        "trials": 178
+      },
+      "oracle": {
+        "mean": 0.0,
+        "se": 0.0,
+        "pct_record_clean": 100.0,
+        "trials": 178
+      }
+    },
+    "block_waso|nights|b2": {
+      "none": {
+        "mean": 0.046,
+        "se": 0.0038,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.043,
+        "se": 0.0038,
+        "pct_record_clean": 2.3,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.044,
+        "se": 0.0038,
+        "pct_record_clean": 4.8,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.041,
+        "se": 0.0036,
+        "pct_record_clean": 3.5,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.042,
+        "se": 0.0037,
+        "pct_record_clean": 5.5,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.042,
+        "se": 0.0037,
+        "pct_record_clean": 9.6,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.041,
+        "se": 0.0037,
+        "pct_record_clean": 9.4,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.041,
+        "se": 0.0037,
+        "pct_record_clean": 11.0,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.041,
+        "se": 0.0036,
+        "pct_record_clean": 10.6,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.041,
+        "se": 0.0036,
+        "pct_record_clean": 10.6,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.014,
+        "se": 0.0019,
+        "pct_record_clean": 24.5,
+        "trials": 188
+      }
+    },
+    "block_waso|nights|b4": {
+      "none": {
+        "mean": 0.046,
+        "se": 0.0038,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.028,
+        "se": 0.0029,
+        "pct_record_clean": 11.5,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.034,
+        "se": 0.0033,
+        "pct_record_clean": 21.7,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.03,
+        "se": 0.0031,
+        "pct_record_clean": 14.0,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.033,
+        "se": 0.0032,
+        "pct_record_clean": 21.5,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.035,
+        "se": 0.0035,
+        "pct_record_clean": 20.5,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.036,
+        "se": 0.0034,
+        "pct_record_clean": 17.5,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.028,
+        "se": 0.003,
+        "pct_record_clean": 20.9,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.032,
+        "se": 0.0032,
+        "pct_record_clean": 19.1,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.032,
+        "se": 0.0032,
+        "pct_record_clean": 19.0,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 39.8,
+        "trials": 188
+      }
+    },
+    "block_waso|nights|b6": {
+      "none": {
+        "mean": 0.046,
+        "se": 0.0038,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.018,
+        "se": 0.0022,
+        "pct_record_clean": 22.7,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.023,
+        "se": 0.0025,
+        "pct_record_clean": 32.4,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.016,
+        "se": 0.002,
+        "pct_record_clean": 23.7,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.022,
+        "se": 0.0025,
+        "pct_record_clean": 32.9,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.02,
+        "se": 0.0024,
+        "pct_record_clean": 29.8,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.022,
+        "se": 0.0025,
+        "pct_record_clean": 28.5,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.018,
+        "se": 0.0023,
+        "pct_record_clean": 29.2,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.019,
+        "se": 0.0022,
+        "pct_record_clean": 28.9,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.018,
+        "se": 0.0022,
+        "pct_record_clean": 28.7,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.011,
+        "se": 0.0017,
+        "pct_record_clean": 40.8,
+        "trials": 188
+      }
+    },
+    "block_shift|nights|b2": {
+      "none": {
+        "mean": 0.234,
+        "se": 0.0069,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.222,
+        "se": 0.0067,
+        "pct_record_clean": 5.2,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.182,
+        "se": 0.0063,
+        "pct_record_clean": 33.0,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.214,
+        "se": 0.0067,
+        "pct_record_clean": 5.2,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.116,
+        "se": 0.0052,
+        "pct_record_clean": 49.6,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.137,
+        "se": 0.0056,
+        "pct_record_clean": 49.6,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.132,
+        "se": 0.0055,
+        "pct_record_clean": 50.6,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.091,
+        "se": 0.0047,
+        "pct_record_clean": 57.6,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.093,
+        "se": 0.0047,
+        "pct_record_clean": 57.1,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.092,
+        "se": 0.0047,
+        "pct_record_clean": 57.3,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.093,
+        "se": 0.0047,
+        "pct_record_clean": 57.1,
+        "trials": 188
+      }
+    },
+    "block_shift|nights|b4": {
+      "none": {
+        "mean": 0.234,
+        "se": 0.0069,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.166,
+        "se": 0.006,
+        "pct_record_clean": 25.3,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.084,
+        "se": 0.0045,
+        "pct_record_clean": 70.1,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.154,
+        "se": 0.0059,
+        "pct_record_clean": 27.3,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.05,
+        "se": 0.0035,
+        "pct_record_clean": 77.8,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.075,
+        "se": 0.0043,
+        "pct_record_clean": 71.8,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.095,
+        "se": 0.0048,
+        "pct_record_clean": 65.4,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.047,
+        "se": 0.0034,
+        "pct_record_clean": 76.8,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.06,
+        "se": 0.0038,
+        "pct_record_clean": 72.0,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.063,
+        "se": 0.0039,
+        "pct_record_clean": 71.9,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.027,
+        "se": 0.0026,
+        "pct_record_clean": 86.3,
+        "trials": 188
+      }
+    },
+    "block_shift|nights|b6": {
+      "none": {
+        "mean": 0.234,
+        "se": 0.0069,
+        "pct_record_clean": 0.0,
+        "trials": 188
+      },
+      "night_random": {
+        "mean": 0.112,
+        "se": 0.0051,
+        "pct_record_clean": 49.1,
+        "trials": 188
+      },
+      "night_qc": {
+        "mean": 0.037,
+        "se": 0.0031,
+        "pct_record_clean": 83.9,
+        "trials": 188
+      },
+      "night_extreme": {
+        "mean": 0.094,
+        "se": 0.0047,
+        "pct_record_clean": 49.2,
+        "trials": 188
+      },
+      "night_mid": {
+        "mean": 0.024,
+        "se": 0.0025,
+        "pct_record_clean": 86.7,
+        "trials": 188
+      },
+      "block2_qc": {
+        "mean": 0.041,
+        "se": 0.0032,
+        "pct_record_clean": 81.8,
+        "trials": 188
+      },
+      "block3_qc": {
+        "mean": 0.051,
+        "se": 0.0036,
+        "pct_record_clean": 78.7,
+        "trials": 188
+      },
+      "block2_shift": {
+        "mean": 0.031,
+        "se": 0.0028,
+        "pct_record_clean": 83.9,
+        "trials": 188
+      },
+      "block3_shift": {
+        "mean": 0.042,
+        "se": 0.0033,
+        "pct_record_clean": 79.5,
+        "trials": 188
+      },
+      "block3_mid": {
+        "mean": 0.04,
+        "se": 0.0032,
+        "pct_record_clean": 79.8,
+        "trials": 188
+      },
+      "oracle": {
+        "mean": 0.022,
+        "se": 0.0024,
+        "pct_record_clean": 88.1,
+        "trials": 188
+      }
+    }
+  },
+  "paired": {
+    "block_order|nights|b2|block3_qc-night_qc": {
+      "delta": -0.05,
+      "ci95": [
+        -0.078,
+        -0.026
+      ]
+    },
+    "block_order|nights|b2|block3_shift-night_qc": {
+      "delta": 1.15,
+      "ci95": [
+        1.121,
+        1.177
+      ]
+    },
+    "block_order|nights|b2|block3_mid-night_qc": {
+      "delta": 1.15,
+      "ci95": [
+        1.12,
+        1.175
+      ]
+    },
+    "block_order|nights|b2|night_mid-night_qc": {
+      "delta": 1.388,
+      "ci95": [
+        1.352,
+        1.419
+      ]
+    },
+    "block_order|nights|b4|block3_qc-night_qc": {
+      "delta": 0.002,
+      "ci95": [
+        0.001,
+        0.004
+      ]
+    },
+    "block_order|nights|b4|block3_shift-night_qc": {
+      "delta": 1.071,
+      "ci95": [
+        1.047,
+        1.099
+      ]
+    },
+    "block_order|nights|b4|block3_mid-night_qc": {
+      "delta": 1.075,
+      "ci95": [
+        1.056,
+        1.098
+      ]
+    },
+    "block_order|nights|b4|night_mid-night_qc": {
+      "delta": 1.061,
+      "ci95": [
+        1.034,
+        1.089
+      ]
+    },
+    "block_order|nights|b6|block3_qc-night_qc": {
+      "delta": 0.007,
+      "ci95": [
+        0.004,
+        0.01
+      ]
+    },
+    "block_order|nights|b6|block3_shift-night_qc": {
+      "delta": 0.574,
+      "ci95": [
+        0.552,
+        0.596
+      ]
+    },
+    "block_order|nights|b6|block3_mid-night_qc": {
+      "delta": 0.586,
+      "ci95": [
+        0.566,
+        0.608
+      ]
+    },
+    "block_order|nights|b6|night_mid-night_qc": {
+      "delta": 0.535,
+      "ci95": [
+        0.512,
+        0.56
+      ]
+    },
+    "block_waso|nights|b2|block3_qc-night_qc": {
+      "delta": -0.003,
+      "ci95": [
+        -0.004,
+        -0.001
+      ]
+    },
+    "block_waso|nights|b2|block3_shift-night_qc": {
+      "delta": -0.003,
+      "ci95": [
+        -0.006,
+        -0.002
+      ]
+    },
+    "block_waso|nights|b2|block3_mid-night_qc": {
+      "delta": -0.003,
+      "ci95": [
+        -0.006,
+        -0.001
+      ]
+    },
+    "block_waso|nights|b2|night_mid-night_qc": {
+      "delta": -0.002,
+      "ci95": [
+        -0.004,
+        -0.001
+      ]
+    },
+    "block_waso|nights|b4|block3_qc-night_qc": {
+      "delta": 0.002,
+      "ci95": [
+        -0.001,
+        0.004
+      ]
+    },
+    "block_waso|nights|b4|block3_shift-night_qc": {
+      "delta": -0.002,
+      "ci95": [
+        -0.005,
+        0.001
+      ]
+    },
+    "block_waso|nights|b4|block3_mid-night_qc": {
+      "delta": -0.002,
+      "ci95": [
+        -0.005,
+        0.001
+      ]
+    },
+    "block_waso|nights|b4|night_mid-night_qc": {
+      "delta": -0.001,
+      "ci95": [
+        -0.002,
+        0.0
+      ]
+    },
+    "block_waso|nights|b6|block3_qc-night_qc": {
+      "delta": -0.001,
+      "ci95": [
+        -0.004,
+        0.003
+      ]
+    },
+    "block_waso|nights|b6|block3_shift-night_qc": {
+      "delta": -0.004,
+      "ci95": [
+        -0.008,
+        -0.002
+      ]
+    },
+    "block_waso|nights|b6|block3_mid-night_qc": {
+      "delta": -0.005,
+      "ci95": [
+        -0.008,
+        -0.002
+      ]
+    },
+    "block_waso|nights|b6|night_mid-night_qc": {
+      "delta": -0.001,
+      "ci95": [
+        -0.003,
+        0.0
+      ]
+    },
+    "block_shift|nights|b2|block3_qc-night_qc": {
+      "delta": -0.05,
+      "ci95": [
+        -0.06,
+        -0.039
+      ]
+    },
+    "block_shift|nights|b2|block3_shift-night_qc": {
+      "delta": -0.089,
+      "ci95": [
+        -0.102,
+        -0.075
+      ]
+    },
+    "block_shift|nights|b2|block3_mid-night_qc": {
+      "delta": -0.09,
+      "ci95": [
+        -0.102,
+        -0.078
+      ]
+    },
+    "block_shift|nights|b2|night_mid-night_qc": {
+      "delta": -0.066,
+      "ci95": [
+        -0.078,
+        -0.055
+      ]
+    },
+    "block_shift|nights|b4|block3_qc-night_qc": {
+      "delta": 0.011,
+      "ci95": [
+        0.005,
+        0.017
+      ]
+    },
+    "block_shift|nights|b4|block3_shift-night_qc": {
+      "delta": -0.024,
+      "ci95": [
+        -0.031,
+        -0.018
+      ]
+    },
+    "block_shift|nights|b4|block3_mid-night_qc": {
+      "delta": -0.022,
+      "ci95": [
+        -0.027,
+        -0.016
+      ]
+    },
+    "block_shift|nights|b4|night_mid-night_qc": {
+      "delta": -0.034,
+      "ci95": [
+        -0.04,
+        -0.029
+      ]
+    },
+    "block_shift|nights|b6|block3_qc-night_qc": {
+      "delta": 0.014,
+      "ci95": [
+        0.008,
+        0.019
+      ]
+    },
+    "block_shift|nights|b6|block3_shift-night_qc": {
+      "delta": 0.005,
+      "ci95": [
+        0.001,
+        0.008
+      ]
+    },
+    "block_shift|nights|b6|block3_mid-night_qc": {
+      "delta": 0.003,
+      "ci95": [
+        -0.001,
+        0.007
+      ]
+    },
+    "block_shift|nights|b6|night_mid-night_qc": {
+      "delta": -0.013,
+      "ci95": [
+        -0.015,
+        -0.01
+      ]
+    }
+  }
+}

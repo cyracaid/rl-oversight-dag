@@ -135,9 +135,25 @@ participant's nights and a fixed review budget, choose which contiguous block of
 nights to open** — the block carries a shared cause, so opening one night inside
 it is nearly useless, and the QC flags are already near-optimal for single nights.
 
-That is a genuinely different MDP from the one in the current simulator, and it is
-the one worth training on. It should be stated as a *proposed next experiment*,
-not as a result.
+That MDP has now been run at pilot scale (`block_review_mdp.py`, 196 participants,
+4-night runs, 20 paired seeds; `results.md` §12d, `BLOCK_REVIEW_NOTE.md`). The
+result is not the one this section expected:
+
+* for **visible** defects — the real 76 % — a one-line rule on the existing QC
+  flags is already at the oracle, and a 3-night window buys 5 points of sink
+  errors only at a 2-night budget and nothing above it;
+* for **silent but consequential** defects the block action with a cross-night
+  score *is* the oracle at a 2-night budget (0.09 vs 0.18 for per-night QC), but a
+  per-night policy using the same score overtakes it from 4 nights on;
+* for **silent and inconsequential** defects (WASO→0, 2/75) nothing to schedule:
+  every policy sits at 0.02–0.05 sink errors and even the oracle only reaches 0.01.
+
+So the **action unit is secondary and the score is primary**. A review scheduler
+needs a cross-night consistency signal; once it has one, night-vs-block only
+matters when the budget is below the run length. Also: the real correction log
+cannot settle whether errors cluster (only 13 corrected nights of the 12
+multi-night records fall inside the export's day window), so the block hypothesis
+rests on the mechanism, not on the log. State it that way.
 
 ## 7. Caveats
 

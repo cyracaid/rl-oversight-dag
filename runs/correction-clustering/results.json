@@ -1,0 +1,110 @@
+{
+  "header": {
+    "corrected_rows": 72,
+    "records_total": 47,
+    "records_with_2plus_corrected_nights": 12,
+    "records_matched_to_export": 12,
+    "draws": 4000
+  },
+  "adjacent_pairs_observed": 1,
+  "adjacent_pairs_expected_if_scattered": 0.97,
+  "ratio": 1.03,
+  "per_record": [
+    {
+      "matched": true,
+      "n_corrected": 2,
+      "n_corrected_inside_export": 0,
+      "n_observed": 4,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.0
+    },
+    {
+      "matched": true,
+      "n_corrected": 2,
+      "n_corrected_inside_export": 0,
+      "n_observed": 12,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.0
+    },
+    {
+      "matched": true,
+      "n_corrected": 2,
+      "n_corrected_inside_export": 1,
+      "n_observed": 13,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.0
+    },
+    {
+      "matched": true,
+      "n_corrected": 3,
+      "n_corrected_inside_export": 2,
+      "n_observed": 11,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.1
+    },
+    {
+      "matched": true,
+      "n_corrected": 3,
+      "n_corrected_inside_export": 2,
+      "n_observed": 11,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.15
+    },
+    {
+      "matched": true,
+      "n_corrected": 2,
+      "n_corrected_inside_export": 1,
+      "n_observed": 5,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.0
+    },
+    {
+      "matched": true,
+      "n_corrected": 10,
+      "n_corrected_inside_export": 2,
+      "n_observed": 2,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.0
+    },
+    {
+      "matched": true,
+      "n_corrected": 2,
+      "n_corrected_inside_export": 0,
+      "n_observed": 12,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.0
+    },
+    {
+      "matched": true,
+      "n_corrected": 2,
+      "n_corrected_inside_export": 0,
+      "n_observed": 11,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.0
+    },
+    {
+      "matched": true,
+      "n_corrected": 4,
+      "n_corrected_inside_export": 3,
+      "n_observed": 10,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.46
+    },
+    {
+      "matched": true,
+      "n_corrected": 3,
+      "n_corrected_inside_export": 2,
+      "n_observed": 11,
+      "adjacent_pairs": 1,
+      "expected_adjacent_pairs": 0.11
+    },
+    {
+      "matched": true,
+      "n_corrected": 2,
+      "n_corrected_inside_export": 2,
+      "n_observed": 11,
+      "adjacent_pairs": 0,
+      "expected_adjacent_pairs": 0.15
+    }
+  ]
+}

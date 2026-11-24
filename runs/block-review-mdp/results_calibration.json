@@ -1,0 +1,20 @@
+{
+  "participants": 196,
+  "pct_records_any_conclusion_flip": {
+    "len3_m30": 1.8,
+    "len3_m45": 4.4,
+    "len3_m60": 7.8,
+    "len3_m90": 18.2,
+    "len3_m120": 40.6,
+    "len4_m30": 2.0,
+    "len4_m45": 5.5,
+    "len4_m60": 8.9,
+    "len4_m90": 23.8,
+    "len4_m120": 55.5,
+    "len5_m30": 2.4,
+    "len5_m45": 5.7,
+    "len5_m60": 9.2,
+    "len5_m90": 25.8,
+    "len5_m120": 63.1
+  }
+}
