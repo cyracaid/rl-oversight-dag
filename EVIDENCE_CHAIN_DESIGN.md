@@ -327,7 +327,8 @@ section and must not be cited**. The earlier attribution of the gap to credit as
 fine-tuning is a separately listed exploratory intervention and is not reported as a conclusion here.
 
 **Limits.** The independent confirmation set (graph seeds 2000-2199) has now been run on 2026-11-24 and the
-confidence study replicated (see 10b); planner intervals
+confidence study replicated (see 10b); a 10× compute control narrows but does not remove the GNN–marginal gap
+(+0.262 [+0.165, +0.365]); planner intervals
 resample graphs only; five training seeds; the synthetic DAG does not test semantic verification of real
 sleep claims, evidence availability, judgement reliability or cost.
 

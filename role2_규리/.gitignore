@@ -2,6 +2,8 @@
 /results/**/*.partial
 # Paired outcomes from the synthetic Spike experiment.
 !/results/confidence-v1/episodes.csv
+!/results/confirm-v1/episodes.csv
+!/results/confirm-10x/episodes.csv
 !/results/feedback-v1/episodes.csv
 !/results/residual-v1/eval/episodes.csv
 !/results/planning-v1/episodes.csv

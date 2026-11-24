@@ -91,6 +91,7 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 |---|---|---|---|---|
 | Spike, 200 held-out graphs, budget 16 | adaptive marginal **1.130** | GNN 1.410 / 1.590 / 1.455 | rule wins on all 3 training seeds | `role2_규리/results/confidence-v1/` |
 | …same, untouched confirmation 2000–2199 | adaptive marginal **0.885** | GNN 1.185 / 1.325 / 1.275 | rule wins; GNN − marginal **+0.377 [+0.255, +0.510]** | `role2_규리/results/confirm-v1/` |
+| …same, 10× training budget (10,000 episodes) | adaptive marginal **0.885** | GNN 1.155 / 1.140 / 1.145 | still loses: GNN − marginal **+0.262 [+0.165, +0.365]** | `role2_규리/results/confirm-10x/` |
 | Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; learned CIs contain 0 | `role3 improvement/outputs/v3/` |
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
 | Confidence corrupted (uniform noise, not recognised) | marginal **4.415** | adaptive marginal **3.150** | −1.265 [−1.545, −0.985] | `role2_규리/results/confidence-v1/` |
@@ -109,6 +110,13 @@ absolute means move (marginal 1.130 → 0.885) because this set is easier, so ra
 across sets — only the paired deltas transfer. Caveat: the gate separates the synthetic uniform-noise
 corruption almost perfectly (199/200 graphs correctly labelled), so it is evidence for *detectable
 mean-shift* corruption, not for subtle or local corruption.
+
+**10× compute control (2026-11-24).** Training the same GNN for 10,000 instead of 1,000 episodes narrows the
+gap (GNN − marginal 0.377 → **0.262 [+0.165, +0.365]**) and collapses the seed spread (1.185–1.325 →
+1.140–1.155), but the held-out validation objective plateaus at ≈0.94–0.96 while the rule sits at 0.885. So
+the 1× numbers modestly overstated the gap; the ordering does not change. Under corrupted confidence the
+10× model is unchanged (4.703 vs 4.700), consistent with a learner that cannot detect corruption — which is
+exactly what the signal gate is for. Caveat: this is one architecture at 10×, not a scaling study.
 
 ---
 
