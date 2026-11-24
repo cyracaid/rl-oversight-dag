@@ -44,3 +44,8 @@ triage_bench/outputs/*.jsonl
 # Local synthetic experiment artifacts; publish reports and hash receipts instead.
 /runs/proposal-gaps-*/
 /proposal-gaps-*.log
+
+# ===== Python packaging =====
+*.egg-info/
+build/
+dist/
