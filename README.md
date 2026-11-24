@@ -96,6 +96,7 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
 | Confidence corrupted (uniform noise, not recognised) | marginal **4.415** | adaptive marginal **3.150** | −1.265 [−1.545, −0.985] | `role2_규리/results/confidence-v1/` |
 | …same, untouched confirmation 2000–2199 | marginal **4.185** | adaptive marginal **2.765** | −1.420 [−1.695, −1.150] | `role2_규리/results/confirm-v1/` |
+| Corruption boundary: locality × magnitude × coverage (200 fresh graphs) | trust **0.865** (= clean oracle) | global-mean gate **2.745** in the worst cell | fires 195/200 on a rank-preserving −1 shift (+1.82 error) but 0/200 when real errors are masked (+3.21 error) | `role2_규리/results/corruption-v1/` |
 | Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
 | Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
 
@@ -118,6 +119,30 @@ the 1× numbers modestly overstated the gap; the ordering does not change. Under
 10× model is unchanged (4.703 vs 4.700), consistent with a learner that cannot detect corruption — which is
 exactly what the signal gate is for. Caveat: this is one architecture at 10×, not a scaling study.
 
+**Corruption boundary (2026-11-24, exploratory).** The caveat above — the gate only demonstrates
+*detectable mean-shift* corruption — was turned into a measurement. On 200 fresh graphs (seeds 3000–3199,
+never used before) only public confidence scores were shifted in logit space,
+`sigmoid(logit(c) + shift)`, on a deterministic subset of one locality: all 80 nodes (`uniform`), the 20
+source nodes, the 20 sink nodes, or the nodes that actually carry a source error. Detection — the gate
+labelling a graph `noise` — needs roughly p·|shift| ≈ 0.75–1 for uniform corruption; a 10 % subset stays
+invisible even at shift −4. Two failures matter more than where the boundary sits.
+
+(i) *The gate fires hardest exactly where the damage is smallest.* Shifting every score down by −1
+preserves the ranking, so trusting the scores is within +0.06 of the clean oracle, yet the gate labels
+195/200 graphs as corrupted and falls back to the type prior, for **+1.82 [+1.63, +2.03]** additional
+errors relative to trusting the barely damaged scores. Across the 13 cells where the gate fires on ≥50 %
+of graphs, its fallback helps in 3 and hurts in 10.
+
+(ii) *Corruption that masks real errors is never detected.* A positive shift on the truly wrong nodes
+leaves the gate at 0/200 even at +3, where trust loses +3.21 [+2.94, +3.48] errors and the gate does
+nothing at all. Source and sink pools are both 20 nodes, so detectability is similar (139/200 vs 148/200
+at 100 %, −3) while regret is not (source +0.39 vs sink +1.24): one graph-mean decision cannot see *where*
+the corruption sits. The `error_nodes` and `oracle` rows use the hidden truth and are upper/lower bounds,
+not deployable policies. This sweep is exploratory, not a frozen confirmation test, and it measures a fixed
+marginal rule rather than a learned scheduler. Korean report:
+`role2_규리/results/corruption-v1/corruption.md`; machine summary `corruption.json`; rerun with
+`./run_corruption.sh`.
+
 ---
 
 ## Document index (every page, rendered)
@@ -134,6 +159,7 @@ rendered page — no link opens raw markdown in the browser. Plans (`RL_PLAN`, `
 | Evidence-chain design | [EVIDENCE_CHAIN_DESIGN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) | — | [EVIDENCE_CHAIN_DESIGN_CN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html) |
 | Implementation spec | [IMPLEMENTATION_SPEC_EN](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html) | [IMPLEMENTATION_SPEC_KO](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html) | [网页版](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) · [md 渲染](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.html) |
 | Canonical line + reproduction receipts | [CROSS_IMPLEMENTATION_VALIDATION](CROSS_IMPLEMENTATION_VALIDATION.md) | [CROSS_IMPLEMENTATION_VALIDATION_KO](CROSS_IMPLEMENTATION_VALIDATION_KO.md) | — |
+| Error card — known failure modes, error budget, what is not comparable | [ERROR_CARD](ERROR_CARD.md) | — | — |
 | Open requests to Person 4 / 5 | [TEAM_REQUESTS_P4_P5](TEAM_REQUESTS_P4_P5.md) | — | — |
 | Team claims | [TEAM_CLAIMS_EN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html) | [TEAM_CLAIMS (三语同页)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html) | [TEAM_CLAIMS_CN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html) |
 | Course alignment | [COURSE_ALIGNMENT](https://cyracaid.github.io/rl-oversight-dag/COURSE_ALIGNMENT.html) | — | [COURSE_ALIGNMENT_CN](https://cyracaid.github.io/rl-oversight-dag/COURSE_ALIGNMENT_CN.html) |

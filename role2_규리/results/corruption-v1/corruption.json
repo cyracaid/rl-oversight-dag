@@ -1,0 +1,2155 @@
+{
+  "clean": {
+    "oracle": 0.865,
+    "trust": 0.865,
+    "prior": 2.795,
+    "gate": 0.865,
+    "feedback": 0.93
+  },
+  "grid": {
+    "uniform": {
+      "0.1": {
+        "-4.0": {
+          "detected": 8,
+          "detection_rate": 0.04,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.065,
+            "prior": 2.795,
+            "gate": 1.12,
+            "feedback": 1.845
+          },
+          "regret_vs_oracle": {
+            "trust": 0.19999999999999996,
+            "gate": 0.2550000000000001,
+            "feedback": 0.98,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.05500000000000016
+        },
+        "-3.0": {
+          "detected": 4,
+          "detection_rate": 0.02,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.01,
+            "prior": 2.795,
+            "gate": 1.035,
+            "feedback": 1.42
+          },
+          "regret_vs_oracle": {
+            "trust": 0.14500000000000002,
+            "gate": 0.16999999999999993,
+            "feedback": 0.5549999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.02499999999999991
+        },
+        "-2.0": {
+          "detected": 1,
+          "detection_rate": 0.005,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.9,
+            "prior": 2.795,
+            "gate": 0.905,
+            "feedback": 1.04
+          },
+          "regret_vs_oracle": {
+            "trust": 0.03500000000000003,
+            "gate": 0.040000000000000036,
+            "feedback": 0.17500000000000004,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0050000000000000044
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.89,
+            "prior": 2.795,
+            "gate": 0.89,
+            "feedback": 0.94
+          },
+          "regret_vs_oracle": {
+            "trust": 0.025000000000000022,
+            "gate": 0.025000000000000022,
+            "feedback": 0.07499999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.925,
+            "prior": 2.795,
+            "gate": 0.925,
+            "feedback": 0.985
+          },
+          "regret_vs_oracle": {
+            "trust": 0.06000000000000005,
+            "gate": 0.06000000000000005,
+            "feedback": 0.12,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.025,
+            "prior": 2.795,
+            "gate": 1.025,
+            "feedback": 1.08
+          },
+          "regret_vs_oracle": {
+            "trust": 0.15999999999999992,
+            "gate": 0.15999999999999992,
+            "feedback": 0.21500000000000008,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.205,
+            "prior": 2.795,
+            "gate": 1.205,
+            "feedback": 1.25
+          },
+          "regret_vs_oracle": {
+            "trust": 0.3400000000000001,
+            "gate": 0.3400000000000001,
+            "feedback": 0.385,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 195,
+          "detection_rate": 0.975,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.83,
+            "prior": 2.795,
+            "gate": 2.78,
+            "feedback": 2.77
+          },
+          "regret_vs_oracle": {
+            "trust": 0.9650000000000001,
+            "gate": 1.9149999999999998,
+            "feedback": 1.905,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.9499999999999997
+        },
+        "-3.0": {
+          "detected": 150,
+          "detection_rate": 0.75,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.415,
+            "prior": 2.795,
+            "gate": 2.485,
+            "feedback": 2.495
+          },
+          "regret_vs_oracle": {
+            "trust": 0.55,
+            "gate": 1.6199999999999999,
+            "feedback": 1.6300000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 1.0699999999999998
+        },
+        "-2.0": {
+          "detected": 54,
+          "detection_rate": 0.27,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.035,
+            "prior": 2.795,
+            "gate": 1.625,
+            "feedback": 1.575
+          },
+          "regret_vs_oracle": {
+            "trust": 0.16999999999999993,
+            "gate": 0.76,
+            "feedback": 0.71,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.5900000000000001
+        },
+        "-1.0": {
+          "detected": 4,
+          "detection_rate": 0.02,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.895,
+            "prior": 2.795,
+            "gate": 0.925,
+            "feedback": 0.95
+          },
+          "regret_vs_oracle": {
+            "trust": 0.030000000000000027,
+            "gate": 0.06000000000000005,
+            "feedback": 0.08499999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.030000000000000027
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.965,
+            "prior": 2.795,
+            "gate": 0.965,
+            "feedback": 1.01
+          },
+          "regret_vs_oracle": {
+            "trust": 0.09999999999999998,
+            "gate": 0.09999999999999998,
+            "feedback": 0.14500000000000002,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.215,
+            "prior": 2.795,
+            "gate": 1.215,
+            "feedback": 1.265
+          },
+          "regret_vs_oracle": {
+            "trust": 0.3500000000000001,
+            "gate": 0.3500000000000001,
+            "feedback": 0.3999999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.635,
+            "prior": 2.795,
+            "gate": 1.635,
+            "feedback": 1.63
+          },
+          "regret_vs_oracle": {
+            "trust": 0.77,
+            "gate": 0.77,
+            "feedback": 0.7649999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": -3.0,
+          "trust_regret": 0.55
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 200,
+          "detection_rate": 1.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 2.64,
+            "prior": 2.795,
+            "gate": 2.795,
+            "feedback": 2.815
+          },
+          "regret_vs_oracle": {
+            "trust": 1.7750000000000001,
+            "gate": 1.93,
+            "feedback": 1.95,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.1549999999999998
+        },
+        "-3.0": {
+          "detected": 200,
+          "detection_rate": 1.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 2.075,
+            "prior": 2.795,
+            "gate": 2.795,
+            "feedback": 2.785
+          },
+          "regret_vs_oracle": {
+            "trust": 1.2100000000000002,
+            "gate": 1.93,
+            "feedback": 1.9200000000000002,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.7199999999999998
+        },
+        "-2.0": {
+          "detected": 198,
+          "detection_rate": 0.99,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.295,
+            "prior": 2.795,
+            "gate": 2.78,
+            "feedback": 2.44
+          },
+          "regret_vs_oracle": {
+            "trust": 0.42999999999999994,
+            "gate": 1.9149999999999998,
+            "feedback": 1.575,
+            "prior": 1.93
+          },
+          "fallback_harm": 1.4849999999999999
+        },
+        "-1.0": {
+          "detected": 45,
+          "detection_rate": 0.225,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.94,
+            "prior": 2.795,
+            "gate": 1.41,
+            "feedback": 1.22
+          },
+          "regret_vs_oracle": {
+            "trust": 0.07499999999999996,
+            "gate": 0.5449999999999999,
+            "feedback": 0.355,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.47
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.93,
+            "prior": 2.795,
+            "gate": 0.93,
+            "feedback": 0.98
+          },
+          "regret_vs_oracle": {
+            "trust": 0.06500000000000006,
+            "gate": 0.06500000000000006,
+            "feedback": 0.11499999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.35,
+            "prior": 2.795,
+            "gate": 1.35,
+            "feedback": 1.38
+          },
+          "regret_vs_oracle": {
+            "trust": 0.4850000000000001,
+            "gate": 0.4850000000000001,
+            "feedback": 0.5149999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 2.11,
+            "prior": 2.795,
+            "gate": 2.11,
+            "feedback": 2.08
+          },
+          "regret_vs_oracle": {
+            "trust": 1.2449999999999999,
+            "gate": 1.2449999999999999,
+            "feedback": 1.215,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": -2.0,
+          "trust_regret": 0.42999999999999994
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 200,
+          "detection_rate": 1.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 3.59,
+            "prior": 2.795,
+            "gate": 2.795,
+            "feedback": 2.805
+          },
+          "regret_vs_oracle": {
+            "trust": 2.7249999999999996,
+            "gate": 1.93,
+            "feedback": 1.9400000000000002,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-3.0": {
+          "detected": 200,
+          "detection_rate": 1.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 2.825,
+            "prior": 2.795,
+            "gate": 2.795,
+            "feedback": 2.835
+          },
+          "regret_vs_oracle": {
+            "trust": 1.9600000000000002,
+            "gate": 1.93,
+            "feedback": 1.97,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 200,
+          "detection_rate": 1.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.635,
+            "prior": 2.795,
+            "gate": 2.795,
+            "feedback": 2.685
+          },
+          "regret_vs_oracle": {
+            "trust": 0.77,
+            "gate": 1.93,
+            "feedback": 1.82,
+            "prior": 1.93
+          },
+          "fallback_harm": 1.16
+        },
+        "-1.0": {
+          "detected": 195,
+          "detection_rate": 0.975,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.925,
+            "prior": 2.795,
+            "gate": 2.745,
+            "feedback": 1.81
+          },
+          "regret_vs_oracle": {
+            "trust": 0.06000000000000005,
+            "gate": 1.8800000000000001,
+            "feedback": 0.9450000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 1.82
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.865,
+            "prior": 2.795,
+            "gate": 0.865,
+            "feedback": 0.93
+          },
+          "regret_vs_oracle": {
+            "trust": 0.0,
+            "gate": 0.0,
+            "feedback": 0.06500000000000006,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.86,
+            "prior": 2.795,
+            "gate": 0.86,
+            "feedback": 1.475
+          },
+          "regret_vs_oracle": {
+            "trust": -0.0050000000000000044,
+            "gate": -0.0050000000000000044,
+            "feedback": 0.6100000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.86,
+            "prior": 2.795,
+            "gate": 0.86,
+            "feedback": 2.035
+          },
+          "regret_vs_oracle": {
+            "trust": -0.0050000000000000044,
+            "gate": -0.0050000000000000044,
+            "feedback": 1.1700000000000002,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": -1.0,
+          "trust_regret": 0.06000000000000005
+        }
+      }
+    },
+    "source": {
+      "0.1": {
+        "-4.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.905,
+            "prior": 2.795,
+            "gate": 0.905,
+            "feedback": 1.085
+          },
+          "regret_vs_oracle": {
+            "trust": 0.040000000000000036,
+            "gate": 0.040000000000000036,
+            "feedback": 0.21999999999999997,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.905,
+            "prior": 2.795,
+            "gate": 0.905,
+            "feedback": 1.05
+          },
+          "regret_vs_oracle": {
+            "trust": 0.040000000000000036,
+            "gate": 0.040000000000000036,
+            "feedback": 0.18500000000000005,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.905,
+            "prior": 2.795,
+            "gate": 0.905,
+            "feedback": 0.995
+          },
+          "regret_vs_oracle": {
+            "trust": 0.040000000000000036,
+            "gate": 0.040000000000000036,
+            "feedback": 0.13,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.885,
+            "prior": 2.795,
+            "gate": 0.885,
+            "feedback": 0.965
+          },
+          "regret_vs_oracle": {
+            "trust": 0.020000000000000018,
+            "gate": 0.020000000000000018,
+            "feedback": 0.09999999999999998,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.88,
+            "prior": 2.795,
+            "gate": 0.88,
+            "feedback": 0.945
+          },
+          "regret_vs_oracle": {
+            "trust": 0.015000000000000013,
+            "gate": 0.015000000000000013,
+            "feedback": 0.07999999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.9,
+            "prior": 2.795,
+            "gate": 0.9,
+            "feedback": 0.965
+          },
+          "regret_vs_oracle": {
+            "trust": 0.03500000000000003,
+            "gate": 0.03500000000000003,
+            "feedback": 0.09999999999999998,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.94,
+            "prior": 2.795,
+            "gate": 0.94,
+            "feedback": 1.005
+          },
+          "regret_vs_oracle": {
+            "trust": 0.07499999999999996,
+            "gate": 0.07499999999999996,
+            "feedback": 0.1399999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 1,
+          "detection_rate": 0.005,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.935,
+            "prior": 2.795,
+            "gate": 0.935,
+            "feedback": 1.45
+          },
+          "regret_vs_oracle": {
+            "trust": 0.07000000000000006,
+            "gate": 0.07000000000000006,
+            "feedback": 0.585,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.92,
+            "prior": 2.795,
+            "gate": 0.92,
+            "feedback": 1.135
+          },
+          "regret_vs_oracle": {
+            "trust": 0.05500000000000005,
+            "gate": 0.05500000000000005,
+            "feedback": 0.27,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.905,
+            "prior": 2.795,
+            "gate": 0.905,
+            "feedback": 1.02
+          },
+          "regret_vs_oracle": {
+            "trust": 0.040000000000000036,
+            "gate": 0.040000000000000036,
+            "feedback": 0.15500000000000003,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.88,
+            "prior": 2.795,
+            "gate": 0.88,
+            "feedback": 0.94
+          },
+          "regret_vs_oracle": {
+            "trust": 0.015000000000000013,
+            "gate": 0.015000000000000013,
+            "feedback": 0.07499999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.865,
+            "prior": 2.795,
+            "gate": 0.865,
+            "feedback": 0.92
+          },
+          "regret_vs_oracle": {
+            "trust": 0.0,
+            "gate": 0.0,
+            "feedback": 0.05500000000000005,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.965,
+            "prior": 2.795,
+            "gate": 0.965,
+            "feedback": 1.03
+          },
+          "regret_vs_oracle": {
+            "trust": 0.09999999999999998,
+            "gate": 0.09999999999999998,
+            "feedback": 0.16500000000000004,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.005,
+            "prior": 2.795,
+            "gate": 1.005,
+            "feedback": 1.06
+          },
+          "regret_vs_oracle": {
+            "trust": 0.1399999999999999,
+            "gate": 0.1399999999999999,
+            "feedback": 0.19500000000000006,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 29,
+          "detection_rate": 0.145,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.045,
+            "prior": 2.795,
+            "gate": 1.365,
+            "feedback": 2.03
+          },
+          "regret_vs_oracle": {
+            "trust": 0.17999999999999994,
+            "gate": 0.5,
+            "feedback": 1.1649999999999998,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.32000000000000006
+        },
+        "-3.0": {
+          "detected": 13,
+          "detection_rate": 0.065,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.02,
+            "prior": 2.795,
+            "gate": 1.14,
+            "feedback": 1.605
+          },
+          "regret_vs_oracle": {
+            "trust": 0.15500000000000003,
+            "gate": 0.2749999999999999,
+            "feedback": 0.74,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.11999999999999988
+        },
+        "-2.0": {
+          "detected": 4,
+          "detection_rate": 0.02,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.935,
+            "prior": 2.795,
+            "gate": 0.955,
+            "feedback": 1.105
+          },
+          "regret_vs_oracle": {
+            "trust": 0.07000000000000006,
+            "gate": 0.08999999999999997,
+            "feedback": 0.24,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.019999999999999907
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.91,
+            "prior": 2.795,
+            "gate": 0.91,
+            "feedback": 0.985
+          },
+          "regret_vs_oracle": {
+            "trust": 0.04500000000000004,
+            "gate": 0.04500000000000004,
+            "feedback": 0.12,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.905,
+            "prior": 2.795,
+            "gate": 0.905,
+            "feedback": 0.96
+          },
+          "regret_vs_oracle": {
+            "trust": 0.040000000000000036,
+            "gate": 0.040000000000000036,
+            "feedback": 0.09499999999999997,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.01,
+            "prior": 2.795,
+            "gate": 1.01,
+            "feedback": 1.045
+          },
+          "regret_vs_oracle": {
+            "trust": 0.14500000000000002,
+            "gate": 0.14500000000000002,
+            "feedback": 0.17999999999999994,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.18,
+            "prior": 2.795,
+            "gate": 1.18,
+            "feedback": 1.215
+          },
+          "regret_vs_oracle": {
+            "trust": 0.31499999999999995,
+            "gate": 0.31499999999999995,
+            "feedback": 0.3500000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 193,
+          "detection_rate": 0.965,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.45,
+            "prior": 2.795,
+            "gate": 2.74,
+            "feedback": 2.745
+          },
+          "regret_vs_oracle": {
+            "trust": 0.585,
+            "gate": 1.8750000000000002,
+            "feedback": 1.8800000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 1.2900000000000003
+        },
+        "-3.0": {
+          "detected": 139,
+          "detection_rate": 0.695,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.25,
+            "prior": 2.795,
+            "gate": 2.36,
+            "feedback": 2.515
+          },
+          "regret_vs_oracle": {
+            "trust": 0.385,
+            "gate": 1.4949999999999999,
+            "feedback": 1.6500000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 1.1099999999999999
+        },
+        "-2.0": {
+          "detected": 49,
+          "detection_rate": 0.245,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.07,
+            "prior": 2.795,
+            "gate": 1.555,
+            "feedback": 1.6
+          },
+          "regret_vs_oracle": {
+            "trust": 0.20500000000000007,
+            "gate": 0.69,
+            "feedback": 0.7350000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.4849999999999999
+        },
+        "-1.0": {
+          "detected": 5,
+          "detection_rate": 0.025,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.895,
+            "prior": 2.795,
+            "gate": 0.92,
+            "feedback": 0.995
+          },
+          "regret_vs_oracle": {
+            "trust": 0.030000000000000027,
+            "gate": 0.05500000000000005,
+            "feedback": 0.13,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.025000000000000022
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.96,
+            "prior": 2.795,
+            "gate": 0.96,
+            "feedback": 1.005
+          },
+          "regret_vs_oracle": {
+            "trust": 0.09499999999999997,
+            "gate": 0.09499999999999997,
+            "feedback": 0.1399999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.205,
+            "prior": 2.795,
+            "gate": 1.205,
+            "feedback": 1.205
+          },
+          "regret_vs_oracle": {
+            "trust": 0.3400000000000001,
+            "gate": 0.3400000000000001,
+            "feedback": 0.3400000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.58,
+            "prior": 2.795,
+            "gate": 1.58,
+            "feedback": 1.51
+          },
+          "regret_vs_oracle": {
+            "trust": 0.7150000000000001,
+            "gate": 0.7150000000000001,
+            "feedback": 0.645,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": -3.0,
+          "trust_regret": 0.385
+        }
+      }
+    },
+    "sink": {
+      "0.1": {
+        "-4.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.925,
+            "prior": 2.795,
+            "gate": 0.925,
+            "feedback": 1.15
+          },
+          "regret_vs_oracle": {
+            "trust": 0.06000000000000005,
+            "gate": 0.06000000000000005,
+            "feedback": 0.2849999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.92,
+            "prior": 2.795,
+            "gate": 0.92,
+            "feedback": 1.025
+          },
+          "regret_vs_oracle": {
+            "trust": 0.05500000000000005,
+            "gate": 0.05500000000000005,
+            "feedback": 0.15999999999999992,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.895,
+            "prior": 2.795,
+            "gate": 0.895,
+            "feedback": 0.96
+          },
+          "regret_vs_oracle": {
+            "trust": 0.030000000000000027,
+            "gate": 0.030000000000000027,
+            "feedback": 0.09499999999999997,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.875,
+            "prior": 2.795,
+            "gate": 0.875,
+            "feedback": 0.93
+          },
+          "regret_vs_oracle": {
+            "trust": 0.010000000000000009,
+            "gate": 0.010000000000000009,
+            "feedback": 0.06500000000000006,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.885,
+            "prior": 2.795,
+            "gate": 0.885,
+            "feedback": 0.945
+          },
+          "regret_vs_oracle": {
+            "trust": 0.020000000000000018,
+            "gate": 0.020000000000000018,
+            "feedback": 0.07999999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.895,
+            "prior": 2.795,
+            "gate": 0.895,
+            "feedback": 0.955
+          },
+          "regret_vs_oracle": {
+            "trust": 0.030000000000000027,
+            "gate": 0.030000000000000027,
+            "feedback": 0.08999999999999997,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.965,
+            "prior": 2.795,
+            "gate": 0.965,
+            "feedback": 1.02
+          },
+          "regret_vs_oracle": {
+            "trust": 0.09999999999999998,
+            "gate": 0.09999999999999998,
+            "feedback": 0.15500000000000003,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 2,
+          "detection_rate": 0.01,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.015,
+            "prior": 2.795,
+            "gate": 1.025,
+            "feedback": 1.895
+          },
+          "regret_vs_oracle": {
+            "trust": 0.1499999999999999,
+            "gate": 0.15999999999999992,
+            "feedback": 1.03,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.010000000000000009
+        },
+        "-3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.995,
+            "prior": 2.795,
+            "gate": 0.995,
+            "feedback": 1.385
+          },
+          "regret_vs_oracle": {
+            "trust": 0.13,
+            "gate": 0.13,
+            "feedback": 0.52,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.945,
+            "prior": 2.795,
+            "gate": 0.945,
+            "feedback": 1.065
+          },
+          "regret_vs_oracle": {
+            "trust": 0.07999999999999996,
+            "gate": 0.07999999999999996,
+            "feedback": 0.19999999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.895,
+            "prior": 2.795,
+            "gate": 0.895,
+            "feedback": 0.965
+          },
+          "regret_vs_oracle": {
+            "trust": 0.030000000000000027,
+            "gate": 0.030000000000000027,
+            "feedback": 0.09999999999999998,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.9,
+            "prior": 2.795,
+            "gate": 0.9,
+            "feedback": 0.945
+          },
+          "regret_vs_oracle": {
+            "trust": 0.03500000000000003,
+            "gate": 0.03500000000000003,
+            "feedback": 0.07999999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.97,
+            "prior": 2.795,
+            "gate": 0.97,
+            "feedback": 1.015
+          },
+          "regret_vs_oracle": {
+            "trust": 0.10499999999999998,
+            "gate": 0.10499999999999998,
+            "feedback": 0.1499999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.115,
+            "prior": 2.795,
+            "gate": 1.115,
+            "feedback": 1.15
+          },
+          "regret_vs_oracle": {
+            "trust": 0.25,
+            "gate": 0.25,
+            "feedback": 0.2849999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 27,
+          "detection_rate": 0.135,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.385,
+            "prior": 2.795,
+            "gate": 1.54,
+            "feedback": 2.555
+          },
+          "regret_vs_oracle": {
+            "trust": 0.52,
+            "gate": 0.675,
+            "feedback": 1.6900000000000002,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.15500000000000003
+        },
+        "-3.0": {
+          "detected": 15,
+          "detection_rate": 0.075,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.195,
+            "prior": 2.795,
+            "gate": 1.315,
+            "feedback": 2.06
+          },
+          "regret_vs_oracle": {
+            "trust": 0.33000000000000007,
+            "gate": 0.44999999999999996,
+            "feedback": 1.195,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.11999999999999988
+        },
+        "-2.0": {
+          "detected": 3,
+          "detection_rate": 0.015,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.045,
+            "prior": 2.795,
+            "gate": 1.055,
+            "feedback": 1.305
+          },
+          "regret_vs_oracle": {
+            "trust": 0.17999999999999994,
+            "gate": 0.18999999999999995,
+            "feedback": 0.43999999999999995,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.010000000000000009
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.9,
+            "prior": 2.795,
+            "gate": 0.9,
+            "feedback": 0.965
+          },
+          "regret_vs_oracle": {
+            "trust": 0.03500000000000003,
+            "gate": 0.03500000000000003,
+            "feedback": 0.09999999999999998,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.94,
+            "prior": 2.795,
+            "gate": 0.94,
+            "feedback": 0.98
+          },
+          "regret_vs_oracle": {
+            "trust": 0.07499999999999996,
+            "gate": 0.07499999999999996,
+            "feedback": 0.11499999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.155,
+            "prior": 2.795,
+            "gate": 1.155,
+            "feedback": 1.195
+          },
+          "regret_vs_oracle": {
+            "trust": 0.29000000000000004,
+            "gate": 0.29000000000000004,
+            "feedback": 0.33000000000000007,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.445,
+            "prior": 2.795,
+            "gate": 1.445,
+            "feedback": 1.485
+          },
+          "regret_vs_oracle": {
+            "trust": 0.5800000000000001,
+            "gate": 0.5800000000000001,
+            "feedback": 0.6200000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 193,
+          "detection_rate": 0.965,
+          "means": {
+            "oracle": 0.865,
+            "trust": 3.195,
+            "prior": 2.795,
+            "gate": 2.76,
+            "feedback": 2.8
+          },
+          "regret_vs_oracle": {
+            "trust": 2.33,
+            "gate": 1.8949999999999998,
+            "feedback": 1.9349999999999998,
+            "prior": 1.93
+          },
+          "fallback_harm": -0.03500000000000014
+        },
+        "-3.0": {
+          "detected": 148,
+          "detection_rate": 0.74,
+          "means": {
+            "oracle": 0.865,
+            "trust": 2.1,
+            "prior": 2.795,
+            "gate": 2.63,
+            "feedback": 2.67
+          },
+          "regret_vs_oracle": {
+            "trust": 1.235,
+            "gate": 1.765,
+            "feedback": 1.805,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.5299999999999998
+        },
+        "-2.0": {
+          "detected": 51,
+          "detection_rate": 0.255,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.2,
+            "prior": 2.795,
+            "gate": 1.66,
+            "feedback": 1.945
+          },
+          "regret_vs_oracle": {
+            "trust": 0.33499999999999996,
+            "gate": 0.7949999999999999,
+            "feedback": 1.08,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.45999999999999996
+        },
+        "-1.0": {
+          "detected": 4,
+          "detection_rate": 0.02,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.94,
+            "prior": 2.795,
+            "gate": 0.97,
+            "feedback": 1.03
+          },
+          "regret_vs_oracle": {
+            "trust": 0.07499999999999996,
+            "gate": 0.10499999999999998,
+            "feedback": 0.16500000000000004,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.030000000000000027
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.97,
+            "prior": 2.795,
+            "gate": 0.97,
+            "feedback": 1.01
+          },
+          "regret_vs_oracle": {
+            "trust": 0.10499999999999998,
+            "gate": 0.10499999999999998,
+            "feedback": 0.14500000000000002,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.33,
+            "prior": 2.795,
+            "gate": 1.33,
+            "feedback": 1.38
+          },
+          "regret_vs_oracle": {
+            "trust": 0.4650000000000001,
+            "gate": 0.4650000000000001,
+            "feedback": 0.5149999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.825,
+            "prior": 2.795,
+            "gate": 1.825,
+            "feedback": 1.86
+          },
+          "regret_vs_oracle": {
+            "trust": 0.96,
+            "gate": 0.96,
+            "feedback": 0.9950000000000001,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": -3.0,
+          "trust_regret": 1.235
+        }
+      }
+    },
+    "error_nodes": {
+      "0.1": {
+        "-4.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.835,
+            "prior": 2.795,
+            "gate": 0.835,
+            "feedback": 0.905
+          },
+          "regret_vs_oracle": {
+            "trust": -0.030000000000000027,
+            "gate": -0.030000000000000027,
+            "feedback": 0.040000000000000036,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.835,
+            "prior": 2.795,
+            "gate": 0.835,
+            "feedback": 0.905
+          },
+          "regret_vs_oracle": {
+            "trust": -0.030000000000000027,
+            "gate": -0.030000000000000027,
+            "feedback": 0.040000000000000036,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.835,
+            "prior": 2.795,
+            "gate": 0.835,
+            "feedback": 0.905
+          },
+          "regret_vs_oracle": {
+            "trust": -0.030000000000000027,
+            "gate": -0.030000000000000027,
+            "feedback": 0.040000000000000036,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.835,
+            "prior": 2.795,
+            "gate": 0.835,
+            "feedback": 0.91
+          },
+          "regret_vs_oracle": {
+            "trust": -0.030000000000000027,
+            "gate": -0.030000000000000027,
+            "feedback": 0.04500000000000004,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.965,
+            "prior": 2.795,
+            "gate": 0.965,
+            "feedback": 1.025
+          },
+          "regret_vs_oracle": {
+            "trust": 0.09999999999999998,
+            "gate": 0.09999999999999998,
+            "feedback": 0.15999999999999992,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.105,
+            "prior": 2.795,
+            "gate": 1.105,
+            "feedback": 1.155
+          },
+          "regret_vs_oracle": {
+            "trust": 0.24,
+            "gate": 0.24,
+            "feedback": 0.29000000000000004,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.295,
+            "prior": 2.795,
+            "gate": 1.295,
+            "feedback": 1.32
+          },
+          "regret_vs_oracle": {
+            "trust": 0.42999999999999994,
+            "gate": 0.42999999999999994,
+            "feedback": 0.45500000000000007,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "0.25": {
+        "-4.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.775,
+            "prior": 2.795,
+            "gate": 0.775,
+            "feedback": 0.845
+          },
+          "regret_vs_oracle": {
+            "trust": -0.08999999999999997,
+            "gate": -0.08999999999999997,
+            "feedback": -0.020000000000000018,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.775,
+            "prior": 2.795,
+            "gate": 0.775,
+            "feedback": 0.825
+          },
+          "regret_vs_oracle": {
+            "trust": -0.08999999999999997,
+            "gate": -0.08999999999999997,
+            "feedback": -0.040000000000000036,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.775,
+            "prior": 2.795,
+            "gate": 0.775,
+            "feedback": 0.835
+          },
+          "regret_vs_oracle": {
+            "trust": -0.08999999999999997,
+            "gate": -0.08999999999999997,
+            "feedback": -0.030000000000000027,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.8,
+            "prior": 2.795,
+            "gate": 0.8,
+            "feedback": 0.855
+          },
+          "regret_vs_oracle": {
+            "trust": -0.06499999999999995,
+            "gate": -0.06499999999999995,
+            "feedback": -0.010000000000000009,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.06,
+            "prior": 2.795,
+            "gate": 1.06,
+            "feedback": 1.13
+          },
+          "regret_vs_oracle": {
+            "trust": 0.19500000000000006,
+            "gate": 0.19500000000000006,
+            "feedback": 0.2649999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.44,
+            "prior": 2.795,
+            "gate": 1.44,
+            "feedback": 1.51
+          },
+          "regret_vs_oracle": {
+            "trust": 0.575,
+            "gate": 0.575,
+            "feedback": 0.645,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.845,
+            "prior": 2.795,
+            "gate": 1.845,
+            "feedback": 1.845
+          },
+          "regret_vs_oracle": {
+            "trust": 0.98,
+            "gate": 0.98,
+            "feedback": 0.98,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "0.5": {
+        "-4.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.755,
+            "prior": 2.795,
+            "gate": 0.755,
+            "feedback": 0.785
+          },
+          "regret_vs_oracle": {
+            "trust": -0.10999999999999999,
+            "gate": -0.10999999999999999,
+            "feedback": -0.07999999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.755,
+            "prior": 2.795,
+            "gate": 0.755,
+            "feedback": 0.78
+          },
+          "regret_vs_oracle": {
+            "trust": -0.10999999999999999,
+            "gate": -0.10999999999999999,
+            "feedback": -0.08499999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.755,
+            "prior": 2.795,
+            "gate": 0.755,
+            "feedback": 0.78
+          },
+          "regret_vs_oracle": {
+            "trust": -0.10999999999999999,
+            "gate": -0.10999999999999999,
+            "feedback": -0.08499999999999996,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.775,
+            "prior": 2.795,
+            "gate": 0.775,
+            "feedback": 0.805
+          },
+          "regret_vs_oracle": {
+            "trust": -0.08999999999999997,
+            "gate": -0.08999999999999997,
+            "feedback": -0.05999999999999994,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.245,
+            "prior": 2.795,
+            "gate": 1.245,
+            "feedback": 1.295
+          },
+          "regret_vs_oracle": {
+            "trust": 0.3800000000000001,
+            "gate": 0.3800000000000001,
+            "feedback": 0.42999999999999994,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.9,
+            "prior": 2.795,
+            "gate": 1.9,
+            "feedback": 1.915
+          },
+          "regret_vs_oracle": {
+            "trust": 1.035,
+            "gate": 1.035,
+            "feedback": 1.05,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 2.66,
+            "prior": 2.795,
+            "gate": 2.66,
+            "feedback": 2.63
+          },
+          "regret_vs_oracle": {
+            "trust": 1.7950000000000002,
+            "gate": 1.7950000000000002,
+            "feedback": 1.765,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      },
+      "1.0": {
+        "-4.0": {
+          "detected": 2,
+          "detection_rate": 0.01,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.61,
+            "prior": 2.795,
+            "gate": 0.625,
+            "feedback": 0.615
+          },
+          "regret_vs_oracle": {
+            "trust": -0.255,
+            "gate": -0.24,
+            "feedback": -0.25,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.015000000000000013
+        },
+        "-3.0": {
+          "detected": 1,
+          "detection_rate": 0.005,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.61,
+            "prior": 2.795,
+            "gate": 0.62,
+            "feedback": 0.615
+          },
+          "regret_vs_oracle": {
+            "trust": -0.255,
+            "gate": -0.245,
+            "feedback": -0.25,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.010000000000000009
+        },
+        "-2.0": {
+          "detected": 1,
+          "detection_rate": 0.005,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.615,
+            "prior": 2.795,
+            "gate": 0.625,
+            "feedback": 0.64
+          },
+          "regret_vs_oracle": {
+            "trust": -0.25,
+            "gate": -0.24,
+            "feedback": -0.22499999999999998,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.010000000000000009
+        },
+        "-1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 0.665,
+            "prior": 2.795,
+            "gate": 0.665,
+            "feedback": 0.7
+          },
+          "regret_vs_oracle": {
+            "trust": -0.19999999999999996,
+            "gate": -0.19999999999999996,
+            "feedback": -0.16500000000000004,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "1.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 1.485,
+            "prior": 2.795,
+            "gate": 1.485,
+            "feedback": 1.54
+          },
+          "regret_vs_oracle": {
+            "trust": 0.6200000000000001,
+            "gate": 0.6200000000000001,
+            "feedback": 0.675,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "2.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 2.68,
+            "prior": 2.795,
+            "gate": 2.68,
+            "feedback": 2.59
+          },
+          "regret_vs_oracle": {
+            "trust": 1.8150000000000002,
+            "gate": 1.8150000000000002,
+            "feedback": 1.7249999999999999,
+            "prior": 1.93
+          },
+          "fallback_harm": 0.0
+        },
+        "3.0": {
+          "detected": 0,
+          "detection_rate": 0.0,
+          "means": {
+            "oracle": 0.865,
+            "trust": 4.07,
+            "prior": 2.795,
+            "gate": 4.07,
+            "feedback": 3.42
+          },
+          "regret_vs_oracle": {
+            "trust": 3.205,
+            "gate": 3.205,
+            "feedback": 2.5549999999999997,
+            "prior": 1.93
+          },
+          "fallback_harm": 1.2750000000000004
+        },
+        "_boundary": {
+          "shift": null,
+          "trust_regret": null
+        }
+      }
+    }
+  },
+  "fired_cells": 13,
+  "fallback_helps": 3,
+  "fallback_hurts": 10,
+  "gate_overcorrects_cells": 30,
+  "feedback_beats_trust_cells": 8,
+  "total_cells": 112,
+  "detection_monotone_in_abs_shift": true,
+  "uniform_boundary_products": [
+    0.75,
+    1.0,
+    1.0
+  ],
+  "bootstrap": {
+    "unit": "paired graph",
+    "draws": 10000,
+    "seed": 20261112,
+    "coverage": 0.95
+  },
+  "source_sha256": {
+    "manifest.json": "519ff120e33d397f6a292231e27d9753ffb7ba877279ab8ef48e8a07e9248460",
+    "episodes.csv": "3b59b1e0ec094f80133588c308624c4d5d7cbaab0d7f034d42ef72ec8e472f1b",
+    "report_corruption.py": "162012e0d56802b208bbbebca91560aa619a132057d82cd1419ec69dac5890f4",
+    "rl_boundary.py": "6ad6a333b1eb00826d1c266d88a04ee14b6401b6ad6d0c1fced2264687f28482"
+  }
+}
