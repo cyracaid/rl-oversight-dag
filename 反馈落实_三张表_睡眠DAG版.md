@@ -86,7 +86,7 @@
 
 | 三要素（文献） | 方法里的对应组件 | 锚点 |
 |---|---|---|
-| **① 判断交回人工**（learning-to-defer） | 动作空间：每步选一个未审阅节点；审阅可能漏检（p_catch=0.9）；终止奖励 = −残余 sink 错误数 | `PROPOSAL_COURSE_KO.md §4` 奖励行；`IMPLEMENTATION_SPEC.md §2.3` |
+| **① 不确定下的人类延迟判定**（learning-to-defer） | 动作空间：每步选一个未审阅节点；审阅可能漏检（p_catch=0.9）；终止奖励 = −残余 sink 错误数 | `PROPOSAL_COURSE_KO.md §4` 奖励行；`IMPLEMENTATION_SPEC.md §2.3` |
 | **② 预算内分配审查对象**（budgeted bandit / Oversight） | 状态含 `budget_left`；有限 horizon H = B（8 或 16）；预算耗尽即终止 | `PROPOSAL_COURSE_KO.md §4` 状态行 |
 | **③ 数据错误下游累积**（error cascade） | 依赖 DAG（parents/sinks）+ 隐藏错误 belief（P(base), P(error)）+ 转移：发现错误→清该节点 base→重算下游 | `IMPLEMENTATION_SPEC.md §2.2/§2.3/§2.5` |
 
