@@ -8,11 +8,12 @@ argument-layer. A pooled precision would average "did it spot a bad timestamp" w
 
 So this script emits one table per instance, each keyed by `layer`, and refuses to
 produce a combined row. Cells with no measurement stay empty with the reason, because
-the reason is a result too: the SciForge side has a vocabulary and injection recipes
-but no corpus yet, and printing a number there would be the one thing the whole
-label set exists to prevent.
+the reason is a result too.
 
-Reads only committed aggregates under `outputs/`, so it runs without the IRB data.
+Reads only committed aggregates under `outputs/`, so it runs without the IRB data. The
+SciForge half comes from `outputs/sciforge_injection.json`, copied from the SciForge
+repository by `sync_sciforge_injection.py`; the digest in its provenance is re-checked
+here, so an edited number cannot pass as a measured one.
 
     python3 triage_bench/run_layered_report.py
 """
@@ -22,6 +23,7 @@ from __future__ import annotations
 import json
 
 from bench import config
+from sync_sciforge_injection import OUT_NAME as SCI_SOURCE, payload_digest
 
 OUT = config.OUT_DIR
 
@@ -36,6 +38,11 @@ POLICIES = [
 ]
 
 KS = [100, 200, 400]
+
+# The one cell Table 2 still cannot fill, stated once so the row and the note agree.
+PROPAGATION_BLOCKER = (
+    "no recipe asserts a stale cascade; the corpus scores localization only"
+)
 
 
 def _load(name: str) -> dict:
@@ -68,26 +75,49 @@ def sleep_rows() -> list[dict]:
     return rows
 
 
+def _sciforge_payload() -> dict:
+    """The copied audit result, refused unless its digest matches the numbers."""
+    document = _load(SCI_SOURCE)
+    recorded = document["provenance"]["sha256"]
+    actual = payload_digest(document["payload"])
+    if recorded != actual:
+        raise ValueError(
+            f"{SCI_SOURCE}: numbers do not match their provenance digest "
+            f"({actual} != {recorded}); run sync_sciforge_injection.py"
+        )
+    return document["payload"]
+
+
 def sciForge_rows() -> list[dict]:
-    """The evidence-dag audit: two layers, no corpus yet — and that is the result."""
-    return [
-        {
+    """The evidence-dag audit: two layers, one injection pair per finding class.
+
+    `localization_at_1` is reported twice because the two conditions answer different
+    questions. Isolated, a three-node graph makes rank 0 nearly free, so it is a wiring
+    check. Mixed, the injected finding competes with three unrelated single-source
+    claims and the audit's tiebreak is a content hash, so the number is a floor rather
+    than a curve.
+
+    Propagation recall stays `None`: no recipe asserts a stale cascade, so there is
+    nothing to score. The corpus measures localization only, and saying so is cheaper
+    than inventing a propagation number.
+    """
+    summary = _sciforge_payload()["summary"]
+    rows = []
+    for layer in ("evidence", "argument"):
+        block = summary["by_layer"][layer]
+        rows.append({
             "instance": "SciForge (evidence-dag)",
-            "layer": "evidence",
-            "localization_at_1": None,
+            "layer": layer,
+            "classes": block["classes"],
+            "caught": block["caught"],
+            "localization_at_1_isolated": block["localization_at_1"],
+            "localization_at_1": block["localization_at_1_mixed"],
+            "localization_at_3": block["localization_at_3_mixed"],
+            "clean_twin_violations": block["clean_twin_violations"],
             "propagation_recall": None,
-            "blocker": "no injection harness: 0 of the 9 finding classes has a clean "
-                       "twin + corrupted pair",
-        },
-        {
-            "instance": "SciForge (evidence-dag)",
-            "layer": "argument",
-            "localization_at_1": None,
-            "propagation_recall": None,
-            "blocker": "no injection harness: 0 of the 6 finding classes has a clean "
-                       "twin + corrupted pair",
-        },
-    ]
+            "blocker": PROPAGATION_BLOCKER,
+        })
+    return rows
 
 
 def check_layers(rows: list[dict]) -> None:
@@ -140,23 +170,33 @@ def render(sleep: list[dict], sci: list[dict]) -> str:
         "",
         "## Table 2 — evidence-dag audit (`layer = evidence | argument`)",
         "",
-        "The vocabulary, the severities and the injection recipes exist; the labelled",
-        "corpus does not. Every cell is empty on purpose.",
+        "One injected corruption per finding class, each with a clean twin the audit",
+        "must ignore. Ground truth is the mutation, so nothing here is hand-labelled.",
         "",
-        "| instance | layer | localization@1 | propagation recall | blocker |",
-        "|---|---|---:|---:|---|",
+        "| layer | classes | caught | localization@1 (isolated) | localization@1 (mixed) | clean-twin violations | propagation recall |",
+        "|---|---:|---:|---:|---:|---:|---:|",
     ]
     for row in sci:
         lines.append(
-            f"| {row['instance']} | {row['layer']} | — | — | {row['blocker']} |"
+            f"| {row['layer']} | {row['classes']} | {row['caught']} | "
+            f"{_pct(row['localization_at_1_isolated'])} | {_pct(row['localization_at_1'])} | "
+            f"{row['clean_twin_violations']} | {_pct(row['propagation_recall'])} |"
         )
     lines += [
         "",
-        "What would fill these cells: 9 evidence + 6 argument finding classes, each",
-        "with a clean twin and a corrupted twin (30 documents), scored on whether the",
-        "injected node lands in `evidence_refs` and whether its descendants are flagged",
-        "`stale`. The recipes are in `ERROR_TAXONOMY.md` §3; the export they would be",
-        "scored through is `sciforge.review-handoff.v1`.",
+        "Coverage is the firm claim: every one of the 15 finding types is reachable from a",
+        "single structural difference, and no clean twin fires. The mixed column is the",
+        "honest localization number — at equal severity the audit orders by node id, which",
+        "is a content hash, so a 3–5 node graph makes rank a coin toss and the value is a",
+        "floor, not a measurement of reviewer-facing ordering.",
+        "",
+        "Propagation recall is empty because it is unmeasured, not because it is zero:",
+        f"{PROPAGATION_BLOCKER}. Filling it needs a recipe whose corrupted node has",
+        "descendants that must go `stale`, and none of the 15 has one yet.",
+        "",
+        "The copy path is `sync_sciforge_injection.py` -> `outputs/sciforge_injection.json`,",
+        "which records the SciForge commit and a digest over the numbers; `_sciforge_payload`",
+        "re-checks that digest before the table is built.",
         "",
         "Gap codes are a third axis and do not appear above: they report whether a",
         "chain resolved, not whether a node is wrong, and they carry their own digests.",

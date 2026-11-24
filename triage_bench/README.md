@@ -58,6 +58,15 @@ The results follow the same split: `run_layered_report.py` writes two tables, on
 instance, and `check_layers` raises rather than warning if a future edit tries to add a
 pooled row. `outputs/layered_report.md` is generated, not hand-edited.
 
+Table 1 reports the real queue. Table 2 reports one injected corruption per SciForge
+finding class, each paired with a clean twin that must stay silent: 15 / 15 caught, 0
+clean-twin violations, and localization of 44.4% (evidence) / 16.7% (argument) once the
+injected finding has to compete with unrelated claims. Those numbers are measured in the
+SciForge repository, so this repo copies the aggregate with its commit and a digest over
+the numbers (`sync_sciforge_injection.py` -> `outputs/sciforge_injection.json`). Editing
+a number without re-running that copy fails the digest check that builds the table.
+Propagation recall has no cell yet, and says so.
+
 Each side labels itself in one place: `bench/labels.py` (`as_error_type`) fixes the
 sleep layer, because every correction here is a value defect and a per-code lookup
 would silently drop an unseen code; `handoff.py` (`_layer_of`) splits the SciForge
@@ -116,6 +125,7 @@ python3 triage_bench/run_field_queue.py  # field-scoped review: half the reads
 python3 triage_bench/run_audit_demo.py  # receipts -> cost model -> recall per minute
 python3 triage_bench/run_trace_demo.py --change time_awake   # N=21 traceability demo
 python3 triage_bench/run_trace_demo.py --all                 # which input change is riskiest
+python3 triage_bench/sync_sciforge_injection.py # copy the SciForge aggregate (needs that checkout)
 python3 triage_bench/run_layered_report.py # the two result tables, split by layer
 python3 triage_bench/test_labels.py      # label shape and the layer guard, no data needed
 ```
@@ -208,4 +218,6 @@ run_unflagged.py       profile of never-flagged corrections
 run_belief_queue.py    belief greedy inside the M4-only block
 run_audit_demo.py      receipts -> cost model -> recall per minute
 run_trace_demo.py      N=21: change one input -> affected nodes + stale receipts
+run_layered_report.py  the two result tables, one per instance, no pooled row
+sync_sciforge_injection.py  copy the SciForge aggregate with its commit and digest
 ```

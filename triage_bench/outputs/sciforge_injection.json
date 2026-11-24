@@ -1,0 +1,273 @@
+{
+  "provenance": {
+    "repository": "SciForge",
+    "path": "packages/domains/evidence-dag/eval-cases/injection/injection.v1.json",
+    "commit": "4f67e6472f6d3d2d0df0d4334207c3bb0fd9ca4b",
+    "command": "npm run injection",
+    "sha256": "sha256:bfac5a9adbea61793e7612f7413c748297f7427e549594e166b2b484f56f23ec"
+  },
+  "payload": {
+    "classes": [
+      {
+        "finding_type": "missing_evidence",
+        "layer": "evidence",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 0,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "missing_evidence"
+        ]
+      },
+      {
+        "finding_type": "contradiction",
+        "layer": "evidence",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 0,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "contradiction"
+        ]
+      },
+      {
+        "finding_type": "non_independent_support",
+        "layer": "evidence",
+        "target": "conclusion:d5b24a1963859ab54694b7a7",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 5,
+        "co_findings": [
+          "load_bearing_dependency"
+        ],
+        "types_on_target": [
+          "non_independent_support"
+        ]
+      },
+      {
+        "finding_type": "single_source_dependency",
+        "layer": "evidence",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 0,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "single_source_dependency"
+        ]
+      },
+      {
+        "finding_type": "weak_support",
+        "layer": "evidence",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "weak_support"
+        ]
+      },
+      {
+        "finding_type": "load_bearing_dependency",
+        "layer": "evidence",
+        "target": "reasoning:29b84bcf30a3176fcc6d2046",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "load_bearing_dependency"
+        ]
+      },
+      {
+        "finding_type": "conflicted_status",
+        "layer": "evidence",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 0,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "conflicted_status"
+        ]
+      },
+      {
+        "finding_type": "undetermined_claim",
+        "layer": "evidence",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "undetermined_claim"
+        ]
+      },
+      {
+        "finding_type": "low_credibility_source",
+        "layer": "evidence",
+        "target": "source_assertion:6dbb06368b04db6b184f4468",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "low_credibility_source"
+        ]
+      },
+      {
+        "finding_type": "register_unwarranted",
+        "layer": "argument",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 0,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "register_unwarranted"
+        ]
+      },
+      {
+        "finding_type": "level_shift_undeclared",
+        "layer": "argument",
+        "target": "claim:ad7a5971010b0082d539aa1b",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "level_shift_undeclared"
+        ]
+      },
+      {
+        "finding_type": "scope_shift_undeclared",
+        "layer": "argument",
+        "target": "claim:f5fe2a7c845ade5f9c58c3a5",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "scope_shift_undeclared"
+        ]
+      },
+      {
+        "finding_type": "register_dismissal",
+        "layer": "argument",
+        "target": "source_assertion:b1669f9fb923b1ef17748508",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 5,
+        "co_findings": [],
+        "types_on_target": [
+          "register_dismissal",
+          "level_shift_undeclared"
+        ]
+      },
+      {
+        "finding_type": "single_voice_inflation",
+        "layer": "argument",
+        "target": "claim:f0295175cadd6e6d609a4f6b",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "single_voice_inflation"
+        ]
+      },
+      {
+        "finding_type": "unfalsifiable_universal",
+        "layer": "argument",
+        "target": "claim:5556e0c1bf98e93231fc5116",
+        "clean_findings": 0,
+        "clean_types": [],
+        "caught": true,
+        "rank": 0,
+        "rank_mixed": 3,
+        "mixed_findings": 4,
+        "co_findings": [],
+        "types_on_target": [
+          "unfalsifiable_universal"
+        ]
+      }
+    ],
+    "summary": {
+      "overall": {
+        "classes": 15,
+        "caught": 15,
+        "localization_at_1": 1.0,
+        "localization_at_3": 1.0,
+        "localization_at_1_mixed": 0.3333,
+        "localization_at_3_mixed": 0.3333,
+        "clean_twin_violations": 0
+      },
+      "by_layer": {
+        "evidence": {
+          "classes": 9,
+          "caught": 9,
+          "localization_at_1": 1.0,
+          "localization_at_3": 1.0,
+          "localization_at_1_mixed": 0.4444,
+          "localization_at_3_mixed": 0.4444,
+          "clean_twin_violations": 0
+        },
+        "argument": {
+          "classes": 6,
+          "caught": 6,
+          "localization_at_1": 1.0,
+          "localization_at_3": 1.0,
+          "localization_at_1_mixed": 0.1667,
+          "localization_at_3_mixed": 0.1667,
+          "clean_twin_violations": 0
+        }
+      },
+      "violations": []
+    }
+  }
+}

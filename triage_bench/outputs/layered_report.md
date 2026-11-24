@@ -31,19 +31,27 @@ other failure — that is a property of the instance, not a missing column.
 
 ## Table 2 — evidence-dag audit (`layer = evidence | argument`)
 
-The vocabulary, the severities and the injection recipes exist; the labelled
-corpus does not. Every cell is empty on purpose.
+One injected corruption per finding class, each with a clean twin the audit
+must ignore. Ground truth is the mutation, so nothing here is hand-labelled.
 
-| instance | layer | localization@1 | propagation recall | blocker |
-|---|---|---:|---:|---|
-| SciForge (evidence-dag) | evidence | — | — | no injection harness: 0 of the 9 finding classes has a clean twin + corrupted pair |
-| SciForge (evidence-dag) | argument | — | — | no injection harness: 0 of the 6 finding classes has a clean twin + corrupted pair |
+| layer | classes | caught | localization@1 (isolated) | localization@1 (mixed) | clean-twin violations | propagation recall |
+|---|---:|---:|---:|---:|---:|---:|
+| evidence | 9 | 9 | 100.0% | 44.4% | 0 | — |
+| argument | 6 | 6 | 100.0% | 16.7% | 0 | — |
 
-What would fill these cells: 9 evidence + 6 argument finding classes, each
-with a clean twin and a corrupted twin (30 documents), scored on whether the
-injected node lands in `evidence_refs` and whether its descendants are flagged
-`stale`. The recipes are in `ERROR_TAXONOMY.md` §3; the export they would be
-scored through is `sciforge.review-handoff.v1`.
+Coverage is the firm claim: every one of the 15 finding types is reachable from a
+single structural difference, and no clean twin fires. The mixed column is the
+honest localization number — at equal severity the audit orders by node id, which
+is a content hash, so a 3–5 node graph makes rank a coin toss and the value is a
+floor, not a measurement of reviewer-facing ordering.
+
+Propagation recall is empty because it is unmeasured, not because it is zero:
+no recipe asserts a stale cascade; the corpus scores localization only. Filling it needs a recipe whose corrupted node has
+descendants that must go `stale`, and none of the 15 has one yet.
+
+The copy path is `sync_sciforge_injection.py` -> `outputs/sciforge_injection.json`,
+which records the SciForge commit and a digest over the numbers; `_sciforge_payload`
+re-checks that digest before the table is built.
 
 Gap codes are a third axis and do not appear above: they report whether a
 chain resolved, not whether a node is wrong, and they carry their own digests.

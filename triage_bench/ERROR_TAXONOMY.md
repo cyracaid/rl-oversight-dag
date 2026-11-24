@@ -215,9 +215,15 @@ information-limited there too", which is a statement about the chain, not about 
 
 The two metrics belong to different layers and are therefore never averaged:
 localization / propagation are the SciForge side, recall@budget is the sleep side.
-`run_layered_report.py` emits them as two separate tables and refuses a pooled row;
-right now its SciForge table is empty, because the 15 injection recipes have no harness
-behind them yet — an empty cell with a stated blocker, not a zero.
+`run_layered_report.py` emits them as two separate tables and refuses a pooled row.
+
+The harness now exists: one mutation per finding class in the SciForge repository
+(`npm run injection`), each with a clean twin that must stay silent. It caught 15 of 15
+classes on the injected node, 0 clean-twin violations. Localization is reported twice
+because the conditions differ: isolated, a three-node graph makes rank 0 nearly free;
+mixed with three unrelated claims, equal-severity ties are broken by a content hash, so
+44.4% (evidence) and 16.7% (argument) are a floor. Propagation recall stays empty —
+none of the recipes asserts a stale cascade, so there is nothing to score.
 
 ---
 
