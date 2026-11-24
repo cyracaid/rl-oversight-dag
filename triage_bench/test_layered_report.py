@@ -41,22 +41,21 @@ class RenderedReportTest(unittest.TestCase):
                 self.assertGreaterEqual(row["recall"][str(k)], 0.0)
                 self.assertLessEqual(row["recall"][str(k)], 1.0)
 
-    def test_the_measured_columns_are_measured_and_the_unmeasured_one_says_why(self):
+    def test_each_column_answers_a_different_question(self):
         for row in self.sci:
             self.assertGreater(row["classes"], 0)
             self.assertLessEqual(row["caught"], row["classes"])
-            for key in ("localization_at_1", "localization_at_1_isolated"):
-                self.assertGreaterEqual(row[key], 0.0)
-                self.assertLessEqual(row[key], 1.0)
-            self.assertEqual(row["clean_twin_violations"], 0)
-            self.assertIsNone(row["propagation_recall"])
-            self.assertTrue(row["blocker"])
+            self.assertEqual(row["clean_fp"], 0)
+            self.assertGreaterEqual(row["propagation"], 0.0)
+            self.assertLessEqual(row["propagation"], 1.0)
 
-    def test_the_isolated_ranking_is_the_easier_condition(self):
-        # If the mixed number ever overtook the isolated one the ordering would be
-        # doing something the report does not describe, so pin the direction.
+    def test_no_column_is_a_rank(self):
+        # Rank was withdrawn because it scores the audit's sort key rather than its
+        # detection. If one reappears under a new name the report is claiming more
+        # than a hand-built corpus can support.
         for row in self.sci:
-            self.assertLessEqual(row["localization_at_1"], row["localization_at_1_isolated"])
+            self.assertNotIn("localization_at_1", row)
+            self.assertNotIn("rank", row)
 
     def test_the_audit_covers_its_whole_vocabulary(self):
         self.assertEqual(sum(row["classes"] for row in self.sci), 15)
@@ -71,7 +70,7 @@ class RenderedReportTest(unittest.TestCase):
         # The digest only helps if the reader checks it, so the check is what the test
         # drives: a doctored payload must fail the same call the report makes.
         document = R._load(R.SCI_SOURCE)
-        document["payload"]["summary"]["by_layer"]["argument"]["localization_at_1_mixed"] = 0.99
+        document["payload"]["summary"]["by_layer"]["argument"]["propagation_in_export"] = 0.99
         self.assertNotEqual(document["provenance"]["sha256"], payload_digest(document["payload"]))
 
     def test_report_has_one_table_per_instance_and_no_pooled_row(self):

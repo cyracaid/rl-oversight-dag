@@ -60,12 +60,19 @@ pooled row. `outputs/layered_report.md` is generated, not hand-edited.
 
 Table 1 reports the real queue. Table 2 reports one injected corruption per SciForge
 finding class, each paired with a clean twin that must stay silent: 15 / 15 caught, 0
-clean-twin violations, and localization of 44.4% (evidence) / 16.7% (argument) once the
-injected finding has to compete with unrelated claims. Those numbers are measured in the
-SciForge repository, so this repo copies the aggregate with its commit and a digest over
-the numbers (`sync_sciforge_injection.py` -> `outputs/sciforge_injection.json`). Editing
-a number without re-running that copy fails the digest check that builds the table.
-Propagation recall has no cell yet, and says so.
+findings on any clean graph, and the blast radius surviving the export for every class.
+Those numbers are measured in the SciForge repository, so this repo copies the aggregate
+with its commit and a digest over the numbers (`sync_sciforge_injection.py` ->
+`outputs/sciforge_injection.json`). Editing a number without re-running that copy fails
+the digest check that builds the table.
+
+Table 2 has no rank column, and that is a correction rather than an omission. Findings
+sort by severity, then node id, then type, so a rank column scores that sort key: on
+graphs of five nodes it reads 100% or the sort order, and an earlier revision of this
+table reported both as results. Propagation scored inside the engine is circular for the
+same kind of reason — the corpus builds the dependency and the engine walks the same
+edges — so it is measured on the exported document instead, where it was 0 until
+`affected_refs` existed.
 
 Each side labels itself in one place: `bench/labels.py` (`as_error_type`) fixes the
 sleep layer, because every correction here is a value defect and a per-code lookup

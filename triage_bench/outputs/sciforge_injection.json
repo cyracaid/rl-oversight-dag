@@ -2,9 +2,9 @@
   "provenance": {
     "repository": "SciForge",
     "path": "packages/domains/evidence-dag/eval-cases/injection/injection.v1.json",
-    "commit": "4f67e6472f6d3d2d0df0d4334207c3bb0fd9ca4b",
+    "commit": "f1c49f1465cccdc9141b0fc8debf66cdda7af9bf",
     "command": "npm run injection",
-    "sha256": "sha256:bfac5a9adbea61793e7612f7413c748297f7427e549594e166b2b484f56f23ec"
+    "sha256": "sha256:dbfbfdfb2a396575e7508859110c1c7c5a19a90d413a577bc3577ff5a5288bb2"
   },
   "payload": {
     "classes": [
@@ -15,13 +15,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 0,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "missing_evidence"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "contradiction",
@@ -30,13 +40,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 0,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "contradiction"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "non_independent_support",
@@ -45,15 +65,25 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 5,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [
           "load_bearing_dependency"
         ],
-        "types_on_target": [
-          "non_independent_support"
-        ]
+        "findings_total": 5
       },
       {
         "finding_type": "single_source_dependency",
@@ -62,13 +92,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 0,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "single_source_dependency"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "weak_support",
@@ -77,13 +117,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "weak_support"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "load_bearing_dependency",
@@ -92,13 +142,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "load_bearing_dependency"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "conflicted_status",
@@ -107,13 +167,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 0,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "conflicted_status"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "undetermined_claim",
@@ -122,13 +192,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "undetermined_claim"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "low_credibility_source",
@@ -137,13 +217,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "low_credibility_source"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "register_unwarranted",
@@ -152,13 +242,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 0,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "register_unwarranted"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "level_shift_undeclared",
@@ -167,13 +267,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "level_shift_undeclared"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "scope_shift_undeclared",
@@ -182,13 +292,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "scope_shift_undeclared"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "register_dismissal",
@@ -197,14 +317,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 5,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "register_dismissal",
-          "level_shift_undeclared"
-        ]
+        "findings_total": 5
       },
       {
         "finding_type": "single_voice_inflation",
@@ -213,13 +342,23 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "single_voice_inflation"
-        ]
+        "findings_total": 4
       },
       {
         "finding_type": "unfalsifiable_universal",
@@ -228,42 +367,46 @@
         "clean_findings": 0,
         "clean_types": [],
         "caught": true,
-        "rank": 0,
-        "rank_mixed": 3,
-        "mixed_findings": 4,
+        "exported": true,
+        "target_in_refs": true,
+        "expected_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "named_descendants": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
+        "propagation_in_export": 1.0,
+        "clean_downstream": [
+          "claim:716ddeb3e89952f249149365",
+          "claim:b2f09e6c91c95ab3cc8213b2"
+        ],
         "co_findings": [],
-        "types_on_target": [
-          "unfalsifiable_universal"
-        ]
+        "findings_total": 4
       }
     ],
     "summary": {
       "overall": {
         "classes": 15,
         "caught": 15,
-        "localization_at_1": 1.0,
-        "localization_at_3": 1.0,
-        "localization_at_1_mixed": 0.3333,
-        "localization_at_3_mixed": 0.3333,
+        "exported": 15,
+        "propagation_in_export": 1.0,
         "clean_twin_violations": 0
       },
       "by_layer": {
         "evidence": {
           "classes": 9,
           "caught": 9,
-          "localization_at_1": 1.0,
-          "localization_at_3": 1.0,
-          "localization_at_1_mixed": 0.4444,
-          "localization_at_3_mixed": 0.4444,
+          "exported": 9,
+          "propagation_in_export": 1.0,
           "clean_twin_violations": 0
         },
         "argument": {
           "classes": 6,
           "caught": 6,
-          "localization_at_1": 1.0,
-          "localization_at_3": 1.0,
-          "localization_at_1_mixed": 0.1667,
-          "localization_at_3_mixed": 0.1667,
+          "exported": 6,
+          "propagation_in_export": 1.0,
           "clean_twin_violations": 0
         }
       },

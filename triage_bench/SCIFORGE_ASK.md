@@ -68,6 +68,10 @@
 | 金标准样例 | 同包 `eval-cases/handoff/handoff.v1.example.json` |
 | 生产者 | `python -m evidence_dag.handoff graph.json --project <label> [--closure closure.json]` |
 
+每条 correction 现在有两个节点列表，别混用：`evidence_refs` 是**证明这个缺陷的节点**，
+`affected_refs` 是**这个缺陷会让哪些结论失效**（走与 reconcile 同一份下游闭包）。后者允许为空
+数组 —— 空表示这条链上没有下游依赖，不等于审计没算。
+
 差异只在四处，消费端要按 v1 读：
 
 1. `corrections[].error_type` 是对象 `{"layer": "evidence"|"argument", "code": "..."}`，不是字符串。

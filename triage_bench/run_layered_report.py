@@ -39,11 +39,6 @@ POLICIES = [
 
 KS = [100, 200, 400]
 
-# The one cell Table 2 still cannot fill, stated once so the row and the note agree.
-PROPAGATION_BLOCKER = (
-    "no recipe asserts a stale cascade; the corpus scores localization only"
-)
-
 
 def _load(name: str) -> dict:
     return json.loads((OUT / name).read_text())
@@ -91,31 +86,27 @@ def _sciforge_payload() -> dict:
 def sciForge_rows() -> list[dict]:
     """The evidence-dag audit: two layers, one injection pair per finding class.
 
-    `localization_at_1` is reported twice because the two conditions answer different
-    questions. Isolated, a three-node graph makes rank 0 nearly free, so it is a wiring
-    check. Mixed, the injected finding competes with three unrelated single-source
-    claims and the audit's tiebreak is a content hash, so the number is a floor rather
-    than a curve.
-
-    Propagation recall stays `None`: no recipe asserts a stale cascade, so there is
-    nothing to score. The corpus measures localization only, and saying so is cheaper
-    than inventing a propagation number.
+    Three columns, three different failure modes: `caught` is detection, `clean_fp` is
+    the false-positive rate on a correct graph, and `propagation` is whether the blast
+    radius survives the export. None of them is a rank: findings are sorted by
+    severity, then node id, then type, so a rank column would score the sort key.
     """
-    summary = _sciforge_payload()["summary"]
+    payload = _sciforge_payload()
+    summary = payload["summary"]
     rows = []
     for layer in ("evidence", "argument"):
         block = summary["by_layer"][layer]
+        classes = [c for c in payload["classes"] if c["layer"] == layer]
         rows.append({
             "instance": "SciForge (evidence-dag)",
             "layer": layer,
             "classes": block["classes"],
             "caught": block["caught"],
-            "localization_at_1_isolated": block["localization_at_1"],
-            "localization_at_1": block["localization_at_1_mixed"],
-            "localization_at_3": block["localization_at_3_mixed"],
-            "clean_twin_violations": block["clean_twin_violations"],
-            "propagation_recall": None,
-            "blocker": PROPAGATION_BLOCKER,
+            "clean_fp": block["clean_twin_violations"],
+            "propagation": block["propagation_in_export"],
+            "co_finding_classes": [
+                c["finding_type"] for c in classes if c["co_findings"]
+            ],
         })
     return rows
 
@@ -173,26 +164,33 @@ def render(sleep: list[dict], sci: list[dict]) -> str:
         "One injected corruption per finding class, each with a clean twin the audit",
         "must ignore. Ground truth is the mutation, so nothing here is hand-labelled.",
         "",
-        "| layer | classes | caught | localization@1 (isolated) | localization@1 (mixed) | clean-twin violations | propagation recall |",
-        "|---|---:|---:|---:|---:|---:|---:|",
+        "| layer | classes | caught | false positives on clean graph | propagation in export |",
+        "|---|---:|---:|---:|---:|",
     ]
     for row in sci:
         lines.append(
             f"| {row['layer']} | {row['classes']} | {row['caught']} | "
-            f"{_pct(row['localization_at_1_isolated'])} | {_pct(row['localization_at_1'])} | "
-            f"{row['clean_twin_violations']} | {_pct(row['propagation_recall'])} |"
+            f"{row['clean_fp']} | {_pct(row['propagation'])} |"
         )
     lines += [
         "",
-        "Coverage is the firm claim: every one of the 15 finding types is reachable from a",
-        "single structural difference, and no clean twin fires. The mixed column is the",
-        "honest localization number — at equal severity the audit orders by node id, which",
-        "is a content hash, so a 3–5 node graph makes rank a coin toss and the value is a",
-        "floor, not a measurement of reviewer-facing ordering.",
+        "Three columns, three failure modes: detection, false positives on a graph with",
+        "no defect, and whether the export carries what a finding invalidates. The third",
+        "read 0 for every class until `affected_refs` existed on the wire.",
         "",
-        "Propagation recall is empty because it is unmeasured, not because it is zero:",
-        f"{PROPAGATION_BLOCKER}. Filling it needs a recipe whose corrupted node has",
-        "descendants that must go `stale`, and none of the 15 has one yet.",
+        "Two columns were withdrawn rather than filled. A rank column scores the audit's",
+        "sort key (severity, then node id, then type), not its detection — on graphs this",
+        "small it reads either 100% or the sort order, and both were reported as findings",
+        "before this report existed. Propagation was first scored inside the engine, which",
+        "compared the recipe's support edges with a closure over the same edges and so",
+        "returned 1.0 by construction. What a hand-built corpus can support is coverage",
+        "and controls: 15 of 15 classes reachable, 0 findings on any clean twin.",
+        "",
+        f"One mutation also fires a second finding: "
+        f"{', '.join(f'`{c}`' for row in sci for c in row['co_finding_classes'])} — the same",
+        "defect seen from the source's side, since every path passes through it. That is",
+        "recorded, not suppressed; it is the one place where a single mutation has two",
+        "true descriptions.",
         "",
         "The copy path is `sync_sciforge_injection.py` -> `outputs/sciforge_injection.json`,",
         "which records the SciForge commit and a digest over the numbers; `_sciforge_payload`",

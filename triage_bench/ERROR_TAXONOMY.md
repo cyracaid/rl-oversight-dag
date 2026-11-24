@@ -202,11 +202,17 @@ types. Saying otherwise would inflate the benchmark.
 
 ## 6. Metric consequence
 
-Because localization and propagation ground truth is free in the injected pairs, the
-primary metrics should be:
+Localization ground truth is free in the injected pairs; *rank* is not, and this is the
+distinction the harness taught.
 
-- **Root Cause Localization** — is the injected node inside `evidence_refs`, and at what rank
-- **Propagation Recall** — are the injected node's descendants flagged `stale` / affected
+- **Root Cause Localization** — is the injected node inside `evidence_refs` (a set
+  membership question, not a rank)
+- **Propagation Recall** — are the nodes that rest on it named as affected
+
+A rank column is not a measurement. Findings are sorted by severity, then node id, then
+type, so rank scores that key; on a five-node graph it reads 100% for a three-node
+corpus, and it reads the sort order otherwise. Both were briefly reported as results
+here and are withdrawn.
 
 `recall@budget` stays a **secondary** metric, measured on the real queue. `triage_bench`
 already showed that axis is information-limited (6.5% queue precision, 83.8% type-only
@@ -217,13 +223,16 @@ The two metrics belong to different layers and are therefore never averaged:
 localization / propagation are the SciForge side, recall@budget is the sleep side.
 `run_layered_report.py` emits them as two separate tables and refuses a pooled row.
 
-The harness now exists: one mutation per finding class in the SciForge repository
+The harness exists: one mutation per finding class in the SciForge repository
 (`npm run injection`), each with a clean twin that must stay silent. It caught 15 of 15
-classes on the injected node, 0 clean-twin violations. Localization is reported twice
-because the conditions differ: isolated, a three-node graph makes rank 0 nearly free;
-mixed with three unrelated claims, equal-severity ties are broken by a content hash, so
-44.4% (evidence) and 16.7% (argument) are a floor. Propagation recall stays empty —
-none of the recipes asserts a stale cascade, so there is nothing to score.
+classes on the injected node with 0 findings on any clean twin. Propagation is measured
+where a consumer would read it — the exported correction now carries `affected_refs`, so
+the column asks whether the blast radius survives the wire; it was 0 for every class
+before that field existed, which makes it a transfer check rather than a quality score.
+
+Propagation scored inside the engine is circular and was not reported: the recipe builds
+the dependency with `supports` edges and the engine enumerates the same edges, so the two
+sets are equal by construction.
 
 ---
 

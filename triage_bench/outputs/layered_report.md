@@ -34,20 +34,27 @@ other failure — that is a property of the instance, not a missing column.
 One injected corruption per finding class, each with a clean twin the audit
 must ignore. Ground truth is the mutation, so nothing here is hand-labelled.
 
-| layer | classes | caught | localization@1 (isolated) | localization@1 (mixed) | clean-twin violations | propagation recall |
-|---|---:|---:|---:|---:|---:|---:|
-| evidence | 9 | 9 | 100.0% | 44.4% | 0 | — |
-| argument | 6 | 6 | 100.0% | 16.7% | 0 | — |
+| layer | classes | caught | false positives on clean graph | propagation in export |
+|---|---:|---:|---:|---:|
+| evidence | 9 | 9 | 0 | 100.0% |
+| argument | 6 | 6 | 0 | 100.0% |
 
-Coverage is the firm claim: every one of the 15 finding types is reachable from a
-single structural difference, and no clean twin fires. The mixed column is the
-honest localization number — at equal severity the audit orders by node id, which
-is a content hash, so a 3–5 node graph makes rank a coin toss and the value is a
-floor, not a measurement of reviewer-facing ordering.
+Three columns, three failure modes: detection, false positives on a graph with
+no defect, and whether the export carries what a finding invalidates. The third
+read 0 for every class until `affected_refs` existed on the wire.
 
-Propagation recall is empty because it is unmeasured, not because it is zero:
-no recipe asserts a stale cascade; the corpus scores localization only. Filling it needs a recipe whose corrupted node has
-descendants that must go `stale`, and none of the 15 has one yet.
+Two columns were withdrawn rather than filled. A rank column scores the audit's
+sort key (severity, then node id, then type), not its detection — on graphs this
+small it reads either 100% or the sort order, and both were reported as findings
+before this report existed. Propagation was first scored inside the engine, which
+compared the recipe's support edges with a closure over the same edges and so
+returned 1.0 by construction. What a hand-built corpus can support is coverage
+and controls: 15 of 15 classes reachable, 0 findings on any clean twin.
+
+One mutation also fires a second finding: `non_independent_support` — the same
+defect seen from the source's side, since every path passes through it. That is
+recorded, not suppressed; it is the one place where a single mutation has two
+true descriptions.
 
 The copy path is `sync_sciforge_injection.py` -> `outputs/sciforge_injection.json`,
 which records the SciForge commit and a digest over the numbers; `_sciforge_payload`
