@@ -5,18 +5,24 @@
 > Sleep data: one year of EMA collaboration with Maia ten Brink (Stanford Psychophysiology Lab).
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
-**What this concludes, in plain words.** The task is *which claim to check next* under a fixed review budget. That
-layer is exhausted: replacing our one-line rule with the **optimal** policy of the same model moves residual errors
-from 0.873 to 0.851 — 2.5 %. A smarter ranking is therefore not where an oversight system should spend its effort.
+**What this concludes, in plain words.** The task is *which claim to check next* under a fixed review budget. Where
+the optimum is computable, that layer is nearly exhausted: on the two 21-node pipelines, at budget ≤ 5, replacing our
+one-line rule with the **optimal** policy of the same model moves residual errors from 0.873 to 0.851 — 2.5 %. On the
+500-node families the optimum is out of reach; there a depth-two lookahead over the same belief changes 5 of 923
+errors, and the only variant that gains anything is the one that trusts the environment's approximate miss update,
+which costs 485 of 923 errors when it is wrong. A smarter ranking is not where this system should spend its effort.
+
 Two things do block it: the signal we rank by (published confidence) is synthetic and unvalidated, and a delivery
-cannot currently say *which claims it checked and which it left alone*. We ship the second as a machine-checkable
-receipt, with its deletion test written down: delete the receipt and the delivery can no longer state what it covered.
+cannot say *which claims it checked and which it left alone*. The second is now measured rather than asserted
+([`outputs/supervisor-v1/`](role3%20improvement/outputs/supervisor-v1/receipt_vs_silent.md)): the receipt names
+89.8–97.8 % of the surviving errors as sinks it did not fully cover, changes no action on 800 of 800 graphs, and when
+it is deleted the question "how many errors did we not cover" has no answer at all — not a wrong one.
 
 | layer | plain question | what we measured | verdict |
 |---|---|---|---|
-| ranking | which claim do I check next? | optimal policy of the same model is worth 2.5 % | **saturated** — do not invest here |
+| ranking | which claim do I check next? | optimal policy of the same model is worth 2.5 % where computable (21 nodes, budget ≤ 5); depth-two lookahead is worth 5 of 923 errors at N=500 | **saturated** — do not invest here |
 | signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic | **unvalidated input** — the real blocker, needs measured calibration |
-| delivery | what did I cover, and what did I miss? | `receipt.json` + a deletion test | **load-bearing interface** — without it the question has no answer |
+| delivery | what did I cover, and what did I miss? | receipt names 89.8–97.8 % of surviving errors as uncovered; 800/800 runs unchanged; deleting it removes the question | **load-bearing interface** — without it the question has no answer |
 
 **Status, 2026-11-10 — settled.** The Yonsei course track (STA3145) is final: the classroom content
 and the five-person division are decided, and those documents are frozen at tag
