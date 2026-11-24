@@ -28,11 +28,17 @@ clone stays runnable, exactly like `verify_clustering.py`.
 
 ---
 
-## Two instances, three layers
+## Two instances, one shared axis
 
 Both instances publish `error_type = {layer, code}`. The code sets are closed per
 instance; the layer is what they share. It names *which station of the chain* the
 defect sits at, not how hard or how serious it is.
+
+The word is overloaded in this directory, so read the axis before the value:
+[`EVIDENCE_LAYERS.md`](EVIDENCE_LAYERS.md) uses *layer* for architectural compartments
+(provenance / evidence / review). Here *layer* is a defect station (value / evidence /
+argument). Two of the three names coincide and the meanings do not, so the two tables
+are never joined.
 
 ```
    value                       evidence                    argument
@@ -47,6 +53,11 @@ defect sits at, not how hard or how serious it is.
 |---|---|---|---|
 | sleep (`splsleep`) | `order_error` 57 / 75 | — | — |
 | SciForge (`evidence-dag`) | — | 9 finding types | 6 finding types |
+
+Each side labels itself in one place: `bench/labels.py` (`as_error_type`) fixes the
+sleep layer, because every correction here is a value defect and a per-code lookup
+would silently drop an unseen code; `handoff.py` (`_layer_of`) splits the SciForge
+findings 9 / 6, because there the layer really does vary per code.
 
 The two instances do not overlap on a single code, and that is the point: 76% of the
 sleep corrections are values that exist and are cited but are simply wrong — no graph
@@ -101,6 +112,7 @@ python3 triage_bench/run_field_queue.py  # field-scoped review: half the reads
 python3 triage_bench/run_audit_demo.py  # receipts -> cost model -> recall per minute
 python3 triage_bench/run_trace_demo.py --change time_awake   # N=21 traceability demo
 python3 triage_bench/run_trace_demo.py --all                 # which input change is riskiest
+python3 triage_bench/test_labels.py      # label shape only, no data needed
 ```
 
 Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,

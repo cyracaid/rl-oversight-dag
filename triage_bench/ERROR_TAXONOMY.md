@@ -104,10 +104,11 @@ Consequences, all of which must hold in the paper:
 2. **Per-instance label sets, shared meta-schema.** Every instance carries
    `error_type = {layer, code}`. The exported enum is `{evidence, argument}` — the
    finding types §1.2 splits 9 / 6 exactly as `epistemic.py` does — and the sleep
-   corrections add the third observed value, `value`. Within an instantiation the
+   corrections add the third observed value, `value` — labelled by `bench/labels.py`,
+   which fixes the layer per instance rather than per code. Within an instantiation the
    codes are closed; across instantiations only `layer` is comparable. Gap codes are
    not on this axis at all: they say whether the chain resolved, and they travel as
-   `closure.gap_codes`. The picture is in [`README.md`](README.md#two-instances-three-layers).
+   `closure.gap_codes`. The picture is in [`README.md`](README.md#two-instances-one-shared-axis).
 3. **Report the exotic direction explicitly.** SciForge codes include defects that the
    sleep pipeline cannot express (scope widening, testimony inflation). That is an
    argument for generality, but only if stated as a capability difference, not as

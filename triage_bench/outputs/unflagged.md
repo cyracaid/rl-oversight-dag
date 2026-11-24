@@ -5,12 +5,12 @@ ranking policy -- learned or hand-written -- can surface them.
 
 ## Narrow set: 7 of 72
 
-| error_type | n |
+| error_type (`layer:code`) | n |
 |---|---:|
 | (unlabeled) | 3 |
-| sleep_awake_equal_error | 2 |
-| awake_getup_diff_error | 1 |
-| order_error | 1 |
+| value / sleep_awake_equal_error | 2 |
+| value / awake_getup_diff_error | 1 |
+| value / order_error | 1 |
 
 | corrected column | n |
 |---|---:|

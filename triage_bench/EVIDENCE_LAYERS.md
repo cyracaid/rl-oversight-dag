@@ -115,3 +115,12 @@ The label set and the injection recipes are written up in
 [`ERROR_TAXONOMY.md`](ERROR_TAXONOMY.md). The §2 rule does not move: upstream change
 marks **affected** and **stale**, never **false** — the audit reports findings, a human
 sets the verdict.
+
+**The word "layer" now means two different things in this directory.** §1 above is about
+*architectural compartments* — where an artefact lives and where the seams break. The
+`error_type.layer` in `ERROR_TAXONOMY.md` is a *defect station* — where in the chain the
+defect sits (`value` / `evidence` / `argument`). `evidence` appears in both and does not
+mean the same thing: as a compartment it is "what does this result support", as a defect
+station it is "the chain is broken or thin". The README's
+[axis diagram](README.md#two-instances-one-shared-axis) is the defect-station one. Do not
+join the two tables, and do not read a §1 compartment off an `error_type.layer` value.

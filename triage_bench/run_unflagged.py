@@ -13,6 +13,7 @@ import json
 import pandas as pd
 
 from bench import config
+from bench.labels import MISSING, as_key
 from bench.load import KEYS, load_queue
 
 
@@ -64,7 +65,12 @@ def main() -> None:
     out = {
         "narrow_unflagged": {
             "n": len(miss_n),
-            "by_error_type": miss_n["error_type"].fillna("(unlabeled)").value_counts().to_dict(),
+            # Labelled the way the SciForge side labels its own corrections:
+            # `layer:code`, so a reader cannot compare the two as bare strings.
+            "by_error_type": {
+                key: int(n)
+                for key, n in miss_n["error_type"].fillna(MISSING).map(as_key).value_counts().items()
+            },
             "by_column": miss_n["column_to_correct"].fillna("(none)").value_counts().to_dict(),
             "by_correction_type": miss_n["correction_type"].fillna("(none)").value_counts().to_dict(),
             "by_audit_decision": miss_n["audit_decision"].value_counts().to_dict(),
@@ -83,11 +89,11 @@ def main() -> None:
         "",
         f"## Narrow set: {len(miss_n)} of {len(narrow)}",
         "",
-        "| error_type | n |",
+        "| error_type (`layer:code`) | n |",
         "|---|---:|",
     ]
     for k, v in out["narrow_unflagged"]["by_error_type"].items():
-        lines.append(f"| {k} | {v} |")
+        lines.append(f"| {k.replace(':', ' / ', 1)} | {v} |")
     lines += ["", "| corrected column | n |", "|---|---:|"]
     for k, v in out["narrow_unflagged"]["by_column"].items():
         lines.append(f"| {k} | {v} |")

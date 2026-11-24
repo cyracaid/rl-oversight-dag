@@ -3,9 +3,9 @@
     "n": 7,
     "by_error_type": {
       "(unlabeled)": 3,
-      "sleep_awake_equal_error": 2,
-      "awake_getup_diff_error": 1,
-      "order_error": 1
+      "value:sleep_awake_equal_error": 2,
+      "value:awake_getup_diff_error": 1,
+      "value:order_error": 1
     },
     "by_column": {
       "time_awake_corrected": 6,
