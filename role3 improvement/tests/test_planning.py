@@ -6,6 +6,7 @@ import numpy as np
 from dag_role3.graphs import DAG
 from dag_role3.planning import Planner, Topology, belief_column
 from dag_role3.policies import marginal_scores
+from report_planning import verdict
 
 
 def observation(graph, belief, edge_prob, sinks, mask=None):
@@ -109,6 +110,19 @@ class PlannerTests(unittest.TestCase):
         self.assertEqual(expected, 0)
         self.assertEqual(Planner(branches=("catch",)).act(obs), expected)
         self.assertNotEqual(Planner(branches=("catch", "miss")).act(obs), expected)
+
+
+
+class VerdictTests(unittest.TestCase):
+    """The pre-registered table, pinned so a later run cannot relabel it."""
+
+    def test_table_boundaries(self):
+        self.assertEqual(verdict((0.41, 0.90)), "myopia-bound")
+        self.assertEqual(verdict((0.40, 0.90)), "myopia-partial")
+        self.assertEqual(verdict((0.001, 0.30)), "myopia-partial")
+        self.assertEqual(verdict((0.000, 0.094)), "informational")
+        self.assertEqual(verdict((-0.023, 0.001)), "informational")
+        self.assertEqual(verdict((-1.071, -0.621)), "informational-strong")
 
 
 if __name__ == "__main__":

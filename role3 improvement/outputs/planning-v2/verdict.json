@@ -1,0 +1,80 @@
+[
+  {
+    "family": "modular",
+    "graphs": 200,
+    "marginal_mean": 8.915,
+    "oracle_mean": 4.3,
+    "gap_mean": 4.615,
+    "graphs_with_gap": 192,
+    "gap_sum": 923.0,
+    "variants": [
+      {
+        "policy": "plan2_catch",
+        "mean_errors": 8.94,
+        "recovery": -0.00941220238095238,
+        "recovery_ci": [
+          -0.02347532242063492,
+          0.001376488095238095
+        ],
+        "closed_sum": -5.0,
+        "wins": 2,
+        "ties": 191,
+        "losses": 7,
+        "verdict": "informational"
+      },
+      {
+        "policy": "plan2_full",
+        "mean_errors": 11.34,
+        "recovery": -0.8327372135965886,
+        "recovery_ci": [
+          -1.0706003093405436,
+          -0.6206415513739734
+        ],
+        "closed_sum": -485.0,
+        "wins": 10,
+        "ties": 82,
+        "losses": 108,
+        "verdict": "informational-strong"
+      }
+    ]
+  },
+  {
+    "family": "spike",
+    "graphs": 200,
+    "marginal_mean": 0.86,
+    "oracle_mean": 0.615,
+    "gap_mean": 0.245,
+    "graphs_with_gap": 32,
+    "gap_sum": 49.0,
+    "variants": [
+      {
+        "policy": "plan2_catch",
+        "mean_errors": 0.855,
+        "recovery": 0.03125,
+        "recovery_ci": [
+          0.0,
+          0.09375
+        ],
+        "closed_sum": 1.0,
+        "wins": 1,
+        "ties": 199,
+        "losses": 0,
+        "verdict": "informational"
+      },
+      {
+        "policy": "plan2_full",
+        "mean_errors": 2.155,
+        "recovery": -1.1875,
+        "recovery_ci": [
+          -1.6458333333333335,
+          -0.7552083333333333
+        ],
+        "closed_sum": -259.0,
+        "wins": 1,
+        "ties": 76,
+        "losses": 123,
+        "verdict": "informational-strong"
+      }
+    ]
+  }
+]
