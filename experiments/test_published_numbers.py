@@ -245,8 +245,9 @@ BASELINE_CSV = os.path.join(ROOT, "role3 improvement", "outputs", "v3-baselines"
 LEARNED_JSON = os.path.join(ROOT, "role3 improvement", "outputs", "v3-learned", "learned_vs_marginal.json")
 CEILING_JSON = os.path.join(ROOT, "triage_bench", "outputs", "ceiling.json")
 RANK_JSON = os.path.join(ROOT, "runs", "real-confidence-ranking", "results.json")
-DP_REPORT = os.path.join(ROOT, "role3 improvement", "outputs", "dp-ceiling", "report.md")
-DP_AMEND = os.path.join(ROOT, "role3 improvement", "outputs", "dp-ceiling", "AMENDMENT.md")
+DP_REPORT = os.path.join(ROOT, "role3 improvement", "outputs", "dp-ceiling-fresh", "report.md")
+DP_AMEND = os.path.join(ROOT, "role3 improvement", "outputs", "dp-ceiling-fresh", "AMENDMENT.md")
+DP_SUPERSEDED = os.path.join(ROOT, "role3 improvement", "outputs", "dp-ceiling", "report.md")
 
 
 def paper_text():
@@ -460,13 +461,30 @@ def test_paper_localisation_table_matches_artifact():
 
 
 def test_paper_dp_numbers_match_the_ceiling_artifacts():
-    """The report rounds to 3 dp; the amendment keeps the measured 4-dp value."""
+    """The paper cites the clean-block run; the superseded run is sensitivity only.
+
+    `PREREGISTER_DP.md` asked for a block nothing else had touched and named
+    60000-60023, which `BestValidation` already evaluated on every trained model.
+    The rerun on 5000-5023 is what the paper reports; the first run survives only as
+    the sensitivity check, so its numbers must not reappear as the headline.
+    """
     report, amend, doc = text(DP_REPORT), text(DP_AMEND), paper_text()
-    real, ticket = 0.0219, 0.0059
-    assert f"-{real:.3f}" in report and f"-{ticket:.3f}" in report
-    assert f"-{real:.4f}" in amend, "the amendment must keep the unrounded real value"
-    assert f"-{real:.4f}" in doc and f"-{ticket:.4f}" in doc
-    assert "1.73" in report and "1.73" in doc
+    assert "4.2 %" in amend and "4.2 %" in doc
+    assert "0.0283" in report and "0.0083" in report and "0.0083" in doc
+    assert "1.81" in report and "1.81" in doc
+    assert "0.0299" in report and "0.0017" in report
+    assert "-0.030" in doc and "-0.002" in doc
+    assert "-0.030" in amend.replace("\u2212", "-"), ("the amendment must keep the 3-dp real value")
+
+    # The retired first-run headline: −0.0219 / −0.0059 / miss 0.0019. (Not the
+    # ratio: 1.73 also appears in the §7.4 block-review table, unrelated.)
+    stale = [t for t in ("0.0219", "0.0059", "missed by 0.0019") if t in doc]
+    assert not stale, f"paper still cites the superseded DP run: {stale}"
+    assert "0.0083" in doc, "the corrected P2 miss must be the current one"
+    assert "sensitivity check" in doc, "the superseded block must be labelled as such"
+    superseded = text(DP_SUPERSEDED)
+    assert "0.0219" in superseded and "0.0019" in superseded, (
+        "the kept-as-sensitivity run must still be the first run, unchanged")
 
 
 def test_paper_never_cites_the_run_rate_without_its_null():

@@ -352,11 +352,12 @@ we do not claim it closes anything.
 One correction belongs in this section rather than in a footnote. The planning
 prediction was originally tested as a *signed* comparison `dp − greedy ≤ 0.02`,
 which passes for any gain at all. It now tests magnitude against the falsification
-bound the pre-registration itself fixed. The corrected verdict is weaker
-(`holds — nominal 0.02 missed by 0.0019`), and the amendment is committed next to
-the results. A post-hoc edit that files its own result closer to falsification is
-not a degree of freedom spent on the answer; leaving the signed test in place would
-have been.
+bound the pre-registration itself fixed. The corrected verdict is weaker, and moving
+to a clean block makes it weaker still (`holds — nominal 0.02 missed by 0.0083`, four
+times the first run's 0.0019, still inside the 0.05 bound the pre-registration fixed
+for falsification). Both amendments are committed next to the results. A post-hoc
+edit that files its own result closer to falsification is not a degree of freedom
+spent on the answer; leaving the signed test in place would have been.
 
 **What the ceiling is, exactly.** The DP is the optimum of the *mean-field model the
 rule optimises*, not of the POMDP, and it uses a node-local miss update (identical
