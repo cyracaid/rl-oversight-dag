@@ -282,8 +282,11 @@ experiments/                    (simulation & experiments)
 
 ```
 CROSS_IMPLEMENTATION_VALIDATION.md   Which line is canonical, what may not be compared, reproduction receipts
-role3 improvement/                   Frozen environment (dag_role3, 29 tests, hashed checkpoints, benchmark CSVs)
+BENCHMARK_SPEC.md                    The primary benchmark: frozen suite, splits, baselines, acceptance rules
+role3 improvement/                   Frozen environment (dag_role3, 34 tests, hashed checkpoints, benchmark CSVs)
 role2_규리/                          Role 2 measurements: confidence robustness, planning, credit, KAIST nights
+CLAIM_GRAPH_CONTRACT.md              Review-coverage interface to an external case repository (what may be cited)
+claim_graph/                         Read-only layer that turns an external case's claim tables into a coverage receipt
 ```
 
 ---

@@ -1,0 +1,340 @@
+{
+  "provenance": {
+    "case": "zx070326-hash/sciforge-lean-cuda-cases",
+    "pin": "2538d5716c065cb290e8851910da210afb6f1ff5",
+    "tables": {
+      "comparisons": {
+        "sha256": "93a71d3b690438a8044a8bbb5b876d1c03ebb381c68eabcd76e6e85da119d397",
+        "bytes": 568134
+      },
+      "metrics": {
+        "sha256": "87ddd3d00ba4efc1fc3afd531cda368d8d9ba7ce1c1e49f56b7a4602f8b35a93",
+        "bytes": 526423
+      },
+      "raw_numbers": {
+        "sha256": "e47938c8ce4cbef7ac2c5dea296e28c06475bb5ae813161a9e318fd55a51511c",
+        "bytes": 1030783
+      }
+    },
+    "claims": 2016,
+    "recomputed_from_raw": 1728
+  },
+  "inventory": {
+    "claims": 2016,
+    "cells": 72,
+    "contrasts": [
+      "materialized/warp256",
+      "materialized:D/P",
+      "native/warp256",
+      "native:D/P",
+      "old/warp256",
+      "old:D/P",
+      "warp256:D/P"
+    ],
+    "metrics": [
+      "D_wall_reset_in",
+      "P_wall_reset_in",
+      "graph_reset_in_L1",
+      "graph_reset_in_L8",
+      "interface"
+    ],
+    "presented": 1057,
+    "weak": 1112,
+    "weak_presented": 230,
+    "weak_off_queue": 882,
+    "disagreement_histogram": {
+      "0": 904,
+      "1": 542,
+      "2": 570
+    },
+    "screen": {
+      "presented_stable": 827,
+      "presented_weak": 230,
+      "rejected_stable": 77,
+      "rejected_weak": 882,
+      "rejected_stable_spread_over_005": 70
+    }
+  },
+  "weak_by_cell_top": [
+    [
+      "matrix_fp32_8_4096",
+      8
+    ],
+    [
+      "matrix_bf16_512_769",
+      8
+    ],
+    [
+      "matrix_fp32_64_769",
+      6
+    ],
+    [
+      "matrix_fp32_512_4097",
+      6
+    ],
+    [
+      "matrix_bf16_1_4096",
+      6
+    ]
+  ],
+  "budgets": [
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "coverage": [
+    {
+      "budget": 8,
+      "ranking": "queue",
+      "inspected": 8,
+      "weak_inspected": 3,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.013,
+      "wasted_reviews": 5,
+      "unreachable_ids": "1cac5a3f461e308e"
+    },
+    {
+      "budget": 16,
+      "ranking": "queue",
+      "inspected": 16,
+      "weak_inspected": 4,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0174,
+      "wasted_reviews": 12,
+      "unreachable_ids": "fbfc632871d58025"
+    },
+    {
+      "budget": 32,
+      "ranking": "queue",
+      "inspected": 32,
+      "weak_inspected": 8,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0348,
+      "wasted_reviews": 24,
+      "unreachable_ids": "78f48d697bcee925"
+    },
+    {
+      "budget": 64,
+      "ranking": "queue",
+      "inspected": 64,
+      "weak_inspected": 11,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0478,
+      "wasted_reviews": 53,
+      "unreachable_ids": "d4de044f8013f2fd"
+    },
+    {
+      "budget": 128,
+      "ranking": "queue",
+      "inspected": 128,
+      "weak_inspected": 32,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.1391,
+      "wasted_reviews": 96,
+      "unreachable_ids": "a28f8ac057d23734"
+    },
+    {
+      "budget": 8,
+      "ranking": "stability",
+      "inspected": 8,
+      "weak_inspected": 8,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0348,
+      "wasted_reviews": 0,
+      "unreachable_ids": "19ed35def7d03513"
+    },
+    {
+      "budget": 16,
+      "ranking": "stability",
+      "inspected": 16,
+      "weak_inspected": 16,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0696,
+      "wasted_reviews": 0,
+      "unreachable_ids": "f73fad56e76f2aee"
+    },
+    {
+      "budget": 32,
+      "ranking": "stability",
+      "inspected": 32,
+      "weak_inspected": 32,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.1391,
+      "wasted_reviews": 0,
+      "unreachable_ids": "652481db2c5f04fb"
+    },
+    {
+      "budget": 64,
+      "ranking": "stability",
+      "inspected": 64,
+      "weak_inspected": 64,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.2783,
+      "wasted_reviews": 0,
+      "unreachable_ids": "4e874125326255d5"
+    },
+    {
+      "budget": 128,
+      "ranking": "stability",
+      "inspected": 128,
+      "weak_inspected": 128,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.5565,
+      "wasted_reviews": 0,
+      "unreachable_ids": "7542b00dd8e89856"
+    },
+    {
+      "budget": 8,
+      "ranking": "spread",
+      "inspected": 8,
+      "weak_inspected": 4,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0174,
+      "wasted_reviews": 4,
+      "unreachable_ids": "572243595c9bdf33"
+    },
+    {
+      "budget": 16,
+      "ranking": "spread",
+      "inspected": 16,
+      "weak_inspected": 6,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0261,
+      "wasted_reviews": 10,
+      "unreachable_ids": "0bd992e05e115a18"
+    },
+    {
+      "budget": 32,
+      "ranking": "spread",
+      "inspected": 32,
+      "weak_inspected": 10,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0435,
+      "wasted_reviews": 22,
+      "unreachable_ids": "dd5fa310aa8a8cda"
+    },
+    {
+      "budget": 64,
+      "ranking": "spread",
+      "inspected": 64,
+      "weak_inspected": 21,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0913,
+      "wasted_reviews": 43,
+      "unreachable_ids": "1ac07b48060910df"
+    },
+    {
+      "budget": 128,
+      "ranking": "spread",
+      "inspected": 128,
+      "weak_inspected": 41,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.1783,
+      "wasted_reviews": 87,
+      "unreachable_ids": "645ed01a333c24b8"
+    },
+    {
+      "budget": 8,
+      "ranking": "cell_diverse",
+      "inspected": 8,
+      "weak_inspected": 8,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0348,
+      "wasted_reviews": 0,
+      "unreachable_ids": "f8a343edef5a70f7"
+    },
+    {
+      "budget": 16,
+      "ranking": "cell_diverse",
+      "inspected": 16,
+      "weak_inspected": 16,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0696,
+      "wasted_reviews": 0,
+      "unreachable_ids": "dc99788fa2a93ccf"
+    },
+    {
+      "budget": 32,
+      "ranking": "cell_diverse",
+      "inspected": 32,
+      "weak_inspected": 31,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.1348,
+      "wasted_reviews": 1,
+      "unreachable_ids": "ea99cd4302e62fdf"
+    },
+    {
+      "budget": 64,
+      "ranking": "cell_diverse",
+      "inspected": 64,
+      "weak_inspected": 62,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.2696,
+      "wasted_reviews": 2,
+      "unreachable_ids": "16c7902f33d6764a"
+    },
+    {
+      "budget": 128,
+      "ranking": "cell_diverse",
+      "inspected": 128,
+      "weak_inspected": 112,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.487,
+      "wasted_reviews": 16,
+      "unreachable_ids": "376b042deaca42d8"
+    },
+    {
+      "budget": 8,
+      "ranking": "random",
+      "inspected": 8,
+      "weak_inspected": 1,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0043,
+      "wasted_reviews": 7,
+      "unreachable_ids": "6a3b406e2e5ea49f"
+    },
+    {
+      "budget": 16,
+      "ranking": "random",
+      "inspected": 16,
+      "weak_inspected": 3,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.013,
+      "wasted_reviews": 13,
+      "unreachable_ids": "d423a58cfbab86e4"
+    },
+    {
+      "budget": 32,
+      "ranking": "random",
+      "inspected": 32,
+      "weak_inspected": 6,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0261,
+      "wasted_reviews": 26,
+      "unreachable_ids": "0d7e428dae13b466"
+    },
+    {
+      "budget": 64,
+      "ranking": "random",
+      "inspected": 64,
+      "weak_inspected": 11,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.0478,
+      "wasted_reviews": 53,
+      "unreachable_ids": "8fb303d363c3bd43"
+    },
+    {
+      "budget": 128,
+      "ranking": "random",
+      "inspected": 128,
+      "weak_inspected": 24,
+      "weak_presented": 230,
+      "share_of_weak_presented": 0.1043,
+      "wasted_reviews": 104,
+      "unreachable_ids": "7dc609a02fa5c3c9"
+    }
+  ],
+  "seed": 20261124
+}

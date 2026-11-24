@@ -49,3 +49,6 @@ triage_bench/outputs/*.jsonl
 *.egg-info/
 build/
 dist/
+
+# ===== External case tables (fetched at run time, pinned by digest) =====
+claim_graph/.cache/
