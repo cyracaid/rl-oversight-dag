@@ -15,3 +15,12 @@ Before submission: verify Team 6 is still correct; add the full member names/stu
 Content reflects the completed full-v1 development run. The negative primary result is retained. Noise findings are exploratory. No independent confirmation, teammate reproduction or SciForge deployment success is claimed. No private participant-level data appear in the deck.
 
 Build: `python3 presentation_20261116/build_materials.py` from the course repository. PDF and PPTX are generated from shared text/geometry; PDF uses vector text and shapes. Presentation source data are read-only from the separate `rl-proposal-gaps` workspace.
+
+## Class update deck (2026-11-24)
+
+The Nov 16 submission above is unchanged. For the Wednesday feedback update use:
+
+- `Team6_Proposal_with_feedback.pptx` — 14 slides: A1–A3 inline after motivation, A4 at the back.
+- `Team6_Proposal_with_feedback.pdf` — same deck exported from PowerPoint (14 pages, 2026-11-24).
+- `Speaker_Script_Wed.md` — 5-minute script for that deck. No ticketing environment; it does not exist in the repo.
+- Rebuild: `python3 build_feedback_appendix.py && python3 merge_appendix.py` in `presentation_20261116/`.

@@ -101,7 +101,13 @@ def new(k, title, subtitle='', is_dark=False):
     tblock(title, .6, .85, 12.1, 30, bold=True)
     if subtitle:
         tblock(subtitle, .6, 1.95, 12.1, 15, MUTED if not dark else 'C2D4CC')
-    tblock(f'A{k}   |   FEEDBACK APPENDIX', .6, 7.04, 9, 10,
+    kicker = {
+        1: 'A1   |   WHAT COUNTS AS AN ERROR',
+        2: 'A2   |   NODES AND TERMS',
+        3: 'A3   |   REQUIREMENTS TO MDP',
+        4: 'A4   |   ERROR-RATE DENOMINATORS',
+    }[int(k)]
+    tblock(kicker, .6, 7.04, 9, 10,
            MUTED if not dark else 'A6D4BC')
 
 
@@ -194,7 +200,7 @@ xs = [.65, 5.95, 10.65]
 ws = [5.1, 4.6, 2.1]
 y = head_row(['Requirement', 'Component in our method', 'Anchor'], xs, ws, 2.45)
 rows = [
-    ('Hand the decision back to a human\n(learning-to-defer)',
+    ('Human deferral under uncertainty\n(learning-to-defer)',
      'action = review an unreviewed node; inspection may miss (p_catch = 0.9); reward = minus residual sink errors',
      'proposal 4 / spec 2.3'),
     ('Allocate reviews under a budget\n(budgeted allocation)',
