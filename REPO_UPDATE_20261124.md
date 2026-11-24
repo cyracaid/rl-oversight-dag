@@ -30,6 +30,15 @@ and the policy returns to the clean oracle (0.94 versus 3.86 for trusting). The
 per-graph repair also survives drift that does not sit on its grid: mean δ error
 0.174, and all 12 off-grid cells beat the per-node repair.
 
+**And the scheduling null is not our heuristic's fault.** Solve the mean-field belief
+model exactly on 24 fresh graphs (seeds 60000–60023, K∈{1..5}) and the best policy in
+that model is only 0.022 expected sink errors better than the deployed
+rule on real data, CI [0.006, 0.050] as a gain (the tables report policy−comparison, so
+they show −0.022 [−0.050, −0.006]); 0.006 on ticket. Planning value is sub-linear in K
+(ratio 1.73), so this is not a horizon problem either. Caveat that must travel with the
+number: this is the optimum of *our approximation*, not of the POMDP
+(`PREREGISTER_DP.md`, `outputs/dp-ceiling/report.md`).
+
 **Cannot claim.** Learned policies do not beat the deterministic rule (rule still
 wins by 0.377). The repair does not rescue the masking case: it hands back the
 per-node repair's −0.36 gain (scope is +0.325 [0.195, 0.470] worse than shrink

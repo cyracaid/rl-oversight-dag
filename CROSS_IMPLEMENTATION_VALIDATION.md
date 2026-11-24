@@ -51,6 +51,10 @@ Four different data views, one conclusion: **per-node review scheduling is not w
 The proposal should say so, and move the contribution to (a) estimating which signal can be trusted and
 (b) behaving safely when it cannot.
 
+That conclusion used to rest on "our rule finds nothing", which a reviewer can answer with "your rule is
+weak". It no longer does: the exact optimum of the rule's own belief model is 0.022 errors better on real
+data (§4, `outputs/dp-ceiling/`), so the headroom is in the model and the data, not in the scheduler.
+
 ## 4. What survives, and it is not "RL wins"
 
 Differences below are **policy − comparison**, paired inside one run; negative means fewer remaining errors.
