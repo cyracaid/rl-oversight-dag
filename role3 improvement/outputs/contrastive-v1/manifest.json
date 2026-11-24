@@ -1,0 +1,45 @@
+{
+  "preregistration": "PREREGISTER_CONTRASTIVE.md",
+  "families": [
+    "real",
+    "ticket",
+    "spike"
+  ],
+  "train_seeds": [
+    5024,
+    96
+  ],
+  "eval_seeds": [
+    5120,
+    40
+  ],
+  "budget": {
+    "real": 8,
+    "ticket": 8,
+    "spike": 16
+  },
+  "encoder": {
+    "hidden": 64,
+    "embedding": 32,
+    "rounds": 2,
+    "temperature": 0.2,
+    "epochs": 200,
+    "batch": 64,
+    "seed": 20261125
+  },
+  "prereg_correction": "train block widened 5024-5059 -> 5024-5119 before the first training run, so the frozen batch of 64 is a real batch; recorded in PREREGISTER_CONTRASTIVE.md",
+  "augmentation": {
+    "p_other": 0.3,
+    "p_centre": 0.5,
+    "p_edge": 0.2
+  },
+  "source_sha256": {
+    "dag_role3/contrastive.py": "82f1726572d86381bd02ebd8d1531305f9ba84f30d782f75091f21be6ce06d63",
+    "dag_role3/environment.py": "c9844ed5b4cf7f2387db986d4f2cfc372e461c6d6660dd93088af743ba76d9dd",
+    "dag_role3/graphs.py": "5ef7d2a30e6c38596c755d0799e99543407a026bc3f217346e5e54bc700cb3c2",
+    "run_contrastive_check.py": "26ebd031437138da4a7cc10d4845f571956b52e66e960492501f7894e94b9bae"
+  },
+  "python": "3.13.5",
+  "torch": "2.12.1",
+  "numpy": "2.4.4"
+}

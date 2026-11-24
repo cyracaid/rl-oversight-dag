@@ -69,6 +69,7 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | belief values | 4800–4999 | pre-registered logit-temperature grid (`outputs/belief-v1/`) |
 | depth-two planning | 5200–5399 | pre-registered planner, `outputs/planning-v2/` |
 | exact DP ceiling | 5000–5023 | `outputs/dp-ceiling-fresh/` (rerun; the first run sat on the validation block) |
+| label-free contrastive pilot | train 5024–5119, eval 5120–5159 | `outputs/contrastive-v1/`, `PREREGISTER_CONTRASTIVE.md` |
 | coverage receipt | 5400–5599 | pre-registered receipt / deletion test, `outputs/supervisor-v1/` |
 
 Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in

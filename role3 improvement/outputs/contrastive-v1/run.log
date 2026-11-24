@@ -1,0 +1,17 @@
+[02:08:37] real: contrastive trained (400 steps, 49.7s)
+[02:08:58] real: supervised twin trained (20.5s)
+[02:09:00] real: AUC contrastive 0.915 own 0.967 supervised 0.961
+[02:09:00] real: RDM rho contrastive 0.051 supervised 0.046
+[02:09:00] real: sink errors none 2.225, confidence 0.650, marginal 0.400, contrastive 0.825, supervised 0.675
+[02:09:00] real: time-node similarity 0.042 vs all pairs -0.035
+[02:09:44] ticket: contrastive trained (400 steps, 43.7s)
+[02:10:10] ticket: supervised twin trained (25.5s)
+[02:10:12] ticket: AUC contrastive 0.917 own 0.965 supervised 0.955
+[02:10:12] ticket: RDM rho contrastive 0.091 supervised 0.554
+[02:10:13] ticket: sink errors none 1.850, confidence 0.375, marginal 0.325, contrastive 0.550, supervised 0.375
+[02:22:26] spike: contrastive trained (400 steps, 732.8s)
+[02:27:50] spike: supervised twin trained (324.6s)
+[02:27:54] spike: AUC contrastive 0.901 own 0.967 supervised 0.956
+[02:27:55] spike: RDM rho contrastive 0.011 supervised 0.537
+[02:28:04] spike: sink errors none 5.425, confidence 1.300, marginal 0.925, contrastive 1.850, supervised 1.175
+[02:28:04] done

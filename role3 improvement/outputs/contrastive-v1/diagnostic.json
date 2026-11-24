@@ -1,0 +1,49 @@
+{
+  "purpose": "post-hoc diagnostic, no verdict; see PREREGISTER_CONTRASTIVE.md C1",
+  "eval_seeds": [
+    5120,
+    40
+  ],
+  "source_sha256": "d761b8d373a7ca8ba5aaaeb9a364b8cad2ac7a6ae2c2e880fa93733f39ab9b14",
+  "families": [
+    {
+      "family": "real",
+      "n_nodes": 21,
+      "episodes": 40,
+      "mean_errors_per_episode": 4.875,
+      "error_rate_min": 0.02500000037252903,
+      "error_rate_max": 0.42500001192092896,
+      "distinct_rates": 11,
+      "rates_only_rdm_spearman": 0.12302230421229521,
+      "max_abs_error_cooccurrence_corr": 0.5623515948579811,
+      "mean_abs_error_cooccurrence_corr": 0.1281926159828862,
+      "truth_rdm_sd": 0.1261320561170578
+    },
+    {
+      "family": "ticket",
+      "n_nodes": 21,
+      "episodes": 40,
+      "mean_errors_per_episode": 3.4000000953674316,
+      "error_rate_min": 0.05000000074505806,
+      "error_rate_max": 0.4000000059604645,
+      "distinct_rates": 9,
+      "rates_only_rdm_spearman": 0.7380079402472952,
+      "max_abs_error_cooccurrence_corr": 0.466372402167213,
+      "mean_abs_error_cooccurrence_corr": 0.13680924530781388,
+      "truth_rdm_sd": 0.10669907927513123
+    },
+    {
+      "family": "spike",
+      "n_nodes": 80,
+      "episodes": 40,
+      "mean_errors_per_episode": 8.824999809265137,
+      "error_rate_min": 0.0,
+      "error_rate_max": 0.3499999940395355,
+      "distinct_rates": 14,
+      "rates_only_rdm_spearman": 0.5499921415237375,
+      "max_abs_error_cooccurrence_corr": 1.0,
+      "mean_abs_error_cooccurrence_corr": 0.1211243889002601,
+      "truth_rdm_sd": 0.11683488637208939
+    }
+  ]
+}
