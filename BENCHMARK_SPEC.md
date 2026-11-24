@@ -52,7 +52,7 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | block | seeds | use |
 |---|---|---|
 | test | 90000–90099 | the reported table (`run_benchmark.py --start-seed 90000 --seeds 100`) |
-| validation | 60000–60029 | model selection only (`BestValidation`); never reported |
+| validation | 60000–60029 | model selection only (`BestValidation`); never reported; 60000–60023 since shared with the DP block, see note |
 | training | 1–3 (seed), disjoint ranges | the `--seed` flag, not a graph block |
 | calibration | 70000–70099 | rank-restoration reference distribution only |
 | development | 1000–1999 | development |
@@ -68,6 +68,14 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | void | 4600–4799 | smoke runs only (4600–4603); excluded from every result |
 | belief values | 4800–4999 | pre-registered logit-temperature grid (`outputs/belief-v1/`) |
 | depth-two planning | 5200–5399 | pre-registered planner, `outputs/planning-v2/` |
+| coverage receipt | 5400–5599 | pre-registered receipt / deletion test, `outputs/supervisor-v1/` |
+| exact DP ceiling | 60000–60023 | pre-registered exact optimum, `outputs/dp-ceiling/` — overlaps `validation`, see note |
+
+Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in
+the repo", and that sentence is wrong — `dag_role3/training.py` draws `BestValidation` graphs from 60000 onward.
+The overlap does not touch the DP claim, because the exact optimum solves a fixed belief model with nothing fitted,
+but the validation block must be treated as partly spent: future validation uses **60100–60129**, and no DP number
+may be cited as coming from a block that was clean.
 
 Rules: a seed block is spent once it has been used to choose a method or a threshold. Never re-tune on the
 reporting block. Do not report a mean from one block next to a mean from another block — raw means differ

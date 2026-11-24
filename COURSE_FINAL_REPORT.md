@@ -22,10 +22,11 @@ survived is a different question that the failure exposed — **which signal sho
 should it do when it cannot trust it.** Five pre-registered steps answer that inside this benchmark: a global
 gate is wrong in both directions, the decision variable has to move down to the node and then up to the graph,
 and the graph model's own boundary is measured rather than assumed. Two of those steps are failures we declared
-ourselves, and two later predictions were flatly reversed. Three further pre-registered experiments then remove
-every mechanical explanation for the rule's remaining gap to an oracle — the one-step value estimate, the
-belief's probability scale, and the horizon itself, where five-step optimal planning inside the rule's own model
-is worth 0.022 errors against a gap of 5–7. What is left is information the confidence channel does not carry.
+ourselves, and two later predictions were flatly reversed. Three further pre-registered experiments then remove every mechanical explanation we can compute an optimum
+for — the one-step value estimate, the belief's probability scale, and the horizon. Five-step optimal planning
+inside the rule's own model is worth 0.022 errors on the two 21-node pipelines where that optimum fits (2.5 % of
+the rule's residual there), and at N=500, where it does not fit, depth two changes 5 of 923 errors. What is left
+is information the confidence channel does not carry.
 That is the deliverable.
 
 ## 1. The question we started with
@@ -109,10 +110,12 @@ horizon — and it prices it at zero.
 
 **The exact optimum of the rule's own model agrees** (`PREREGISTER_DP.md`, 60000–60023). Five-step optimal
 planning inside that model buys **0.022 errors per graph** (`dp − marginal` −0.0219 on `real`, −0.0059 on
-`ticket`), against a 5–7-error gap to `oracle`; the saturation test P5 holds on both families. So the gap is not
-lookahead. What remains is information the confidence channel does not carry: the public belief ranks the truth
-at 0.966 AUC, while the rule needs mass on the right nodes. A belief with more information is the one
-explanation still untested, and we do not claim it closes anything.
+`ticket`) — 2.5 % of the rule's own residual on `real`. Both families have 21 nodes and budget ≤ 5, which is why
+the optimum is computable at all; at N=500 it is not, and there the distance to `oracle` is bounded only by the
+depth-two number above, not closed. The saturation test P5 holds on both families. So **where the optimum can be
+computed**, the gap is not lookahead. What remains is information the confidence channel does not carry: the
+public belief ranks the truth at 0.966 AUC, while the rule needs mass on the right nodes. A belief with more
+information is the one explanation still untested, and we do not claim it closes anything.
 
 ## 6. Failures we are keeping in the document
 
@@ -126,7 +129,7 @@ explanation still untested, and we do not claim it closes anything.
 | belief rescaling (4800–4999) | "the gap is a probability-scale error a temperature can fix" (−1 of 978 errors at the optimum) |
 | depth-two planning (5200–5399) | "the gap is the one-step horizon" (−5 of 923 errors; 191 of 200 actions unchanged) |
 | a planner that trusts the miss update (5200–5399) | that the environment's approximate update is safe for a lookahead — it costs 485 of 923 errors |
-| exact DP ceiling (60000–60023) | "our heuristic is what costs the gap" — the optimum of the same model is 0.022 errors better |
+| exact DP ceiling (60000–60023) | "our heuristic is what costs the gap" — where the optimum is computable (21 nodes, budget ≤ 5) it is 0.022 errors better |
 | block review MDP (real records) | "the review unit is the bottleneck" — it is the score; block actions only pay below the run length |
 
 ## 7. What we can and cannot claim
@@ -140,7 +143,8 @@ explanation still untested, and we do not claim it closes anything.
 * with 16 reviews, masking corruption at +3 costs **+0.005 [0.000, 0.015]** errors versus plain trust, and a
   full −4 shift returns the policy to the clean oracle;
 * the residual gap to `oracle` is not the one-step value estimate, not the belief's probability scale, and not the
-  horizon: the exact optimum of the rule's own model is 0.022 errors ahead of the rule, out of a 5–7-error gap.
+  horizon: where the exact optimum is computable (21 nodes, budget ≤ 5) it is 0.022 errors ahead of the rule, 2.5 %
+  of the rule's residual; at N=500 the optimum is infeasible and depth two closes 5 of 923 errors.
 
 **Cannot claim**: that RL produces a gain here; that one shared δ covers two simultaneous shifts; that the
 learned policy adapts to a lower hit rate (it was not retrained); that the gate generalises to small, partial,
@@ -193,12 +197,13 @@ Seed ledger — a block is spent once it has chosen a method or a threshold:
 | 4600–4799 | **void** — smoke runs only, excluded from every result |
 | 4800–4999 | belief-value decomposition |
 | 5200–5399 | depth-two planning (`planning-v2`) |
+| 5400–5599 | coverage receipt (`supervisor-v1`) |
 | 60000–60023 | exact DP ceiling (`dp-ceiling`) |
 | 70000–70099 | calibration only (thresholds fitted here, never reported) |
 | 90000–90099 | the reported benchmark table |
 | 91000–94199 | assess / feedback / residual / planning |
 
-Fresh: 5000 and above; 5200–5399 is reserved by a pre-registered depth-2 planning check.
+Fresh: 5600 and above. Every block listed above is spent, including 5400–5599.
 
 ## 10. Gates, unchanged by anything above
 
@@ -207,15 +212,17 @@ Fresh: 5000 and above; 5200–5399 is reserved by a pre-registered depth-2 plann
 | R1 decisive result + 5 seeds + a second person | ✗ mechanism done (five steps, three codebases agreeing, byte-identical reruns); no second person |
 | R2 a real queue with enough positives | ✗ 68 labelled errors, 6.5 % precision |
 | R3 a second domain | partial: one synthetic family + one lab pipeline |
-| R4 a sharp boundary | ◐ one measured (δ grid, single δ, hit rate); the one-step-value and belief-scale explanations for the oracle gap are ruled out; greedy-vs-learning still C1–C4 |
+| R4 a sharp boundary | ◐ one measured (δ grid, single δ, hit rate); the one-step-value, belief-scale and horizon explanations for the oracle gap are ruled out where computable; greedy-vs-learning still C1–C4 |
 | R5 clean artifact | ◐ manifest, per-graph CSV, byte-identical reruns, seeded verdict code; not one command, no data card |
 
 ## 11. What we would do next, in order of cost
 
 1. **One person reruns one chain from scratch.** Nothing else raises R1. Everything is scripted; the cost is a
    session, not a redesign.
-2. **Close the multi-step cell.** The exact-DP ceiling on the rule's own belief model is pre-registered and
-   unrun; depth-2 on N=500 modular is the other half. Both are cheap relative to another architecture.
+2. **Close the N=500 ceiling.** Both multi-step measurements are done: depth two closes 5 of 923 errors, and
+   where the exact optimum fits (21 nodes, budget ≤ 5) it is worth 0.022. What is still open is a policy deeper
+   than two at N=500, where the exact optimum is out of reach; a reduced-width DP over the upstream closure of
+   one sink is the cheap version, and it must be labelled as a subgraph task, not the same benchmark.
 3. **A real queue with hundreds of positives.** Without it, every general claim stays a synthetic-graph claim.
 
 ## 12. Where each number lives
@@ -227,6 +234,9 @@ Fresh: 5000 and above; 5200–5399 is reserved by a pre-registered depth-2 plann
 | hit-rate sweep | `PREREGISTER_P_CATCH.md`, `role3 improvement/outputs/p-catch-v1/` |
 | sampled value | `PREREGISTER_EXACT_VALUE.md`, `role3 improvement/outputs/value-v1/` |
 | belief values | `PREREGISTER_BELIEF_DECOMPOSITION.md`, `role3 improvement/outputs/belief-v1/` |
+| depth-two planning | `PREREGISTER_PLANNING_V2.md`, `role3 improvement/outputs/planning-v2/` |
+| exact DP ceiling | `role3 improvement/PREREGISTER_DP.md`, `role3 improvement/outputs/dp-ceiling/` |
+| coverage receipt | `PREREGISTER_SUPERVISOR.md`, `role3 improvement/outputs/supervisor-v1/` |
 | block review | `experiments/BLOCK_REVIEW_NOTE.md`, `experiments/results.md` §12d |
 | learned real-data score | `experiments/LEARNED_WINDOW_SCORER_INTERPRETATION.md` |
 | capture-side checks | `experiments/CAPTURE_CHECKS_INTERPRETATION.md` |
