@@ -81,6 +81,27 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 
 ---
 
+## Headline results (canonical, 2026-11-24)
+
+Two lines supply these numbers and they are the ones to quote: `role3 improvement/` (environment, tag
+`role3-env-v3`) and `role2_규리/` (measurements). Raw means are **not** interchangeable between the three
+implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two of them in one table.
+
+| Question | Simple rule | Learned policy | Verdict | Source |
+|---|---|---|---|---|
+| Spike, 200 held-out graphs, budget 16 | adaptive marginal **1.130** | GNN 1.410 / 1.590 / 1.455 | rule wins on all 3 training seeds | `role2_규리/results/confidence-v1/` |
+| Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; learned CIs contain 0 | `role3 improvement/outputs/v3/` |
+| Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
+| Confidence corrupted (uniform noise, not recognised) | marginal **4.415** | adaptive marginal **3.150** | −1.265 [−1.545, −0.985] | `role2_규리/results/confidence-v1/` |
+| Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
+| Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
+
+The claim these support is **estimating which signal to trust, and staying safe when it cannot be trusted** —
+not "the RL policy beats the rules". The learned policy loses to a deterministic two-step rule in the same
+study that shows it improved (`role2_규리/results/credit-v1/confirmation/`).
+
+---
+
 ## Document index (every page, rendered)
 
 **Start here:** the evidence-chain design, then the implementation spec. Everything below is a
