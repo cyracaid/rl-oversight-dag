@@ -68,6 +68,7 @@ Structural greedy (1.80) beats the threshold (2.30) on the 20 legacy graphs; on 
 
 1. **GNN + REINFORCE loses to deployable belief greedy** on 200 held-out graphs (paired gap +0.42 ± 0.15). Belief greedy assumes the confidence model and edge probabilities are known exactly; a learned policy may still win when that model is misspecified — untested.
 2. **GNN + PPO has not converged (~5.60)** — the PPO-on-GNN implementation needs more tuning; it is omitted from the main table.
+   *2026-11-24 note:* this caveat is about the earlier `rl_methods_compare.py` MLP PPO (this line). The pre-registered GNN+PPO on spike did converge and still lost — 1.225 / 1.335 / 1.340 vs `marginal` 0.875, all CIs excluding 0 (`role3 improvement/outputs/ppo-v1/`). Three architectures, one verdict: the rule wins.
 3. **CMDP soft budget (naive): 2.15 with a fixed seed, 4.85 in an earlier unseeded run** — the stop-action + coverage-constraint credit assignment is too coarse (the whole episode shares one return). It needs a FALCON-style reward-critic + cost-critic, not an episode-level Lagrangian. This is our open problem.
 4. All numbers were produced by an AI agent and have not been independently verified; Section 8 of the proposal lists the full checklist.
 
