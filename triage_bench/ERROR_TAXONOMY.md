@@ -15,7 +15,7 @@ not from the benchmark.
 
 | Vocabulary | Size | Produced by | Answers |
 |---|---:|---|---|
-| **gap code** | 10 | closure seal (`evidence-dag`, TS) | is this chain structurally complete? |
+| **gap code** | 10 | closure seal (`evidence-dag`, TS) | did this chain resolve? |
 | **finding type** | 15 | audit run (`audit.py` + `epistemic.py`) | what is wrong with this node? |
 | **sleep domain type** | 6 | human corrections (splsleep) | what kind of parsing mistake is this? |
 
@@ -26,7 +26,7 @@ the two-instantiation claim honest instead of convenient.
 
 ## 1. The vocabularies, verbatim
 
-### 1.1 Gap codes — 10, closure layer
+### 1.1 Gap codes — 10, closure axis (not a `layer` value)
 
 Emitted by the seal as `closure.gapCodes`. A gap code says the chain did not resolve,
 not that a node is wrong.
@@ -102,9 +102,12 @@ Consequences, all of which must hold in the paper:
 1. **Do not compute one precision across both instantiations.** A model trained to find
    `register_unwarranted` is not being tested on `order_error`.
 2. **Per-instance label sets, shared meta-schema.** Every instance carries
-   `error_type = {layer, code}` with
-   `layer ∈ {value, provenance, evidence, argument, review}`. Within an instantiation
-   the codes are closed; across instantiations only `layer` is comparable.
+   `error_type = {layer, code}`. The exported enum is `{evidence, argument}` — the
+   finding types §1.2 splits 9 / 6 exactly as `epistemic.py` does — and the sleep
+   corrections add the third observed value, `value`. Within an instantiation the
+   codes are closed; across instantiations only `layer` is comparable. Gap codes are
+   not on this axis at all: they say whether the chain resolved, and they travel as
+   `closure.gap_codes`. The picture is in [`README.md`](README.md#two-instances-three-layers).
 3. **Report the exotic direction explicitly.** SciForge codes include defects that the
    sleep pipeline cannot express (scope widening, testimony inflation). That is an
    argument for generality, but only if stated as a capability difference, not as

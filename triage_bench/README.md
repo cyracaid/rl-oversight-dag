@@ -28,6 +28,50 @@ clone stays runnable, exactly like `verify_clustering.py`.
 
 ---
 
+## Two instances, three layers
+
+Both instances publish `error_type = {layer, code}`. The code sets are closed per
+instance; the layer is what they share. It names *which station of the chain* the
+defect sits at, not how hard or how serious it is.
+
+```
+   value                       evidence                    argument
+   ──────────────────────────  ──────────────────────────  ────────────────────────
+   the datum is wrong          the chain is broken         the claim overreaches
+   bed 23:40 > wake 06:10      nothing feeds this claim    n = 1 testimony → "所有被试"
+   found by a parse /          found by a graph audit      found by a graph audit plus
+   consistency check           over edges and sources      the declared register / scope
+```
+
+| instance | value | evidence | argument |
+|---|---|---|---|
+| sleep (`splsleep`) | `order_error` 57 / 75 | — | — |
+| SciForge (`evidence-dag`) | — | 9 finding types | 6 finding types |
+
+The two instances do not overlap on a single code, and that is the point: 76% of the
+sleep corrections are values that exist and are cited but are simply wrong — no graph
+audit sees them. The SciForge codes are all properties of structure and warrant, which
+a timestamp check cannot see. Each instance exposes the risk its own chain carries.
+
+Gap codes are **not** on this axis. They report whether the chain *resolved*, not
+whether a node is wrong, so they stay in `closure.gap_codes` with the digests that
+certify them.
+
+What follows for every table below:
+
+- **One precision across instances is meaningless.** A detector built for
+  `register_unwarranted` scores 0 on `order_error` while never having been asked the
+  question. Pooled recall is a category error, and a reviewer will call it that.
+- **Per-instance rows, one shared meta-schema.** With `{layer, code}`, the smallest
+  honest cross-instance statement is "both instances surface defects at their dominant
+  layer", reported per layer rather than averaged.
+- **The asymmetry is a capability claim, not an equivalence claim.** SciForge can
+  express defects the sleep pipeline has no vocabulary for (scope widening, testimony
+  inflation). That is evidence of generality only if stated as a difference in what is
+  expressible.
+
+---
+
 ## Inputs
 
 | File | Rows | Role |
