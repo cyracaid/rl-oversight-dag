@@ -101,3 +101,17 @@ will make the system useful.
 **Note the ordering this implies:** our own measurement says review prioritisation is
 worth little on the sleep queue (6.5% precision, 84% ceiling). That is an argument for
 building the traceability demo *before* the smart scheduler, not after.
+
+---
+
+## 7. Update 2026-11-24 — the claim-layer premise has expired
+
+§5 declined a claim layer because "nothing in our data supports claims yet". That was
+true for the sleep pipeline. SciForge's `evidence-dag` now emits claims, edges, closure
+gap codes and audit findings in production, so the *instance* exists; what is still
+missing is a labelled corruption corpus on top of it.
+
+The label set and the injection recipes are written up in
+[`ERROR_TAXONOMY.md`](ERROR_TAXONOMY.md). The §2 rule does not move: upstream change
+marks **affected** and **stale**, never **false** — the audit reports findings, a human
+sets the verdict.

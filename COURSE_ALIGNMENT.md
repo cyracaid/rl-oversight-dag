@@ -50,7 +50,7 @@ Brand it as:
 | Layer | General (AI4Sci) | First instance (sleep) | Second instance (SciForge) |
 |---|---|---|---|
 | DAG | any dependent AI outputs | splsleep SCHEMA pipeline (N=21) | SciForge evidence DAG (claims, datasets, runs) |
-| Error types | type-clustered mistakes | order_error 76% | TBD — ask 郑心 / export |
+| Error types | type-clustered mistakes | order_error 76% | 15 audit finding types + 10 gap codes, all emitted in production — orthogonal to the sleep labels, see [`triage_bench/ERROR_TAXONOMY.md`](triage_bench/ERROR_TAXONOMY.md) |
 | Budget | finite human review | 8–16 reviews | whatever a cycle allows |
 | Delayed harm | errors reach a conclusion | sleep metrics / record quality | claims / deliverables |
 | Who reviews | a human | lab annotators | SciForge users |

@@ -53,6 +53,10 @@
 
 节点 ID 保留内部值即可（我们只需要图结构）；如果连 ID 也不便给，就用稳定哈希，只要边和收据能对上。
 
+`error_type` 的取值域已经定了，不用再问：见 [`ERROR_TAXONOMY.md`](ERROR_TAXONOMY.md)。
+上面示例里的 `"stale_dataset"` 只是占位，实际取值是 15 个 finding type + 10 个 gap code。
+同页 §4 也标明了 `agreed_by` 和 `duration_min` 现在导不出来。
+
 ## 5. 边界（不改你们的规则）
 
 - **只读**：不写回、不产生收据、不盖章；建议器只输出排序和理由。

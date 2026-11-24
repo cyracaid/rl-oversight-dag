@@ -51,7 +51,7 @@ layout: default
 | 层 | 一般（AI4Sci） | 第一个实例（睡眠） | 第二个实例（SciForge） |
 |---|---|---|---|
 | DAG | 任何依赖 AI 输出 | splsleep SCHEMA 管道（N=21） | SciForge 证据 DAG（论点、数据集、运行） |
-| 错误类型 | 类型聚集的错误 | order_error 76% | TBD——问郑心 / 导出 |
+| 错误类型 | 类型聚集的错误 | order_error 76% | 15 个审计 finding type + 10 个 gap code，均在生产中产出；与睡眠标签正交，见 [`triage_bench/ERROR_TAXONOMY.md`](triage_bench/ERROR_TAXONOMY.md) |
 | 预算 | 有限人审 | 8–16 次审阅 | 一个周期允许多少 |
 | 延迟伤害 | 错误到达结论 | 睡眠指标 / 记录质量 | 论点 / 交付物 |
 | 谁审 | 一个人 | 实验室标注者 | SciForge 用户 |
