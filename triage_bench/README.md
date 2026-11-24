@@ -54,6 +54,10 @@ are never joined.
 | sleep (`splsleep`) | `order_error` 57 / 75 | — | — |
 | SciForge (`evidence-dag`) | — | 9 finding types | 6 finding types |
 
+The results follow the same split: `run_layered_report.py` writes two tables, one per
+instance, and `check_layers` raises rather than warning if a future edit tries to add a
+pooled row. `outputs/layered_report.md` is generated, not hand-edited.
+
 Each side labels itself in one place: `bench/labels.py` (`as_error_type`) fixes the
 sleep layer, because every correction here is a value defect and a per-code lookup
 would silently drop an unseen code; `handoff.py` (`_layer_of`) splits the SciForge
@@ -112,10 +116,12 @@ python3 triage_bench/run_field_queue.py  # field-scoped review: half the reads
 python3 triage_bench/run_audit_demo.py  # receipts -> cost model -> recall per minute
 python3 triage_bench/run_trace_demo.py --change time_awake   # N=21 traceability demo
 python3 triage_bench/run_trace_demo.py --all                 # which input change is riskiest
-python3 triage_bench/test_labels.py      # label shape only, no data needed
+python3 triage_bench/run_layered_report.py # the two result tables, split by layer
+python3 triage_bench/test_labels.py      # label shape and the layer guard, no data needed
 ```
 
-Outputs: `outputs/table1.md`, `recall_at_k.json`, `queue_summary.json`,
+Outputs: `outputs/table1.md`, `layered_report.md` (the same results split by layer —
+see below), `recall_at_k.json`, `queue_summary.json`,
 `participant.json`, `m4_mining.md`, `ceiling.md`, `unflagged.md`,
 `belief_queue.md`, `field_queue.md`, `audit_demo.md`, `trace_<node>.md`, plus `figures/recall_at_k.png`.
 

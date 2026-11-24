@@ -213,6 +213,12 @@ already showed that axis is information-limited (6.5% queue precision, 83.8% typ
 ceiling); if the evidence chain lands in the same place, the finding is "auditing is
 information-limited there too", which is a statement about the chain, not about the DAG.
 
+The two metrics belong to different layers and are therefore never averaged:
+localization / propagation are the SciForge side, recall@budget is the sleep side.
+`run_layered_report.py` emits them as two separate tables and refuses a pooled row;
+right now its SciForge table is empty, because the 15 injection recipes have no harness
+behind them yet — an empty cell with a stated blocker, not a zero.
+
 ---
 
 ## 7. Where this sits
