@@ -305,6 +305,60 @@ def test_paper_learned_table_matches_artifact():
     assert seen == 12, f"expected 12 published cells, matched {seen}"
 
 
+SUPERVISOR_DOC = os.path.join(
+    ROOT, "role3 improvement", "outputs", "supervisor-v1", "receipt_vs_silent.md")
+
+
+def test_paper_receipt_table_matches_supervisor_artifact():
+    """The coverage-receipt table is copied from the run, not retyped."""
+    src = {}
+    for line in text(SUPERVISOR_DOC).splitlines():
+        if not line.startswith("|"):
+            continue
+        row = cells(line)
+        if len(row) != 8 or row[0] not in ("spike", "modular", "real", "ticket"):
+            continue
+        src[(row[0], row[1].strip("`"))] = row
+
+    seen = 0
+    for line in paper_text().splitlines():
+        if not line.startswith("|"):
+            continue
+        row = cells(line)
+        if len(row) != 7 or clean(row[0]) not in ("spike", "modular", "real", "ticket"):
+            continue
+        key = (clean(row[0]), clean(row[1]))
+        assert key in src, f"receipt row {key} is not in the artifact"
+        want = src[key]
+        got = [float(clean(c)) for c in row[2:7]]
+        exp = [round(float(want[2]), 3), int(want[3]), int(want[4]),
+               int(want[5]), round(float(want[6]), 3)]
+        assert got[:3] == [exp[0], exp[1], exp[2]], f"{key}: {got[:3]} != {exp[:3]}"
+        assert got[3] == exp[3], f"{key}: false-inspected {got[3]} != {exp[3]}"
+        assert abs(got[4] - exp[4]) < 5e-4, f"{key}: share {got[4]} != {exp[4]}"
+        seen += 1
+    assert seen == 8, f"expected 8 receipt cells, matched {seen}"
+
+
+def test_paper_receipt_shortfall_matches_artifact():
+    """The 0.002 miss and the 10.2/14.9 split must be the artifact's numbers."""
+    src = {}
+    for line in text(SUPERVISOR_DOC).splitlines():
+        if not line.startswith("|"):
+            continue
+        row = cells(line)
+        if len(row) == 8 and row[0] == "modular" and row[1].strip("`") in ("marginal", "oracle"):
+            src[row[1].strip("`")] = row
+
+    rule, oracle = src["marginal"], src["oracle"]
+    shortfall = 0.90 - float(rule[6])
+    assert f"{shortfall:.3f}" in paper_text(), f"shortfall {shortfall:.3f} missing"
+    assert f"{int(rule[4])} of {int(rule[3])}" in paper_text(), "1587 of 1767 missing"
+    for row in (rule, oracle):
+        pct = 100 * int(row[5]) / int(row[3])
+        assert f"{pct:.1f}" in paper_text(), f"{pct:.1f} % missing for {row[1]}"
+
+
 TENX_DOC = os.path.join(ROOT, "role2_규리", "results", "confirm-10x", "comparison.md")
 
 

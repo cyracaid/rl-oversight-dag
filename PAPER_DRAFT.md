@@ -358,6 +358,56 @@ rule optimises*, not of the POMDP, and it uses a node-local miss update (identic
 on source nodes). "0.022 short of optimal" therefore means short of optimal inside
 our own approximation. A better model could move the ceiling; that is the open cell.
 
+### 6.5 What a delivery can say about its own coverage
+
+A policy that reports only a count of remaining errors hands the reviewer a claim he
+cannot check. The pre-registered *receipt* axis (block 5400–5599) asks a narrower
+question: for every sink that is still wrong, can the policy say whether that sink
+was `partial` (some upstream source reviewed) or `untouched` (none)? Let *declared
+share* be the fraction of surviving sink errors carrying either label. The
+complement sits in sinks whose every upstream source was reviewed and whose catch
+roll still missed.
+
+| family | policy | errors/graph | surviving sink errors | declared | false-inspected | declared share |
+|---|---|---:|---:|---:|---:|---:|
+| `spike` | `marginal` | 0.965 | 193 | 188 | 5 | **0.974** |
+| `spike` | `oracle` | 0.725 | 145 | 124 | 21 | 0.855 |
+| `modular` | `marginal` | 8.835 | 1767 | 1587 | 180 | 0.898 |
+| `modular` | `oracle` | 3.895 | 779 | 663 | 116 | 0.851 |
+| `real` | `marginal` | 0.450 | 90 | 88 | 2 | **0.978** |
+| `real` | `oracle` | 0.365 | 73 | 57 | 16 | 0.781 |
+| `ticket` | `marginal` | 0.275 | 55 | 46 | 9 | 0.836 |
+| `ticket` | `oracle` | 0.245 | 49 | 29 | 20 | 0.592 |
+
+Five predictions were frozen first. Three hold: the receipt changes no action (0
+mismatching runs), its fidelity is 1.000 everywhere, and every family contains at
+least one false-inspected sink. Two carry information. The oracle's declared share
+is *lower* than the rule's on `modular` (0.851 vs 0.898), because a better policy
+leaves fewer errors and proportionally more of them in the catch-miss bucket. And
+the one prediction that failed failed by 0.002: `modular` was predicted at ≥ 0.90
+and came in at 0.898 (1587 of 1767). The threshold was not moved afterwards.
+
+That shortfall is the result. On `modular`, 10.2 % of surviving errors sit in sinks
+whose every upstream source was reviewed; under the oracle the same bucket is
+14.9 %. Reviewing more does not make the receipt truer, because `p_catch = 0.9` means
+"inspected" cannot mean "clean". A delivery that reported coverage alone would
+overstate itself *more*, the more it reviewed — which is the opposite of the
+intuition the receipt is meant to serve, and the reason the number is reported as a
+failed prediction rather than rounded into a pass.
+
+The deletion test isolates the statement from the policy. Three arms run the
+identical policy on identical episodes and differ only in what the delivery says: the
+honest receipt, a `silent` arm with no fields for the question, and an `overclaim` arm
+that answers anyway. The silent arm's columns are empty because the question has no
+answer there, not a wrong one; the overclaim arm is wrong by exactly the number of
+surviving errors in every cell. What separates a count of errors from a count of
+*uncovered* errors is the reporting field, not the scheduler.
+
+Scope, so this is not read as calibration: the receipt is about scope and never
+about truth; no escalation policy was pre-registered (`judged` is 1.0 on every row);
+and a sink the budget cannot reach is exactly what `untouched` reports. That last
+one is a finding about the budget, not a defect of the receipt.
+
 ---
 
 ## 7. Real data: the boundary, and why the signal cannot point at a cause
@@ -470,6 +520,10 @@ the two conflicting timestamps, so a curator reads 2 fields instead of 4 — 96.
 corrected fields inside the witness pair at half the reading cost. Under a time
 budget this halves the price of the order block. It does not raise the 83.8 % ceiling.
 
+The queue-level version of the same reporting question is §6.5: there the delivery
+declares what it did *not* cover, and the bucket of errors it cannot vouch for grows
+when the policy reviews more, not less.
+
 ### 7.8 The confidence signal points at consequences, not at causes
 
 The calibration gap left by §3 was described as a data gap: fit the error model on
@@ -545,6 +599,11 @@ The measurements converge on one recommendation, and it is not a scheduler. Fix 
 capture: a 24-hour time input, an intake question about whether awakenings were
 recorded, and a coverage denominator printed next to every mean. These remove three
 of the four defect classes in §7.5 and are cheaper than any policy.
+
+§6.5 is the same recommendation with a number attached: a delivery that states which
+of its residual errors it did not cover, instead of only how many remain, converts an
+unfalsifiable count into a checkable one — and stops overstating itself exactly when
+it has reviewed the most.
 
 ### 9.2 When the method should not be used
 
