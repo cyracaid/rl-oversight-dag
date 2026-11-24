@@ -1,0 +1,9 @@
+﻿step,node,node_name,flagged,sink_errors_before,sink_errors_after
+1,12,WASO_calc,True,3,3
+2,4,sol_self,True,3,3
+3,3,time_getup,False,3,3
+4,19,SE_conclusion,True,3,2
+5,13,TST,False,2,2
+6,11,SOL_calc,True,2,0
+7,18,WASO_validity,False,0,0
+8,20,record_quality,False,0,0
