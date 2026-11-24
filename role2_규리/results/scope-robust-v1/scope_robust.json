@@ -1,0 +1,389 @@
+{
+  "table": {
+    "off_grid|0.50|-3.60|+0.00": {
+      "means": {
+        "trust": 2.52,
+        "shrink": 2.02,
+        "scope": 1.65
+      },
+      "scope_trust": -0.8700000000000001,
+      "scope_shrink": -0.3700000000000001,
+      "shrink_trust": -0.5,
+      "map_q": 0.4960000000000001,
+      "map_delta": -3.595,
+      "delta_err": 0.23700000000000007
+    },
+    "off_grid|0.50|-2.37|+0.00": {
+      "means": {
+        "trust": 1.61,
+        "shrink": 1.41,
+        "scope": 1.25
+      },
+      "scope_trust": -0.3600000000000001,
+      "scope_shrink": -0.15999999999999992,
+      "shrink_trust": -0.20000000000000018,
+      "map_q": 0.515,
+      "map_delta": -2.345,
+      "delta_err": 0.331
+    },
+    "off_grid|0.50|-1.60|+0.00": {
+      "means": {
+        "trust": 1.08,
+        "shrink": 1.0,
+        "scope": 0.95
+      },
+      "scope_trust": -0.13000000000000012,
+      "scope_shrink": -0.050000000000000044,
+      "shrink_trust": -0.08000000000000007,
+      "map_q": 0.547,
+      "map_delta": -1.575,
+      "delta_err": 0.40900000000000003
+    },
+    "off_grid|0.50|+1.60|+0.00": {
+      "means": {
+        "trust": 1.33,
+        "shrink": 1.4,
+        "scope": 1.25
+      },
+      "scope_trust": -0.08000000000000007,
+      "scope_shrink": -0.1499999999999999,
+      "shrink_trust": 0.06999999999999984,
+      "map_q": 0.5670000000000001,
+      "map_delta": 1.54,
+      "delta_err": 0.358
+    },
+    "off_grid|0.50|+2.37|+0.00": {
+      "means": {
+        "trust": 1.64,
+        "shrink": 1.62,
+        "scope": 1.57
+      },
+      "scope_trust": -0.06999999999999984,
+      "scope_shrink": -0.050000000000000044,
+      "shrink_trust": -0.019999999999999796,
+      "map_q": 0.5135,
+      "map_delta": 2.355,
+      "delta_err": 0.28619999999999995
+    },
+    "off_grid|0.50|+3.60|+0.00": {
+      "means": {
+        "trust": 2.44,
+        "shrink": 2.03,
+        "scope": 1.79
+      },
+      "scope_trust": -0.6499999999999999,
+      "scope_shrink": -0.23999999999999977,
+      "shrink_trust": -0.41000000000000014,
+      "map_q": 0.49650000000000005,
+      "map_delta": 3.57,
+      "delta_err": 0.23000000000000004
+    },
+    "off_grid|1.00|-3.60|+0.00": {
+      "means": {
+        "trust": 3.46,
+        "shrink": 2.84,
+        "scope": 0.76
+      },
+      "scope_trust": -2.7,
+      "scope_shrink": -2.08,
+      "shrink_trust": -0.6200000000000001,
+      "map_q": 1.0,
+      "map_delta": -3.575,
+      "delta_err": 0.16900000000000012
+    },
+    "off_grid|1.00|-2.37|+0.00": {
+      "means": {
+        "trust": 2.3,
+        "shrink": 2.04,
+        "scope": 0.76
+      },
+      "scope_trust": -1.5399999999999998,
+      "scope_shrink": -1.28,
+      "shrink_trust": -0.2599999999999998,
+      "map_q": 0.998,
+      "map_delta": -2.395,
+      "delta_err": 0.18039999999999992
+    },
+    "off_grid|1.00|-1.60|+0.00": {
+      "means": {
+        "trust": 1.13,
+        "shrink": 1.15,
+        "scope": 0.76
+      },
+      "scope_trust": -0.3699999999999999,
+      "scope_shrink": -0.3899999999999999,
+      "shrink_trust": 0.020000000000000018,
+      "map_q": 0.9840000000000001,
+      "map_delta": -1.61,
+      "delta_err": 0.1740000000000001
+    },
+    "off_grid|1.00|+1.60|+0.00": {
+      "means": {
+        "trust": 0.76,
+        "shrink": 1.25,
+        "scope": 0.76
+      },
+      "scope_trust": 0.0,
+      "scope_shrink": -0.49,
+      "shrink_trust": 0.49,
+      "map_q": 0.971,
+      "map_delta": 1.63,
+      "delta_err": 0.17800000000000005
+    },
+    "off_grid|1.00|+2.37|+0.00": {
+      "means": {
+        "trust": 0.78,
+        "shrink": 1.6,
+        "scope": 0.76
+      },
+      "scope_trust": -0.020000000000000018,
+      "scope_shrink": -0.8400000000000001,
+      "shrink_trust": 0.8200000000000001,
+      "map_q": 0.992,
+      "map_delta": 2.415,
+      "delta_err": 0.18559999999999988
+    },
+    "off_grid|1.00|+3.60|+0.00": {
+      "means": {
+        "trust": 0.78,
+        "shrink": 1.52,
+        "scope": 0.75
+      },
+      "scope_trust": -0.030000000000000027,
+      "scope_shrink": -0.77,
+      "shrink_trust": 0.74,
+      "map_q": 0.998,
+      "map_delta": 3.59,
+      "delta_err": 0.15400000000000005
+    },
+    "two_delta|0.50|-3.00|+3.00": {
+      "means": {
+        "trust": 1.5,
+        "shrink": 1.44,
+        "scope": 1.5
+      },
+      "scope_trust": 0.0,
+      "scope_shrink": 0.06000000000000005,
+      "shrink_trust": -0.06000000000000005,
+      "map_q": 0.11300000000000003,
+      "map_delta": 2.265,
+      "delta_err": 5.415
+    },
+    "two_delta|0.50|+3.00|-3.00": {
+      "means": {
+        "trust": 1.67,
+        "shrink": 1.67,
+        "scope": 1.72
+      },
+      "scope_trust": 0.050000000000000044,
+      "scope_shrink": 0.050000000000000044,
+      "shrink_trust": 0.0,
+      "map_q": 0.1155,
+      "map_delta": 2.045,
+      "delta_err": 1.535
+    },
+    "two_delta|0.50|-4.00|+2.00": {
+      "means": {
+        "trust": 1.31,
+        "shrink": 1.28,
+        "scope": 1.31
+      },
+      "scope_trust": 0.0,
+      "scope_shrink": 0.030000000000000027,
+      "shrink_trust": -0.030000000000000027,
+      "map_q": 0.13149999999999998,
+      "map_delta": -3.255,
+      "delta_err": 0.745
+    },
+    "two_delta|0.50|+2.00|-4.00": {
+      "means": {
+        "trust": 1.87,
+        "shrink": 1.57,
+        "scope": 1.54
+      },
+      "scope_trust": -0.33000000000000007,
+      "scope_shrink": -0.030000000000000027,
+      "shrink_trust": -0.30000000000000004,
+      "map_q": 0.12050000000000002,
+      "map_delta": -3.005,
+      "delta_err": 5.255
+    },
+    "two_delta|1.00|-3.00|+3.00": {
+      "means": {
+        "trust": 2.26,
+        "shrink": 2.2,
+        "scope": 2.23
+      },
+      "scope_trust": -0.029999999999999805,
+      "scope_shrink": 0.029999999999999805,
+      "shrink_trust": -0.05999999999999961,
+      "map_q": 0.2065,
+      "map_delta": 2.635,
+      "delta_err": 5.755
+    },
+    "two_delta|1.00|+3.00|-3.00": {
+      "means": {
+        "trust": 2.88,
+        "shrink": 2.35,
+        "scope": 2.78
+      },
+      "scope_trust": -0.10000000000000009,
+      "scope_shrink": 0.4299999999999997,
+      "shrink_trust": -0.5299999999999998,
+      "map_q": 0.206,
+      "map_delta": 2.715,
+      "delta_err": 0.845
+    },
+    "two_delta|1.00|-4.00|+2.00": {
+      "means": {
+        "trust": 2.11,
+        "shrink": 1.87,
+        "scope": 1.75
+      },
+      "scope_trust": -0.3599999999999999,
+      "scope_shrink": -0.1200000000000001,
+      "shrink_trust": -0.23999999999999977,
+      "map_q": 0.23099999999999998,
+      "map_delta": -3.835,
+      "delta_err": 0.165
+    },
+    "two_delta|1.00|+2.00|-4.00": {
+      "means": {
+        "trust": 3.6,
+        "shrink": 2.71,
+        "scope": 2.13
+      },
+      "scope_trust": -1.4700000000000002,
+      "scope_shrink": -0.5800000000000001,
+      "shrink_trust": -0.8900000000000001,
+      "map_q": 0.22899999999999998,
+      "map_delta": -3.8,
+      "delta_err": 5.85
+    }
+  },
+  "rules": {
+    "r1_offgrid_map": {
+      "value": 0.17350000000000002,
+      "relation": "<=",
+      "bar": 0.5,
+      "description": "격자 밖 δ에서 최빈 셀이 이웃을 고른다 (평균 |δ_err|)",
+      "holds": true
+    },
+    "r1_offgrid_q": {
+      "value": 0.9905,
+      "relation": ">=",
+      "bar": 0.95,
+      "description": "격자 밖 100 % 셀에서 최빈 비율이 1이다 (평균 map_q)",
+      "holds": true
+    },
+    "r2_offgrid_gain": {
+      "value": -2.12,
+      "relation": "<=",
+      "bar": -0.5,
+      "description": "격자 밖 큰 음의 이동에서도 이득이 남는다 (평균 scope − trust)",
+      "holds": true
+    },
+    "r2b_offgrid_harmless": {
+      "value": -0.025000000000000022,
+      "relation": "<=",
+      "bar": 0.2,
+      "description": "격자 밖 큰 양의 이동에서 손해가 없다 (평균 scope − trust)",
+      "holds": true
+    },
+    "r3_clean_cost": {
+      "value": 0.0,
+      "relation": "<=",
+      "bar": 0.05,
+      "description": "깨끗한 그래프 비용 (scope − trust)",
+      "holds": true
+    },
+    "e4_two_delta_loss": {
+      "value": -0.01625000000000007,
+      "relation": ">",
+      "bar": 0.0,
+      "description": "두 δ에서 shrink보다 나쁘다 (평균 scope − shrink)",
+      "holds": false
+    },
+    "e5_two_delta_q": {
+      "value": 0.169125,
+      "relation": "<=",
+      "bar": 0.5,
+      "description": "두 δ에서 전체 이동을 주장하지 않는다 (평균 map_q)",
+      "holds": true
+    }
+  },
+  "verdict": "부분 성공",
+  "general_holds": true,
+  "boundary_holds": false,
+  "clean": {
+    "oracle_trust": 0.76,
+    "shrink": 0.74,
+    "scope": 0.76
+  },
+  "bootstrap": {
+    "unit": "paired graph",
+    "draws": 10000,
+    "seed": 20261124
+  },
+  "frozen": {
+    "rules": [
+      [
+        "r1_offgrid_map",
+        "off_grid_map",
+        "<=",
+        0.5,
+        "격자 밖 δ에서 최빈 셀이 이웃을 고른다 (평균 |δ_err|)"
+      ],
+      [
+        "r1_offgrid_q",
+        "off_grid_q",
+        ">=",
+        0.95,
+        "격자 밖 100 % 셀에서 최빈 비율이 1이다 (평균 map_q)"
+      ],
+      [
+        "r2_offgrid_gain",
+        "off_grid_gain",
+        "<=",
+        -0.5,
+        "격자 밖 큰 음의 이동에서도 이득이 남는다 (평균 scope − trust)"
+      ],
+      [
+        "r2b_offgrid_harmless",
+        "off_grid_harmless",
+        "<=",
+        0.2,
+        "격자 밖 큰 양의 이동에서 손해가 없다 (평균 scope − trust)"
+      ],
+      [
+        "r3_clean_cost",
+        "clean_cost",
+        "<=",
+        0.05,
+        "깨끗한 그래프 비용 (scope − trust)"
+      ],
+      [
+        "e4_two_delta_loss",
+        "two_delta_loss",
+        ">",
+        0.0,
+        "두 δ에서 shrink보다 나쁘다 (평균 scope − shrink)"
+      ],
+      [
+        "e5_two_delta_q",
+        "two_delta_q",
+        "<=",
+        0.5,
+        "두 δ에서 전체 이동을 주장하지 않는다 (평균 map_q)"
+      ]
+    ],
+    "delta_step": 0.5
+  },
+  "source_sha256": {
+    "manifest.json": "57f96f0666eb5b6c5c1c33fd9ad13df26743eef052d9cd78f9321fe0c4e070e7",
+    "episodes.csv": "f8caa0939b2e0927cdc263e777ec3575a89e49891c91097334e9a0907ff7e364",
+    "report_scope_robust.py": "d0a0b7de488d9effa83c21891b8f57ddbe1ccec2789d92747d3a3d0577483db0",
+    "PREREGISTER_SCOPE_ROBUST.md": "3c4359389ad458e30b3344923795e56ae06e9bbcd8fafc2ae78fb45648f43cd0",
+    "rl_boundary.py": "6ad6a333b1eb00826d1c266d88a04ee14b6401b6ad6d0c1fced2264687f28482"
+  }
+}

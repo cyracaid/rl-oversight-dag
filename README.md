@@ -104,6 +104,7 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Probe-then-decide repair of that gate (pre-registered, 200 fresh graphs) | trust **0.935** | verify **0.935** (no worse than trusting at −1) | frozen verdict **failure**: 5 of 13 fired cells worse than trust, trigger still fires on harmless +3 shifts | `role2_규리/results/verify-v1/` |
 | Per-node mixture posterior instead of a global gate (pre-registered, 200 fresh graphs) | trust **1.050** (= clean oracle) | shrink **1.055** clean, **−0.370** where errors are masked | frozen verdict **success**: all four predictions hold, +0.105 [0.040, 0.175] at −1; boundary — a harmless *global* +2/+3 shift still loses +0.45 / +0.72 | `role2_규리/results/shrink-v1/` |
 | Two-level scope posterior: is the *graph* shifted, and by how much? (pre-registered, 200 fresh graphs) | trust **0.940** (= clean oracle) | scope **0.945** clean, **0.94** at the 100 % −4 shift (trust 3.86, shrink 2.92) | frozen verdict **success**: all six predictions hold; harmless global +3 **+0.005 [+0.000, +0.015]** (shrink +0.81) and +2 +0.010; pays back shrink's masking gain **+0.325 [+0.195, +0.470]**; 112-cell mean 1.303 → 1.266 → **1.203** | `role2_규리/results/scope-v1/` |
+| Boundary of the scope model: off-grid δ and two δ at once (pre-registered, 100 fresh graphs) | trust **0.760** (= clean oracle) | off-grid **1.084** vs trust 1.653 and shrink 1.657; two δ **1.870** vs shrink 1.886 | frozen verdict **partial success**: off-grid robustness holds (mean \|δ error\| 0.174, large −shift −2.12, large +shift −0.025 where shrink loses +0.45/+0.72, clean 0.000, 12/12 off-grid cells beat shrink), but the declared boundary prediction failed — with two δ scope is *not* worse than shrink (−0.016) and both sit near plain trust (2.15 / 1.89 / 1.87) | `role2_규리/results/scope-robust-v1/` |
 | Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
 | Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
 
@@ -189,6 +190,17 @@ and the policy lands on the clean oracle (0.94 versus trust 3.86). The payment w
 indistinguishable from a clean one by scores alone, so q = 0 wins and shrink's −0.36 gain is given back (+0.325 [+0.195, +0.470]
 worse than shrink, still no worse than trusting). 45 of 112 cells beat trusting, 55 are worse, none by more than +0.06.
 Korean report: `role2_규리/results/scope-v1/scope.md`; rerun with `./run_scope.sh`.
+
+That model's success rests on two properties of the generator rather than of a real score pipeline, so both were broken
+one at a time on 100 further fresh graphs (seeds 3800–3899), with nothing refitted. **Off-grid δ** (±1.6, ±2.37, ±3.6):
+the MAP cell still lands on the neighbouring δ (mean |δ error| 0.174, map_q 0.991 at full coverage), a large negative shift
+keeps a **−2.12** gain over trusting and all 12 off-grid cells beat shrink (mean −0.57), a large positive shift costs
+**−0.025** where shrink loses +0.45/+0.72, clean cost 0.000. **Two δ at once** (source and sink moved by different amounts,
+8 cells) was declared out of scope in advance, and the declared prediction was that scope would then be *worse* than shrink.
+It is not: scope − shrink = **−0.016**, 3 of 8 cells better and 5 worse, worst +0.43 [+0.24, +0.66]. The honest reading is
+that neither single-δ family recovers there — trust 2.15, shrink 1.89, scope 1.87 — and the model says so itself (mean
+map_q 0.169, no claim of a global shift). Frozen verdict: **partial success**, with the "shrink wins on two δ" guess withdrawn.
+Korean report: `role2_규리/results/scope-robust-v1/scope_robust.md`; rerun with `./run_scope_robust.sh`.
 
 ---
 
