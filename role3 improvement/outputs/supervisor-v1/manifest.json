@@ -1,0 +1,36 @@
+{
+  "block": [
+    5400,
+    5599
+  ],
+  "episode_offset": 20000,
+  "p_catch": 0.9,
+  "budget": {
+    "spike": 16,
+    "modular": 50,
+    "real": 8,
+    "ticket": 8
+  },
+  "families": [
+    "spike",
+    "modular",
+    "real",
+    "ticket"
+  ],
+  "policies": [
+    "marginal",
+    "oracle"
+  ],
+  "claims": [
+    "honest",
+    "overclaim",
+    "silent"
+  ],
+  "python": "3.13.5",
+  "numpy": "2.4.4",
+  "sha256": {
+    "dag_role3/environment.py": "c9844ed5b4cf7f2387db986d4f2cfc372e461c6d6660dd93088af743ba76d9dd",
+    "dag_role3/supervisor.py": "d28af44ab459a525ec5102524c24de90c6f15b948d09ba4c2711631f3d201c41",
+    "run_supervisor_check.py": "da6c311ef31c2b3efe88f56a136a40547c784230f8236f5d0d45a3d39fffd920"
+  }
+}

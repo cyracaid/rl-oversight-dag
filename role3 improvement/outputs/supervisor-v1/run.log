@@ -1,0 +1,49 @@
+  spike 5400 done
+  spike 5420 done
+  spike 5440 done
+  spike 5460 done
+  spike 5480 done
+  spike 5500 done
+  spike 5520 done
+  spike 5540 done
+  spike 5560 done
+  spike 5580 done
+  modular 5400 done
+  modular 5420 done
+  modular 5440 done
+  modular 5460 done
+  modular 5480 done
+  modular 5500 done
+  modular 5520 done
+  modular 5540 done
+  modular 5560 done
+  modular 5580 done
+  real 5400 done
+  real 5420 done
+  real 5440 done
+  real 5460 done
+  real 5480 done
+  real 5500 done
+  real 5520 done
+  real 5540 done
+  real 5560 done
+  real 5580 done
+  ticket 5400 done
+  ticket 5420 done
+  ticket 5440 done
+  ticket 5460 done
+  ticket 5480 done
+  ticket 5500 done
+  ticket 5520 done
+  ticket 5540 done
+  ticket 5560 done
+  ticket 5580 done
+spike    marginal errors 0.965 wrong  193 declared  188 false    5 share 0.974
+spike    oracle   errors 0.725 wrong  145 declared  124 false   21 share 0.855
+modular  marginal errors 8.835 wrong 1767 declared 1587 false  180 share 0.898
+modular  oracle   errors 3.895 wrong  779 declared  663 false  116 share 0.851
+real     marginal errors 0.450 wrong   90 declared   88 false    2 share 0.978
+real     oracle   errors 0.365 wrong   73 declared   57 false   16 share 0.781
+ticket   marginal errors 0.275 wrong   55 declared   46 false    9 share 0.836
+ticket   oracle   errors 0.245 wrong   49 declared   29 false   20 share 0.592
+P1 mismatches: 0

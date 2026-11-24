@@ -70,7 +70,27 @@ def main():
     overclaim_ok = all(r["overclaim_false_equals_wrong"] for r in rows)
     overclaim_note = ("it equals the surviving errors in every cell"
                       if overclaim_ok else "it does *not* equal them in every cell (see summary.json)")
-    lines += ["", "## The deletion test, as a number", "",
+    lines += ["", "## The one prediction this block falsified", ""]
+    mod = by_key.get(("modular", "marginal"))
+    orc = by_key.get(("modular", "oracle"))
+    if mod and mod["declared_share"] is not None:
+        miss = THRESHOLD - mod["declared_share"]
+        false_rule = mod["false_inspection"] / max(1, mod["wrong_sinks"])
+        text = (f"P4 asked for a declared share of at least {THRESHOLD:.2f} on `modular` and got "
+                f"{mod['declared_share']:.3f} — short by {miss:.3f} "
+                f"({mod['declared_gap']} of {mod['wrong_sinks']}). The threshold is not moved. "
+                f"So on the 500-node family about one surviving error in ten sits in a sink whose "
+                f"every upstream source was reviewed and whose catch still missed.")
+        if orc and orc["declared_share"] is not None:
+            false_orc = orc["false_inspection"] / max(1, orc["wrong_sinks"])
+            text += (f" Better coverage makes that bucket *bigger*, not smaller: "
+                     f"{100 * false_rule:.1f} % under the rule, {100 * false_orc:.1f} % under "
+                     f"`oracle`. Coverage and correctness pull apart exactly as `p_catch = 0.9` "
+                     f"predicts, and a delivery that reports only coverage would overstate itself "
+                     f"more, not less, when it reviews more.")
+        lines += [text, ""]
+
+    lines += ["## The deletion test, as a number", "",
               "The `silent` arm runs the identical policy on the identical episode. Its "
               "`declared_gap` and `uninspected_errors` columns are empty, because the delivery "
               "has no field for them: the question \"how many of the surviving errors did we "

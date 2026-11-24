@@ -1,0 +1,54 @@
+{
+  "p1_holds": true,
+  "threshold": 0.9,
+  "cells": [
+    {
+      "family": "spike",
+      "policy": "marginal",
+      "verdict": "load-bearing",
+      "declared_share": 0.9740932642487047
+    },
+    {
+      "family": "spike",
+      "policy": "oracle",
+      "verdict": "weak",
+      "declared_share": 0.8551724137931035
+    },
+    {
+      "family": "modular",
+      "policy": "marginal",
+      "verdict": "weak",
+      "declared_share": 0.8981324278438031
+    },
+    {
+      "family": "modular",
+      "policy": "oracle",
+      "verdict": "weak",
+      "declared_share": 0.8510911424903723
+    },
+    {
+      "family": "real",
+      "policy": "marginal",
+      "verdict": "load-bearing",
+      "declared_share": 0.9777777777777777
+    },
+    {
+      "family": "real",
+      "policy": "oracle",
+      "verdict": "weak",
+      "declared_share": 0.7808219178082192
+    },
+    {
+      "family": "ticket",
+      "policy": "marginal",
+      "verdict": "weak",
+      "declared_share": 0.8363636363636363
+    },
+    {
+      "family": "ticket",
+      "policy": "oracle",
+      "verdict": "weak",
+      "declared_share": 0.5918367346938775
+    }
+  ]
+}

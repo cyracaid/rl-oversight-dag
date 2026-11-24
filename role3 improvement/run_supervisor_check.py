@@ -10,8 +10,10 @@ compared.
 """
 import argparse
 import csv
+import hashlib
 import json
 import random
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -149,6 +151,18 @@ def main():
                "p1_holds": not mismatches, "rows": summary}
     with open(args.out / "summary.json", "w") as stream:
         json.dump(payload, stream, indent=2)
+    with open(args.out / "manifest.json", "w") as stream:
+        json.dump({"block": list(BLOCK), "episode_offset": EPISODE_OFFSET,
+                   "p_catch": P_CATCH,
+                   "budget": {f: BUDGET[f] for f in args.families},
+                   "families": args.families, "policies": list(POLICIES),
+                   "claims": [*CLAIMS, "silent"],
+                   "python": sys.version.split()[0], "numpy": np.__version__,
+                   "sha256": {name: hashlib.sha256(Path(name).read_bytes()).hexdigest()
+                              for name in ("dag_role3/environment.py",
+                                           "dag_role3/supervisor.py",
+                                           "run_supervisor_check.py")}},
+                  stream, indent=2)
     print(f"P1 mismatches: {len(mismatches)}")
 
 

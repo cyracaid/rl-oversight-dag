@@ -1,0 +1,164 @@
+{
+  "block": [
+    5400,
+    5599
+  ],
+  "episode_offset": 20000,
+  "p_catch": 0.9,
+  "p1_mismatches": [],
+  "p1_holds": true,
+  "rows": [
+    {
+      "family": "spike",
+      "policy": "marginal",
+      "graphs": 200,
+      "mean_errors": 0.965,
+      "wrong_sinks": 193,
+      "false_inspection": 5,
+      "declared_gap": 188,
+      "declared_share": 0.9740932642487047,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 193,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 279,
+        "partial": 2241,
+        "untouched": 1480
+      }
+    },
+    {
+      "family": "spike",
+      "policy": "oracle",
+      "graphs": 200,
+      "mean_errors": 0.725,
+      "wrong_sinks": 145,
+      "false_inspection": 21,
+      "declared_gap": 124,
+      "declared_share": 0.8551724137931035,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 145,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 908,
+        "partial": 2549,
+        "untouched": 543
+      }
+    },
+    {
+      "family": "modular",
+      "policy": "marginal",
+      "graphs": 200,
+      "mean_errors": 8.835,
+      "wrong_sinks": 1767,
+      "false_inspection": 180,
+      "declared_gap": 1587,
+      "declared_share": 0.8981324278438031,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 1767,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 4269,
+        "partial": 13684,
+        "untouched": 19132
+      }
+    },
+    {
+      "family": "modular",
+      "policy": "oracle",
+      "graphs": 200,
+      "mean_errors": 3.895,
+      "wrong_sinks": 779,
+      "false_inspection": 116,
+      "declared_gap": 663,
+      "declared_share": 0.8510911424903723,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 779,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 7994,
+        "partial": 17555,
+        "untouched": 11536
+      }
+    },
+    {
+      "family": "real",
+      "policy": "marginal",
+      "graphs": 200,
+      "mean_errors": 0.45,
+      "wrong_sinks": 90,
+      "false_inspection": 2,
+      "declared_gap": 88,
+      "declared_share": 0.9777777777777777,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 90,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 13,
+        "partial": 656,
+        "untouched": 131
+      }
+    },
+    {
+      "family": "real",
+      "policy": "oracle",
+      "graphs": 200,
+      "mean_errors": 0.365,
+      "wrong_sinks": 73,
+      "false_inspection": 16,
+      "declared_gap": 57,
+      "declared_share": 0.7808219178082192,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 73,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 197,
+        "partial": 512,
+        "untouched": 91
+      }
+    },
+    {
+      "family": "ticket",
+      "policy": "marginal",
+      "graphs": 200,
+      "mean_errors": 0.275,
+      "wrong_sinks": 55,
+      "false_inspection": 9,
+      "declared_gap": 46,
+      "declared_share": 0.8363636363636363,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 55,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 143,
+        "partial": 527,
+        "untouched": 130
+      }
+    },
+    {
+      "family": "ticket",
+      "policy": "oracle",
+      "graphs": 200,
+      "mean_errors": 0.245,
+      "wrong_sinks": 49,
+      "false_inspection": 20,
+      "declared_gap": 29,
+      "declared_share": 0.5918367346938775,
+      "fidelity_min": 1.0,
+      "judged_min": 1.0,
+      "overclaim_false_inspection": 49,
+      "overclaim_false_equals_wrong": true,
+      "status_counts": {
+        "inspected": 418,
+        "partial": 312,
+        "untouched": 70
+      }
+    }
+  ]
+}
