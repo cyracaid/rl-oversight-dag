@@ -1,5 +1,10 @@
 # Empirical Results Summary (Final)
 
+> **Canonical numbers live elsewhere since 2026-11-24.** `role3 improvement/` (tag `role3-env-v3`) is the
+> frozen environment; `role2_규리/results/` holds the canonical measurements. This file is the earlier,
+> smaller replica: keep it for provenance, the real-data replays and the N=21 sleep DAG, and do not mix its
+> raw means with the other two lines. See `../CROSS_IMPLEMENTATION_VALIDATION.md`.
+
 > Code: `verify_clustering.py`, `spike_active_selection.py`, `rl_methods_compare.py`, `rl_cmdp_gnn.py`, `rl_final.py`
 > Figures: `results_bar.png`, `learning_curves.png`; table: `final_table.md`
 
@@ -243,3 +248,26 @@ because a defect that matters is shared. That is a proposed next experiment.
 * REINFORCE 1.40 / PPO 1.60 / threshold 2.30 / structural 1.80 are **legacy seeds 1–20**.
   On 200 held-out graphs: threshold 1.41, structural 1.45, **belief greedy 1.14**,
   GNN+REINFORCE 1.56. Do not quote the legacy column as the method comparison.
+
+## 13. Credit assignment: one training result, one deployment null (not one withdrawal)
+
+Earlier revisions of this file said credit assignment had been "withdrawn". That was too coarse, and the
+Role 2 experiments now separate the two claims:
+
+| Claim | Evidence | Verdict |
+|---|---|---|
+| Per-review reward allocation improves the trained model | `role2_규리/results/credit-v1/`: 4.549 → 2.926 errors, −1.623 [−2.136, −1.033], same direction in 5/5 training seeds | **supported** |
+| The improved model beats the simple rule in the field | Same study, held-out 200 graphs: model 2.945 vs two-step rule 2.765, rule ahead by 0.180 [0.021, 0.377] | **contradicted** |
+
+Both statements are true at once. The training change works; the learned policy still loses to a deterministic
+two-step rule. Any slide that says only one of them is wrong.
+
+Adjacent nulls from the same line, which belong in the same paragraph:
+
+* Two-step planning vs one-step mixture: +0.035 [−0.025, +0.100] — not supported
+  (`role2_규리/results/planning-v1/`).
+* Residual GNN on top of `marginal`: +0.022 [−0.018, +0.072] — not supported
+  (`role2_규리/results/residual-v1/`).
+* Two nights per participant on the public KAIST diaries: +0.000014 [−0.0014, +0.0012] vs the existing QC rule
+  — not supported (`role2_규리/results/sleep-v1/`).
+

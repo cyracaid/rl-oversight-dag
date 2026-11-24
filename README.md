@@ -146,6 +146,16 @@ experiments/                    (simulation & experiments)
   results_bar.png, learning_curves.png, ablation_conf.png, scale500.png
 ```
 
+**Canonical since 2026-11-24:** `role3 improvement/` (frozen environment, tag `role3-env-v3`) and
+`role2_규리/` (canonical measurements). `experiments/` above is the earlier replica; see
+`CROSS_IMPLEMENTATION_VALIDATION.md` before quoting any number.
+
+```
+CROSS_IMPLEMENTATION_VALIDATION.md   Which line is canonical, what may not be compared, reproduction receipts
+role3 improvement/                   Frozen environment (dag_role3, 27 tests, hashed checkpoints, benchmark CSVs)
+role2_규리/                          Role 2 measurements: confidence robustness, planning, credit, KAIST nights
+```
+
 ---
 
 ## How to reproduce
@@ -161,6 +171,8 @@ experiments/                    (simulation & experiments)
 | Real-data clustering | `python3 verify_clustering.py` | **Yes (auto-skips if missing)** |
 | Real queue recall@k (Table 1) | `python3 triage_bench/run_bench.py` | **Yes (auto-skips if missing)** |
 | M4-only headroom | `python3 triage_bench/run_m4_mining.py` | **Yes (auto-skips if missing)** |
+| Canonical benchmark (5 graph families, frozen checkpoints) | `cd "role3 improvement" && python3 run_benchmark.py --checkpoints outputs/v3/train_*/{dqn,gnn}_spike*.pt` | No |
+| Canonical Role 2 contrasts (confidence, planning) | `cd role2_규리 && python3 evaluate_conditions.py --out … && python3 evaluate_planning.py --out …` | No |
 
 Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torch matplotlib`).
 
