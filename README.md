@@ -13,6 +13,12 @@ for the open items; the build brief lives in the team's Feishu wiki.
 
 **New here?** [One-page reading guide](https://cyracaid.github.io/rl-oversight-dag/READING.html) — who should read which document, five plain words, and what to skip. (中文速览在文末。)
 
+**Course final report — what we can defend, and what we cannot:**
+[English](https://cyracaid.github.io/rl-oversight-dag/COURSE_FINAL_REPORT.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/COURSE_FINAL_REPORT_CN.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/COURSE_FINAL_REPORT_KO.html).
+Every number is paired and regenerated from a committed CSV; the failures are kept in the text.
+
 **Latest RL results · 2026-11-12:** [한국어 결과 요약](experiments/BOUNDARY_RESULTS_KO.md) · [中文详细解释](experiments/BOUNDARY_FULL_V1_INTERPRETATION.md) · [Preregistration](experiments/BOUNDARY_PREREG.md). Five training seeds, 200 development graphs: belief greedy 1.100, two-step greedy 1.020, BC 1.201, BC+FT 1.525 sink errors (lower is better). Current RL policies do not outperform belief greedy; this now replicates on the untouched confirmation set (seeds 2000–2199): GNN − marginal **+0.377 [+0.255, +0.510]**. [Saved synthetic results and checkpoints](runs/boundary-full-v1/).
 
 **Who does what (visual, EN / 한국어 / 中文):** [PLAN.html](PLAN.html) — dependency graph, 8-day schedule, four interfaces, three gates. Built from one source: `python3 tools/build_plan.py`. Text version: [GENERALIZATION_PLAN.md](GENERALIZATION_PLAN.md).
