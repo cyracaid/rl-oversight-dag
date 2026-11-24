@@ -205,6 +205,40 @@ about the policy's internal ordering, which this block does not measure.
 Absolute means here are not comparable with the table above: different graph seed block. Only the paired
 deltas travel, per §7 rule 4.
 
+### Sampled counterfactual value, tested and rejected (4400–4599)
+
+The one-step score in `marginal` is mean-field: it multiplies per-parent probabilities as if parents were
+independent, so a shared ancestor is counted once per open path. That is a real approximation error, and the
+obvious fix is to replace the score with the true expected gain of a review. That quantity is network
+reliability, #P-hard, and the graphs here reach 500 nodes, so it cannot be computed exactly. What *can* be
+computed is an unbiased estimate: draw particles of source errors and edge coins, replay each particle with
+the candidate's source error removed, and take the within-particle difference. Shared draws make the
+difference the gain, not two noisy estimates subtracted.
+
+`PREREGISTER_EXACT_VALUE.md` fixed the block (4400–4599), particles (256), shortlist (16, a compute ceiling)
+and the metric before the script existed. `recovery = (marginal − policy) / (marginal − oracle)` per graph:
+
+| family | `marginal` | `oracle` | policy | recovery [95 % CI] | W/T/L | verdict |
+|---|---:|---:|---:|---|---|---|
+| modular (N=500) | 8.780 | 4.070 | 8.785 | −0.049 [−0.087, −0.015] | 15/155/30 | `worse` |
+| spike (N=80) | 0.890 | 0.650 | 0.900 | +0.038 [+0.000, +0.103] | 2/195/3 | `null` |
+
+This is the experiment the §7 gap called for, and it came back negative. On `modular` the policy changed the
+action on 45 of 200 graphs and lost 30 of those, so the estimator was not too noisy to move — it moved and
+the mean-field ordering was better. On `spike` the ratio mean is positive while the aggregate gap moved
+backwards by 4.2 %, because the ratio mean is carried by one-or-two-error graphs; the report prints both
+rather than choosing.
+
+What this rules out is narrow and worth stating precisely: improving the *one-step* value estimate with the
+right correlation structure does not recover the `oracle` gap. The gap must come from what a myopic policy
+cannot see (the effect of this review on later reviews) or from the belief itself, not from the independence
+assumption in the forward pass. Testing that is a different experiment, and it has not been run.
+
+Known limit of the estimate: 256 particles with a 16-node shortlist. Both numbers were frozen by the
+pre-registration as a compute ceiling, so this is evidence against the *approach at this budget*, not a proof
+that exact values would not help.
+
+
 
 ### Reviewer hit rate `p_catch` (pre-registered, seeds 4000–4199)
 
@@ -285,8 +319,11 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
 2. No learned baseline outside `spike`. **Closed 2026-11-24**: `run_learned_baselines.py` trained 3 seeds ×
    5 families at the same budget (GNN 1,000 / DQN 300 episodes), evaluated into `outputs/v3-learned/`.
    `marginal` wins on all six families; the gap widens with `n` (+0.04 to +0.08 at N=21, +5 to +17 at N=500).
-3. `marginal` uses a mean-field approximation that drops shared-ancestor correlation. An exact
-   intervention value is the cheapest honest way to strengthen the rule; it is unmeasured.
+3. `marginal` uses a mean-field approximation that drops shared-ancestor correlation. **Measured
+   2026-11-24, negative**: an exact value is #P-hard here, and a sampled counterfactual value (paired
+   particles, block 4400–4599) is *worse* than mean-field on `modular` (−0.049 recovery, CI [−0.087,
+   −0.015]) and unseparated on `spike`. The one-step value estimate is therefore not the binding
+   constraint; the remaining gap to `oracle` is either multi-step or a belief error. See §6.
 4. Confidence is synthetic. No measured calibration exists for the real pipeline (Gap D).
 5. `triage_bench` proves an information ceiling (7 of 72 corrections are never flagged), not a scheduling
    win. Do not put it in the same table as the synthetic means.
@@ -318,6 +355,9 @@ python3 sweep_p_catch.py && python3 report_p_catch.py
 for s in 1 2 3; do python3 train_ppo.py --seed $s --out outputs/ppo-v1; done
 python3 evaluate_ppo.py --checkpoints outputs/ppo-v1/train_{1,2,3}/ppo_spike_observed.pt
 python3 report_ppo.py
+
+# sampled counterfactual value (block 4400-4599, ~6 min)
+python3 run_value_check.py && python3 report_value.py
 ```
 
 `outputs/v3/` is frozen at tag `role3-env-v3` and must not be overwritten.

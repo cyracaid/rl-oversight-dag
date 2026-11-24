@@ -1,0 +1,20 @@
+{
+  "block": [
+    4400,
+    4599
+  ],
+  "episode_offset": 20000,
+  "particles": 256,
+  "shortlist": 16,
+  "p_catch": 0.9,
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261124,
+  "budget": {
+    "spike": 16,
+    "modular": 50
+  },
+  "reference": [
+    "marginal",
+    "oracle"
+  ]
+}

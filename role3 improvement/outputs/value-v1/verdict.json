@@ -1,0 +1,46 @@
+[
+  {
+    "family": "modular",
+    "graphs": 200,
+    "marginal_mean": 8.78,
+    "oracle_mean": 4.07,
+    "policy_mean": 8.785,
+    "gap_mean": 4.71,
+    "graph_recovery_mean": -0.04892026100753185,
+    "recovery_ci": [
+      -0.08738023082760328,
+      -0.015026572176421046
+    ],
+    "graphs_with_gap": 191,
+    "gap_closed_share_aggregate": -0.0010615711252653928,
+    "gap_sum": 942.0,
+    "closed_sum": -1.0,
+    "wins": 15,
+    "ties": 155,
+    "losses": 30,
+    "oracle_ties": 9,
+    "verdict": "worse"
+  },
+  {
+    "family": "spike",
+    "graphs": 200,
+    "marginal_mean": 0.89,
+    "oracle_mean": 0.65,
+    "policy_mean": 0.9,
+    "gap_mean": 0.24,
+    "graph_recovery_mean": 0.038461538461538464,
+    "recovery_ci": [
+      0.0,
+      0.10256410256410256
+    ],
+    "graphs_with_gap": 39,
+    "gap_closed_share_aggregate": -0.041666666666666664,
+    "gap_sum": 48.0,
+    "closed_sum": -2.0,
+    "wins": 2,
+    "ties": 195,
+    "losses": 3,
+    "oracle_ties": 161,
+    "verdict": "null"
+  }
+]
