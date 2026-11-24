@@ -42,11 +42,11 @@ PREDICTIONS = (
 GRID_MEAN_BAR = 0.10          # prediction 6: scope - shrink <= 0.10 on the 112-cell mean
 
 HEADLINES = (
-    ("uniform", 1.0, 3.0, "예측 1: 무해한 전역 +3 (shrink가 +0.72를 잃던 셀)"),
+    ("uniform", 1.0, 3.0, "예측 1: 무해한 전역 +3 (shrink-v1이 +0.72를 잃던 셀)"),
     ("uniform", 1.0, 2.0, "예측 2: 무해한 전역 +2"),
     ("error_nodes", 1.0, 3.0, "예측 3: 은폐형 +3 (shrink의 이득을 반납하는지)"),
-    ("uniform", 1.0, -4.0, "예상 손실: 전역 −4 (shrink −0.88)"),
-    ("uniform", 1.0, -3.0, "예상 손실: 전역 −3 (shrink −0.66)"),
+    ("uniform", 1.0, -4.0, "예상 손실: 전역 −4 (shrink-v1 −0.88)"),
+    ("uniform", 1.0, -3.0, "예상 손실: 전역 −3 (shrink-v1 −0.66)"),
     ("uniform", 0.5, -3.0, "예측 5: 부분 50 %·−3"),
     ("uniform", 0.25, -3.0, "예측 5: 부분 25 %·−3"),
     ("sink", 1.0, -3.0, "참고: sink 층 −3"),
