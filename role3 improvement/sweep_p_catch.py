@@ -66,13 +66,13 @@ def main():
             snapshot = sample_episode(graph, episode_seed)
             budget = BUDGET[family]
             for p_catch in args.p_catch:
-                for name in policies:
-                    errors, _ = run_public_policy(graph, snapshot, name, budget,
+                for tag, spec in policies.items():
+                    errors, _ = run_public_policy(graph, snapshot, spec, budget,
                                                   p_catch=p_catch)
-                    scores[p_catch, name].append(errors)
+                    scores[p_catch, tag].append(errors)
                     rows.append(dict(family=family, graph_seed=seed,
                                      episode_seed=episode_seed, n=graph.n,
-                                     budget=budget, p_catch=p_catch, policy=name,
+                                     budget=budget, p_catch=p_catch, policy=tag,
                                      sink_errors=errors,
                                      sink_error_rate=errors / len(graph.sinks)))
         for p_catch in args.p_catch:

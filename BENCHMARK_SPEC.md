@@ -170,6 +170,35 @@ Provenance: this is a table fill, not an improvement claim. Checkpoints were sel
 only (60,000+), training used seeds 1–3, and the reporting block (90000–90099) was spent once. Any future
 method claiming a win here needs a block that has not been read; see §7 rule 4.
 
+### Reviewer hit rate `p_catch` (pre-registered, seeds 4000–4199)
+
+Every run in this repository holds the reviewer hit rate at `p_catch = 0.9`. `PREREGISTER_P_CATCH.md` fixed the
+grid and the four outcomes before the sweep ran; `outputs/p-catch-v1/` holds the result, `report_p_catch.py` the
+frozen verdict code.
+
+Verdict: **`inverted`**. The sign holds — `marginal` beats `confidence` on all four cells, and all four paired
+intervals exclude zero — but the size moves the wrong way against the prediction:
+
+| `p_catch` | `confidence` | `marginal` | `oracle` | Δ marginal − confidence |
+|---:|---:|---:|---:|---|
+| 0.60 | 3.105 | 2.850 | 2.750 | +0.255 [+0.150, +0.375] |
+| 0.75 | 2.300 | 1.950 | 1.775 | +0.350 [+0.220, +0.490] |
+| 0.90 | 1.440 | 1.025 | 0.785 | +0.415 [+0.275, +0.570] |
+| 1.00 | 0.820 | 0.290 | 0.000 | +0.530 [+0.370, +0.705] |
+
+The mechanism visible in the same table is that `oracle` follows the identical trajectory (+0.355 to +0.820).
+So the scaling is a property of the environment, not of `marginal`: fewer hits means fewer corrections actually
+land, and every policy's spread contracts with the number of corrections available. This is a description of
+the table, not a decomposition experiment.
+
+What may be claimed: the **direction** is robust to the hit rate. What may not be claimed: that the advantage
+grows when reviewers are less reliable. The pre-registered prediction said it would, and it does not.
+
+Learned checkpoints were evaluated without retraining, so those rows answer only what a deployed policy does
+when the assumed hit rate is wrong. Their intervals stop separating from `confidence` at `p_catch = 0.60`
+(+0.080, +0.045, −0.035, all intervals containing zero), which is consistent with the same contraction rather
+than with a second, independent finding.
+
 ## 7. What counts as progress on this benchmark
 
 A claim of improvement requires all four:
@@ -227,6 +256,9 @@ python3 -m unittest discover -s tests -v
 # learned baselines on the other five families, then the rule comparison
 python3 run_learned_baselines.py --jobs 4
 python3 report_learned_baselines.py
+
+# reviewer hit-rate sweep (16 s, owns graph seeds 4000-4199)
+python3 sweep_p_catch.py && python3 report_p_catch.py
 ```
 
 `outputs/v3/` is frozen at tag `role3-env-v3` and must not be overwritten.
