@@ -158,15 +158,26 @@ unreadable source, `independence: not_independently_assessed`), and asserted on
 | `src` / `dst` / `rel` | ✓ | generic edge extraction accepts `from`/`to`/`type` aliases |
 | `error_type` | ✓ | §1 above; exported as `{"layer", "code"}`, not a bare string |
 | `severity` | ✓ | already on every finding |
-| `agreed_by` | ✗ | single `reviewed_by`; no multi-reviewer consensus marker |
+| `agreed_by` | sleep ✓ / SciForge ✗ | Sleep corrections carry **27 "Consensus Reached" vs 48 "Agree"**. Export it as `agreement: "consensus" \| "single"`, never as a reviewer count. SciForge records a single `reviewed_by` and has no second rater, so it exports `null`. |
 | `reviewer_hash` | ✓ | `ReviewPacket.reviewed_by` |
 | `reviewed_at` | ✓ | `ReviewPacket.reviewed_at` |
 | `duration_min` | ✗ | not recorded. `reviewed_at − computed_at` gives **queue latency**, not review time |
-| `verdict` | ✓ | review status (`accepted` / `rejected` / `needs_revision` / `unresolved` / `skipped`) |
+| `verdict` | ✓ | `approved` / `rejected` / `deferred` / `expired` / `pending` / `not_needed` (the packet status, not a benchmark verdict) |
 | snapshot at review time | ✓✓ | stronger than asked: `expectedHeadDigest` + `barrierWatermark` + `includedDeltaDigests` |
 
-Until `duration_min` exists, the cost axis can only be **reviews spent**, with queue
-latency as a secondary. "Minutes per error caught" stays out of the paper.
+`duration_min` is the one field that is genuinely unmeasured, and it is unmeasured
+because nobody timed the reviews - not because the data is withheld.
+`triage_bench/run_audit_demo.py` already states the workaround: a per-field time
+assumption (`SECONDS_PER_FIELD = 30`, log-normal spread) and a **ratio** between
+row-level and field-scoped review, which does not depend on the assumed seconds.
+
+So the cost axis has two honest forms, and one that is not:
+
+- **real**: reviews spent, plus queue latency (`reviewed_at − computed_at`)
+- **assumption-bounded**: minutes per error under a stated per-field time, ratio only
+- **dishonest**: minutes derived from `reviewed_at − computed_at` and reported as review cost
+
+Timing the review is what turns the middle form into the first.
 
 ---
 

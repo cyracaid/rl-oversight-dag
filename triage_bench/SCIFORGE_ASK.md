@@ -45,9 +45,10 @@
   "snapshot_at": "2026-11-xxT..Z",
   "nodes": [{"id": "n1", "type": "claim", "is_sink": true, "created_at": "..."}],
   "edges": [{"src": "n1", "dst": "n2", "rel": "derived_from"}],
-  "corrections": [{"node_id": "n2", "error_type": "stale_dataset", "agreed_by": 2}],
-  "receipts": [{"node_id": "n2", "reviewer_hash": "r7", "reviewed_at": "...",
-                "duration_min": 12, "verdict": "accepted"}]
+  "corrections": [{"node_id": "n2", "error_type": {"layer": "evidence", "code": "lineage_incomplete"},
+                   "agreement": "consensus"}],
+  "receipts": [{"node_id": "n2", "reviewer": "r7", "reviewed_at": "...",
+                "duration_min": null, "verdict": "approved"}]
 }
 ```
 
@@ -55,7 +56,7 @@
 
 `error_type` 的取值域已经定了，不用再问：见 [`ERROR_TAXONOMY.md`](ERROR_TAXONOMY.md)。
 上面示例里的 `"stale_dataset"` 只是占位，实际取值是 15 个 finding type + 10 个 gap code。
-同页 §4 也标明了 `agreed_by` 和 `duration_min` 现在导不出来。
+同页 §4 标明了：`duration_min` 两边都导不出来；`agreed_by` 只有睡眠侧有（共识/单标注者），SciForge 侧没有第二评审人。
 
 **上面这段 JSON 现在是占位，不是契约。** 真实的导出已经实现，契约只有一个：
 
@@ -73,6 +74,8 @@
 2. `corrections[].source` 恒为 `"audit"`——这些是机器发现，不是人工纠错；人工信号只能从 `receipts[].verdict` 反推。
 3. `receipts[].duration_min` 恒为 `null`，另有 `queue_latency_seconds`；`not_recorded` 把填不出的字段连同原因写死。
 4. **gap code 现在能导了**，但要给 `--closure`：`closure.gap_codes` 来自 seal，带 `closure_digest` / `head_digest` / `policy_digest` / `sealed_at`。不给 closure 时 `closure` 为 `null`，`not_recorded` 说明「没有 seal 被评估」。空数组 ≠ null：前者是「seal 跑过、没发现缺口」，后者是「没跑」。
+
+`agreement` 的取值随实例不同，**不要写成计数**：睡眠侧有 27 条 `Consensus Reached` / 48 条 `Agree`，导出为 `"consensus"` / `"single"`；SciForge 只有一个 `reviewed_by`，导出为 `null`。两边都缺的是 `duration_min`（没人给审阅计时），不是数据权限。
 
 ## 5. 边界（不改你们的规则）
 
