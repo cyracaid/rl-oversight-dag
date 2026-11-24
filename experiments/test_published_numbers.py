@@ -17,6 +17,7 @@ No data file is needed; everything here is already committed.
 from __future__ import annotations
 
 import collections
+import csv
 import json
 import os
 import statistics
@@ -205,13 +206,26 @@ def test_run_rate_is_never_cited_without_its_null():
         assert "null" in doc.lower(), f"{path} cites the run rate without a null"
 
 
+RETIRED_PHRASES = ("reduces human review", "saves review", "review budget by",
+                    "cuts review", "reduction in human review")
+
+
 def test_docs_do_not_resurrect_the_retired_claim():
-    """'RL saves review budget' may only appear inside the retired row."""
-    retired = "RL reduces human review"
+    """'RL saves review budget' may only appear inside a disclaimer."""
     positioning = text(os.path.join(ROOT, "PROJECT_POSITIONING.md"))
     for line in positioning.splitlines():
-        if retired in line:
+        if "reduces human review" in line:
             assert "nowhere" in line, f"retired claim outside the 'nowhere' row: {line}"
+
+    # The paper is allowed to *disclaim* the claim, never to assert it.
+    flat = " ".join(paper_text().split())
+    for phrase in RETIRED_PHRASES:
+        start = flat.find(phrase)
+        while start != -1:
+            window = flat[max(0, start - 160):start + 160].lower()
+            assert any(k in window for k in ("does not claim", "retired", "nowhere")), (
+                f"paper asserts a retired claim near {phrase!r}: {window[-120:]}")
+            start = flat.find(phrase, start + 1)
 
 
 def main():
@@ -220,6 +234,145 @@ def main():
         fn()
         print("ok  ", fn.__name__)
     print(f"{len(fns)}/{len(fns)} passed")
+
+
+# --------------------------------------------------------------------------- #
+# The paper draft: same guard, one more document
+# --------------------------------------------------------------------------- #
+PAPER = os.path.join(ROOT, "PAPER_DRAFT.md")
+BASELINE_CSV = os.path.join(ROOT, "role3 improvement", "outputs", "v3-baselines", "benchmark_summary.csv")
+LEARNED_JSON = os.path.join(ROOT, "role3 improvement", "outputs", "v3-learned", "learned_vs_marginal.json")
+CEILING_JSON = os.path.join(ROOT, "triage_bench", "outputs", "ceiling.json")
+RANK_JSON = os.path.join(ROOT, "runs", "real-confidence-ranking", "results.json")
+DP_REPORT = os.path.join(ROOT, "role3 improvement", "outputs", "dp-ceiling", "report.md")
+DP_AMEND = os.path.join(ROOT, "role3 improvement", "outputs", "dp-ceiling", "AMENDMENT.md")
+
+
+def paper_text():
+    return text(PAPER).replace("\u2212", "-")
+
+
+def clean(cell):
+    return cell.replace("**", "").replace("`", "").strip()
+
+
+def paper_table(start, end):
+    block = paper_text()
+    i, j = block.index(start), block.index(end)
+    return [cells(line) for line in block[i:j].splitlines() if line.startswith("|")]
+
+
+def test_paper_standing_table_matches_benchmark_csv():
+    """The paper's headline table must be the CSV, not a hand-copy of it."""
+    rows = {}
+    with open(BASELINE_CSV, encoding="utf-8-sig") as fh:
+        for rec in csv.DictReader(fh):
+            rows.setdefault(rec["family"], {})[rec["policy"]] = float(rec["mean_sink_errors"])
+
+    families = ("spike", "modular", "ba", "er", "real", "ticket")
+    seen = 0
+    for row in paper_table("### 3.5 Standing table", "Against `confidence` on `spike`"):
+        if len(row) != 6 or clean(row[0]) not in families:
+            continue
+        fam = clean(row[0])
+        got = [round(float(clean(c)), 2) for c in row[1:5]]
+        want = [round(rows[fam][p], 2) for p in ("marginal", "confidence", "type_prior", "oracle")]
+        assert got == want, f"{fam}: paper {got} != csv {want}"
+        headroom = round(rows[fam]["marginal"] - rows[fam]["oracle"], 2)
+        assert round(float(clean(row[5])), 2) == headroom, f"{fam}: headroom {row[5]} != {headroom}"
+        seen += 1
+    assert seen == 6, f"expected 6 published families, matched {seen}"
+
+
+def test_paper_learned_table_matches_artifact():
+    """Every Δ [CI] string in the paper must be built from the learned JSON."""
+    data = {(d["family"], d["learner"]): d for d in load(LEARNED_JSON) if d.get("seeds")}
+    block = paper_text()
+    i, j = block.index("### 4.1 Three architectures"), block.index("All 36 (family, learner, seed) cells")
+    seen = 0
+    for line in block[i:j].splitlines():
+        if not line.startswith("|"):
+            continue
+        row = cells(line)
+        if len(row) != 4 or clean(row[0]) not in ("spike", "real", "ticket", "modular", "er", "ba"):
+            continue
+        fam = clean(row[0])
+        for col, learner in ((2, "gnn"), (3, "dqn")):
+            d = data[(fam, learner)]
+            want = f"{d['delta']:+.3f} [{d['lo']:+.3f}, {d['hi']:+.3f}]"
+            assert clean(row[col]) == want, f"{fam} {learner}: paper {clean(row[col])} != {want}"
+            seen += 1
+    assert seen == 12, f"expected 12 published cells, matched {seen}"
+
+
+TENX_DOC = os.path.join(ROOT, "role2_규리", "results", "confirm-10x", "comparison.md")
+
+
+def test_paper_ten_x_matches_its_artifact():
+    """The 10x budget row is quoted from the comparison table, not remembered."""
+    block, doc = text(TENX_DOC), paper_text()
+    line = next(l for l in block.splitlines()
+                if l.startswith("| 정상 신뢰도 | gnn |") and "+0.262" in l)
+    row = cells(line)
+    multiple = row[3].replace("−", "-")
+    assert multiple in doc, f"10x delta {multiple} missing from the paper"
+    seeds = row[2]
+    for value in seeds.split(", "):
+        assert value.split()[-1] in doc, f"seed value {value} missing"
+
+
+def test_paper_tie_counts_match_the_learned_artifact():
+    """'the two exceptions are ties' must name the ties the JSON actually has."""
+    data = [r for r in load(LEARNED_JSON) if not r.get("seeds")]
+    loose = sorted(r["ties"] for r in data if r["lo"] <= 0 <= r["hi"])
+    assert len(loose) == 2, loose
+    doc = paper_text()
+    flat = " ".join(doc.split())
+    assert f"{loose[0]}\u2013{loose[1]} of 100" in flat, (loose, "tie range not in the paper")
+
+
+def test_paper_queue_ceiling_matches_artifact():
+    ceil = load(CEILING_JSON)
+    doc = paper_text()
+    assert f"{ceil['coverage']['narrow_ceiling'] * 100:.1f}" in doc
+    assert f"{ceil['coverage']['broad_ceiling'] * 100:.1f}" in doc
+    for k in ("50", "100", "140"):
+        pct = f"{ceil['ceiling_recall'][k] * 100:.1f}"
+        assert pct in doc, f"ceiling at k={k} ({pct} %) missing from the paper"
+    assert f"{ceil['partition_minus_m1_first']['k100']['diff'] * 100:+.1f}" in doc
+
+
+def test_paper_localisation_table_matches_artifact():
+    agg = load(RANK_JSON)["observables"]["suspicion_binary"]
+    a, groups = agg["aggregate"], agg["by_node_group"]
+    src, ties = a["by_target"]["source_leaf"], a["ties"]
+    chance = load(RANK_JSON)["chance_reference"]
+    doc = paper_text()
+
+    lo, hi = a["auc_ci95"]
+    assert f"{a['auc_mean']:.3f} [{lo:.3f}, {hi:.3f}]" in doc, (a["auc_mean"], lo, hi)
+    for g in ("validity_sink", "derived", "raw_leaf"):
+        assert f"{groups[g]['auc_pooled']:.3f}" in doc, g
+    assert f"{src['hit1_expected']:.3f} / {src['hit3_expected']:.3f}" in doc
+    assert f"{chance['hit1']:.3f} / {chance['hit3']:.3f}" in doc
+    assert f"{src['rank_optimistic_mean']:.1f}\u2013{src['rank_pessimistic_mean']:.1f}" in doc
+    assert ties["records_with_tied_max"] == 51, ties
+
+
+def test_paper_dp_numbers_match_the_ceiling_artifacts():
+    """The report rounds to 3 dp; the amendment keeps the measured 4-dp value."""
+    report, amend, doc = text(DP_REPORT), text(DP_AMEND), paper_text()
+    real, ticket = 0.0219, 0.0059
+    assert f"-{real:.3f}" in report and f"-{ticket:.3f}" in report
+    assert f"-{real:.4f}" in amend, "the amendment must keep the unrounded real value"
+    assert f"-{real:.4f}" in doc and f"-{ticket:.4f}" in doc
+    assert "1.73" in report and "1.73" in doc
+
+
+def test_paper_never_cites_the_run_rate_without_its_null():
+    doc = paper_text()
+    if "44.9" in doc or "3-night" in doc:
+        assert "null" in doc.lower()
 
 
 if __name__ == "__main__":
