@@ -305,6 +305,21 @@ more than 40 % of the gap", and width 6/4 with greedy truncation is a compute ce
 so the honest claim is "one more step at this width does not pay", not "no plan exists". `ba` and `er` are not
 measured.
 
+**The in-model ceiling, measured where the model is solvable.** A depth-two probe is not a ceiling, so
+`exact_dp.py` (`PREREGISTER_DP.md`) solves the same belief MDP exactly on `real` and `ticket` — 21 nodes,
+12 graphs, budgets 1–5, block 60000. Two numbers matter here. The *exact* one-step lookahead equals the rule's
+derivative score on 12/12 graphs (mean +0.0001), which is the multilinear identity of item 3 above, measured
+again through a different code path. And the optimal five-step policy is worth
+`dp5 − marginal` = −0.022 [−0.050, −0.006] on `real` (2.5 % of the rule's 0.873) and −0.006 [−0.010, −0.003]
+on `ticket` (1.4 % of 0.419). The entire horizon inside the model is therefore worth single-digit percent,
+while the `oracle` gap asks for a third to a half of the rule's errors.
+
+Read with the same care as everything else: the DP's miss update uses the local risk instead of the inherited
+one (a declared deviation, so that delta is planning *plus* the difference), the graphs are 21 nodes at budget
+≤5, and `modular` at N=500 cannot be solved this way — its ceiling stays unmeasured, with the depth-two probe
+as the only evidence. `outputs/dp-ceiling/report.md`; a signed-comparison error in its own P2 check was amended
+after the run, in the direction that makes the result worse.
+
 
 
 ### Reviewer hit rate `p_catch` (pre-registered, seeds 4000–4199)
@@ -381,6 +396,7 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
 | belief values, order preserved (logit temperature) | `policy-bound` on modular (+0.016 [−0.055, +0.072]; −1 of 978 errors); `calibration-partial` on spike but 0 of 49 closed | `role3 improvement/outputs/belief-v1/` |
 | depth-two planning on the mean-field model | closes −5 of 923 `modular` errors (−0.009 [−0.023, +0.001]); spike +1 of 49, interval from zero | `role3 improvement/outputs/planning-v2/` |
 | a planner that trusts the environment's miss update | costs 485 of 923 errors on `modular`, 259 of 49 on `spike` | `role3 improvement/outputs/planning-v2/` |
+| exact optimal policy inside the rule's own model | closes ≤2.5 % of the rule's errors (`dp5 − marginal` −0.022 on `real`, −0.006 on `ticket`; 21 nodes, budget 5) | `role3 improvement/outputs/dp-ceiling/` |
 
 ## 9. Open gaps
 
@@ -391,16 +407,19 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
    5 families at the same budget (GNN 1,000 / DQN 300 episodes), evaluated into `outputs/v3-learned/`.
    `marginal` wins on all six families; the gap widens with `n` (+0.04 to +0.08 at N=21, +5 to +17 at N=500).
 3. `marginal` uses a mean-field approximation that drops shared-ancestor correlation. **Measured
-   2026-11-24, negative three times**: an exact value is #P-hard here, and (a) a sampled counterfactual value
+   2026-11-24, negative four times**: an exact value is #P-hard here, and (a) a sampled counterfactual value
    (paired particles, block 4400–4599) is *worse* than mean-field on `modular` (−0.049 recovery, CI
    [−0.087, −0.015]); (b) an order-preserving rescaling of the belief's values (block 4800–4999) is
    `policy-bound` on `modular` (+0.016 [−0.055, +0.072], one error of 978) and closes nothing on `spike`;
    (c) depth-two planning on the same model (block 5200–5399) closes −5 of 923 `modular` errors
-   (−0.009 [−0.023, +0.001]) and +1 of 49 on `spike`, with the action unchanged on 191 of 200 graphs. The
-   three mechanical explanations *inside* the mean-field model are therefore exhausted, and the residual is
-   attributed to the belief's **information**: the public belief ranks the truth at 0.966 AUC while the rule
-   needs the mass on the right nodes, which the confidence channel does not carry. Untested and not claimed:
-   a belief with more information. See §6.
+   (−0.009 [−0.023, +0.001]) and +1 of 49 on `spike`, with the action unchanged on 191 of 200 graphs;
+   (d) an exact DP ceiling, where the model is small enough to solve, is worth 2.5 % of the rule's errors on
+   `real` and 1.4 % on `ticket` (block 60000, 21 nodes, budget ≤5), so the rule is within single-digit percent
+   of the optimum *of its own model* while the `oracle` gap asks for a third to a half of its errors. The
+   mechanical explanations inside the mean-field model are therefore exhausted, and the residual is attributed
+   to the belief's **information**: the public belief ranks the truth at 0.966 AUC while the rule needs the
+   mass on the right nodes, which the confidence channel does not carry. Untested and not claimed: a belief
+   with more information; and the `modular` ceiling itself, which no DP can reach at N=500. See §6.
 4. Confidence is synthetic. No measured calibration exists for the real pipeline (Gap D).
 5. `triage_bench` proves an information ceiling (7 of 72 corrections are never flagged), not a scheduling
    win. Do not put it in the same table as the synthetic means.
