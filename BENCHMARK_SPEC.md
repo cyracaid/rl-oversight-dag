@@ -63,6 +63,10 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | repair (per-graph) | 3600–3799 | `scope-v1`, one shared δ per graph |
 | repair boundary | 3800–3899 | `scope-robust-v1`, off-grid δ and two δ |
 | reviewer hit rate | 4000–4199 | pre-registered `p_catch` sweep |
+| third architecture | 4200–4399 | pre-registered PPO (`outputs/ppo-v1/`) |
+| sampled counterfactual value | 4400–4599 | pre-registered one-step value check, `outputs/value-v1/` |
+| void | 4600–4799 | smoke runs only (4600–4603); excluded from every result |
+| belief values | 4800–4999 | pre-registered logit-temperature grid (`outputs/belief-v1/`) |
 
 Rules: a seed block is spent once it has been used to choose a method or a threshold. Never re-tune on the
 reporting block. Do not report a mean from one block next to a mean from another block — raw means differ
@@ -230,13 +234,35 @@ backwards by 4.2 %, because the ratio mean is carried by one-or-two-error graphs
 rather than choosing.
 
 What this rules out is narrow and worth stating precisely: improving the *one-step* value estimate with the
-right correlation structure does not recover the `oracle` gap. The gap must come from what a myopic policy
-cannot see (the effect of this review on later reviews) or from the belief itself, not from the independence
-assumption in the forward pass. Testing that is a different experiment, and it has not been run.
+right correlation structure does not recover the `oracle` gap. That leaves two mechanical explanations — the
+belief's numbers, or what a myopic policy cannot see. The first was tested next; the second is still open.
 
 Known limit of the estimate: 256 particles with a 16-node shortlist. Both numbers were frozen by the
 pre-registration as a compute ceiling, so this is evidence against the *approach at this budget*, not a proof
 that exact values would not help.
+
+### Belief values: the gap is not a probability scale error (pre-registered, 4800–4999)
+
+`PREREGISTER_BELIEF_DECOMPOSITION.md` fixed the cheapest remaining test. `marginal` and `oracle` share rule,
+budget and horizon; only the prior differs. So keep the belief's **ranking** bit-identical (one strictly
+monotone map on every node, so per-graph AUC cannot change) and distort only its **values** with
+`q_i(γ) = sigmoid(γ · logit(belief_i))`. `γ = 1` reproduces `marginal` exactly, which the run checks per graph.
+
+| family | `marginal` | `oracle` | belief AUC | best γ | recovery there [95 % CI] | aggregate errors closed | W/T/L | verdict |
+|---|---:|---:|---:|---:|---|---:|---|---|
+| modular (N=500, 200 graphs) | 8.820 | 3.930 | 0.966 | 1.25 | +0.016 [−0.055, +0.072] | −1 of 978 | 46/142/12 | `policy-bound` |
+| spike (N=200 graphs) | 1.030 | 0.785 | 0.971 | 1.50 | +0.105 [+0.026, +0.211] | +0 of 49 | 4/192/4 | `calibration-partial` |
+
+On `modular` — where the 5–7-error gap actually lives — the verdict is **`policy-bound`**, and the interval is
+still inside zero after a Bonferroni correction over the grid ([−0.082, +0.088]). The positive ratio at
+`γ = 1.25` is reshuffling, not recovery: it wins 46 graphs, loses 12, and moves the aggregate by one error in
+978. On `spike` the pointwise interval excludes zero, but four wins and four losses close **zero** of a 49-error
+gap; the frozen label is `calibration-partial`, and the honest reading is "no net gain at this size".
+
+What this rules out: the gap is not "the forward pass is fed wrong numbers". Within a one-parameter family of
+value rescalings, `marginal` sits at the optimum. What it does not rule out: the belief ranks only 0.97, so a
+distortion that changes the order (a different belief, not a temperature) is still untested, as is everything
+multi-step. The exact-DP ceiling on the rule's own model is pre-registered but has not been run.
 
 
 
@@ -310,6 +336,8 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
 | global corruption gate | fires where harm is smallest; blind to masking | `role2_규리/results/corruption-v1/` |
 | probe-then-decide with a global statistic | −0.015 [−0.055, +0.025]; 5/13 fired cells worse than trust | `role2_규리/results/verify-v1/` |
 | participant ranking on the real queue | +7.3 % [−8.6 %, +10.0 %] | `triage_bench/CEILING.md` |
+| sampled counterfactual value inside the mean-field shortlist | worse: recovery −0.049 [−0.087, −0.015]; 30 graphs worse, 15 better | `role3 improvement/outputs/value-v1/` |
+| belief values, order preserved (logit temperature) | `policy-bound` on modular (+0.016 [−0.055, +0.072]; −1 of 978 errors); `calibration-partial` on spike but 0 of 49 closed | `role3 improvement/outputs/belief-v1/` |
 
 ## 9. Open gaps
 
@@ -320,10 +348,13 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
    5 families at the same budget (GNN 1,000 / DQN 300 episodes), evaluated into `outputs/v3-learned/`.
    `marginal` wins on all six families; the gap widens with `n` (+0.04 to +0.08 at N=21, +5 to +17 at N=500).
 3. `marginal` uses a mean-field approximation that drops shared-ancestor correlation. **Measured
-   2026-11-24, negative**: an exact value is #P-hard here, and a sampled counterfactual value (paired
-   particles, block 4400–4599) is *worse* than mean-field on `modular` (−0.049 recovery, CI [−0.087,
-   −0.015]) and unseparated on `spike`. The one-step value estimate is therefore not the binding
-   constraint; the remaining gap to `oracle` is either multi-step or a belief error. See §6.
+   2026-11-24, negative twice**: an exact value is #P-hard here, and (a) a sampled counterfactual value
+   (paired particles, block 4400–4599) is *worse* than mean-field on `modular` (−0.049 recovery, CI
+   [−0.087, −0.015]), while (b) an order-preserving rescaling of the belief's values (block 4800–4999) is
+   `policy-bound` on `modular` (+0.016 [−0.055, +0.072], one error of 978) and closes nothing on `spike`.
+   Two of the three mechanical explanations are therefore gone; the remaining cell is multi-step depth,
+   which is measured only on `spike` (two-step, +0.035 not supported) and is pre-registered but unrun on
+   `modular`. See §6.
 4. Confidence is synthetic. No measured calibration exists for the real pipeline (Gap D).
 5. `triage_bench` proves an information ceiling (7 of 72 corrections are never flagged), not a scheduling
    win. Do not put it in the same table as the synthetic means.
