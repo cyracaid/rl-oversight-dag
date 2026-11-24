@@ -22,7 +22,9 @@ survived is a different question that the failure exposed — **which signal sho
 should it do when it cannot trust it.** Five pre-registered steps answer that inside this benchmark: a global
 gate is wrong in both directions, the decision variable has to move down to the node and then up to the graph,
 and the graph model's own boundary is measured rather than assumed. Two of those steps are failures we declared
-ourselves, and two later predictions were flatly reversed. That is the deliverable.
+ourselves, and two later predictions were flatly reversed. Two further pre-registered experiments then remove
+the two cheapest explanations for the rule's remaining gap to an oracle — the one-step value estimate and the
+belief's probability scale — leaving multi-step depth as the untested cell. That is the deliverable.
 
 ## 1. The question we started with
 
@@ -42,7 +44,9 @@ model is wrong.
 | six families × 3 seeds (role 3) | `marginal` | GNN, DQN | rule wins 36/36 cells; gap 5–17 errors at N=500 |
 
 Three architectures, same answer: this is not an optimizer problem and not a compute problem. The
-information available to the scheduler is worth more to a rule that uses it directly.
+information available to the scheduler is worth more to a rule that uses it directly. PPO is the sharpest
+version of that sentence: it is neither better nor worse than REINFORCE, it simply loses to the same rule by
+the same margin.
 
 ## 3. The reframe: which signal can be trusted
 
@@ -76,7 +80,29 @@ pre-registered size prediction: the lead grows as reviewers become **more** reli
 path (+0.355 → +0.820), so the environment contracts rather than the rule improving. The frozen verdict is
 `inverted`, and it is reported as a failed prediction, not rewritten.
 
-## 5. Failures we are keeping in the document
+## 5. Closing the gap: two explanations tested, both rejected
+
+The rule loses 5–7 errors per graph to `oracle` at N=500. Three mechanical explanations were on the table; two
+have now been frozen and measured on fresh blocks.
+
+**The one-step value is not the problem** (`PREREGISTER_EXACT_VALUE.md`, 4400–4599). The mean-field score
+double-counts a source error with two open paths, so we re-ranked the mean-field top 16 by a sampled paired
+counterfactual gain (256 particles). Result: **`worse`** on modular, recovery −0.049 [−0.087, −0.015]; it
+changed the action on 45 of 200 graphs and lost 30 of them. Better scoring *inside* the shortlist costs more
+than it recovers.
+
+**The belief's numbers are not the problem either** (`PREREGISTER_BELIEF_DECOMPOSITION.md`, 4800–4999). Hold
+the belief's ranking bit-identical and distort only its values with `q = sigmoid(γ · logit(b))`. On modular the
+verdict is **`policy-bound`**: the best cell (γ = 1.25) gives +0.016 [−0.055, +0.072], wins 46 graphs, loses 12,
+and moves the aggregate by **−1 error out of 978**. γ = 0.5 costs 1.49 errors. On spike the label is
+`calibration-partial` but it closes **0 of 49** errors, so it is not a gain at this size.
+
+What remains is the third explanation: the rule cannot see what this review does to later reviews. Two-step
+planning was tested on spike (+0.035, not supported) but never on modular, and an exact-DP ceiling on the rule's
+own model is pre-registered and **not yet run**. We are not claiming the gap is now explained; we are claiming
+the cheap explanations are gone.
+
+## 6. Failures we are keeping in the document
 
 | failure | what it rules out |
 |---|---|
@@ -84,10 +110,11 @@ path (+0.355 → +0.820), so the environment contracts rather than the rule impr
 | node repair under a harmless global shift | a per-node posterior misreads "everything moved" as "many clean nodes moved" (+0.45 / +0.72) |
 | two simultaneous δ | one shared δ per graph, and the per-node family, both fall back to trust |
 | `p_catch` size prediction | "the advantage grows when reviewers are unreliable" |
-| sampled counterfactual value (seeds 4400–4599) | "the oracle gap is mean-field double counting, and a better score closes it": recovery **−0.049 [−0.087, −0.015]** on modular, 30 graphs worse / 15 better / 155 tie |
+| sampled counterfactual value (4400–4599) | "the oracle gap is mean-field double counting, and a better score closes it" (recovery −0.049) |
+| belief rescaling (4800–4999) | "the gap is a probability-scale error a temperature can fix" (−1 of 978 errors at the optimum) |
 | block review MDP (real records) | "the review unit is the bottleneck" — it is the score; block actions only pay below the run length |
 
-## 6. What we can and cannot claim
+## 7. What we can and cannot claim
 
 **Can claim**, inside this benchmark, with the frozen numbers:
 
@@ -96,21 +123,38 @@ path (+0.355 → +0.820), so the environment contracts rather than the rule impr
   near trusting when it is not;
 * the decision variable moves node → graph, and the graph model tolerates an off-grid δ;
 * with 16 reviews, masking corruption at +3 costs **+0.005 [0.000, 0.015]** errors versus plain trust, and a
-  full −4 shift returns the policy to the clean oracle.
+  full −4 shift returns the policy to the clean oracle;
+* the residual gap to `oracle` is not the one-step value estimate and not the belief's probability scale.
 
 **Cannot claim**: that RL produces a gain here; that one shared δ covers two simultaneous shifts; that the
 learned policy adapts to a lower hit rate (it was not retrained); that the gate generalises to small, partial,
-or masking corruption; that any of this transfers to a real queue with 68 labelled errors.
+or masking corruption; that the gap is fully explained — the multi-step cell is open; that any of this
+transfers to a real queue with 68 labelled errors.
 
-## 7. The real data, stated plainly
+## 8. The real data, stated plainly
 
-75 human corrections out of 13,990 rows (0.54 %) are motivation, not a training set. On our own lab pipeline
-(N=21) the threshold rule gives 0.50 residual errors against 2.12 for no review. On the 1,048-flag queue, one
-rule reaches 84 % of errors with 13 % of the queue, but that is an information ceiling: 7 of 72 corrections are
-never flagged at all. Ranking participants adds +7.3 % [−8.6 %, +10.0 %] — no significant gain. There is no
-headroom to learn from, and we say so instead of quoting 84 % as a win.
+75 human corrections out of 13,990 rows (0.54 %) are motivation, not a training set. Two checks on the real
+records decide what review can even do there:
 
-## 8. Reproduction, and the honest gap
+* **WASO is absent, not small.** 39.3 % of nights report exactly zero awakenings and 7 of 196 records do it on
+  every night. On those nights the efficiency conclusion is not reviewable — no ordering rule can detect a
+  well-formed night. The fix is at intake, not in the scheduler.
+* **The dominant error is a convention.** 20 of 196 records (10.2 %) contain a night repaired by exactly one
+  ±12 h shift, matching the `order_error` family (57 of 75 corrections). It is deterministic, so it should be
+  auto-repaired rather than reviewed.
+
+On the 1,048-flag queue, one rule reaches 84 % of errors with 13 % of the queue, but that is an information
+ceiling: 7 of 72 corrections are never flagged. Ranking participants adds +7.3 % [−8.6 %, +10.0 %] — no
+significant gain. There is no headroom for *visible* defects: 76 % of corrections are already solved.
+
+There is headroom for *silent* ones. Replacing the hand-crafted cross-night score with a learned one (11
+observable features, logistic fit, split by participant: 118 train / 78 held-out, 20 evaluation seeds) beats the
+per-night QC rule on silent defects at budget 2 — WASO 0.039 → **0.014**, a 90-minute silent shift 0.162 →
+0.083 — and a single pooled score without family labels keeps the gain on all three families. The honest limits:
+the training labels come from the simulator, not from human review, so this is a mechanism result ("the signal
+is in observable features"), not a deployment result.
+
+## 9. Reproduction, and the honest gap
 
 Every number was produced by an AI agent from committed scripts. Reruns are byte-identical, every report is
 regenerated from its `episodes.csv`, and the reports are hash-pinned in their manifests. **No teammate has rerun
@@ -130,31 +174,33 @@ Seed ledger — a block is spent once it has chosen a method or a threshold:
 | 4000–4199 | `p_catch` |
 | 4200–4399 | PPO |
 | 4400–4599 | sampled counterfactual value |
+| 4600–4799 | **void** — smoke runs only, excluded from every result |
+| 4800–4999 | belief-value decomposition |
 | 70000–70099 | calibration only (thresholds fitted here, never reported) |
 | 90000–90099 | the reported benchmark table |
 | 91000–94199 | assess / feedback / residual / planning |
 
-Fresh: 4600 and above.
+Fresh: 5000 and above; 5200–5399 is reserved by a pre-registered depth-2 planning check.
 
-## 9. Gates, unchanged by anything above
+## 10. Gates, unchanged by anything above
 
 | gate | now |
 |---|---|
 | R1 decisive result + 5 seeds + a second person | ✗ mechanism done (five steps, three codebases agreeing, byte-identical reruns); no second person |
 | R2 a real queue with enough positives | ✗ 68 labelled errors, 6.5 % precision |
 | R3 a second domain | partial: one synthetic family + one lab pipeline |
-| R4 a sharp boundary | ◐ one measured (δ grid, single δ, hit rate, mean-field double counting ruled out); greedy-vs-learning still C1–C4 |
+| R4 a sharp boundary | ◐ one measured (δ grid, single δ, hit rate); the one-step-value and belief-scale explanations for the oracle gap are ruled out; greedy-vs-learning still C1–C4 |
 | R5 clean artifact | ◐ manifest, per-graph CSV, byte-identical reruns, seeded verdict code; not one command, no data card |
 
-## 10. What we would do next, in order of cost
+## 11. What we would do next, in order of cost
 
 1. **One person reruns one chain from scratch.** Nothing else raises R1. Everything is scripted; the cost is a
    session, not a redesign.
-2. **Widen the shortlist in the value check.** The failure above is a failure *inside* a mean-field top-16; the
-   untested variant is scoring outside it. Fresh block 4600+, new preregistration.
+2. **Close the multi-step cell.** The exact-DP ceiling on the rule's own belief model is pre-registered and
+   unrun; depth-2 on N=500 modular is the other half. Both are cheap relative to another architecture.
 3. **A real queue with hundreds of positives.** Without it, every general claim stays a synthetic-graph claim.
 
-## 11. Where each number lives
+## 12. Where each number lives
 
 | claim | file |
 |---|---|
@@ -162,7 +208,10 @@ Fresh: 4600 and above.
 | gate / verify / shrink / scope / boundary | `role2_규리/results/{corruption,verify,shrink,scope}-v1/`, `scope-robust-v1/` |
 | hit-rate sweep | `PREREGISTER_P_CATCH.md`, `role3 improvement/outputs/p-catch-v1/` |
 | sampled value | `PREREGISTER_EXACT_VALUE.md`, `role3 improvement/outputs/value-v1/` |
+| belief values | `PREREGISTER_BELIEF_DECOMPOSITION.md`, `role3 improvement/outputs/belief-v1/` |
 | block review | `experiments/BLOCK_REVIEW_NOTE.md`, `experiments/results.md` §12d |
+| learned real-data score | `experiments/LEARNED_WINDOW_SCORER_INTERPRETATION.md` |
+| capture-side checks | `experiments/CAPTURE_CHECKS_INTERPRETATION.md` |
 | real queue | `triage_bench/CEILING.md` |
 | seed rules | `BENCHMARK_SPEC.md` §3 |
 | what these numbers may be cited as | `CROSS_IMPLEMENTATION_VALIDATION.md` §4 |
