@@ -72,6 +72,12 @@ def load(csv_path: Path, allow_synthetic: bool) -> list[dict]:
             })
     if len(rows) < MIN_ROWS:
         raise SystemExit(f"{len(rows)} rows; a fit below {MIN_ROWS} is not reportable")
+    positives = sum(r["is_error"] for r in rows)
+    if min(positives, len(rows) - positives) < 10:
+        raise SystemExit(
+            f"{positives} positives out of {len(rows)} rows: both classes need at least 10. "
+            "An export of only corrected rows has no negatives, and a calibration fitted on "
+            "positives alone is not a calibration — see DATA_REQUEST_GAP_D.md §the trap.")
     return rows
 
 
