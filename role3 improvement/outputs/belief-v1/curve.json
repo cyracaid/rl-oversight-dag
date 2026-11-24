@@ -1,0 +1,192 @@
+[
+  {
+    "family": "modular",
+    "graphs": 200,
+    "marginal_mean": 8.82,
+    "oracle_mean": 3.93,
+    "gap_mean": 4.89,
+    "graphs_with_gap": 195,
+    "graph_recovery_mean": 0.016450344527267607,
+    "recovery_ci": [
+      -0.05450074142381834,
+      0.07214035679420294
+    ],
+    "gamma_star": 1.25,
+    "mean_auc": 0.9658236225694591,
+    "curve": [
+      {
+        "gamma": 0.5,
+        "mean_errors": 10.31,
+        "mean_auc": 0.9658236225694591,
+        "recovery": -0.5998608798608799,
+        "recovery_ci": [
+          -0.7546428016428016,
+          -0.4599587161414085
+        ],
+        "wins": 21,
+        "ties": 44,
+        "losses": 135
+      },
+      {
+        "gamma": 0.75,
+        "mean_errors": 9.145,
+        "mean_auc": 0.9658236225694591,
+        "recovery": -0.18249272095425942,
+        "recovery_ci": [
+          -0.2568090189724805,
+          -0.12046357737703894
+        ],
+        "wins": 18,
+        "ties": 96,
+        "losses": 86
+      },
+      {
+        "gamma": 1.0,
+        "mean_errors": 8.82,
+        "mean_auc": 0.9658236225694591,
+        "recovery": 0.0,
+        "recovery_ci": [
+          0.0,
+          0.0
+        ],
+        "wins": 0,
+        "ties": 200,
+        "losses": 0
+      },
+      {
+        "gamma": 1.25,
+        "mean_errors": 8.825,
+        "mean_auc": 0.9658236225694591,
+        "recovery": 0.016450344527267607,
+        "recovery_ci": [
+          -0.05450074142381834,
+          0.07214035679420294
+        ],
+        "wins": 46,
+        "ties": 142,
+        "losses": 12
+      },
+      {
+        "gamma": 1.5,
+        "mean_errors": 8.875,
+        "mean_auc": 0.9658236225694591,
+        "recovery": -0.0028144647375416554,
+        "recovery_ci": [
+          -0.07691174388289772,
+          0.058952034077034074
+        ],
+        "wins": 52,
+        "ties": 129,
+        "losses": 19
+      },
+      {
+        "gamma": 2.0,
+        "mean_errors": 9.115,
+        "mean_auc": 0.9658236225694591,
+        "recovery": -0.055869998946922024,
+        "recovery_ci": [
+          -0.14281047193547194,
+          0.021076565172718987
+        ],
+        "wins": 58,
+        "ties": 110,
+        "losses": 32
+      }
+    ]
+  },
+  {
+    "family": "spike",
+    "graphs": 200,
+    "marginal_mean": 1.03,
+    "oracle_mean": 0.785,
+    "gap_mean": 0.245,
+    "graphs_with_gap": 38,
+    "graph_recovery_mean": 0.10526315789473684,
+    "recovery_ci": [
+      0.02631578947368421,
+      0.21052631578947367
+    ],
+    "gamma_star": 1.5,
+    "mean_auc": 0.971160756199638,
+    "curve": [
+      {
+        "gamma": 0.5,
+        "mean_errors": 1.1,
+        "mean_auc": 0.971160756199638,
+        "recovery": -0.013157894736842105,
+        "recovery_ci": [
+          -0.2236842105263158,
+          0.18421052631578946
+        ],
+        "wins": 6,
+        "ties": 171,
+        "losses": 23
+      },
+      {
+        "gamma": 0.75,
+        "mean_errors": 1.03,
+        "mean_auc": 0.971160756199638,
+        "recovery": 0.039473684210526314,
+        "recovery_ci": [
+          -0.02631578947368421,
+          0.13157894736842105
+        ],
+        "wins": 2,
+        "ties": 193,
+        "losses": 5
+      },
+      {
+        "gamma": 1.0,
+        "mean_errors": 1.03,
+        "mean_auc": 0.971160756199638,
+        "recovery": 0.0,
+        "recovery_ci": [
+          0.0,
+          0.0
+        ],
+        "wins": 0,
+        "ties": 200,
+        "losses": 0
+      },
+      {
+        "gamma": 1.25,
+        "mean_errors": 1.04,
+        "mean_auc": 0.971160756199638,
+        "recovery": 0.07894736842105263,
+        "recovery_ci": [
+          0.0,
+          0.18421052631578946
+        ],
+        "wins": 3,
+        "ties": 194,
+        "losses": 3
+      },
+      {
+        "gamma": 1.5,
+        "mean_errors": 1.03,
+        "mean_auc": 0.971160756199638,
+        "recovery": 0.10526315789473684,
+        "recovery_ci": [
+          0.02631578947368421,
+          0.21052631578947367
+        ],
+        "wins": 4,
+        "ties": 192,
+        "losses": 4
+      },
+      {
+        "gamma": 2.0,
+        "mean_errors": 1.045,
+        "mean_auc": 0.971160756199638,
+        "recovery": 0.05263157894736842,
+        "recovery_ci": [
+          -0.10526315789473684,
+          0.18421052631578946
+        ],
+        "wins": 4,
+        "ties": 190,
+        "losses": 6
+      }
+    ]
+  }
+]
