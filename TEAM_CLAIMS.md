@@ -90,9 +90,16 @@ Every row: **goal** → **why** → **this week** → **what to do, in order** �
 ### Person 2 — experiments and the "why"
 **Goal:** run the comparison the paper reports, and write the paragraph that explains the gap.
 
-**Why:** the paper's claim is a negative one, so it stands or falls on two things: the comparison is fair, and the explanation is honest. That is this row.
+**Status 2026-11-24:** both are done and the comparison is closed — the rule wins, and more compute does not
+change it (`CROSS_IMPLEMENTATION_VALIDATION.md`). This row's deliverable is now the trust chain in
+`EVIDENCE_CHAIN_DESIGN.md` §8: five pre-registered steps, two of them self-declared failures. The sentence this
+row can say: *with 16 reviews, a policy can estimate whether its confidence scores are usable, and stay safe
+when they are not.*
 
-**This week:** re-run the standard comparison on the held-out graphs.
+**Why:** the claim this row supports is a negative one — the learned scheduler does not win — so it stands or falls on two things: the comparison is fair, and the explanation is honest. That is this row.
+
+**This week:** re-run the standard comparison on the held-out graphs — done, and closed. What is still open on
+this row is the rerun by someone other than Person 2.
 
 **What to do, in order:**
 1. Freeze the variants we report: conf threshold, structural greedy, belief greedy, GNN static, GNN observed. No new variants this week.
@@ -258,6 +265,7 @@ Nothing counts as verified until the named person reruns it.
 | "no direct precedent" — search again | Person 5 |
 | full texts of the cited papers | Person 5 |
 | GNN vs belief greedy, and belief greedy when the model is wrong | Person 2 |
+| the trust chain: gate boundary, `verify` failure, `shrink`, `scope`, boundary, `p_catch` | Person 2 |
 | GNN + PPO convergence | Person 2 |
 | dual-critic CMDP | Person 2 |
 | whether SciForge has a confidence field, and the graph size | Person 5 |

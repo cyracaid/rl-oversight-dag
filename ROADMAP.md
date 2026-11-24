@@ -7,9 +7,10 @@ layout: default
 
 <p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/ROADMAP_CN.html">中文</a></p>
 
-> Status note, 2026-11-09. This is **not** the next-week plan (that is
+> Status note, 2026-11-24. Updated after the trust chain (gate → node → graph → boundary) and the
+> `p_catch` sweep. This is **not** the next-week plan (that is
 > [`PROPOSAL_COURSE.md`](PROPOSAL_COURSE.html) §8). It exists so we stop implying that a
-> course project with one negative run is a Nature Communications submission.
+> course project is a Nature Communications submission.
 
 ---
 
@@ -17,11 +18,11 @@ layout: default
 
 | | today |
 |---|---|
-| scope | course project, talk 11/23 |
-| main evidence | one negative result, **synthetic** graphs: N=80, budget 16, 200 held-out, learned policy 1.56 vs belief greedy 1.14, paired +0.42 ± 0.15 |
+| scope | course project; talk given 11/23 |
+| main evidence | the trust chain, on **synthetic** graphs, every step frozen before its run: a global gate that fails both ways (fires 195/200 on a harmless −1 shift, 0/200 on errors masked at +3); a per-node repair (+0.105 on −1, −0.370 where errors are masked); a per-graph repair (+0.005 at +3 where the node repair loses +0.81; 112-cell mean 1.303 → 1.203); a measured boundary (off-grid δ holds, two simultaneous δ collapse to plain trust). Underneath it, the original negative: learned 1.56 vs belief greedy 1.14, paired +0.42 ± 0.15 |
 | real data | 75 corrections = 0.54% of 13,990 rows — motivation, one N=21 application, one 1,048-flag queue analysis. **Not a training set.** |
-| reproduction | every number produced by an AI agent; no teammate has rerun it |
-| claim status | "a one-step posterior greedy beats our learned policy on this benchmark" — true, narrow, and already known to us |
+| reproduction | every number produced by an AI agent; no teammate has rerun it. Reruns are byte-identical and every report is regenerated from `episodes.csv` |
+| claim status | "with 16 reviews a policy can estimate whether its confidence scores are usable, and stay safe when they are not" — supported inside this benchmark. The learned *scheduler* still loses to the rule |
 
 That is a complete, honest course deliverable. It is **not** a paper.
 
@@ -31,11 +32,11 @@ That is a complete, honest course deliverable. It is **not** a paper.
 
 | # | gate | why it is required | now |
 |---|---|---|---|
-| **R1** | a decisive result — positive under misspecification, or a mechanism with a passing falsification test — replicated across 5 seeds **and** by a second person | one negative run is a course result, not evidence | ✗ |
+| **R1** | a decisive result — positive under misspecification, or a mechanism with a passing falsification test — replicated across 5 seeds **and** by a second person | one negative run is a course result, not evidence | ◐ mechanism half done: five pre-registered steps, 200+100 fresh graphs, a second codebase agreeing; no second person has rerun it |
 | **R2** | a real queue with enough positives to train on (hundreds, not 68) | 6.5% precision cannot support a general claim | ✗ |
 | **R3** | a second domain or chain (SciForge receipts, GO, SYNERGY) | one synthetic family + one lab pipeline is not generalization | partial |
-| **R4** | a sharp boundary: when does a one-step posterior greedy dominate, and when must learning win | the boundary is the contribution; the benchmark is not | ✗ (C1–C4 are hypotheses) |
-| **R5** | clean artifact: one command, fixed seeds, data cards, no hand-edited tables | reviewers check this before they read the result | ✗ |
+| **R4** | a sharp boundary: when does a one-step posterior greedy dominate, and when must learning win | the boundary is the contribution; the benchmark is not | ◐ one boundary measured (δ grid, single δ, hit rate); the greedy-vs-learning boundary is still C1–C4 |
+| **R5** | clean artifact: one command, fixed seeds, data cards, no hand-edited tables | reviewers check this before they read the result | ◐ manifest + per-graph CSV + byte-identical reruns + seeded verdict code; not one command, no data card |
 
 Pre-registration is a strength for grading, but it does not move R1–R5 on its own.
 

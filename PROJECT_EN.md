@@ -176,6 +176,31 @@ Figures: `experiments/results_bar.png`, `experiments/learning_curves.png`, `expe
 
 Learning curves are real training logs (`rl_gnn_multiseed.py`, `rl_methods_compare.py`), plotted by `rl_final.py`. An earlier version of this figure was a hand-drawn placeholder.
 
+## 7b. The trust chain (2026-11-24) — what replaced the negative
+
+The tables above answer "which scheduler". They also close that question: the rule wins and more compute does
+not change it. The question that produced a usable result is different — **which signal should be trusted, and
+what should the policy do when it cannot be trusted.** Five steps, each frozen in a `PREREGISTER_*.md` before
+its first seed, each on a graph block no earlier run had used, each judged by code rather than by eye:
+
+| Step | Question | Fresh graphs | Frozen verdict | Main paired result (policy − trusting; positive = more errors) |
+|---|---|---|---|---|
+| global gate | is the whole score vector corrupted? | 3000–3199 | boundary measured | harmless −1: fires 195/200, +1.82; masked +3: 0/200, +3.21 |
+| gate repair (`verify`) | if so, can the ranking be restored? | 3200–3399 | **failure** | −1 loss removed (−0.015), but 5 of 13 fired cells worse than trusting |
+| per-node (`shrink`) | which node moved? | 3400–3599 | success | +0.105 on −1; **−0.370 where errors are masked**; +0.45/+0.72 on a harmless global +2/+3 |
+| per-graph (`scope`) | did the whole graph move, and by how much? | 3600–3799 | success | +0.005 at +3 (per-node +0.81); 112-cell mean 1.303 → 1.203; −4 returns to the clean oracle (0.94 vs 3.86) |
+| boundary | where does the graph model stop? | 3800–3899 | **partial success** | off-grid δ holds (mean \|δ error\| 0.174, 12/12 cells beat per-node); two δ collapse (−0.016 vs per-node, trust 2.15 / per-node 1.89 / per-graph 1.87) |
+
+Two of the five are self-declared failures and stay in the table. The gate result is the one that forced the
+reframe: a binary "trust / discard" decision is wrong in both directions, so the decision variable had to move
+down to the node and then up to the graph. The per-graph model's own boundary was then measured without
+refitting anything: it survives a δ that is not on its grid, and it does not survive two simultaneous δ.
+
+Finally, every run above held the reviewer hit rate at 0.9. Re-running at 0.60 / 0.75 / 0.90 / 1.00
+(`PREREGISTER_P_CATCH.md`, seeds 4000–4199) kept the direction — the rule beats confidence ordering in all four
+cells, +0.255 to +0.530, every interval excluding zero — and **inverted** the pre-registered size prediction:
+the lead is largest when reviewers are most reliable.
+
 ## 8. Ablation: the confidence signal is the bottleneck
 
 GNN + REINFORCE under three confidence conditions (3 seeds × 12k episodes):
@@ -312,7 +337,7 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 3. "No direct precedent" — search again; phrase as "we did not find one."
 4. Full texts of cited papers (we read abstracts only).
 5. Whether BestReject in arXiv:2409.20489 equals our calibrated threshold (claim dropped as unverified).
-6. Belief greedy assumes the confidence model and edge probabilities are known exactly; test it under misspecification.
+6. Belief greedy assumes the confidence model and edge probabilities are known exactly; test it under misspecification. **Half closed (2026-11-24):** the gate, per-node, per-graph and boundary steps in §7b are exactly that test, frozen in advance and run on fresh blocks. The scheduling conclusion survives (the rule still wins), and the two-way gate failure is why the contribution moved to signal trust. What is still open is misspecification of the edge model, not of the confidence model.
 7. GNN vs belief greedy on held-out graphs (done: GNN worse by 0.42 ± 0.15); a stronger learner (deeper GNN, per-step credit) is untested.
 8. GNN + PPO convergence.
 9. Dual-critic CMDP.

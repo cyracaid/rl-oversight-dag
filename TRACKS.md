@@ -19,7 +19,7 @@ layout: default
 | | **Stage 1 — STA3145 group project** | **Stage 2 — Evidence audit / SciForge** |
 |---|---|---|
 | When | now → 12/05 | after the course, or in parallel only as design work |
-| Question | When does a learned review policy beat a model-based one on a dependency graph? | How should a real evidence chain record and prioritise human review? |
+| Question | When does a learned review policy beat a model-based one — and when the confidence signal itself is wrong, which signal should be trusted? (Stage 1 answered the first: it does not. The second became the contribution.) | How should a real evidence chain record and prioritise human review? |
 | Who decides | **us, the five of us** | **the system owners** (郑心, Zhangyang Gao), plus IRB for sleep data |
 | Data | synthetic DAGs + **open** transfer sets (KAIST, GO); sleep queue only as aggregates | SciForge **audit chain** (review receipts); de-identified exports |
 | Output | course paper + talk | design docs → offline evaluation → (later) Nature Communications |

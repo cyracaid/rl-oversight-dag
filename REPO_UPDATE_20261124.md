@@ -23,8 +23,9 @@ that last model stops working.
 ## 2. What we can claim, and what we cannot
 
 **Can claim.** With 16 reviews, a policy can estimate whether its confidence scores
-are usable, and can stay safe when they are not: a masked corruption at +3 costs
-+0.005 [0.000, 0.015] errors versus trusting the scores; a full −4 shift is undone
+are usable, and can stay safe when they are not: a harmless global +3 shift costs
++0.005 [0.000, 0.015] errors versus trusting the scores, and a masked corruption at
++3 is no worse than trusting (−0.035); a full −4 shift is undone
 and the policy returns to the clean oracle (0.94 versus 3.86 for trusting). The
 per-graph repair also survives drift that does not sit on its grid: mean δ error
 0.174, and all 12 off-grid cells beat the per-node repair.

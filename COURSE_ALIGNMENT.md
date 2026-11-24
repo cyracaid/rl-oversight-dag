@@ -127,6 +127,7 @@ We already have more data than we need for the course. The remaining work is **n
 | Worst-of-n reliability | Slide 8b |
 | Adaptive greedy / influence maximization; belief (particle filter) | Slide 8c |
 | Information gain | Slide 7 math |
+| Bayesian model comparison / posterior updating over hypotheses | Slides: gate (corrupted yes/no) → per-node (moved or not) → per-graph (q, δ); rules frozen before each run |
 
 **Do not put VAE / DDPM on a slide.** That week is a different module.
 
@@ -137,5 +138,7 @@ We already have more data than we need for the course. The remaining work is **n
 Say this:
 
 > We study **when a human should review AI output on a research evidence chain.** The formulation is general. We instantiate it first on a real sleep-EMA pipeline (one year of data from Maia ten Brink's lab at Stanford), then on SciForge's evidence DAG. We do not claim it works on every science domain. We claim the formulation transfers, and we test it on two instantiations. The course tools — bandit, MDP, Monte Carlo policy gradient, function approximation, DQN as a control — are the same tools this class taught. The negative result (bandit loses) is part of the contribution.
+
+> The same course tools answer the question that survived: with 16 reviews, estimate **which signal to trust** (a posterior over "the scores are usable", over "this node moved", over "the graph moved by δ") and act safely when the answer is "no". Measured, not asserted: a harmful repair is reported as a failure, and the boundary where the model stops is reported with the same weight as the win.
 
 That is the positioning. It is RL-course-true and AI4Sci-true. It is not "sleep project" and it is not "we solve all of science."
