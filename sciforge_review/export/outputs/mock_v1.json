@@ -1,0 +1,178 @@
+{
+  "budget_k": 5,
+  "n_nodes": 21,
+  "n_errors": 6,
+  "rows": [
+    {
+      "policy": "pipeline_order",
+      "recall": 0.16666666666666666,
+      "lo95": 0.0,
+      "hi95": 0.5,
+      "precision": 0.2,
+      "reviews_to_half": NaN,
+      "note": ""
+    },
+    {
+      "policy": "type_prior",
+      "recall": 0.5,
+      "lo95": 0.0,
+      "hi95": 0.8333333333333334,
+      "precision": 0.6,
+      "reviews_to_half": 4.0,
+      "note": ""
+    },
+    {
+      "policy": "reach",
+      "recall": 0.16666666666666666,
+      "lo95": 0.0,
+      "hi95": 0.5,
+      "precision": 0.2,
+      "reviews_to_half": NaN,
+      "note": ""
+    },
+    {
+      "policy": "type_x_reach",
+      "recall": 0.3333333333333333,
+      "lo95": 0.0,
+      "hi95": 0.6666666666666666,
+      "precision": 0.4,
+      "reviews_to_half": NaN,
+      "note": ""
+    },
+    {
+      "policy": "marginal_adaptive",
+      "recall": 0.16666666666666666,
+      "lo95": 0.0,
+      "hi95": 0.5,
+      "precision": 0.2,
+      "reviews_to_half": NaN,
+      "note": "",
+      "diff_vs_type_prior": -0.29237987012987016,
+      "diff_vs_type_prior_lo95": -0.8175,
+      "diff_vs_type_prior_hi95": 0.25,
+      "diff_vs_pipeline_order": 0.0,
+      "diff_vs_pipeline_order_lo95": 0.0,
+      "diff_vs_pipeline_order_hi95": 0.0,
+      "diff_vs_reach": 0.0,
+      "diff_vs_reach_lo95": 0.0,
+      "diff_vs_reach_hi95": 0.0,
+      "diff_vs_marginal_adaptive_declared": -0.2602900432900433,
+      "diff_vs_marginal_adaptive_declared_lo95": -0.77625,
+      "diff_vs_marginal_adaptive_declared_hi95": 0.25
+    },
+    {
+      "policy": "marginal_adaptive_declared",
+      "recall": 0.5,
+      "lo95": 0.0,
+      "hi95": 0.8,
+      "precision": 0.6,
+      "reviews_to_half": 5.0,
+      "note": ""
+    },
+    {
+      "policy": "receipts",
+      "recall": 0.16666666666666666,
+      "lo95": 0.0,
+      "hi95": 0.5,
+      "precision": 0.2,
+      "reviews_to_half": NaN,
+      "note": ""
+    },
+    {
+      "policy": "oracle",
+      "recall": 0.8333333333333334,
+      "lo95": 0.45454545454545453,
+      "hi95": 1.0,
+      "precision": 1.0,
+      "reviews_to_half": 3.0,
+      "note": ""
+    },
+    {
+      "policy": "random",
+      "recall": 0.22333333333333333,
+      "lo95": 0.0,
+      "hi95": 0.5,
+      "precision": NaN,
+      "reviews_to_half": NaN,
+      "note": "mean of 200 permutations"
+    }
+  ],
+  "chosen": {
+    "pipeline_order": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "type_prior": [
+      17,
+      18,
+      19,
+      20,
+      8
+    ],
+    "reach": [
+      1,
+      0,
+      2,
+      5,
+      6
+    ],
+    "type_x_reach": [
+      12,
+      17,
+      18,
+      19,
+      9
+    ],
+    "marginal_adaptive": [
+      1,
+      0,
+      2,
+      5,
+      6
+    ],
+    "marginal_adaptive_declared": [
+      12,
+      17,
+      20,
+      18,
+      19
+    ],
+    "receipts": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "oracle": [
+      2,
+      11,
+      15,
+      17,
+      19
+    ]
+  },
+  "errors_never_reviewed_by_human": 4,
+  "report": {
+    "source": "/Users/sloblucyra/Documents/\uac15\ud654\ud559\uc2b5/sciforge_review/export/sciforge_mock_v1.json",
+    "synthetic": true,
+    "nodes": 21,
+    "derived_edges": 27,
+    "edge_relations": {
+      "derived_from": 27,
+      "supports": 2
+    },
+    "non_propagation_edges_ignored": 2,
+    "unknown_node_types": [],
+    "corrections": 6,
+    "duplicate_corrections_dropped": 0,
+    "receipts": 12,
+    "receipts_dropped_invalid_duration": 0,
+    "with_duration": 12,
+    "sinks": 2
+  },
+  "prior": "flat for marginal_adaptive; declared for type_prior/type_x_reach"
+}

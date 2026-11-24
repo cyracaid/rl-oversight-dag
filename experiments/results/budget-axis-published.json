@@ -1,0 +1,44 @@
+{
+  "source": "/Users/sloblucyra/Documents/\uac15\ud654\ud559\uc2b5/role3 improvement/outputs/v3-baselines/benchmark_summary.csv",
+  "rows": [
+    {
+      "family": "spike",
+      "n": 80,
+      "budget": 16,
+      "budget_frac": 0.2,
+      "none_residual": 5.96,
+      "confidence_residual": 1.03,
+      "marginal_residual": 0.66,
+      "type_prior_residual": 3.76,
+      "caught_confidence": 0.8271812080536912,
+      "caught_marginal": 0.889261744966443,
+      "delta_caught": 0.06208053691275168
+    },
+    {
+      "family": "real",
+      "n": 21,
+      "budget": 8,
+      "budget_frac": 0.38095238095238093,
+      "none_residual": 2.26,
+      "confidence_residual": 0.5,
+      "marginal_residual": 0.47,
+      "type_prior_residual": 1.79,
+      "caught_confidence": 0.7787610619469026,
+      "caught_marginal": 0.7920353982300885,
+      "delta_caught": 0.013274336283185854
+    },
+    {
+      "family": "ticket",
+      "n": 21,
+      "budget": 8,
+      "budget_frac": 0.38095238095238093,
+      "none_residual": 1.87,
+      "confidence_residual": 0.32,
+      "marginal_residual": 0.29,
+      "type_prior_residual": 0.9,
+      "caught_confidence": 0.8288770053475936,
+      "caught_marginal": 0.8449197860962566,
+      "delta_caught": 0.016042780748663114
+    }
+  ]
+}

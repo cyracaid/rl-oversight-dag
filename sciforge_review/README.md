@@ -85,6 +85,7 @@ demo.py         跑表、写 review card（P0）
 receipts.py     ReviewEvent -> Receipt 绑定
 store.py        append-only 收据库 + 回放
 loop.py         最小审阅会话：排序 -> 写收据 -> 预算停
+export/         SciForge 导出装载器 + 冻结协议 + 基线 + 控制实验（17 tests）
 metrics.py      从收据算 recall@minutes / coverage
 demo_phase1.py  3 policies × 20 seeds，写收据再回放
 outputs/        review_card.md / phase1_report.md / json
@@ -121,6 +122,27 @@ npx -y @fission-ai/openspec validate --strict add-review-control-plane
 我没有提交、没有推送、没有改 `SciForge` 主仓。草案覆盖 P1 收据、P2 只读建议器、P3 覆盖、
 P4 claim 审计；P5 仪器 adapter 单列。
 
+## 导出评估协议（`export/`，2026-11-24）
+
+`sci-export-v1`：在按 `triage_bench/SCIFORGE_ASK.md §4` 形状的导出上做节点级审阅排序评估。
+协议在拿到真实数据**之前**冻结，避免事后挑指标。
+
+```bash
+python3 -m sciforge_review.export.make_mock
+python3 -m sciforge_review.export.bench
+python3 -m sciforge_review.export.controls
+python3 -m unittest discover -s sciforge_review/export/tests -t .
+```
+
+- `PROTOCOL.md` 冻结：主指标 recall@25%、7 条基线 + oracle、配对区间、泄漏规则、样本量下限
+  （≥2 项目 / ≥100 确认错误 / ≥150 节点才能谈定量结论）。
+- `REPORT.md`：mock 表 + 三类控制实验（null / 类型信号 / 结构信号）。**所有数字为合成。**
+- 控制实验的结论：评估器在校准内；`pipeline_order` 不是弱基线；未验证的类型先验会抹掉
+  真实结构优势（0.62 → 0.16），所以主方法用 flat 先验。
+- 17 个测试：装载器拒绝环/缺字段/坏裁决、策略看不到未审真值、指标与边界。
+
+**未做**：任何真实 SciForge 导出、`review.suggest` 读路径、生产 composition。
+
 ## 路线图
 
 | Phase | 内容 | 落点 |
@@ -130,7 +152,7 @@ P4 claim 审计；P5 仪器 adapter 单列。
 | 2 | 只读 `review.suggest` + 最小面板 | SciForge worktree |
 | 3 | claim 审计：span 校验 + `insufficient` | knowledge-net 扩展 |
 | 4 | 仪器 adapter：schema + 模拟日志 | 独立 change |
-| 5 | 真实 DAG 导出接入（P0/P1 字段） | `triage_bench/SCIFORGE_ASK.md` |
+| 5 | 真实 DAG 导出接入（P0/P1 字段） | `triage_bench/SCIFORGE_ASK.md`；协议与装载器已在 `export/` 就绪 |
 
 ## 状态
 

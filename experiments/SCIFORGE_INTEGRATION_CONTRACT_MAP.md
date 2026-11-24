@@ -25,6 +25,15 @@ unavailable/not-recorded/not-applicable input/output binding. These fields provi
 recorded execution evidence; they do not establish scientific correctness or
 measure human review duration.
 
+## Evaluation side (separate track, no SciForge modification)
+
+The read-only review-ordering protocol is frozen in
+`sciforge_review/export/PROTOCOL.md` with a schema-validating loader, seven
+label-free policies, an oracle ceiling, three harness controls, and 17 tests.
+It has been exercised only on a synthetic export; no real export exists yet.
+Protocol requirement: ≥2 projects, ≥100 confirmed errors, ≥150 nodes for a
+quantitative claim.
+
 ## Remaining implementation and acceptance
 
 1. Identify the installed host's public action invocation transport and owning

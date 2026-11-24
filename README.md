@@ -95,6 +95,7 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; learned CIs contain 0 | `role3 improvement/outputs/v3/` |
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
 | Hypothetical ticketing pipeline (synthetic prior, 21 nodes, budget 8) | marginal **0.29** | — | **ties** confidence 0.32: +0.03 [0.00, +0.08], 98/100 ties — no cross-domain advantage | `role3 improvement/outputs/ticket-v1/` |
+| Why spike wins and real/ticket tie: budget coverage | gain in caught fraction **+6.2 pp** at 20 % coverage, **+1.3 / +1.6 pp** at 38 %, **≤1 pp with CI touching 0 above 40 %**, exactly 0 at ≥2/3 | — | **one curve, not three findings**: gain decays with budget/n and becomes unmeasurable near 1/3 coverage; 16 reviews give +6.2 pp at n=80 but +0.3 pp at n=21 | `experiments/BOUNDARY_REPORT.md` |
 | Confidence corrupted (uniform noise, not recognised) | marginal **4.415** | adaptive marginal **3.150** | −1.265 [−1.545, −0.985] | `role2_규리/results/confidence-v1/` |
 | …same, untouched confirmation 2000–2199 | marginal **4.185** | adaptive marginal **2.765** | −1.420 [−1.695, −1.150] | `role2_규리/results/confirm-v1/` |
 | Corruption boundary: locality × magnitude × coverage (200 fresh graphs) | trust **0.865** (= clean oracle) | global-mean gate **2.745** in the worst cell | fires 195/200 on a rank-preserving −1 shift (+1.82 error) but 0/200 when real errors are masked (+3.21 error) | `role2_규리/results/corruption-v1/` |
@@ -191,6 +192,9 @@ rendered page — no link opens raw markdown in the browser. Plans (`RL_PLAN`, `
 | Evidence-chain design | [EVIDENCE_CHAIN_DESIGN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) | — | [EVIDENCE_CHAIN_DESIGN_CN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html) |
 | Implementation spec | [IMPLEMENTATION_SPEC_EN](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html) | [IMPLEMENTATION_SPEC_KO](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html) | [网页版](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) · [md 渲染](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.html) |
 | Canonical line + reproduction receipts | [CROSS_IMPLEMENTATION_VALIDATION](CROSS_IMPLEMENTATION_VALIDATION.md) | [CROSS_IMPLEMENTATION_VALIDATION_KO](CROSS_IMPLEMENTATION_VALIDATION_KO.md) | — |
+| Boundary map — where graph-aware triage pays (budget coverage × graph shape) | [BOUNDARY_REPORT](experiments/BOUNDARY_REPORT.md) | — | — |
+| Measurement layer — what review receipts can and cannot answer | [MEASUREMENT_LAYER](triage_bench/MEASUREMENT_LAYER.md) | — | — |
+| SciForge export protocol (frozen pre-registration) + mock report | [PROTOCOL](sciforge_review/export/PROTOCOL.md) · [REPORT](sciforge_review/export/REPORT.md) | — | — |
 | Error card — known failure modes, error budget, what is not comparable | [ERROR_CARD](ERROR_CARD.md) | — | — |
 | Open requests to Person 4 / 5 | [TEAM_REQUESTS_P4_P5](TEAM_REQUESTS_P4_P5.md) | — | — |
 | Team claims | [TEAM_CLAIMS_EN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_EN.html) | [TEAM_CLAIMS (三语同页)](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS.html) | [TEAM_CLAIMS_CN](https://cyracaid.github.io/rl-oversight-dag/TEAM_CLAIMS_CN.html) |
