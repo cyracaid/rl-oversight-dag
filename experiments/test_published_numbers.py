@@ -19,6 +19,7 @@ from __future__ import annotations
 import collections
 import csv
 import json
+import re
 import os
 import statistics
 
@@ -303,6 +304,51 @@ def test_paper_learned_table_matches_artifact():
             assert clean(row[col]) == want, f"{fam} {learner}: paper {clean(row[col])} != {want}"
             seen += 1
     assert seen == 12, f"expected 12 published cells, matched {seen}"
+
+
+TRANSLATIONS = {
+    "KO": (os.path.join(ROOT, "PAPER_DRAFT_KO.md"), "이 논문이 주장하지 않는 것"),
+    "CN": (os.path.join(ROOT, "PAPER_DRAFT_CN.md"), "本文不主张的事"),
+}
+NUMBER = re.compile(r"[+\-\u2212]?(?:\d+(?:[.,]\d+)+|\d{2,})%?")
+
+
+def paper_numbers(source):
+    """Numeric tokens a reader sees, minus the language-switch links.
+
+    Decimals and multi-digit runs only: bare 0-9 counts are phrased differently in
+    every language and are not what this guard is for.
+    """
+    body = "\n".join(line for line in source.splitlines()
+                     if "cyracaid.github.io" not in line)
+    return collections.Counter(m.group(0).replace("\u2212", "-")
+                               for m in NUMBER.finditer(body))
+
+
+def test_translations_carry_every_number_of_the_english_draft():
+    """A translation may rephrase; it may not drop or invent a published number."""
+    en = paper_numbers(text(PAPER))
+    for name, (path, disclaimer) in TRANSLATIONS.items():
+        translated = text(path)
+        got = paper_numbers(translated)
+        missing, extra = en - got, got - en
+        assert not missing, f"{name} lost {len(missing)} numbers: {missing.most_common(5)}"
+        assert not extra, f"{name} invented {len(extra)} numbers: {extra.most_common(5)}"
+        assert disclaimer in translated, f"{name} lacks the 'does not claim' paragraph"
+        assert len(translated.splitlines()) > 0.6 * len(text(PAPER).splitlines()), (
+            f"{name} looks like a stub")
+
+
+def test_paper_languages_link_to_each_other():
+    """Each language offers a route to the other two (the current one may stay bold)."""
+    pages = {PAPER: "PAPER_DRAFT.html"}
+    pages.update({p: f"PAPER_DRAFT_{n}.html" for n, (p, _) in TRANSLATIONS.items()})
+    for path, own in pages.items():
+        body = text(path)
+        for stub in pages.values():
+            if stub == own:
+                continue
+            assert stub in body, f"{os.path.basename(path)} does not link {stub}"
 
 
 SUPERVISOR_DOC = os.path.join(

@@ -7,6 +7,8 @@ layout: default
 
 **Budgeted review of dependent AI outputs: a benchmark, a negative result, and a measured boundary**
 
+<p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html">中文</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html">한국어</a></p>
+
 Draft v0.1 · 2026-11-24 · every number in this draft is traceable to a committed file
 (Appendix A) and reproducible from the commands in it. No number was independently
 verified by a second person; §9.3 says what that costs.
@@ -63,8 +65,8 @@ compute increase, a better reward, and an exact solver.
 **Contributions.**
 
 1. **A benchmark that can show a method failing.** Six families (four synthetic —
-   one at N=80, three at N=500 — and two pipeline DAGs at N=21), six baseline
-   layers from "no review" to a truth-reading reference, frozen splits and a
+   one at N=80, three at N=500 — and two pipeline DAGs at N=21), eight baselines
+   from "no review" to a truth-reading reference, frozen splits and a
    spent-once reporting block. §3.
 2. **A negative structural result with a mechanism.** A deployable one-step
    mean-field rule beats every learned policy we trained, on every family, in every
@@ -140,12 +142,12 @@ while *paired* deltas transfer. Every claim below is stated as a paired delta.
 
 ### 3.3 Baselines
 
-Six layers: no review; random; three static heuristics (confidence-lowest, hub,
+Eight layers: no review; random; three static heuristics (confidence-lowest, hub,
 confidence × sink-reach); a type-prior policy (highest base rate for the node type);
-the graph-aware mean-field rule `marginal`; and learned policies (GNN+REINFORCE,
-DQN, PPO). `structural` (confidence × sink reach) is the external proxy for
-influence-weighted uncertainty sampling and is named as such rather than as a new
-baseline.
+the graph-aware mean-field rule `marginal`; the truth-reading reference `oracle`; and
+learned policies (GNN+REINFORCE, DQN, PPO). `structural` (confidence × sink reach) is
+the external proxy for influence-weighted uncertainty sampling and is named as such
+rather than as a new baseline.
 
 The type-prior layer is load-bearing: it drops the confidence score and loses by
 2.73 errors on `spike`, which is what shows the published score carries real
@@ -673,6 +675,7 @@ scheduler is where the error lives.
 | 6.1–6.2 | counterfactual value, belief rescaling | blocks 4400–4599, 4800–4999 |
 | 6.3 | depth-two planning | `PREREGISTER_PLANNING_V2.md`, block 5200–5399 |
 | 6.4 | DP ceiling, P1–P5, amendment | `role3 improvement/outputs/dp-ceiling/{report,AMENDMENT}.md` |
+| 6.5 | receipt table, 0.898 vs 0.90, 10.2 / 14.9 % | `role3 improvement/outputs/supervisor-v1/receipt_vs_silent.md` |
 | 7.1–7.2 | 13,990 / 237; 53 replay; 159/159 | `experiments/replay_manual_corrections.py`, `runs/replay-manual-corrections/` |
 | 7.3 | across-record replay, 99.8 % / 2.9 % | `experiments/cross_record_replay.py`, `runs/cross-record-replay/` |
 | 7.4 | block review MDP | `runs/block-review-mdp/`, `BLOCK_REVIEW_NOTE.md` |
