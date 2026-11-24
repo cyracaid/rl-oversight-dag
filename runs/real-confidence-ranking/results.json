@@ -1,0 +1,288 @@
+{
+  "provenance": {
+    "csv": "/Users/sloblucyra/Documents/splsleep/manual_error_correction_updated.csv",
+    "seed": 0,
+    "permutations_per_record": 2000,
+    "gate": {
+      "cells_checked": 159,
+      "mismatches": 0
+    },
+    "warning": "positives only: every record here is a confirmed error, so record-level detection/AUC is not measurable. Only within-record localisation is."
+  },
+  "header": {
+    "rows_replayed": 53,
+    "rows_dropped": 22,
+    "participants": 36,
+    "drop_reasons": {
+      "bed": 8,
+      "sleep": 11,
+      "getup": 2,
+      "awake": 1
+    }
+  },
+  "observables": {
+    "suspicion_binary": {
+      "aggregate": {
+        "records": 53,
+        "n_nodes": 14,
+        "mean_n_wrong": 5.92,
+        "mean_n_defective": 1.3,
+        "auc_mean": 0.8067,
+        "auc_ci95": [
+          0.7798,
+          0.8309
+        ],
+        "auc_chance": 0.5,
+        "by_target": {
+          "source_leaf": {
+            "records": 53,
+            "n_targets_mean": 1.3,
+            "hit1_expected": 0.0028,
+            "hit1_pessimistic": 0.0,
+            "hit1_optimistic": 0.0189,
+            "hit3_expected": 0.0453,
+            "hit3_pessimistic": 0.0377,
+            "hit3_optimistic": 0.0566,
+            "rank_optimistic_mean": 6.4,
+            "rank_pessimistic_mean": 6.7
+          },
+          "raw_leaf": {
+            "records": 53,
+            "n_targets_mean": 1.3,
+            "hit1_expected": 0.0029,
+            "hit1_pessimistic": 0.0,
+            "hit1_optimistic": 0.0189,
+            "hit3_expected": 0.0447,
+            "hit3_pessimistic": 0.0377,
+            "hit3_optimistic": 0.0566,
+            "rank_optimistic_mean": 6.4,
+            "rank_pessimistic_mean": 6.7
+          },
+          "any_wrong": {
+            "records": 53,
+            "n_targets_mean": 5.92,
+            "hit1_expected": 0.8193,
+            "hit1_pessimistic": 0.0377,
+            "hit1_optimistic": 1.0,
+            "hit3_expected": 0.996,
+            "hit3_pessimistic": 0.2453,
+            "hit3_optimistic": 1.0,
+            "rank_optimistic_mean": 1.0,
+            "rank_pessimistic_mean": 5.0
+          }
+        },
+        "top1_identity": {
+          "SE_conclusion": 51,
+          "SE": 41,
+          "TST": 30,
+          "sleep_awake_diff": 28,
+          "TIB": 28,
+          "awake_getup_diff": 22,
+          "record_quality": 22,
+          "SOL_validity": 20,
+          "SOL_calc": 18,
+          "WASO_validity": 1,
+          "time_awake": 1,
+          "time_bed": 1,
+          "time_getup": 1,
+          "time_sleep": 1
+        },
+        "ties": {
+          "records_one_distinct_score": 1,
+          "records_with_tied_max": 51,
+          "mean_nodes_at_max": 5.0,
+          "mean_distinct_scores": 5.28
+        }
+      },
+      "by_error_type": {
+        "awake_getup_diff_error": {
+          "n": 2,
+          "auc_mean": 0.7151,
+          "hit1_expected_source": 0.0,
+          "note": "n < 5, descriptive only"
+        },
+        "bed_sleep_diff_error": {
+          "n": 3,
+          "auc_mean": 0.7986,
+          "hit1_expected_source": 0.0,
+          "note": "n < 5, descriptive only"
+        },
+        "order_error": {
+          "n": 40,
+          "auc_mean": 0.8323,
+          "hit1_expected_source": 0.0,
+          "note": ""
+        },
+        "sleep_awake_equal_error": {
+          "n": 1,
+          "auc_mean": 0.7959,
+          "hit1_expected_source": 0.0,
+          "note": "n < 5, descriptive only"
+        },
+        "unlabeled": {
+          "n": 7,
+          "auc_mean": 0.6918,
+          "hit1_expected_source": 0.0209,
+          "note": ""
+        }
+      },
+      "by_node_group": {
+        "derived": {
+          "n": 318,
+          "prevalence": 0.516,
+          "auc_pooled": 0.7327,
+          "frac_scored_positive": 0.506,
+          "mean_score": 0.506
+        },
+        "raw_leaf": {
+          "n": 212,
+          "prevalence": 0.325,
+          "auc_pooled": 0.5691,
+          "frac_scored_positive": 0.962,
+          "mean_score": 0.459
+        },
+        "validity_sink": {
+          "n": 212,
+          "prevalence": 0.382,
+          "auc_pooled": 0.9656,
+          "frac_scored_positive": 0.425,
+          "mean_score": 0.425
+        }
+      }
+    },
+    "violation_continuous_exploratory": {
+      "aggregate": {
+        "records": 53,
+        "n_nodes": 14,
+        "mean_n_wrong": 5.92,
+        "mean_n_defective": 1.3,
+        "auc_mean": 0.6525,
+        "auc_ci95": [
+          0.6228,
+          0.6794
+        ],
+        "auc_chance": 0.5,
+        "by_target": {
+          "source_leaf": {
+            "records": 53,
+            "n_targets_mean": 1.3,
+            "hit1_expected": 0.0027,
+            "hit1_pessimistic": 0.0,
+            "hit1_optimistic": 0.0189,
+            "hit3_expected": 0.2524,
+            "hit3_pessimistic": 0.2453,
+            "hit3_optimistic": 0.2642,
+            "rank_optimistic_mean": 4.15,
+            "rank_pessimistic_mean": 4.4
+          },
+          "raw_leaf": {
+            "records": 53,
+            "n_targets_mean": 1.3,
+            "hit1_expected": 0.0028,
+            "hit1_pessimistic": 0.0,
+            "hit1_optimistic": 0.0189,
+            "hit3_expected": 0.253,
+            "hit3_pessimistic": 0.2453,
+            "hit3_optimistic": 0.2642,
+            "rank_optimistic_mean": 4.15,
+            "rank_pessimistic_mean": 4.4
+          },
+          "any_wrong": {
+            "records": 53,
+            "n_targets_mean": 5.92,
+            "hit1_expected": 0.4798,
+            "hit1_pessimistic": 0.4717,
+            "hit1_optimistic": 0.4906,
+            "hit3_expected": 0.9971,
+            "hit3_pessimistic": 0.9811,
+            "hit3_optimistic": 1.0,
+            "rank_optimistic_mean": 1.51,
+            "rank_pessimistic_mean": 2.26
+          }
+        },
+        "top1_identity": {
+          "SE": 41,
+          "awake_getup_diff": 10,
+          "SOL_calc": 4,
+          "SE_conclusion": 1,
+          "SOL_validity": 1,
+          "TIB": 1,
+          "TST": 1,
+          "WASO_validity": 1,
+          "record_quality": 1,
+          "sleep_awake_diff": 1,
+          "time_awake": 1,
+          "time_bed": 1,
+          "time_getup": 1,
+          "time_sleep": 1
+        },
+        "ties": {
+          "records_one_distinct_score": 1,
+          "records_with_tied_max": 1,
+          "mean_nodes_at_max": 1.25,
+          "mean_distinct_scores": 8.28
+        }
+      },
+      "by_error_type": {
+        "awake_getup_diff_error": {
+          "n": 2,
+          "auc_mean": 0.6896,
+          "hit1_expected_source": 0.0,
+          "note": "n < 5, descriptive only"
+        },
+        "bed_sleep_diff_error": {
+          "n": 3,
+          "auc_mean": 0.6875,
+          "hit1_expected_source": 0.0,
+          "note": "n < 5, descriptive only"
+        },
+        "order_error": {
+          "n": 40,
+          "auc_mean": 0.6408,
+          "hit1_expected_source": 0.0,
+          "note": ""
+        },
+        "sleep_awake_equal_error": {
+          "n": 1,
+          "auc_mean": 0.7959,
+          "hit1_expected_source": 0.0,
+          "note": "n < 5, descriptive only"
+        },
+        "unlabeled": {
+          "n": 7,
+          "auc_mean": 0.6734,
+          "hit1_expected_source": 0.0207,
+          "note": ""
+        }
+      },
+      "by_node_group": {
+        "derived": {
+          "n": 318,
+          "prevalence": 0.516,
+          "auc_pooled": 0.664,
+          "frac_scored_positive": 0.506,
+          "mean_score": 17.891
+        },
+        "raw_leaf": {
+          "n": 212,
+          "prevalence": 0.325,
+          "auc_pooled": 0.5848,
+          "frac_scored_positive": 0.962,
+          "mean_score": 12.638
+        },
+        "validity_sink": {
+          "n": 212,
+          "prevalence": 0.382,
+          "auc_pooled": 0.9656,
+          "frac_scored_positive": 0.425,
+          "mean_score": 0.425
+        }
+      }
+    }
+  },
+  "chance_reference": {
+    "hit1": 0.0714,
+    "hit3": 0.2143,
+    "rank_mean": 7.5
+  }
+}

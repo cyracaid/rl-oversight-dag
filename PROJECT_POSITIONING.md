@@ -92,6 +92,33 @@ review at all.
 but "in this domain the problem the method solves does not exist at a scale worth
 solving, and the defects that do exist live upstream".
 
+### 3a. And the confidence channel points downstream, not at the cause
+
+`experiments/REAL_CONFIDENCE_RANKING.md` asks the one question the all-positive
+correction file can still answer, inside a record: does the pipeline's own signal
+rank the wrong node above the right ones?
+
+| what is measured | value | chance |
+|---|---|---|
+| AUC, all 14 nodes (wrong vs correct) | 0.807 [0.780, 0.831] | 0.50 |
+| AUC, the 4 validity sinks | 0.966 | 0.50 |
+| AUC, derived nodes (6) | 0.733 | 0.50 |
+| **AUC, the raw timestamps to be localised (4)** | **0.569** | 0.50 |
+| localisation hit@1 / hit@3 for the source leaf | 0.003 / 0.045 | 0.071 / 0.214 |
+| mean rank of the source leaf (of 14) | 6.4–6.7 | 7.5 |
+
+The pooled 0.81 is the rule re-reading the consequence of the error: a sink node's
+value is wrong exactly when the check that feeds it fires. On the four raw
+timestamps — the nodes a reviewer would actually have to open — it is at chance, and
+the top-ranked node is `SE_conclusion` in 51 of 53 records because the leaf score is
+a *mean over its descendants* (by construction, a cause can never outrank its
+effect).
+
+So Gap D is not mainly a sample-size gap. More audited-correct rows would let us fit
+`P(record is bad)`; they cannot make `P(node i is the cause)` identifiable from a
+consequence-scored signal. That needs direct evidence on the raw timestamps. The
+concrete ask is `role2_규리/AUDIT_SHEET_TEMPLATE.md` §3.
+
 ---
 
 ## 4. Claim ladder (what may be written where)

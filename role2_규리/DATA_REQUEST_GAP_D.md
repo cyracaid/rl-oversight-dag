@@ -88,3 +88,18 @@ python3 signal_calibration_real.py --csv /path/to/audit_nodes.csv \
 
 Then quote it as `role2_규리/results/calibration-v1/` in the canonical table, and delete
 the Gap D bullet from §7 of `CROSS_IMPLEMENTATION_VALIDATION.md`.
+
+---
+
+## 2026-11-24 update — the ask is narrower than "more negatives"
+
+The all-positive trap was measured, not assumed: `experiments/REAL_CONFIDENCE_RANKING.md`
+replays the 53 usable corrections and asks whether the pipeline's own signal ranks the
+wrong node above the right ones inside a record. Pooled AUC is 0.807, but on the four raw
+timestamps it is **0.569**, and the top-ranked node is a downstream sink in 51 of 53
+records. The signal is consequence-driven.
+
+So the export above is still needed for a *record-level* calibration, and the minimum
+counts stand. It is **not** sufficient for node-level localisation: that additionally
+needs direct evidence on the raw timestamps (`raw_field` / `raw_confidence` /
+`raw_source`). Fillable template and sampling rule: `AUDIT_SHEET_TEMPLATE.md`.
