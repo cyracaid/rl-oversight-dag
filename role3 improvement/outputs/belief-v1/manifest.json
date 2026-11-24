@@ -1,0 +1,23 @@
+{
+  "block": [
+    4800,
+    4999
+  ],
+  "episode_offset": 20000,
+  "gammas": [
+    0.5,
+    0.75,
+    1.0,
+    1.25,
+    1.5,
+    2.0
+  ],
+  "knob": "logit temperature, ranking preserved",
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261124,
+  "budget": {
+    "spike": 16,
+    "modular": 50
+  },
+  "p_catch": 0.9
+}

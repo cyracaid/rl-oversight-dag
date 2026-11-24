@@ -1,0 +1,50 @@
+{
+  "header": {
+    "participants": 196,
+    "nights": 2372,
+    "min_nights": 10,
+    "run_len": 3,
+    "null_draws": 400,
+    "seed": 20261124,
+    "note": "aggregates only; no per-participant rows are written"
+  },
+  "prevalence": {
+    "waso_all_zero": {
+      "records": 7,
+      "pct": 3.6,
+      "nights": 82
+    },
+    "nights_reporting_waso_zero": {
+      "nights": 933,
+      "pct_of_nights": 39.3
+    },
+    "records_ge50pct_waso_zero": {
+      "records": 81,
+      "pct": 41.3,
+      "median_zero_share": 0.408
+    },
+    "waso_run_ge3": {
+      "records": 88,
+      "pct": 44.9,
+      "expected_records_under_null": 69.3
+    },
+    "ampm_recoverable": {
+      "records": 20,
+      "pct": 10.2,
+      "nights": 21
+    },
+    "coverage": {
+      "median": 0.917,
+      "records_below_0_8": 42,
+      "pct_below_0_8": 21.4,
+      "records_below_0_5": 0
+    }
+  },
+  "action": {
+    "waso_all_zero": "ask at intake whether awakenings were recorded; if not, SE is not interpretable and C2 must be suppressed, not reviewed",
+    "records_ge50pct_waso_zero": "report SE with the zero share attached; a mean over nights that mostly report no awakenings is not a mean",
+    "waso_run_ge3": "compare against the null before calling it a dropped diary; WASO = 0 is the modal value",
+    "ampm_recoverable": "one 12 h shift repairs the night, so fix the convention at the form and stop spending review budget on each occurrence",
+    "coverage": "publish nights present / span next to every per-participant mean"
+  }
+}

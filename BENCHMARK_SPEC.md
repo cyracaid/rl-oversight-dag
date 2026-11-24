@@ -63,6 +63,11 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | repair (per-graph) | 3600–3799 | `scope-v1`, one shared δ per graph |
 | repair boundary | 3800–3899 | `scope-robust-v1`, off-grid δ and two δ |
 | reviewer hit rate | 4000–4199 | pre-registered `p_catch` sweep |
+| third architecture | 4200–4399 | pre-registered PPO (`outputs/ppo-v1/`) |
+| sampled counterfactual value | 4400–4599 | pre-registered one-step value check, `outputs/value-v1/` |
+| void | 4600–4799 | smoke runs only (4600–4603); excluded from every result |
+| belief values | 4800–4999 | pre-registered logit-temperature grid (`outputs/belief-v1/`) |
+| depth-two planning | 5200–5399 | pre-registered planner, `outputs/planning-v2/` |
 
 Rules: a seed block is spent once it has been used to choose a method or a threshold. Never re-tune on the
 reporting block. Do not report a mean from one block next to a mean from another block — raw means differ
@@ -205,6 +210,102 @@ about the policy's internal ordering, which this block does not measure.
 Absolute means here are not comparable with the table above: different graph seed block. Only the paired
 deltas travel, per §7 rule 4.
 
+### Sampled counterfactual value, tested and rejected (4400–4599)
+
+The one-step score in `marginal` is mean-field: it multiplies per-parent probabilities as if parents were
+independent, so a shared ancestor is counted once per open path. That is a real approximation error, and the
+obvious fix is to replace the score with the true expected gain of a review. That quantity is network
+reliability, #P-hard, and the graphs here reach 500 nodes, so it cannot be computed exactly. What *can* be
+computed is an unbiased estimate: draw particles of source errors and edge coins, replay each particle with
+the candidate's source error removed, and take the within-particle difference. Shared draws make the
+difference the gain, not two noisy estimates subtracted.
+
+`PREREGISTER_EXACT_VALUE.md` fixed the block (4400–4599), particles (256), shortlist (16, a compute ceiling)
+and the metric before the script existed. `recovery = (marginal − policy) / (marginal − oracle)` per graph:
+
+| family | `marginal` | `oracle` | policy | recovery [95 % CI] | W/T/L | verdict |
+|---|---:|---:|---:|---|---|---|
+| modular (N=500) | 8.780 | 4.070 | 8.785 | −0.049 [−0.087, −0.015] | 15/155/30 | `worse` |
+| spike (N=80) | 0.890 | 0.650 | 0.900 | +0.038 [+0.000, +0.103] | 2/195/3 | `null` |
+
+This is the experiment the §7 gap called for, and it came back negative. On `modular` the policy changed the
+action on 45 of 200 graphs and lost 30 of those, so the estimator was not too noisy to move — it moved and
+the mean-field ordering was better. On `spike` the ratio mean is positive while the aggregate gap moved
+backwards by 4.2 %, because the ratio mean is carried by one-or-two-error graphs; the report prints both
+rather than choosing.
+
+What this rules out is narrow and worth stating precisely: improving the *one-step* value estimate with the
+right correlation structure does not recover the `oracle` gap. That leaves two mechanical explanations — the
+belief's numbers, or what a myopic policy cannot see. The first was tested next; the second is still open.
+
+Known limit of the estimate: 256 particles with a 16-node shortlist. Both numbers were frozen by the
+pre-registration as a compute ceiling, so this is evidence against the *approach at this budget*, not a proof
+that exact values would not help.
+
+### Belief values: the gap is not a probability scale error (pre-registered, 4800–4999)
+
+`PREREGISTER_BELIEF_DECOMPOSITION.md` fixed the cheapest remaining test. `marginal` and `oracle` share rule,
+budget and horizon; only the prior differs. So keep the belief's **ranking** bit-identical (one strictly
+monotone map on every node, so per-graph AUC cannot change) and distort only its **values** with
+`q_i(γ) = sigmoid(γ · logit(belief_i))`. `γ = 1` reproduces `marginal` exactly, which the run checks per graph.
+
+| family | `marginal` | `oracle` | belief AUC | best γ | recovery there [95 % CI] | aggregate errors closed | W/T/L | verdict |
+|---|---:|---:|---:|---:|---|---:|---|---|
+| modular (N=500, 200 graphs) | 8.820 | 3.930 | 0.966 | 1.25 | +0.016 [−0.055, +0.072] | −1 of 978 | 46/142/12 | `policy-bound` |
+| spike (N=200 graphs) | 1.030 | 0.785 | 0.971 | 1.50 | +0.105 [+0.026, +0.211] | +0 of 49 | 4/192/4 | `calibration-partial` |
+
+On `modular` — where the 5–7-error gap actually lives — the verdict is **`policy-bound`**, and the interval is
+still inside zero after a Bonferroni correction over the grid ([−0.082, +0.088]). The positive ratio at
+`γ = 1.25` is reshuffling, not recovery: it wins 46 graphs, loses 12, and moves the aggregate by one error in
+978. On `spike` the pointwise interval excludes zero, but four wins and four losses close **zero** of a 49-error
+gap; the frozen label is `calibration-partial`, and the honest reading is "no net gain at this size".
+
+What this rules out: the gap is not "the forward pass is fed wrong numbers". Within a one-parameter family of
+value rescalings, `marginal` sits at the optimum. What it does not rule out: the belief ranks only 0.97, so a
+distortion that changes the order (a different belief, not a temperature) is still untested, as is everything
+multi-step. The exact-DP ceiling on the rule's own model is pre-registered but has not been run.
+
+### Depth-two planning: the gap is not the horizon (pre-registered, 5200–5399)
+
+`marginal` and `oracle` share rule, budget and *one-step* horizon, so their difference is the value of truth and
+cannot contain the value of planning. Pricing the horizon therefore requires changing the policy, not the prior.
+`PREREGISTER_PLANNING_V2.md` fixed a depth-two expectimax on the *same* mean-field model, using public inputs
+only (belief column, edge probabilities, sinks, mask, hit rate), width 6 then 4 — and two variants, because the
+environment's miss update is itself approximate and a planner can profit from that instead of from lookahead.
+
+| family | `marginal` | `oracle` | gap | policy | mean errors | recovery [95 % CI] | aggregate closed | W/T/L | verdict |
+|---|---:|---:|---:|---|---:|---|---:|---|---|
+| modular (200 graphs) | 8.915 | 4.300 | 923 | `plan2_catch` | 8.940 | −0.009 [−0.023, +0.001] | −5 | 2/191/7 | `informational` |
+| modular | | | | `plan2_full` | 11.340 | −0.833 [−1.071, −0.621] | −485 | 10/82/108 | `informational-strong` |
+| spike (200 graphs) | 0.860 | 0.615 | 49 | `plan2_catch` | 0.855 | +0.031 [+0.000, +0.094] | +1 | 1/199/0 | `informational` |
+| spike | | | | `plan2_full` | 2.155 | −1.188 [−1.646, −0.755] | −259 | 1/76/123 | `informational-strong` |
+
+Three facts, kept apart on purpose.
+
+1. **One more step at this width does not pay.** `plan2_catch` leaves the action unchanged on 191 of 200 modular
+   graphs and closes −5 of 923 errors; on spike its interval starts exactly at zero. The frozen label is
+   `informational`, the same conclusion the spike-only replay reached in `role2_규리/results/planning-v1/`
+   (+0.035, interval through zero). P1 held; **P2 (full ≥ catch) and P4 (myopia-bound) both failed**, and the
+   failure of P2 is the informative one.
+2. **The miss branch is a trap, and its size is new.** `plan2_full` weights the second step by the environment's
+   update `q ← q(1 − p_catch)/(1 − p_catch·e_v)`. That update is a heuristic, not a belief, and a depth-two
+   planner reads "this node will probably be missed, so its belief will drop" as an improvement. It costs
+   **485 of the 923** available modular errors and 259 of 49 on spike — worse than not planning at all. Nothing
+   earlier in this repository measured how exploitable that update is by a planner; this is a statement about
+   the update, and it is why the catch-only variant is the one that prices the horizon.
+3. **The one-step score is exact for its own objective.** `ES` is multilinear in the beliefs, so
+   `ES(B) − ES(B | v fixed) = b_v · ∂ES/∂b_v` exactly; the planner shares that adjoint pass with the rule
+   (max difference 4.4e-16, pinned by a test). Depth two is a genuine lookahead on the same model, not a
+   reweighted one-step score.
+
+What this rules out: with the value estimate (4400–4599) and the belief's values (4800–4999) already negative,
+the three mechanical explanations *inside the mean-field model* are gone — not the number, not the scale, not
+the horizon at this width. What it does not rule out: `myopia-bound` was defined as "a second step recovers
+more than 40 % of the gap", and width 6/4 with greedy truncation is a compute ceiling rather than an optimum,
+so the honest claim is "one more step at this width does not pay", not "no plan exists". `ba` and `er` are not
+measured.
+
+
 
 ### Reviewer hit rate `p_catch` (pre-registered, seeds 4000–4199)
 
@@ -276,6 +377,10 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
 | global corruption gate | fires where harm is smallest; blind to masking | `role2_규리/results/corruption-v1/` |
 | probe-then-decide with a global statistic | −0.015 [−0.055, +0.025]; 5/13 fired cells worse than trust | `role2_규리/results/verify-v1/` |
 | participant ranking on the real queue | +7.3 % [−8.6 %, +10.0 %] | `triage_bench/CEILING.md` |
+| sampled counterfactual value inside the mean-field shortlist | worse: recovery −0.049 [−0.087, −0.015]; 30 graphs worse, 15 better | `role3 improvement/outputs/value-v1/` |
+| belief values, order preserved (logit temperature) | `policy-bound` on modular (+0.016 [−0.055, +0.072]; −1 of 978 errors); `calibration-partial` on spike but 0 of 49 closed | `role3 improvement/outputs/belief-v1/` |
+| depth-two planning on the mean-field model | closes −5 of 923 `modular` errors (−0.009 [−0.023, +0.001]); spike +1 of 49, interval from zero | `role3 improvement/outputs/planning-v2/` |
+| a planner that trusts the environment's miss update | costs 485 of 923 errors on `modular`, 259 of 49 on `spike` | `role3 improvement/outputs/planning-v2/` |
 
 ## 9. Open gaps
 
@@ -285,8 +390,17 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
 2. No learned baseline outside `spike`. **Closed 2026-11-24**: `run_learned_baselines.py` trained 3 seeds ×
    5 families at the same budget (GNN 1,000 / DQN 300 episodes), evaluated into `outputs/v3-learned/`.
    `marginal` wins on all six families; the gap widens with `n` (+0.04 to +0.08 at N=21, +5 to +17 at N=500).
-3. `marginal` uses a mean-field approximation that drops shared-ancestor correlation. An exact
-   intervention value is the cheapest honest way to strengthen the rule; it is unmeasured.
+3. `marginal` uses a mean-field approximation that drops shared-ancestor correlation. **Measured
+   2026-11-24, negative three times**: an exact value is #P-hard here, and (a) a sampled counterfactual value
+   (paired particles, block 4400–4599) is *worse* than mean-field on `modular` (−0.049 recovery, CI
+   [−0.087, −0.015]); (b) an order-preserving rescaling of the belief's values (block 4800–4999) is
+   `policy-bound` on `modular` (+0.016 [−0.055, +0.072], one error of 978) and closes nothing on `spike`;
+   (c) depth-two planning on the same model (block 5200–5399) closes −5 of 923 `modular` errors
+   (−0.009 [−0.023, +0.001]) and +1 of 49 on `spike`, with the action unchanged on 191 of 200 graphs. The
+   three mechanical explanations *inside* the mean-field model are therefore exhausted, and the residual is
+   attributed to the belief's **information**: the public belief ranks the truth at 0.966 AUC while the rule
+   needs the mass on the right nodes, which the confidence channel does not carry. Untested and not claimed:
+   a belief with more information. See §6.
 4. Confidence is synthetic. No measured calibration exists for the real pipeline (Gap D).
 5. `triage_bench` proves an information ceiling (7 of 72 corrections are never flagged), not a scheduling
    win. Do not put it in the same table as the synthetic means.
@@ -318,6 +432,9 @@ python3 sweep_p_catch.py && python3 report_p_catch.py
 for s in 1 2 3; do python3 train_ppo.py --seed $s --out outputs/ppo-v1; done
 python3 evaluate_ppo.py --checkpoints outputs/ppo-v1/train_{1,2,3}/ppo_spike_observed.pt
 python3 report_ppo.py
+
+# sampled counterfactual value (block 4400-4599, ~6 min)
+python3 run_value_check.py && python3 report_value.py
 ```
 
 `outputs/v3/` is frozen at tag `role3-env-v3` and must not be overwritten.

@@ -1,0 +1,25 @@
+{
+  "block": [
+    5200,
+    5399
+  ],
+  "episode_offset": 20000,
+  "width": 6,
+  "second": 4,
+  "p_catch": 0.9,
+  "variants": {
+    "plan2_catch": [
+      "catch"
+    ],
+    "plan2_full": [
+      "catch",
+      "miss"
+    ]
+  },
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261124,
+  "budget": {
+    "spike": 16,
+    "modular": 50
+  }
+}

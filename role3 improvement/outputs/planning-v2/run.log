@@ -1,0 +1,8 @@
+modular  plan2_catch 8.940 recovery -0.009 [-0.023, +0.001] aggregate -5/923 W/T/L 2/191/7
+modular  plan2_full  11.340 recovery -0.833 [-1.071, -0.621] aggregate -485/923 W/T/L 10/82/108
+spike    plan2_catch 0.855 recovery +0.031 [+0.000, +0.094] aggregate +1/49 W/T/L 1/199/0
+spike    plan2_full  2.155 recovery -1.188 [-1.646, -0.755] aggregate -259/49 W/T/L 1/76/123
+modular  plan2_catch informational          -0.009 [-0.023, +0.001] aggregate -5/923
+modular  plan2_full  informational-strong   -0.833 [-1.071, -0.621] aggregate -485/923
+spike    plan2_catch informational          +0.031 [+0.000, +0.094] aggregate +1/49
+spike    plan2_full  informational-strong   -1.188 [-1.646, -0.755] aggregate -259/49

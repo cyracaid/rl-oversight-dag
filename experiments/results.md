@@ -68,7 +68,6 @@ Structural greedy (1.80) beats the threshold (2.30) on the 20 legacy graphs; on 
 
 1. **GNN + REINFORCE loses to deployable belief greedy** on 200 held-out graphs (paired gap +0.42 ± 0.15). Belief greedy assumes the confidence model and edge probabilities are known exactly; a learned policy may still win when that model is misspecified — untested.
 2. **GNN + PPO has not converged (~5.60)** — the PPO-on-GNN implementation needs more tuning; it is omitted from the main table.
-   *2026-11-24 note:* this caveat is about the earlier `rl_methods_compare.py` MLP PPO (this line). The pre-registered GNN+PPO on spike did converge and still lost — 1.225 / 1.335 / 1.340 vs `marginal` 0.875, all CIs excluding 0 (`role3 improvement/outputs/ppo-v1/`). Three architectures, one verdict: the rule wins.
 3. **CMDP soft budget (naive): 2.15 with a fixed seed, 4.85 in an earlier unseeded run** — the stop-action + coverage-constraint credit assignment is too coarse (the whole episode shares one return). It needs a FALCON-style reward-critic + cost-critic, not an episode-level Lagrangian. This is our open problem.
 4. All numbers were produced by an AI agent and have not been independently verified; Section 8 of the proposal lists the full checklist.
 
@@ -310,6 +309,58 @@ has no power. It neither supports nor refutes the block hypothesis.
 needs a **cross-night consistency score**; once it has one, the action unit is a free
 parameter that only matters when the budget is below the run length. This is the same
 conclusion as §7 (the confidence signal is the bottleneck), reached from different data.
+
+### 12e. What no scheduler can fix: the capture side
+
+`capture_checks.py` (6/6 tests) → `runs/capture-checks/results.json`; write-up in
+`CAPTURE_CHECKS_INTERPRETATION.md`. 196 participants / 2,372 nights.
+
+| defect class | prevalence | where it can be fixed |
+|---|---|---|
+| WASO = 0 on every night | 7 records, 3.6 % (82 nights) | intake; suppress C2, do not review |
+| WASO = 0 on ≥ 50 % of nights | 81 records, 41.3 % | analysis; report the zero share |
+| nights reporting WASO = 0 | 933 nights, 39.3 % | — |
+| ≥ 3 consecutive WASO = 0 nights | 88 records, 44.9 % vs **69.3 expected under a permutation null** | re-prompt, after the null |
+| one ±12 h shift repairs an order-breaking night | 20 records, 10.2 % (21 nights) | validation rule (the `order_error` family) |
+| coverage (nights / span) | median 91.7 %, 21.4 % of records below 0.8 | report the denominator |
+
+Reading: three of the four defect classes are cheaper to fix *outside* the
+scheduler, and one of them (missing WASO) is impossible to fix inside it. The
+44.9 % run figure looks alarming and is not: with WASO zero on 39 % of nights, a
+3-night run happens 35.4 % of the time by chance. The excess is ~18 records out of
+196, so any rule that fires on a 3-night zero run is wrong about two thirds of the
+time unless it carries its null.
+
+This is the concrete form of the §12d sentence. The reviewable population is the
+residual, not the bulk of the errors.
+
+### 12f. The cross-night score is learnable
+
+`learned_window_scorer.py` (8/8 tests) → `runs/learned-window-scorer/results.json`;
+full write-up in `LEARNED_WINDOW_SCORER_INTERPRETATION.md`. 118 train / 78
+held-out participants, 11 observable window features, logistic regression.
+
+| corruption | budget | night QC | hand-crafted shift score | learned | pooled (one score) |
+|---|---|---|---|---|---|
+| visible ±12 h | 2 | 0.180 | 1.354 | 0.214 | 0.170 |
+| | 4 | 0.000 | 1.054 | 0.005 | 0.009 |
+| silent WASO→0 | 2 | 0.039 | 0.034 | **0.014** | 0.015 |
+| | 4 | 0.032 | 0.033 | **0.013** | 0.013 |
+| silent 90 min shift | 2 | 0.162 | **0.071** | 0.083 | 0.091 |
+| | 4 | 0.056 | 0.043 | **0.041** | 0.058 |
+
+Held-out AUC 0.991 / 0.816 / 0.840 per family, 0.981 / 0.749 / 0.720 for the
+single pooled model. Paired deltas vs night QC at budget 2: WASO −0.025
+[−0.027, −0.023], shift −0.079 [−0.096, −0.062], visible +0.034 [−0.006, +0.077].
+
+Reading: on the visible family the learned scorer reconstructs the QC flags and
+adds nothing — the useful null. On the silent families it beats the per-night rule
+by 1.5–2.9×, and one pooled score with no family label keeps most of that gain.
+The hand-crafted formula was a good guess at `mid_dev`; the learned model finds
+the same feature plus the ones the guess omitted (`waso_zero_frac`). The greedy
+oracle is a reference point, not a bound: on the WASO family the learned policy
+beats it, because it ignores the two-night evidence requirement.
+
 
 ## 13. Credit assignment: one training result, one deployment null (not one withdrawal)
 

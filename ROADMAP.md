@@ -35,7 +35,7 @@ That is a complete, honest course deliverable. It is **not** a paper.
 | **R1** | a decisive result — positive under misspecification, or a mechanism with a passing falsification test — replicated across 5 seeds **and** by a second person | one negative run is a course result, not evidence | ◐ mechanism half done: five pre-registered steps, 200+100 fresh graphs, a second codebase agreeing; no second person has rerun it |
 | **R2** | a real queue with enough positives to train on (hundreds, not 68) | 6.5% precision cannot support a general claim | ✗ |
 | **R3** | a second domain or chain (SciForge receipts, GO, SYNERGY) | one synthetic family + one lab pipeline is not generalization | partial |
-| **R4** | a sharp boundary: when does a one-step posterior greedy dominate, and when must learning win | the boundary is the contribution; the benchmark is not | ◐ one boundary measured (δ grid, single δ, hit rate); the greedy-vs-learning boundary is still C1–C4 |
+| **R4** | a sharp boundary: when does a one-step posterior greedy dominate, and when must learning win | the boundary is the contribution; the benchmark is not | ◐ one boundary measured (δ grid, single δ, hit rate); two mechanical explanations for the oracle gap are ruled out (sampled value `worse`, belief rescaling `policy-bound`); the greedy-vs-learning boundary is still C1–C4 |
 | **R5** | clean artifact: one command, fixed seeds, data cards, no hand-edited tables | reviewers check this before they read the result | ◐ manifest + per-graph CSV + byte-identical reruns + seeded verdict code; not one command, no data card |
 
 Pre-registration is a strength for grading, but it does not move R1–R5 on its own.

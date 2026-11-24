@@ -13,6 +13,12 @@ for the open items; the build brief lives in the team's Feishu wiki.
 
 **New here?** [One-page reading guide](https://cyracaid.github.io/rl-oversight-dag/READING.html) — who should read which document, five plain words, and what to skip. (中文速览在文末。)
 
+**Course final report — what we can defend, and what we cannot:**
+[English](https://cyracaid.github.io/rl-oversight-dag/COURSE_FINAL_REPORT.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/COURSE_FINAL_REPORT_CN.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/COURSE_FINAL_REPORT_KO.html).
+Every number is paired and regenerated from a committed CSV; the failures are kept in the text.
+
 **Latest RL results · 2026-11-12:** [한국어 결과 요약](experiments/BOUNDARY_RESULTS_KO.md) · [中文详细解释](experiments/BOUNDARY_FULL_V1_INTERPRETATION.md) · [Preregistration](experiments/BOUNDARY_PREREG.md). Five training seeds, 200 development graphs: belief greedy 1.100, two-step greedy 1.020, BC 1.201, BC+FT 1.525 sink errors (lower is better). Current RL policies do not outperform belief greedy; this now replicates on the untouched confirmation set (seeds 2000–2199): GNN − marginal **+0.377 [+0.255, +0.510]**. [Saved synthetic results and checkpoints](runs/boundary-full-v1/).
 
 **Who does what (visual, EN / 한국어 / 中文):** [PLAN.html](PLAN.html) — dependency graph, 8-day schedule, four interfaces, three gates. Built from one source: `python3 tools/build_plan.py`. Text version: [GENERALIZATION_PLAN.md](GENERALIZATION_PLAN.md).
@@ -95,6 +101,9 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Spike, 100 graphs, same env | marginal **0.66** | GNN 0.96 / 1.17 / 1.06 | rule wins; paired CIs exclude 0 | `role3 improvement/outputs/v3/` |
 | Learned baselines on all 6 families (3 seeds, equal budget) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47 / 0.29** | GNN and DQN | rule wins in **all 36 (family, seed) cells**; gap grows with n: +0.04–0.08 at N=21, +5.2–17.0 at N=500; 34/36 CIs exclude 0 | `role3 improvement/outputs/v3-learned/learned_vs_marginal.md` |
 | Spike, PPO, fresh block 4200–4399 | marginal **0.875** | PPO 1.225 / 1.335 / 1.340 | third architecture also loses: Δ +0.350 to +0.465, all CIs exclude 0; indistinguishable from REINFORCE, not better | `role3 improvement/outputs/ppo-v1/` |
+| Sampled counterfactual value instead of mean-field (block 4400–4599) | modular **8.780** / spike **0.890** | 8.785 / 0.900 | **negative**: recovery −0.049 on modular, unseparated on spike — fixing the independence assumption in the one-step score does not close the oracle gap | `role3 improvement/outputs/value-v1/` |
+| Belief values, order preserved: logit temperature (pre-registered, 200 fresh graphs) | modular `marginal` **8.820** | best γ 1.25 → 8.825 | frozen verdict **`policy-bound`**: +0.016 [−0.055, +0.072], 46 better / 142 tie / 12 worse, and **−1 error of a 978-error gap**. Every distortion is neutral at best; γ = 0.5 costs 1.49 errors. The gap is not a probability-scale error. Spike: `calibration-partial` (+0.105 [+0.026, +0.211] pointwise, but **0 of 49** aggregate errors closed) | `role3 improvement/outputs/belief-v1/` |
+| Depth-two planning on the same model (pre-registered, 5200–5399) | modular **8.915** / spike **0.860** | `plan2_catch` 8.940 / 0.855 | frozen verdict **`informational`**: modular −0.009 [−0.023, +0.001], **−5 of 923** errors, action unchanged on 191/200 graphs; spike +1 of 49 with the interval starting at zero. The horizon is not the bottleneck at width 6/4. The second variant, which instead trusts the environment's miss update, is **far worse**: −485 of 923 and −259 of 49 | `role3 improvement/outputs/planning-v2/` |
 | Five graph shapes (spike/modular/BA/ER/real) | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47** | — | positive vs sort-by-confidence on every shape; real is thin (+0.03 [0.00, 0.07]) | `role3 improvement/outputs/v3/benchmark_summary.csv` |
 | Full baseline set with truth-reading reference, 6 families | marginal **0.66 / 8.78 / 20.13 / 16.76 / 0.47 / 0.29** | `oracle` 0.52 / 3.78 / 13.28 / 9.84 / 0.39 / 0.28 | `type_prior` is far worse (3.76 on spike) → confidence carries signal; oracle gap 5–7 errors at N=500 is the measurable headroom | `role3 improvement/outputs/v3-baselines/` |
 | Hypothetical ticketing pipeline (synthetic prior, 21 nodes, budget 8) | marginal **0.29** | — | **ties** confidence 0.32: +0.03 [0.00, +0.08], 98/100 ties — no cross-domain advantage | `role3 improvement/outputs/ticket-v1/` |

@@ -91,6 +91,8 @@ def main():
             "graphs_with_gap": int(usable.sum()),
             "gap_closed_share_aggregate": float(
                 (m.sum() - p.sum()) / gap.sum()) if gap.sum() > 0 else 0.0,
+            "gap_sum": float(gap.sum()),
+            "closed_sum": float((m - p).sum()),
             "wins": int((p < m).sum()), "ties": int((p == m).sum()),
             "losses": int((p > m).sum()),
             "oracle_ties": int((o == m).sum()),
