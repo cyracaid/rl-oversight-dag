@@ -22,9 +22,11 @@ survived is a different question that the failure exposed — **which signal sho
 should it do when it cannot trust it.** Five pre-registered steps answer that inside this benchmark: a global
 gate is wrong in both directions, the decision variable has to move down to the node and then up to the graph,
 and the graph model's own boundary is measured rather than assumed. Two of those steps are failures we declared
-ourselves, and two later predictions were flatly reversed. Two further pre-registered experiments then remove
-the two cheapest explanations for the rule's remaining gap to an oracle — the one-step value estimate and the
-belief's probability scale — leaving multi-step depth as the untested cell. That is the deliverable.
+ourselves, and two later predictions were flatly reversed. Three further pre-registered experiments then remove
+every mechanical explanation for the rule's remaining gap to an oracle — the one-step value estimate, the
+belief's probability scale, and the horizon itself, where five-step optimal planning inside the rule's own model
+is worth 0.022 errors against a gap of 5–7. What is left is information the confidence channel does not carry.
+That is the deliverable.
 
 ## 1. The question we started with
 
@@ -80,10 +82,10 @@ pre-registered size prediction: the lead grows as reviewers become **more** reli
 path (+0.355 → +0.820), so the environment contracts rather than the rule improving. The frozen verdict is
 `inverted`, and it is reported as a failed prediction, not rewritten.
 
-## 5. Closing the gap: two explanations tested, both rejected
+## 5. Closing the gap: three explanations tested, all rejected
 
-The rule loses 5–7 errors per graph to `oracle` at N=500. Three mechanical explanations were on the table; two
-have now been frozen and measured on fresh blocks.
+The rule loses 5–7 errors per graph to `oracle` at N=500. Three mechanical explanations were on the table; all
+three have now been frozen and measured on fresh blocks.
 
 **The one-step value is not the problem** (`PREREGISTER_EXACT_VALUE.md`, 4400–4599). The mean-field score
 double-counts a source error with two open paths, so we re-ranked the mean-field top 16 by a sampled paired
@@ -97,10 +99,20 @@ verdict is **`policy-bound`**: the best cell (γ = 1.25) gives +0.016 [−0.055,
 and moves the aggregate by **−1 error out of 978**. γ = 0.5 costs 1.49 errors. On spike the label is
 `calibration-partial` but it closes **0 of 49** errors, so it is not a gain at this size.
 
-What remains is the third explanation: the rule cannot see what this review does to later reviews. Two-step
-planning was tested on spike (+0.035, not supported) but never on modular, and an exact-DP ceiling on the rule's
-own model is pre-registered and **not yet run**. We are not claiming the gap is now explained; we are claiming
-the cheap explanations are gone.
+**The horizon is not the problem either** (`PREREGISTER_PLANNING_V2.md`, 5200–5399). Depth two on the *same*
+mean-field model, public inputs only, width 6 then 4. The catch-only variant leaves 191 of 200 modular actions
+unchanged and closes −5 of 923 errors, recovery −0.009 [−0.023, +0.001]: `informational`. The two-branch variant
+is worse by an order of magnitude (−0.833 [−1.071, −0.621], 485 of 923 errors lost) because the environment's
+miss update is a heuristic, and a planner reads "this node will probably be missed, so its belief will drop" as
+an improvement. That is a statement about the update, and it is why only the catch-only variant prices the
+horizon — and it prices it at zero.
+
+**The exact optimum of the rule's own model agrees** (`PREREGISTER_DP.md`, 60000–60023). Five-step optimal
+planning inside that model buys **0.022 errors per graph** (`dp − marginal` −0.0219 on `real`, −0.0059 on
+`ticket`), against a 5–7-error gap to `oracle`; the saturation test P5 holds on both families. So the gap is not
+lookahead. What remains is information the confidence channel does not carry: the public belief ranks the truth
+at 0.966 AUC, while the rule needs mass on the right nodes. A belief with more information is the one
+explanation still untested, and we do not claim it closes anything.
 
 ## 6. Failures we are keeping in the document
 
@@ -112,6 +124,9 @@ the cheap explanations are gone.
 | `p_catch` size prediction | "the advantage grows when reviewers are unreliable" |
 | sampled counterfactual value (4400–4599) | "the oracle gap is mean-field double counting, and a better score closes it" (recovery −0.049) |
 | belief rescaling (4800–4999) | "the gap is a probability-scale error a temperature can fix" (−1 of 978 errors at the optimum) |
+| depth-two planning (5200–5399) | "the gap is the one-step horizon" (−5 of 923 errors; 191 of 200 actions unchanged) |
+| a planner that trusts the miss update (5200–5399) | that the environment's approximate update is safe for a lookahead — it costs 485 of 923 errors |
+| exact DP ceiling (60000–60023) | "our heuristic is what costs the gap" — the optimum of the same model is 0.022 errors better |
 | block review MDP (real records) | "the review unit is the bottleneck" — it is the score; block actions only pay below the run length |
 
 ## 7. What we can and cannot claim
@@ -124,12 +139,13 @@ the cheap explanations are gone.
 * the decision variable moves node → graph, and the graph model tolerates an off-grid δ;
 * with 16 reviews, masking corruption at +3 costs **+0.005 [0.000, 0.015]** errors versus plain trust, and a
   full −4 shift returns the policy to the clean oracle;
-* the residual gap to `oracle` is not the one-step value estimate and not the belief's probability scale.
+* the residual gap to `oracle` is not the one-step value estimate, not the belief's probability scale, and not the
+  horizon: the exact optimum of the rule's own model is 0.022 errors ahead of the rule, out of a 5–7-error gap.
 
 **Cannot claim**: that RL produces a gain here; that one shared δ covers two simultaneous shifts; that the
 learned policy adapts to a lower hit rate (it was not retrained); that the gate generalises to small, partial,
-or masking corruption; that the gap is fully explained — the multi-step cell is open; that any of this
-transfers to a real queue with 68 labelled errors.
+or masking corruption; that a richer belief closes the gap — it is the only explanation left and it is untested;
+that any of this transfers to a real queue with 68 labelled errors.
 
 ## 8. The real data, stated plainly
 
@@ -176,6 +192,8 @@ Seed ledger — a block is spent once it has chosen a method or a threshold:
 | 4400–4599 | sampled counterfactual value |
 | 4600–4799 | **void** — smoke runs only, excluded from every result |
 | 4800–4999 | belief-value decomposition |
+| 5200–5399 | depth-two planning (`planning-v2`) |
+| 60000–60023 | exact DP ceiling (`dp-ceiling`) |
 | 70000–70099 | calibration only (thresholds fitted here, never reported) |
 | 90000–90099 | the reported benchmark table |
 | 91000–94199 | assess / feedback / residual / planning |
