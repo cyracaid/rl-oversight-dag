@@ -1,0 +1,2 @@
+# Synthetic-graph result tables must be committed (the root ignores *.csv for the real-data red line).
+!results/*.csv
