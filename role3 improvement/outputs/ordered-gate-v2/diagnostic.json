@@ -1,0 +1,62 @@
+{
+  "exploratory": true,
+  "note": "post hoc; does not reopen the closed G2 gate",
+  "policies": {
+    "none": {
+      "mean": 2.5,
+      "minus_marginal": 1.75,
+      "ci": [
+        1.375,
+        2.1
+      ]
+    },
+    "random": {
+      "mean": 1.975,
+      "minus_marginal": 1.225,
+      "ci": [
+        0.875,
+        1.6
+      ]
+    },
+    "marginal": {
+      "mean": 0.75,
+      "minus_marginal": 0.0,
+      "ci": [
+        0.0,
+        0.0
+      ]
+    },
+    "symptom_reader": {
+      "mean": 0.8,
+      "minus_marginal": 0.05,
+      "ci": [
+        0.0,
+        0.125
+      ]
+    },
+    "truth_reader": {
+      "mean": 0.65,
+      "minus_marginal": -0.1,
+      "ci": [
+        -0.25,
+        0.025
+      ]
+    },
+    "oracle": {
+      "mean": 0.6,
+      "minus_marginal": -0.15,
+      "ci": [
+        -0.3,
+        0.0
+      ]
+    }
+  },
+  "split": {
+    "transposed_episodes": 21,
+    "marginal_on_transposed": 1.0476190476190477,
+    "marginal_on_clean": 0.42105263157894735,
+    "symptom_reader_on_transposed": 1.1428571428571428,
+    "truth_reader_on_transposed": 0.8571428571428571,
+    "oracle_on_transposed": 0.8095238095238095
+  }
+}

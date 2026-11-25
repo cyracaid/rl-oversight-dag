@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "dag_role3/ordered.py": "1cab3c065cc9bf84f0e6a09d74b1dc2a7ab090bc63214fbb65687e97b6de8b41",
+    "run_ordered_gate.py": "c8935efa7ee34879247c5931da1b3b163cdd92e6e8359a9735720bb040e8b4ac"
+  },
+  "python": "3.14.0",
+  "numpy": "2.4.4",
+  "seed": 20261125,
+  "blocks": {
+    "graphs": {
+      "real": [
+        5160,
+        12
+      ],
+      "ticket": [
+        5172,
+        12
+      ]
+    },
+    "episodes": [
+      5600,
+      40
+    ]
+  }
+}

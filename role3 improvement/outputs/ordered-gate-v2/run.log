@@ -1,0 +1,19 @@
+  real normal: G1a node-level AUC 0.599 [0.504, 0.703]  G1b relational AUC 0.822 [0.745, 0.894]  (21/40 transposed)
+  real  noise: G1a node-level AUC 0.587 [0.490, 0.689]  G1b relational AUC 0.822 [0.745, 0.894]  (21/40 transposed)
+ticket normal: G1a node-level AUC 0.986 [0.970, 0.999]  G1b relational AUC 0.901 [0.845, 0.950]  (17/40 transposed)
+ticket  noise: G1a node-level AUC 0.989 [0.973, 1.000]  G1b relational AUC 0.901 [0.845, 0.950]  (17/40 transposed)
+gate: {'G1a_not_local': 'holds', 'G1b_global': 'holds', 'G2_decision_value': 'contradicted', 'G3_noise_control_not_local': 'holds'} closed
+           none: 2.500  vs marginal +1.750 [+1.375, +2.100]
+         random: 1.975  vs marginal +1.225 [+0.875, +1.600]
+       marginal: 0.750  vs marginal +0.000 [+0.000, +0.000]
+ symptom_reader: 0.800  vs marginal +0.050 [+0.000, +0.125]
+   truth_reader: 0.650  vs marginal -0.100 [-0.250, +0.025]
+         oracle: 0.600  vs marginal -0.150 [-0.300, +0.000]
+split: {
+  "transposed_episodes": 21,
+  "marginal_on_transposed": 1.0476190476190477,
+  "marginal_on_clean": 0.42105263157894735,
+  "symptom_reader_on_transposed": 1.1428571428571428,
+  "truth_reader_on_transposed": 0.8571428571428571,
+  "oracle_on_transposed": 0.8095238095238095
+}

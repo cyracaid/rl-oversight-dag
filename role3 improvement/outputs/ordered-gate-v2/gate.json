@@ -1,0 +1,140 @@
+{
+  "preregistration": "PREREGISTER_ORDERED_BENCHMARK.md",
+  "q": 0.5,
+  "graphs": {
+    "real": [
+      5160,
+      12
+    ],
+    "ticket": [
+      5172,
+      12
+    ]
+  },
+  "episodes": [
+    5600,
+    40
+  ],
+  "budgets": {
+    "real": 8,
+    "ticket": 8
+  },
+  "families": {
+    "real": {
+      "normal": {
+        "transposed_episodes": 21,
+        "episodes": 40,
+        "positives": 42,
+        "node_level": {
+          "auc": 0.5986682808716707,
+          "ci": [
+            0.5038009705348415,
+            0.7026057802397628
+          ]
+        },
+        "relational": {
+          "auc": 0.8220338983050848,
+          "ci": [
+            0.7452830188679245,
+            0.8939393939393939
+          ]
+        },
+        "policy_sink_errors": {
+          "none": 2.5,
+          "marginal": 0.75,
+          "truth_reader": 0.65
+        },
+        "truth_reader_minus_marginal": {
+          "mean": -0.1,
+          "ci": [
+            -0.25,
+            0.025
+          ]
+        }
+      },
+      "noise": {
+        "transposed_episodes": 21,
+        "episodes": 40,
+        "positives": 42,
+        "node_level": {
+          "auc": 0.5867635189669088,
+          "ci": [
+            0.49039664968652036,
+            0.6894568745281493
+          ]
+        },
+        "relational": {
+          "auc": 0.8220338983050848,
+          "ci": [
+            0.7452830188679245,
+            0.8939393939393939
+          ]
+        }
+      }
+    },
+    "ticket": {
+      "normal": {
+        "transposed_episodes": 17,
+        "episodes": 40,
+        "positives": 34,
+        "node_level": {
+          "auc": 0.9863201094391245,
+          "ci": [
+            0.9699976851851851,
+            0.9992897727272727
+          ]
+        },
+        "relational": {
+          "auc": 0.9011627906976745,
+          "ci": [
+            0.8445945945945946,
+            0.95
+          ]
+        },
+        "policy_sink_errors": {
+          "none": 1.975,
+          "marginal": 0.5,
+          "truth_reader": 0.475
+        },
+        "truth_reader_minus_marginal": {
+          "mean": -0.025,
+          "ci": [
+            -0.075,
+            0.0
+          ]
+        }
+      },
+      "noise": {
+        "transposed_episodes": 17,
+        "episodes": 40,
+        "positives": 34,
+        "node_level": {
+          "auc": 0.9887140902872777,
+          "ci": [
+            0.9725522741147741,
+            1.0
+          ]
+        },
+        "relational": {
+          "auc": 0.9011627906976745,
+          "ci": [
+            0.8445945945945946,
+            0.95
+          ]
+        }
+      }
+    }
+  },
+  "verdicts": {
+    "G1a_not_local": "holds",
+    "G1b_global": "holds",
+    "G2_decision_value": "contradicted",
+    "G3_noise_control_not_local": "holds"
+  },
+  "gate_open": false,
+  "ticket_side_note": {
+    "G1a_not_local": "contradicted",
+    "G1b_global": "holds",
+    "G2_decision_value": "contradicted"
+  }
+}
