@@ -65,11 +65,6 @@ file in the repo used. **11 of 11 primary cells kept their label** (`results/v2_
 The rewire RNG streams `Random(4_040_000 + 100_000·k + seed)` and `Random(5_050_000 + 100_000·k + seed)` are draw
 seeds, not graph blocks; list them too if you want.
 
-**Q6. Where the result goes.** Your request says these controls belong in the abstract. `PAPER_DRAFT.md` and
-`COURSE_FINAL_REPORT.md` do not mention flatten/rewire yet. Will you integrate, or should I draft the paragraph?
-Suggested wording: *"Removing propagation removes the advantage (modular, BA, ER: within ±20 % of zero); a wrong map
-removes or reverses it; on hub graphs the gain rests on hub identity — and with a wrong graph, graph-aware review is worse than ignoring the graph."*
-
 ## For information (decided, no answer needed)
 
 - `benchmark_worst_of_n.csv` lives in `role4_controls/results/`, not next to the frozen summary, so nothing is written
