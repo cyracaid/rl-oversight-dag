@@ -4,7 +4,7 @@
     5120,
     40
   ],
-  "source_sha256": "d761b8d373a7ca8ba5aaaeb9a364b8cad2ac7a6ae2c2e880fa93733f39ab9b14",
+  "source_sha256": "6243e5268080f13759f423f762af8b990cc94534b6acdf8e35d0db9674e83d6e",
   "families": [
     {
       "family": "real",
@@ -17,7 +17,17 @@
       "rates_only_rdm_spearman": 0.12302230421229521,
       "max_abs_error_cooccurrence_corr": 0.5623515948579811,
       "mean_abs_error_cooccurrence_corr": 0.1281926159828862,
-      "truth_rdm_sd": 0.1261320561170578
+      "truth_rdm_sd": 0.1261320561170578,
+      "independence_null": {
+        "observed_rho_against_true_rates": -0.12283553141945297,
+        "independence_mean": -0.07246836154367758,
+        "independence_ci": [
+          -0.1492514587086622,
+          0.009755326743744647
+        ],
+        "draws": 200,
+        "distinct_true_rates": 5
+      }
     },
     {
       "family": "ticket",
@@ -30,7 +40,17 @@
       "rates_only_rdm_spearman": 0.7380079402472952,
       "max_abs_error_cooccurrence_corr": 0.466372402167213,
       "mean_abs_error_cooccurrence_corr": 0.13680924530781388,
-      "truth_rdm_sd": 0.10669907927513123
+      "truth_rdm_sd": 0.10669907927513123,
+      "independence_null": {
+        "observed_rho_against_true_rates": 0.5292051212820217,
+        "independence_mean": 0.48604310476772056,
+        "independence_ci": [
+          0.3696314633256662,
+          0.5886310347132133
+        ],
+        "draws": 200,
+        "distinct_true_rates": 6
+      }
     },
     {
       "family": "spike",
@@ -43,7 +63,17 @@
       "rates_only_rdm_spearman": 0.5499921415237375,
       "max_abs_error_cooccurrence_corr": 1.0,
       "mean_abs_error_cooccurrence_corr": 0.1211243889002601,
-      "truth_rdm_sd": 0.11683488637208939
+      "truth_rdm_sd": 0.11683488637208939,
+      "independence_null": {
+        "observed_rho_against_true_rates": 0.394435927174161,
+        "independence_mean": 0.39648570311926706,
+        "independence_ci": [
+          0.33796872057824395,
+          0.4496257974873205
+        ],
+        "draws": 200,
+        "distinct_true_rates": 5
+      }
     }
   ]
 }

@@ -35,6 +35,29 @@ def diagnose(family: str) -> dict:
     iu = np.triu_indices(len(rates), k=1)
     rate_gap = np.abs(rates[:, None] - rates[None, :])
     rho = float(spearmanr(rate_gap[iu], hamming[iu]).statistic)
+
+    # The estimator above uses rates estimated from the same 40 episodes, which is
+    # biased upward. The honest baseline is the family's own generating model: the
+    # simulator draws each source error independently from the node's type rate, so an
+    # independent sample from those exact rates is the null this statistic lives under.
+    true_rates = np.array([ds.graph.rates[t] for t in ds.graph.types])
+    gap_true = np.abs(true_rates[:, None] - true_rates[None, :])
+    obs_rho = float(spearmanr(gap_true[iu], hamming[iu]).statistic)
+    rng = np.random.default_rng(1)
+    draws = []
+    for _ in range(200):
+        sample = (rng.random(labels.shape) < true_rates).astype(float)
+        sim_ham = np.abs(sample.T[:, None, :] - sample.T[None, :, :]).mean(-1)
+        draws.append(spearmanr(gap_true[iu], sim_ham[iu]).statistic)
+    draws = np.asarray(draws)
+    null = {
+        "observed_rho_against_true_rates": obs_rho,
+        "independence_mean": float(draws.mean()),
+        "independence_ci": [float(np.percentile(draws, 2.5)),
+                            float(np.percentile(draws, 97.5))],
+        "draws": 200,
+        "distinct_true_rates": int(len(np.unique(true_rates))),
+    }
     with np.errstate(invalid="ignore", divide="ignore"):
         corr = np.corrcoef(truth)
     np.fill_diagonal(corr, 0.0)
@@ -51,6 +74,7 @@ def diagnose(family: str) -> dict:
         "max_abs_error_cooccurrence_corr": float(np.nanmax(pairs)),
         "mean_abs_error_cooccurrence_corr": float(np.nanmean(pairs)),
         "truth_rdm_sd": float(hamming[iu].std()),
+        "independence_null": null,
     }
 
 
@@ -69,9 +93,11 @@ def main(argv=None) -> int:
     }
     out.write_text(json.dumps(payload, indent=2) + "\n")
     for row in rows:
-        print(f"{row['family']:>7}: rates-only RDM rho {row['rates_only_rdm_spearman']:+.3f}, "
-              f"mean errors/episode {row['mean_errors_per_episode']:.2f}, "
-              f"truth RDM sd {row['truth_rdm_sd']:.3f}")
+        null = row["independence_null"]
+        print(f"{row['family']:>7}: rho vs true rates {null['observed_rho_against_true_rates']:+.3f}, "
+              f"independence null {null['independence_mean']:+.3f} "
+              f"[{null['independence_ci'][0]:+.3f}, {null['independence_ci'][1]:+.3f}], "
+              f"{null['distinct_true_rates']} distinct rates")
     print(f"wrote {out}")
     return 0
 
