@@ -35,10 +35,14 @@ EXPERIMENTS = [
      ("graph_seed", "condition", "policy"), 91000),
     ("feedback", "evaluate_feedback.py", [], "feedback-v1",
      ("graph_seed", "condition", "policy", "approach"), 92000),
+    # fixed design (seeds 4600-4699); takes only --out/--workers
+    ("scope_within", "evaluate_scope_within.py", ["--workers", "4"], "scope-within-v1",
+     ("graph_seed", "cell", "layer", "fraction", "shift_a", "shift_b", "policy"), None),
 ]
 # columns averaged in the summary table (GNN seeds pooled as "gnn")
 GROUP = {"partial": ("shuffled_type_count", "approach"), "confirm": ("condition", "policy"),
-         "conditions": ("condition", "policy"), "feedback": ("condition", "policy", "approach")}
+         "conditions": ("condition", "policy"), "feedback": ("condition", "policy", "approach"),
+         "scope_within": ("cell", "policy")}
 
 
 def sha256(path):
@@ -95,14 +99,16 @@ def main():
         if args.only and name not in args.only:
             continue
         out = ROLE2 / "runs" / f"review-{name}-{stamp}"
-        cmd = [sys.executable, "-X", "utf8", ROLE2 / script, "--out", out, "--graphs", graphs, *extra]
-        if name != "confirm":
+        cmd = [sys.executable, "-X", "utf8", ROLE2 / script, "--out", out, *extra]
+        if start is not None or name == "confirm":
+            cmd += ["--graphs", graphs]
+        if start is not None:
             cmd += ["--start", start]
         if not run(cmd, log):
             reports[name] = {"error": True}
             continue
         report = compare(name, out / "episodes.csv", RESULTS / folder, keys)
-        if not args.quick:
+        if not args.quick or start is None:
             manifest = json.loads((RESULTS / folder / "manifest.json").read_text(encoding="utf-8"))
             report["sha_match"] = sha256(out / "episodes.csv") == manifest.get("episodes_sha256")
         reports[name] = report
@@ -117,7 +123,7 @@ def main():
 
     lines = ["# role2_규리 로컬 재실행 결과", "",
              f"- 실행: {dt.datetime.now():%Y-%m-%d %H:%M}, 커밋 `{commit}`, "
-             f"{'빠른 점검(그래프 40개)' if args.quick else '전체(그래프 200개)'}",
+             f"{'빠른 점검(그래프 40개)' if args.quick else '전체'}",
              f"- 환경: {platform.system()} {platform.release()}, Python {platform.python_version()}, {versions}",
              "- 비교 기준: 같은 그래프·같은 정책끼리 `sink_errors`(남은 결론 오류)를 한 줄씩 대조", ""]
     if tests_ok is not None:
@@ -141,8 +147,9 @@ def main():
         lines += [f"- `{cmd}` → exit {code}, {sec:.0f}초"]
         if code:
             lines += ["", "```", tail, "```"]
-    OUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"\nWrote {OUT_MD}")
+    out_md = OUT_MD if not args.only else OUT_MD.with_name(f"role2_repro_result_{'_'.join(args.only)}.md")
+    out_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"\nWrote {out_md}")
 
 
 if __name__ == "__main__":
