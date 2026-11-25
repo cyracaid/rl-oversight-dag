@@ -2,7 +2,8 @@
 
 Run: `python3 run_controls.py --out results/` on branch `p4/role4-controls`. Rules frozen in commit
 `af29f1c` (README, "Frozen before outcomes") before any flatten/rewire outcome was computed.
-Every number below is a cell of `controls_summary.csv` or `benchmark_worst_of_n.csv`.
+Every number below is a cell of `controls_summary.csv`, `benchmark_worst_of_n.csv` or (section 3)
+`diagnostics.csv`, written by `diagnostics.py`.
 
 **Reproduction check passed:** the `intact` condition reproduces `outputs/v3/benchmark_role3.csv`
 for all 1,500 shared rows (5 families × 100 graphs × 3 policies) — same sink errors *and* the same
@@ -41,12 +42,16 @@ Positive = marginal leaves fewer conclusion errors. `removed` = gain(intact) −
 
 ## 3. Post-hoc diagnostics (not pre-registered; hypotheses, not findings)
 
+Numbers from `results/diagnostics.csv` (`python3 diagnostics.py`). Correction: the first version of this
+section quoted them from an uncommitted script; they are unchanged, now reproducible.
+
 - **BA rewire.** The frozen rewire draws parents from lower-index nodes, and in BA/ER low index means
   "old node". The rewired map therefore keeps much of *who the hubs are*: median Spearman correlation
   of out-degree, original vs rewired, is 0.63 on BA and 0.62 on ER, against 0.05 on modular (where the
   advantage is removed most completely). A plausible reading is that on BA part of `marginal`'s gain
-  comes from hub position, which this rewire preserves. This is untested; a degree-preserving rewire
-  would test it and would need its own pre-registration.
+  comes from hub position, which this rewire preserves. This is untested. (Correction: a degree-preserving
+  rewire would keep the hubs *exactly*, so it cannot test this; a rewire that breaks the index–hub link
+  can. That is the pre-registered v2 below.)
 - **spike flatten.** Without propagation only a conclusion's own error counts. `marginal` spends 31 %
   of its reviews on conclusion nodes, confidence 24 %. A plausible reading is that the surviving
   +0.09 comes from knowing *which nodes are conclusions* — graph information, but not propagation.
