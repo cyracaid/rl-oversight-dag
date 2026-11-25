@@ -1,0 +1,50 @@
+{
+  "note": "diagnostic on spent blocks; withdraws the v2 gate reading, adds no verdict",
+  "v2_block": {
+    "episodes": [
+      5600,
+      40
+    ],
+    "affected": 21,
+    "total": 40
+  },
+  "feature_sets": {
+    "node": {
+      "pooled_auc": 0.5986682808716707,
+      "within_episode_auc": 0.5119047619047619,
+      "clean_vs_transposed_auc": 0.7669172932330827
+    },
+    "relational": {
+      "pooled_auc": 0.8220338983050848,
+      "within_episode_auc": 0.5,
+      "clean_vs_transposed_auc": 1.0
+    }
+  },
+  "local_rule": {
+    "description": "first descent start and last ascent end, from each node's own two adjacent residual signs",
+    "v2_q050": {
+      "exact": 21,
+      "affected": 21,
+      "accuracy": 1.0,
+      "pairs": {
+        "(0, 2)": 8,
+        "(0, 3)": 5,
+        "(1, 3)": 8
+      }
+    },
+    "v21_q100": {
+      "exact": 60,
+      "affected": 60,
+      "accuracy": 1.0,
+      "pairs": {
+        "(0, 2)": 23,
+        "(0, 3)": 26,
+        "(1, 3)": 11
+      }
+    }
+  },
+  "distinct_relational_feature_rows_per_episode": [
+    1
+  ],
+  "chain_length": 4
+}

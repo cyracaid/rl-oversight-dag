@@ -1,0 +1,61 @@
+{
+  "preregistration": "PREREGISTER_ORDERED_BENCHMARK_V21.md",
+  "blocks": {
+    "graphs": [
+      5184,
+      12
+    ],
+    "episodes": [
+      5640,
+      60
+    ]
+  },
+  "q": 1.0,
+  "budget": 8,
+  "episodes": 60,
+  "kept_episodes": 15,
+  "dropped_no_gap": 45,
+  "sink_errors": {
+    "marginal": 0.9333333333333333,
+    "truth_reader": 0.5833333333333334,
+    "symptom_reader": 1.1166666666666667,
+    "oracle": 0.4666666666666667
+  },
+  "gap_marginal_oracle": {
+    "mean": 0.4666666666666667,
+    "ci": [
+      0.25,
+      0.7004166666666644
+    ]
+  },
+  "recovery": {
+    "R": 0.8214285714285715,
+    "ci": [
+      0.6296296296296297,
+      0.9642857142857143
+    ]
+  },
+  "H1": "holds",
+  "H2_symptom": {
+    "mean": 0.18333333333333332,
+    "ci": [
+      0.05,
+      0.35
+    ]
+  },
+  "H2": "holds",
+  "H3": {
+    "node_level_auc": 0.8004861111111111,
+    "node_level_ci": [
+      0.7175607638888889,
+      0.8775937499999998
+    ],
+    "relational_auc": 0.5,
+    "relational_ci": [
+      0.5,
+      0.5
+    ],
+    "node_ok": false,
+    "relational_ok": false
+  }
+}

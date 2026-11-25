@@ -1,0 +1,19 @@
+{
+  "sources": {
+    "dag_role3/ordered.py": "1cab3c065cc9bf84f0e6a09d74b1dc2a7ab090bc63214fbb65687e97b6de8b41",
+    "run_ordered_gate_v21.py": "c6906dded53bcfc96bca0ace08fe86de778f1e523d5f33220b421ba7d5ef68ad"
+  },
+  "python": "3.14.0",
+  "numpy": "2.4.4",
+  "seed": 20261125,
+  "blocks": {
+    "graphs": [
+      5184,
+      12
+    ],
+    "episodes": [
+      5640,
+      60
+    ]
+  }
+}

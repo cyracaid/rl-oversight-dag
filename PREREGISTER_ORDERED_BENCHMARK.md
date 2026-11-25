@@ -283,3 +283,61 @@ untouched and was not revisited while writing this amendment.
 The `ticket` case is kept and reported separately rather than dropped: its chain has length 3,
 so the only eligible distance-≥2 pair is `(0, 2)`, and a single pair per episode is a weaker
 version of the same mechanism. If `real` and `ticket` disagree, both are reported.
+
+---
+
+# Amendment 2, 2026-11-25 (same day, after v2.1) — the gate's AUCs were unconditional; v2 is withdrawn as a relational testbed
+
+Written after the v2.1 gate was read on its own fresh block, on spent blocks, with no new
+sampling. This amendment records that the numbers this file's gate produced do not mean what
+this file said they would mean, and withdraws the claim rather than the numbers.
+
+## What was wrong with the gate's definitions
+
+The gate pooled AUC over every node row of every episode, while only half the episodes
+contained a transposition. A pooled AUC in that situation answers "is this episode damaged"
+as well as "which position is misplaced", and cannot separate them. Splitting the two
+(`outputs/ordered-gate-v2/locality.json`):
+
+| feature set | pooled AUC (as read) | within-episode AUC, affected only | clean-vs-transposed AUC |
+|---|---:|---:|---:|
+| node-level (G1a) | 0.599 | 0.512 | 0.767 |
+| order pattern (G1b) | 0.822 | 0.500 | 1.000 |
+
+Neither feature set ranks positions inside an episode. G1b is worse than uninformative: the
+feature vector is broadcast, so there is one distinct row per episode and the 0.822 is pure
+incidence detection. G1a's 0.599 is the same leak, smaller. **Both `holds` verdicts are void.**
+
+## What was wrong with the mechanism
+
+A single transposition of a monotone chain has its two exchanged positions exactly at the
+endpoints of the inverted interval, so first-descent / last-ascent — each node's own two
+adjacent residual signs — recovers the pair exactly: 21/21 at `q = 0.5`, 60/60 at `q = 1.0`,
+across all three eligible pairs. M2′ is locally solvable. That is the property this file
+rejected Candidate A for, and the gate reported the opposite because it was not measuring it.
+
+## What this file now claims, and what it does not
+
+- withdrawn: "the defect is invisible to a single node's own features, and visible in the rank
+  pattern". There is no such evidence, and there is direct contrary evidence.
+- withdrawn: the same-day Amendment's statement that distance-≥2 "leaves no single node locally
+  anomalous". Each single node's *value* is plausible, but the localisation never used the value.
+- unchanged: G2's paired number (−0.100) and v2.1's paired numbers, which do not depend on the
+  AUC definition. Their interpretation changes from "the relational channel does not pay" to
+  "a locally solvable channel does not pay", which says nothing about relational state.
+- unchanged: blocks 5160–5183, 5600–5639 and 5184–5195, 5640–5699 are spent. No number here is
+  re-derived from them, and no future file may use them to price a new mechanism.
+
+## The rule adopted, which is the actual output of this episode
+
+Any quantity about a defect that affects only some episodes is computed **inside the affected
+episodes**, and reported next to its unconditional version rather than instead of it. This is
+the third appearance of the same error in this line — G2's endpoint, G1a, G1b — and it is now
+written into `BENCHMARK_SPEC.md` §3 as a reading rule.
+
+## What a next mechanism would have to satisfy
+
+`k ≥ 2` disjoint transpositions, so the inverted interval no longer names the culprits and the
+answer is a minimum-removal / longest increasing subsequence problem. It must ship with a test
+that the descent-ascent rule **fails** on it (accuracy well below 1), and its gate must report
+within-affected-episode AUC as the primary number. Neither is written yet; nothing is reserved.

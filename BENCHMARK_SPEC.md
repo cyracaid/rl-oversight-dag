@@ -71,8 +71,9 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | exact DP ceiling | 5000–5023 | `outputs/dp-ceiling-fresh/` (rerun; the first run sat on the validation block) |
 | label-free contrastive pilot | train 5024–5119, eval 5120–5159 | `outputs/contrastive-v1/`, `PREREGISTER_CONTRASTIVE.md` |
 | coverage receipt | 5400–5599 | pre-registered receipt / deletion test, `outputs/supervisor-v1/` |
-| order-aware benchmark (v2) | graphs 5160–5183, episodes 5600–5639 | `PREREGISTER_ORDERED_BENCHMARK.md`, gate read 2026-11-25, **closed on G2**, `outputs/ordered-gate-v2/` |
-| order benchmark v2.1 (if run) | graphs 5184–5195, episodes 5640–5679 | reserved for the conditional-endpoint retry, see below |
+| order-aware benchmark (v2) | graphs 5160–5183, episodes 5600–5639 | `PREREGISTER_ORDERED_BENCHMARK.md`; gate read 2026-11-25, **both AUC verdicts void**, see `outputs/ordered-gate-v2/CORRECTION.md` |
+| order benchmark v2.1 | graphs 5184–5195, episodes 5640–5699 (60, q=1.0) | `PREREGISTER_ORDERED_BENCHMARK_V21.md`; H1 holds, **H3 contradicted**, `outputs/ordered-gate-v21/CORRECTION.md` |
+| order benchmark v3 (not written) | none reserved | would need `k ≥ 2` transpositions to be non-local; nothing priced |
 
 Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in
 the repo", and that sentence is wrong — `dag_role3/training.py` draws `BestValidation` graphs from 60000 onward.
@@ -80,6 +81,11 @@ The overlap does not touch the DP claim, because the exact optimum solves a fixe
 but the validation block must be treated as partly spent: future validation uses **60100–60129**, and no DP number
 may be cited as coming from a block that was clean. The ceiling was therefore rerun on 5000–5023
 (`outputs/dp-ceiling-fresh/`); the 60000–60023 run stays as a sensitivity check and is labelled as such everywhere.
+
+Reading rule (adopted 2026-11-25, after three separate numbers were shaped by it): any quantity about a defect
+that affects only some episodes is computed **inside the affected episodes**, and reported next to its
+unconditional version, never instead of it. A pooled mean over mostly-clean episodes dilutes the effect; a pooled
+AUC over them measures incidence detection, not localisation.
 
 Rules: a seed block is spent once it has been used to choose a method or a threshold. Never re-tune on the
 reporting block. Do not report a mean from one block next to a mean from another block — raw means differ
@@ -383,60 +389,58 @@ single-δ family recovers. The declared claim is "the decision variable is the n
 "`scope` is the best repair".
 
 
-### Order channel (v2): built, observable only relationally, and not worth it at K=8 (pre-registered, 5160–5183 / 5600–5639)
+### Order channel (v2, v2.1): built, priced, and withdrawn — the mechanism is locally solvable (5160–5195 / 5600–5699)
 
 The contrastive pilot left one question it could not ask: 40 of 53 replayed human corrections are `order_error`,
 and the simulator samples source errors independently, so no ordering structure existed to represent.
-`PREREGISTER_ORDERED_BENCHMARK.md` priced the smallest environment in which the question exists at all, and
-rejected in writing the cheapest way to build it (swap two nodes' error flags: the defect and its signature
-move together, so a node-level score still finds it — a null by construction). A same-day amendment then killed
-its first mechanism too: transposing *adjacent* chain positions violates exactly one constraint and leaves both
-members consistent with their outer neighbours, so the culprit is either node-detectable or undetectable.
-The adopted mechanism transposes positions at distance ≥ 2, which violates several constraints and leaves no
-single node locally anomalous; the discriminating signal is the rank pattern of the chain.
+`PREREGISTER_ORDERED_BENCHMARK.md` priced the smallest environment in which the question exists and rejected, in
+writing, the cheapest way to build it. Two more rejections followed the same day, both recorded before the block
+was read: a transposition between *adjacent* positions violates one constraint and leaves both members consistent
+with their outer neighbours, and — the one that matters — a transposition at distance ≥ 2 is still solvable from
+each node's own two adjacent residual signs, because a single transposition of a monotone chain puts the exchanged
+positions exactly at the endpoints of the inverted interval. First-descent / last-ascent recovers the pair
+**21/21** at `q = 0.5` and **60/60** at `q = 1.0`, across all three eligible pairs.
 
-| gate | number (`real`) | frozen rule | verdict |
+The gate was read before that was noticed, and it read **backwards**:
+
+| gate | as read | frozen rule | as read | what it actually measured |
+|---|---|---|---|---|
+| G1a not local | node AUC 0.599 [0.504, 0.703] | ≤ 0.65 | holds → **void** | within-episode AUC 0.512; 0.767 of it was clean-vs-transposed |
+| G1b global | order AUC 0.822 [0.745, 0.894] | ≥ 0.75 | holds → **void** | within-episode AUC 0.500; 1.000 clean-vs-transposed; one distinct feature row per episode |
+| G3 noise control | 0.587 | ≤ 0.65 | holds, uninformative | the signal is in the clocks, so ablating confidence moves nothing |
+| G2 decision value | −0.100 [−0.250, +0.025] | ≥ 0.15 | contradicted | stands as measured |
+
+Both AUCs were pooled over episodes of which only half were damaged, so they answered "is this episode broken"
+rather than "which position is misplaced" — the same dilution that G2's own endpoint suffered. The correction is
+`outputs/ordered-gate-v2/CORRECTION.md`; the within-episode split is `outputs/ordered-gate-v2/locality.json`; the
+pre-registration's own record is Amendment 2, which withdraws the relational claim rather than the numbers.
+Commit `19ebb3f`'s message ("relational and real") is wrong and is contradicted there, since history is not
+rewritable.
+
+The conditional-endpoint retry (`PREREGISTER_ORDERED_BENCHMARK_V21.md`, 5184–5195 / 5640–5699) then produced the
+result that settles it:
+
+| # | prediction | result | verdict |
 |---|---|---|---|
-| G1a not local | node-level AUC **0.599** [0.504, 0.703] | ≤ 0.65 | holds |
-| G1b global | order-pattern AUC **0.822** [0.745, 0.894] | ≥ 0.75 | holds |
-| G3 noise control | node-level AUC **0.587** under `confidence_mode="noise"` | ≤ 0.65 | holds, uninformative |
-| G2 decision value | `truth_reader − marginal` **−0.100** [−0.250, +0.025] | ≥ 0.15 | **contradicted** |
+| H1 | recovery `R ≥ 0.50` of the oracle-readable gap | **0.821** [0.630, 0.964] | holds |
+| H2 | symptom repair is not the source | **+0.183** [+0.050, +0.350] | holds |
+| H3 | not locally solvable (node ≤ 0.65, order ≥ 0.75) | node **0.800**, order **0.500** | **contradicted** |
 
-G3 passes *trivially* and is recorded that way: the order pattern lives in the clocks, so ablating confidence
-does not move any of these numbers (G1b stays 0.822). The control was written to catch the signal leaking through
-the confidence channel; it turns out that channel is not where the signal is, so this check constrains nothing.
+H1 and H3 are true together, and H3 is the stricter statement: the pair information recovers 82 % of the
+oracle-readable gap, and it is reachable from adjacent comparisons. So the gain is "a two-line localisation rule
+beats a heuristic that ignores order", not relational state, and **no model experiment is licensed**. Two design
+faults are recorded with it: the endpoint's denominator was mostly zero (45 of 60 episodes had no oracle-readable
+gap, so the power sentence in that pre-registration was wrong when written), and `run.log` was lost to a `tee`
+before `mkdir` — the numbers come from `gate.json`, whose rerun hash is identical, a determinism check rather than
+a second sample.
 
-G2 closes the gate, and the diagnostic (`outputs/ordered-gate-v2/diagnostic.json`, post hoc, no verdict) says
-where the value went. Half the episodes carry a transposition (21/40), and on those the rule costs 1.048 sink
-errors against 0.421 on clean episodes:
-
-| policy, on the 21 transposed episodes | sink errors |
-|---|---:|
-| `marginal` | 1.048 |
-| `symptom_reader` (review the node whose difference is impossible) | 1.143 |
-| `truth_reader` (review the misplaced segments) | **0.857** |
-| `oracle` (hidden source errors) | 0.810 |
-
-So knowing the pair is worth 0.19 sink errors *on affected episodes* and lands within 0.05 of what full hidden
-truth buys (0.810). The pooled 40-episode mean is −0.100 because the other 19 episodes contribute nothing, and
-the 0.15 threshold was set at roughly 100 % of the empirical headroom — the one number in that file that was
-calibrated against a different metric (the K=5 DP gap of 0.030) than the one it was tested with. Reported as a
-failure; not reopened. Two things also fall out of the table: reviewing the impossible difference directly does
-*not* work (1.143 > 1.048), so the defect is not repairable at the symptom, and only the upstream segments carry
-the recovery.
-
-`ticket` is the smaller case and it **fails G1a**: its chain has length 3, so the only distance-≥2 pair is
-`(0, 2)` and transposing it makes both extremes obvious (node-level AUC 0.986). The mechanism qualifies only
-where the chain has at least four segments. Both curves are in `outputs/ordered-gate-v2/gate.json`.
-
-What this settles: the real-data order failure *can* be built, and in the built version it is invisible to a
-single node's own features (0.599) and visible in the order pattern (0.822). That is the testbed the pilot never
-had. What it does not settle: whether the 0.19 is *learnable* label-free — no encoder was trained, by design, and
-the gate that would have licensed one closed. A v2.1 retry would have to fix the endpoint before it runs:
-conditional on transposed episodes, expressed as a fraction of the `oracle`-readable gap, on 5184–5195 / 5640–5679.
+What this settles: an order defect *can* be built, and the first two attempts to build one could not have produced
+the evidence they were written for, which is now known before any encoder exists. What it does not settle, and
+what is not reserved: whether a defect exists in this simulator that needs the whole chain. `k ≥ 2` disjoint
+transpositions would (localisation becomes a minimum-removal problem), but no file prices it.
 
 Nothing in v1 moved: `tests/test_ordered.py` asserts that the v2 sampler with `q = 0` returns the v1 episode
-tuple-for-tuple, and the 107-test suite passes.
+tuple-for-tuple, and the 110-test suite passes; `tests/test_ordered_locality.py` pins the defect itself (the two-line local rule scores 100 %, and the relational feature set is broadcast to one row per episode), so neither can be forgotten.
 
 ## 7. What counts as progress on this benchmark
 
