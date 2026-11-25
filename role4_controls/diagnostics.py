@@ -7,7 +7,7 @@ Writes results/diagnostics.csv so every diagnostic number in controls.md is a ce
   sink_review_share share of all reviews spent on conclusion (sink) nodes, spike / flatten, per policy,
                     read from results/controls.csv.
 
-    python3 diagnostics.py
+    python3 diagnostics.py [--controls results/controls.csv] [--out results/diagnostics.csv]
 """
 from __future__ import annotations
 
@@ -55,12 +55,17 @@ def hub_rank_corr(family, rewire_fn, seeds):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--controls", type=Path, default=HERE / "results" / "controls.csv")
+    ap.add_argument("--out", type=Path, default=HERE / "results" / "diagnostics.csv")
+    args = ap.parse_args()
     seeds = range(rc.START_SEED, rc.START_SEED + rc.N_SEEDS)
     rows = []
     for family in rc.FAMILIES:
         rows.append(dict(diagnostic="hub_rank_corr", family=family, condition="rewire_v1",
                          policy="", value=f"{hub_rank_corr(family, rc.rewire, seeds):.4f}"))
-    with open(HERE / "results" / "controls.csv", encoding="utf-8") as f:
+    with open(args.controls, encoding="utf-8") as f:
         episodes = [r for r in csv.DictReader(f)
                     if r["family"] == "spike" and r["condition"] == "flatten"]
     for policy in rc.POLICIES:
@@ -74,7 +79,7 @@ def main():
             on_sink += sum(a in sinks for a in actions)
         rows.append(dict(diagnostic="sink_review_share", family="spike", condition="flatten",
                          policy=policy, value=f"{on_sink / total:.4f}"))
-    rc.save(HERE / "results" / "diagnostics.csv", rows)
+    rc.save(args.out, rows)
     for r in rows:
         print(r)
 
