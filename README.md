@@ -43,7 +43,7 @@ delivery — not three views of one. Every number on the cards is read from the 
 |---|---|---|---|
 | ranking | which claim do I check next? | optimal policy of the same model is worth 4.2 % where computable (21 nodes, budget ≤ 5); depth-two lookahead is worth 5 of 923 errors at N=500; learned policies lose to the rule at every size, and lose more as graphs grow (paper §4, Fig. 2) | **saturated** — do not invest here |
 | signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic; the flag scores 0.966 on validity sinks and 0.569 on the raw inputs a reviewer opens (paper §7.8, Fig. 4) | **unvalidated input** — the real blocker needs measured calibration, and calibration itself cannot promote an entropy-class signal to a guarantee ([why](ENTROPY_LIMITS.md)) |
-| delivery | what did I cover, and what did I miss? | receipt names 89.8–97.8 % of surviving errors as uncovered; 800/800 runs unchanged; deleting it removes the question; the queue itself saturates at 83.8 % by k = 140 (paper §7.7, Fig. 3) | **load-bearing interface** — without it the question has no answer |
+| delivery | what did I cover, and what did I miss? | receipt names 89.8–97.8 % of surviving errors as uncovered; 800/800 runs unchanged; deleting it removes the question; rebuilding the loop the policy forbids costs +0.24 to +0.55 errors and makes the receipt withdraw instead of lie (paper §7.7, Fig. 3; [drift test](PREREGISTER_DRIFT.md)) | **load-bearing interface** — without it the question has no answer |
 
 **The other three panels (paper Figs. 2–4):** [gap vs graph size](figures/fig1_gap_vs_graph_size.png) ·
 [queue ceiling](figures/fig2_queue_ceiling.png) · [localisation AUC](figures/fig3_localisation_auc.png).
@@ -289,6 +289,7 @@ not results; `PLAN.html` is their visual summary.
 | Label-free contrastive pilot — can an unsupervised representation close the residual gap? | [PREREGISTER](../role3%20improvement/PREREGISTER_CONTRASTIVE.md) · [report](../role3%20improvement/outputs/contrastive-v1/report.md) | — | [CONTRASTIVE_PILOT_CN](CONTRASTIVE_PILOT_CN.md) |
 | Order-aware benchmark v2 / v2.1 — can the real data's dominant failure mode exist in the simulator? | [PREREGISTER](../PREREGISTER_ORDERED_BENCHMARK.md) · [v2.1](../PREREGISTER_ORDERED_BENCHMARK_V21.md) · [correction](../role3%20improvement/outputs/ordered-gate-v2/CORRECTION.md) | — | closed without spending v3: order is information, not latent structure |
 | Measurement layer — what review receipts can and cannot answer | [MEASUREMENT_LAYER](triage_bench/MEASUREMENT_LAYER.md) | — | — |
+| The prohibited loop — does forbidding feedback actually matter? | [PREREGISTER](../PREREGISTER_DRIFT.md) · [report](../role3%20improvement/outputs/drift-v1/drift_vs_open.md) | — | load-bearing: the loop costs errors *and* makes the receipt withdraw |
 | SciForge export protocol (frozen pre-registration) + mock report | [PROTOCOL](sciforge_review/export/PROTOCOL.md) · [REPORT](sciforge_review/export/REPORT.md) | — | — |
 | Error card — known failure modes, error budget, what is not comparable | [ERROR_CARD](ERROR_CARD.md) | — | — |
 | Open requests to Person 4 / 5 | [TEAM_REQUESTS_P4_P5](TEAM_REQUESTS_P4_P5.md) | — | — |
@@ -364,7 +365,8 @@ CROSS_IMPLEMENTATION_VALIDATION.md   Which line is canonical, what may not be co
 BENCHMARK_SPEC.md                    The primary benchmark: frozen suite, splits, baselines, acceptance rules
 ENTROPY_LIMITS.md                    Why an entropy-class confidence signal cannot ground a guarantee
 AUDIT_POLICY.md                      Frozen register: the four objects only a human may adjudicate, and the evaluation lock
-role3 improvement/                   Frozen environment (dag_role3, 34 tests, hashed checkpoints, benchmark CSVs)
+PREREGISTER_DRIFT.md                 Pre-registration for the closed-loop ablation: does the forbidden feedback hurt?
+role3 improvement/                   Frozen environment (dag_role3, 147 tests, hashed checkpoints, benchmark CSVs)
 role2_규리/                          Role 2 measurements: confidence robustness, planning, credit, KAIST nights
 CLAIM_GRAPH_CONTRACT.md              Review-coverage interface to an external case repository (what may be cited)
 claim_graph/                         Read-only layer that turns an external case's claim tables into a coverage receipt
@@ -389,6 +391,7 @@ claim_graph/                         Read-only layer that turns an external case
 | Full baseline set (rules + truth-reading reference), 6 families | `cd "role3 improvement" && python3 run_benchmark.py --seeds 100 --start-seed 90000 --out outputs/v3-baselines` | No |
 | Learned baselines on the other 5 families (3 seeds, same budget) | `cd "role3 improvement" && python3 run_learned_baselines.py --jobs 4` | No |
 | Pair the learned policies against `marginal` (spec §7) | `cd "role3 improvement" && python3 report_learned_baselines.py` | No |
+| Prohibited-loop ablation (confirmatory block 5730–5829, paired open vs closed) | `cd "role3 improvement" && python3 run_drift_check.py && python3 report_drift.py` | No |
 | Canonical Role 2 contrasts (confidence, planning) | `cd role2_규리 && python3 evaluate_conditions.py --out … && python3 evaluate_planning.py --out …` | No |
 | The paper's four figures + `figures/figure_data.json` | `python3 experiments/make_figures.py` | No |
 | Paper guards (numbers, figures, retired values) | `python3 experiments/test_published_numbers.py && python3 experiments/test_figures.py && python3 experiments/test_retired_numbers.py` | No |

@@ -144,10 +144,21 @@ quantity steer. In this repository's terms:
 > an auditor whose criterion is invariant to relabelling, and whose output feeds back into the object it
 > audits, has no way to detect that it has converged on the wrong vertex.
 
-**Not claimed:** no closed-loop experiment has been run. The pre-registerable prediction, if one is run, is
-that `false_inspection` under feedback grows monotonically with graph depth and is at least 1.5× the
-open-loop value at depth 3 — anchored on the measured single-step drift 10.2 % → 14.9 %. Any such run must
-use a fresh block (≥ 5600) and be labelled a subgraph task.
+**Superseded prediction (2026-11-25).** This section originally predicted that `false_inspection` under
+feedback grows monotonically with graph depth and reaches at least 1.5× the open-loop value at depth 3,
+anchored on the measured single-step drift 10.2 % → 14.9 %. A disclosed 30-seed pilot (block 5700–5729)
+showed the loop acts elsewhere: it does not manufacture false confidence, it makes the delivery
+**withdraw**. Declared `inspected` collapses, the receipt retreats to `partial`/`untouched`, and the
+declared share climbs toward 1.0 — the `silent` arm reached from the inside. The mechanism is starvation,
+not overconfidence: writing off an unreviewed source keeps it unreviewed, so coverage stops being reached
+at all.
+
+The confirmatory test of that amended claim is pre-registered in `PREREGISTER_DRIFT.md` (block 5730–5829,
+with 5600–5699 reported separately as a replication because the ledger had already spent it) and supersedes
+the depth prediction. **It held**: on identical episodes the loop raises surviving sink errors on the three
+sleep families and drives declared `inspected` sinks from 151 to 38, 7 to 0, 73 to 0 — withdrawal, not
+false confidence. The original wording is kept above rather than deleted, because the record of a wrong
+prediction is worth more than a tidy file.
 
 ## 8. Consequence for the receipt: separation
 

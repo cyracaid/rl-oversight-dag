@@ -28,6 +28,14 @@ parties, not on the auditor being careful.
 §7 of the same file states the consequence for test-time adaptation: drift is forced, not incidental. The
 lock in this module is the structural version of that finding.
 
+**The prohibition was tested, not asserted.** `PREREGISTER_DRIFT.md` (confirmatory block 5730–5829) builds
+the loop v1 forbids — an unreviewed source feeding a `partial` sink read as "the reviewers found nothing
+here" — and runs it against the shipped layer on identical episodes. Verdict: `load-bearing`. The loop costs
+`+0.39` / `+0.24` / `+0.55` surviving sink errors per graph on `spike` / `real` / `ticket` (95 % intervals
+excluding zero), and it drives declared `inspected` sinks down from 151 to 38, 7 to 0 and 73 to 0. The
+receipt does not become *wrong*; it withdraws, which is the `silent` arm reached from the inside. Result:
+`role3 improvement/outputs/drift-v1/drift_vs_open.md`.
+
 ## 3. Version 1 — the four adjudicated objects
 
 None of these values is new. Each was already implicit; the register names it, freezes it, and makes a

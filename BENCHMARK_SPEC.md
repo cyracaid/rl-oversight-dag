@@ -71,6 +71,8 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | exact DP ceiling | 5000–5023 | `outputs/dp-ceiling-fresh/` (rerun; the first run sat on the validation block) |
 | label-free contrastive pilot | train 5024–5119, eval 5120–5159 | `outputs/contrastive-v1/`, `PREREGISTER_CONTRASTIVE.md` |
 | coverage receipt | 5400–5599 | pre-registered receipt / deletion test, `outputs/supervisor-v1/` |
+| prohibited-loop ablation | graphs 5730–5829 | pre-registered `PREREGISTER_DRIFT.md`, confirmatory run `outputs/drift-v1/` |
+| prohibited-loop replication | graphs 5600–5699 | run of the same frozen code, kept as `outputs/drift-v1-blocka/` and labelled replication: the block was already spent as episode seeds by ordered v2 / v2.1, so it cannot carry the confirmatory claim |
 | order-aware benchmark (v2) | graphs 5160–5183, episodes 5600–5639 | `PREREGISTER_ORDERED_BENCHMARK.md`; gate read 2026-11-25, **both AUC verdicts void**, see `outputs/ordered-gate-v2/CORRECTION.md` |
 | order benchmark v2.1 | graphs 5184–5195, episodes 5640–5699 (60, q=1.0) | `PREREGISTER_ORDERED_BENCHMARK_V21.md`; H1 holds, **H3 contradicted**, `outputs/ordered-gate-v21/CORRECTION.md` |
 | order benchmark v3 | none consumed | **not built**: `k ≥ 2` transpositions are solved exactly by rank-vs-index, `role3 improvement/outputs/ordered-v3-design/DESIGN.md` |

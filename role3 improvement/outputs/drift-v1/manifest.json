@@ -1,0 +1,33 @@
+{
+  "block": [
+    5730,
+    5829
+  ],
+  "episode_offset": 20000,
+  "p_catch": 0.9,
+  "budget": {
+    "spike": 16,
+    "modular": 50,
+    "real": 8,
+    "ticket": 8
+  },
+  "families": [
+    "spike",
+    "modular",
+    "real",
+    "ticket"
+  ],
+  "arms": [
+    "open",
+    "closed"
+  ],
+  "policy": "v1:p_catch>=0.90:statuses=4:perspectives=6:constructs=2",
+  "python": "3.14.7",
+  "numpy": "2.5.5",
+  "sha256": {
+    "dag_role3/environment.py": "c9844ed5b4cf7f2387db986d4f2cfc372e461c6d6660dd93088af743ba76d9dd",
+    "dag_role3/supervisor.py": "d28af44ab459a525ec5102524c24de90c6f15b948d09ba4c2711631f3d201c41",
+    "dag_role3/drift.py": "9bf794e86a3065efde736922c24fe1f0e055c2d172a25529f50d574015163c5e",
+    "run_drift_check.py": "d0103a1de5cc7ae6de46e034c24a34af9440324be6dc8ddf72feaf251ad1921c"
+  }
+}

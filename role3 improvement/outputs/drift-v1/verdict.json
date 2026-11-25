@@ -1,0 +1,16 @@
+{
+  "verdict": "load-bearing",
+  "p1": true,
+  "p1_families": 3,
+  "p2": false,
+  "p3": true,
+  "p4": true,
+  "p4_families": 4,
+  "p5": true,
+  "inert": false,
+  "block": [
+    5730,
+    5829
+  ],
+  "policy": "v1:p_catch>=0.90:statuses=4:perspectives=6:constructs=2"
+}
