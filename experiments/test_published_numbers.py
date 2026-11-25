@@ -210,6 +210,30 @@ def test_run_rate_is_never_cited_without_its_null():
 RETIRED_PHRASES = ("reduces human review", "saves review", "review budget by",
                     "cuts review", "reduction in human review")
 
+# The disclaimer travels with the claim, in every language the claim was written in.
+# Numbers vary between drafts ("X %", "any percentage", "30 %"), so match the shape.
+RETIRED_PHRASES_I18N = {
+    "PAPER_DRAFT_KO.md": ((r"사람 검토를\s*(?:X|몇\s*퍼센트|\d+)\s*(?:%|퍼센트)?\s*줄인",),
+                          ("주장하지 않는다", "주장하지 않는", "폐기")),
+    "PAPER_DRAFT_CN.md": ((r"人工复核(?:减少|降低)",), ("不主张", "退休")),
+    "PROJECT_KO.md": ((r"사람 검토를\s*(?:X|몇\s*퍼센트|\d+)\s*(?:%|퍼센트)?\s*줄인",),
+                      ("어디에도 없다", "주장하지 않는다", "주장하지 않는")),
+    "PROJECT_CN.md": ((r"人工复核(?:减少|降低)",), ("任何地方都不出现", "不主张")),
+}
+
+# Documents that may state a retired claim, but only to disclaim it.
+DISCLAIMER_DOCS = ("PAPER_DRAFT.md", "PROJECT_EN.md", "README.md")
+
+# Naming the registry file is not a disclaimer; the sentence has to deny the claim.
+# Checked per paragraph: a disclaimer elsewhere on the page does not excuse an
+# asserting sentence, because the sentence is what a reader quotes.
+NEGATIONS = ("does not claim", "nowhere", "not a result")
+
+
+def _paragraphs(path):
+    body = text(os.path.join(ROOT, path)).replace("\u2212", "-")
+    return [" ".join(block.split()) for block in body.split("\n\n") if block.strip()]
+
 
 def test_docs_do_not_resurrect_the_retired_claim():
     """'RL saves review budget' may only appear inside a disclaimer."""
@@ -218,15 +242,26 @@ def test_docs_do_not_resurrect_the_retired_claim():
         if "reduces human review" in line:
             assert "nowhere" in line, f"retired claim outside the 'nowhere' row: {line}"
 
-    # The paper is allowed to *disclaim* the claim, never to assert it.
-    flat = " ".join(paper_text().split())
-    for phrase in RETIRED_PHRASES:
-        start = flat.find(phrase)
-        while start != -1:
-            window = flat[max(0, start - 160):start + 160].lower()
-            assert any(k in window for k in ("does not claim", "retired", "nowhere")), (
-                f"paper asserts a retired claim near {phrase!r}: {window[-120:]}")
-            start = flat.find(phrase, start + 1)
+    # A draft may *disclaim* the claim, never assert it. One paragraph has to do both.
+    for name in DISCLAIMER_DOCS:
+        for block in _paragraphs(name):
+            for phrase in RETIRED_PHRASES:
+                if phrase in block:
+                    lowered = block.lower()
+                    assert any(k in lowered for k in NEGATIONS), (
+                        f"{name} asserts a retired claim: {block[:160]}")
+
+    for name, (phrases, disclaimers) in RETIRED_PHRASES_I18N.items():
+        blocks = _paragraphs(name)
+        flat = " ".join(blocks)
+        for pattern in phrases:
+            # A pattern that matches nothing guards nothing; a rewording in one
+            # language must fail here rather than silently stop being checked.
+            assert re.search(pattern, flat), f"{name}: guard pattern {pattern!r} matches nothing"
+            for block in blocks:
+                if re.search(pattern, block):
+                    assert any(k in block for k in disclaimers), (
+                        f"{name} asserts a retired claim: {block[:120]}")
 
 
 def main():

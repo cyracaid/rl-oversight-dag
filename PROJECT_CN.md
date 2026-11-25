@@ -7,7 +7,9 @@ layout: default
 
 <p><b>语言：</b> <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html">English</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.html">한국어</a> · <b>中文</b></p>
 
-> STA3145 强化学习 · 小组项目 · 深化版 2026-11-09
+<p><b>短版：</b>论文 —— <a href="https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html">不是调度器，是信号</a>。本文档是通往同样三个结果的远路（第 7c 节把两者对应起来）。</p>
+
+> STA3145 强化学习 · 小组项目 · 深化版 2026-11-09 · 增补论文 2026-11-25
 > 睡眠数据：与 某大学睡眠研究实验室一年合作的EMA数据
 > 应用对象：SciForge（Zhangyang Gao 开发，AI4Science, Shanghai AI Lab）
 > 仓库：https://github.com/cyracaid/rl-oversight-dag
@@ -23,6 +25,8 @@ layout: default
 1. **从 bandit 到 MDP**。第一版逐项决定放行/送审，把图压平了：校准阈值（2.81）胜过表格 Q-learning（3.38）。现在智能体在依赖图上选下一个要审的节点，一次审阅会改变下游。
 2. **从替代数据集到自有数据 + 合成图**。真实纠错数据（75 行）用来说明动机；主实验用合成图。
 3. **从计划到结果，再到升级和诚实的负结果**。现在有数字、对照实验、一个公开报告的失败、一个打赢我们所有学习策略的可部署信念贪心基线（见第 7 节），以及一个把剩余误差定位到置信度信号的消融。
+4. **从一堆结果到一篇论文。** 三个发现现在是三语论文，带冻结的主张阶梯（`PROJECT_POSITIONING.md` §4）、
+   四张生成图，以及「正文偏离产物就失败」的测试（第 7c 节）。
 
 ## 2. 主题
 在有限审阅预算下，学习依赖图上应该先审哪个节点。
@@ -197,6 +201,35 @@ $$
 （`PREREGISTER_P_CATCH.md`，种子 4000–4199），方向保住——四个格子规则都赢置信度排序，+0.255 到 +0.530，
 每个区间都排除 0——而事前写死的**幅度**预测被反向：审查者越可靠，优势越大。
 
+## 7c. 论文（2026-11-25）——三个结果，一条流水线
+
+以上各节回答「用哪个调度器」。论文把这个答案变成仓库能强制的主张，并且按阶段各说一次，而不是把一个
+数字读三遍：
+
+| 阶段 | 主张 | 论文 | 图所读的产物 |
+|---|---|---|---|
+| 结构 | 学习策略打不过最好的一行规则，且赤字随图规模增大 | §4.1，图 2 | `outputs/v3-learned/learned_vs_marginal.json` |
+| 交付 | 队列有可证明的上限，缺的是检测器而不是分配 | §7.7，图 3 | `triage_bench/outputs/ceiling.json` |
+| 信号 | 公开标记排序的是后果，不是原因 | §7.8，图 4 | `runs/real-confidence-ranking/results.json` |
+
+<img src="figures/fig4_where_the_results_sit.png" alt="流水线示意图：论文的三个结果位于同一条流水线的三个阶段">
+
+*论文图 1。三个结果是同一条流水线的三个阶段，而不是同一阶段的三种看法。*
+
+**不主张什么。**「RL 把人工复核减少 X %」在任何地方都不出现；它来自遗留种子 1–20，`RETIRED_NUMBERS.md`
+把它和其他退役值一起登记。论文也不主张已部署的节省：睡眠纠错是重放，不是把策略放进回路重跑。§4.1 的
+机制——多跳传播必须只从终止奖励重新推导——被表述为这份数据尚不能与替代解释区分开的假设。
+
+**数字为什么不会漂。** `experiments/test_published_numbers.py`（19 项）在正文与产物不一致时失败；
+`experiments/test_figures.py`（6 项）从已提交的 JSON/CSV 重新推导每个被绘制的值；
+`experiments/test_retired_numbers.py`（3 项）在退役值回到任何受跟踪的 markdown 时失败。三份草稿保持同样
+的数字：各 630 个数字记号。
+
+阅读：[English](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html)。它遵守的主张阶梯在
+`PROJECT_POSITIONING.md` §4。
+
 ## 8. 消融：置信度信号是瓶颈
 
 GNN + REINFORCE 在三种置信度条件下训练（3 种子 × 12k episode）：
@@ -339,6 +372,8 @@ HealthBench 是最接近的**评估哲学**先例，不是调度先例。
 9. 双 critic CMDP。
 10. SciForge：节点置信度字段；真实图规模 / 边类型。
 11. 75 条纠错的共识 / 困难拆分（27 / 48）——标签有，评估没跑。
+12. **论文数字不是重读，而是用护栏守住。** 19 项检查把每个发表数字绑到产物，6 项把每张图绑到 JSON，
+    3 项挡住已退役的值；三者都在干净克隆上运行。仍然没有第二双眼睛的是解释，不是算术。
 
 ## 13. 角色与时间线
 

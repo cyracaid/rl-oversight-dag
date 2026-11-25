@@ -7,7 +7,9 @@ layout: default
 
 <p><b>Language:</b> <b>English</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.html">한국어</a> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.html">中文</a></p>
 
-> STA3145 Reinforcement Learning · Group project · Deepened 2026-11-09
+<p><b>Short version:</b> the paper — <a href="https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html">The Signal, Not the Scheduler</a>. This narrative is the long way round to the same three results (§7c maps one to the other).</p>
+
+> STA3145 Reinforcement Learning · Group project · Deepened 2026-11-09 · paper added 2026-11-25
 > Sleep data: one year of collaboration with a university sleep-research lab
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab)
 > Repo: https://github.com/cyracaid/rl-oversight-dag
@@ -23,6 +25,9 @@ layout: default
 1. **From bandit to MDP.** V1 decided pass-or-review per item. That flattens the graph: a calibrated threshold (2.81) beat tabular Q-learning (3.38). Now the agent picks the next node of a dependency graph; a review changes what happens downstream.
 2. **From a proxy dataset to our own data + a synthetic graph.** Real corrections (75 rows) motivate the problem; the main experiments use a synthetic graph.
 3. **From a plan to results, then to an upgrade and an honest negative.** We have numbers, controls, a reported failure, a method upgrade whose single-run win does not survive multi-seed (see §8), and an ablation that locates the remaining error in the confidence signal.
+4. **From a pile of results to a paper.** The three findings now exist as a three-language paper with a frozen
+   claim ladder (`PROJECT_POSITIONING.md` §4), four generated figures, and tests that fail when the prose drifts
+   from an artifact (§7c).
 
 ## 2. Topic
 Under a limited review budget, learn which node of a dependency graph to review first.
@@ -201,6 +206,37 @@ Finally, every run above held the reviewer hit rate at 0.9. Re-running at 0.60 /
 cells, +0.255 to +0.530, every interval excluding zero — and **inverted** the pre-registered size prediction:
 the lead is largest when reviewers are most reliable.
 
+## 7c. The paper (2026-11-25) — three results, one pipeline
+
+The sections above answer "which scheduler". The paper turns that answer into claims the repository can police,
+and it states them once per stage instead of reading one number three ways:
+
+| Stage | Claim | Paper | Artifact the figure reads |
+|---|---|---|---|
+| structure | a learned policy does not beat the best one-line rule, and the deficit grows with graph size | §4.1, Fig. 2 | `outputs/v3-learned/learned_vs_marginal.json` |
+| delivery | the queue has a provable ceiling, and what is missing is a detector problem, not an allocation problem | §7.7, Fig. 3 | `triage_bench/outputs/ceiling.json` |
+| signal | the published flag ranks consequences, not causes | §7.8, Fig. 4 | `runs/real-confidence-ranking/results.json` |
+
+<img src="figures/fig4_where_the_results_sit.png" alt="Pipeline schematic: the paper's three results sit on three stages of one pipeline">
+
+*Figure 1 of the paper. The three results are stages of one pipeline, not three views of one stage.*
+
+**What it does not claim.** "RL reduces human review by X %" appears nowhere; it came from legacy seeds
+1–20, and `RETIRED_NUMBERS.md` lists it with every other retired value. The paper does not claim a deployed
+saving either: the sleep corrections are replayed, not rerun with a policy in the loop. The mechanism in §4.1
+— that multi-hop propagation has to be re-derived from terminal reward — is stated as a hypothesis this data
+does not separate from alternatives.
+
+**Why the numbers stay put.** `experiments/test_published_numbers.py` (19 checks) fails when the prose and its
+artifact disagree, `experiments/test_figures.py` (6 checks) re-derives every plotted value from the committed
+JSON/CSV, and `experiments/test_retired_numbers.py` (3 checks) fails if a superseded value returns to any
+tracked markdown file. The three drafts are held to the same numbers: 630 numeric tokens each.
+
+Read it: [English](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html). The claim ladder it obeys is
+`PROJECT_POSITIONING.md` §4.
+
 ## 8. Ablation: the confidence signal is the bottleneck
 
 GNN + REINFORCE under three confidence conditions (3 seeds × 12k episodes):
@@ -343,6 +379,9 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 9. Dual-critic CMDP.
 10. SciForge: confidence field on nodes; real graph size / edge types.
 11. Consensus / Hard split of the 75 corrections (27 / 48) — labels exist, evaluation not run.
+12. **Paper numbers are guarded, not re-read.** 19 checks tie each published number to an artifact, 6 tie each
+    figure to its JSON, 3 keep retired values out; all three run on a clean clone. What still has no second
+    pair of eyes is the interpretation, not the arithmetic.
 
 ## 13. Roles and timeline
 

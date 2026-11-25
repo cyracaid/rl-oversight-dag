@@ -1,32 +1,56 @@
 # Review Scheduling on a Dependency Graph
 
-> STA3145 Reinforcement Learning · Group project. Under a limited review budget, we use RL to learn which node of a dependency graph to review, so that fewer errors reach the final conclusion.
+> STA3145 Reinforcement Learning · Group project. Under a limited review budget, we asked whether RL should choose which node of a dependency graph to review next — and measured where that question is worth asking at all.
 >
 > Sleep data: one year of EMA collaboration with a university sleep-research lab.
 > Application: SciForge, developed by Zhangyang Gao (AI4Science, Shanghai AI Lab).
 
-**What this concludes, in plain words.** The task is *which claim to check next* under a fixed review budget. Where
-the optimum is computable, that layer is nearly exhausted: on the two 21-node pipelines, at budget ≤ 5, replacing our
-one-line rule with the **optimal** policy of the same model moves residual errors from 0.705 to 0.675 — 4.2 %. On the
-500-node families the optimum is out of reach; there a depth-two lookahead over the same belief changes 5 of 923
-errors, and the only variant that gains anything is the one that trusts the environment's approximate miss update,
-which costs 485 of 923 errors when it is wrong. A smarter ranking is not where this system should spend its effort.
+**The paper (2026-11-25).** [English](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html) — *The Signal, Not the Scheduler*.
+Four figures. Every number in it is tied to a committed artifact: `experiments/test_published_numbers.py`
+(19 checks) fails if the text and the JSON disagree, `experiments/test_figures.py` (6 checks) fails if a
+figure drifts from the data it draws, and `experiments/test_retired_numbers.py` (3 checks) fails if a
+superseded number comes back.
 
-Two things do block it: the signal we rank by (published confidence) is synthetic and unvalidated, and a delivery
-cannot say *which claims it checked and which it left alone*. The second is now measured rather than asserted
-([`outputs/supervisor-v1/`](role3%20improvement/outputs/supervisor-v1/receipt_vs_silent.md)): the receipt names
-89.8–97.8 % of the surviving errors as sinks it did not fully cover, changes no action on 800 of 800 graphs, and when
-it is deleted the question "how many errors did we not cover" has no answer at all — not a wrong one.
+**What it argues, in three sentences.**
+
+1. **A benchmark that separates structure from signal.** Review scheduling on a DAG is well posed, and the part
+   a policy controls — which claim to open next — can be measured apart from the part it cannot — which claim
+   looks suspicious.
+2. **A negative structural result, with a mechanism.** Learned policies lose to a one-line rule in all 36
+   (family, learner, seed) cells, and the deficit *grows* with graph size: +0.04 sink errors at N=21, +17 at
+   N=500. Ten times the compute narrows it (+0.377 → +0.262) without closing it, so what is missing is
+   information, not optimisation. Where the optimum of the rule's own model is computable, the whole horizon
+   is worth 4.2 %.
+3. **A boundary study on real sleep data.** The queue saturates at 83.8 % of the reachable errors by k = 140,
+   because 16.2 % sit in 885 rows at a 1.2 % base rate; and the same confidence flag that scores 0.966 on
+   validity sinks scores 0.569 on the four raw timestamps a reviewer would actually open. The signal ranks
+   consequences; the reviewer's inputs are the causes.
+
+**What it does not claim.** "RL reduces human review by X %" appears nowhere and is retired: that phrasing
+came from legacy seeds 1–20, and [`RETIRED_NUMBERS.md`](RETIRED_NUMBERS.md) lists it with every other value
+that may no longer be written, together with the guard that enforces the list. The paper also does not claim a
+deployed saving — the sleep corrections are replayed, not rerun with a policy in the loop.
+
+<img src="figures/fig4_where_the_results_sit.png" alt="Pipeline schematic: source errors, detector, queue, conclusion, with the paper's three results attached to three stages">
+
+*One pipeline, three questions (paper Fig. 1). The three results are three stages — structure, signal,
+delivery — not three views of one. Every number on the cards is read from the panels in Figs. 2–4.*
 
 | layer | plain question | what we measured | verdict |
 |---|---|---|---|
-| ranking | which claim do I check next? | optimal policy of the same model is worth 4.2 % where computable (21 nodes, budget ≤ 5); depth-two lookahead is worth 5 of 923 errors at N=500 | **saturated** — do not invest here |
-| signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic | **unvalidated input** — the real blocker, needs measured calibration |
-| delivery | what did I cover, and what did I miss? | receipt names 89.8–97.8 % of surviving errors as uncovered; 800/800 runs unchanged; deleting it removes the question | **load-bearing interface** — without it the question has no answer |
+| ranking | which claim do I check next? | optimal policy of the same model is worth 4.2 % where computable (21 nodes, budget ≤ 5); depth-two lookahead is worth 5 of 923 errors at N=500; learned policies lose to the rule at every size, and lose more as graphs grow (paper §4, Fig. 2) | **saturated** — do not invest here |
+| signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic; the flag scores 0.966 on validity sinks and 0.569 on the raw inputs a reviewer opens (paper §7.8, Fig. 4) | **unvalidated input** — the real blocker, needs measured calibration |
+| delivery | what did I cover, and what did I miss? | receipt names 89.8–97.8 % of surviving errors as uncovered; 800/800 runs unchanged; deleting it removes the question; the queue itself saturates at 83.8 % by k = 140 (paper §7.7, Fig. 3) | **load-bearing interface** — without it the question has no answer |
 
-**Status, 2026-11-10 — settled.** The Yonsei course track (STA3145) is final: the classroom content
-and the five-person division are decided, and those documents are frozen at tag
-`course-freeze-2026-11-10`. **Active work is now building SciForge** — see
+**The other three panels (paper Figs. 2–4):** [gap vs graph size](figures/fig1_gap_vs_graph_size.png) ·
+[queue ceiling](figures/fig2_queue_ceiling.png) · [localisation AUC](figures/fig3_localisation_auc.png).
+Regenerate all four with `python3 experiments/make_figures.py`; it reads the committed JSON and CSV and writes
+`figures/figure_data.json`, which is what the figure guard compares against.
+
+**Status, 2026-11-25.** The Yonsei course track (STA3145) is frozen at tag `course-freeze-2026-11-10`; the
+living artefact is now the paper above. **Parallel track: building SciForge** — see
 [`EVIDENCE_CHAIN_DESIGN.md` §10b](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html)
 for the open items; the build brief lives in the team's Feishu wiki.
 
@@ -90,6 +114,8 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 | `talk.html` | ZH / EN / KO | humanized illustrated talk page |
 | `meeting_proposal.html` | ZH / EN / KO tabs | humanized meeting handout |
 | `meeting_proposal_zh.pdf` / `_en.pdf` / `_ko.pdf` | ZH / EN / KO | printable one-pagers |
+| `PAPER_DRAFT.md` / `_KO.md` / `_CN.md` | EN / KO / CN | the paper: claim ladder, four figures, 19 number guards |
+| `figures/` | PNG + JSON | the four figures and every value plotted in them |
 | `experiments/` | code | every number |
 | `triage_bench/` | code | the **real** review queue: recall@k, no simulator |
 
@@ -106,11 +132,14 @@ Repo: https://github.com/cyracaid/rl-oversight-dag
 
 ---
 
-## Headline results (canonical, 2026-11-24)
+## Headline results (canonical, 2026-11-25)
 
 Two lines supply these numbers and they are the ones to quote: `role3 improvement/` (environment, tag
 `role3-env-v3`) and `role2_규리/` (measurements). Raw means are **not** interchangeable between the three
 implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two of them in one table.
+
+The table is the ledger of measurements; the paper is where they are interpreted. If the two ever seem to
+disagree about what a row *means*, the paper's claim ladder wins and the row stays as measured.
 
 | Question | Simple rule | Learned policy | Verdict | Source |
 |---|---|---|---|---|
@@ -139,6 +168,8 @@ implementations — read `CROSS_IMPLEMENTATION_VALIDATION.md` before putting two
 | Reviewer hit rate 0.60 / 0.75 / 0.90 / 1.00 (pre-registered, 200 fresh graphs) | confidence **3.105 / 2.300 / 1.440 / 0.820** | marginal **2.850 / 1.950 / 1.025 / 0.290** | frozen verdict **`inverted`**: the direction holds — marginal − confidence +0.255 [+0.150, +0.375] / +0.350 [+0.220, +0.490] / +0.415 [+0.275, +0.570] / **+0.530 [+0.370, +0.705]**, all excluding 0 — but the advantage **falls** as the hit rate falls, opposite to the prediction; `oracle` follows the same path (+0.355 → +0.820), so this is the environment contracting, not a property of the rule | `role3 improvement/outputs/p-catch-v1/` |
 | Two-step planning / residual GNN | — | — | +0.035 [−0.025, +0.100] / +0.022 [−0.018, +0.072]: **not supported** | `role2_규리/results/planning-v1/`, `role2_규리/results/residual-v1/` |
 | Per-node scheduling on real data | — | — | four independent nulls | `CROSS_IMPLEMENTATION_VALIDATION.md` §3 |
+| Real queue: where its ceiling is (k–recall, type partition) | — | — | **83.8 % of reachable errors by k = 140**, flat after that; the missing 16.2 % sit in 885 rows at 1.2 % base rate; detector coverage caps *any* policy at 90.3 % (80.0 % under the broad label set) | `triage_bench/outputs/ceiling.json`, paper §7.7 |
+| Does the confidence flag point at the cause? | — | — | **only at consequences**: AUC 0.966 on the 4 validity sinks, 0.733 on 6 derived nodes, **0.569 on the 4 raw timestamps**; pooled 0.807; source hit@1 0.003 against 0.071 chance | `runs/real-confidence-ranking/results.json`, paper §7.8 |
 
 The claim these support is **estimating which signal to trust, and staying safe when it cannot be trusted** —
 not "the RL policy beats the rules". The learned policy loses to a deterministic two-step rule in the same
@@ -238,14 +269,16 @@ Korean report: `role2_규리/results/scope-robust-v1/scope_robust.md`; rerun wit
 
 ## Document index (every page, rendered)
 
-**Start here:** the evidence-chain design, then the implementation spec. Everything below is a
-rendered page — no link opens raw markdown in the browser. Plans (`RL_PLAN`, `TRACKS`,
-`GENERALIZATION_PLAN`) are working documents, not results; `PLAN.html` is their visual summary.
+**Start here:** the paper, then the project narrative it summarises in one section (§7c), then the
+evidence-chain design and the implementation spec. Everything below is a rendered page — no link opens
+raw markdown in the browser. Plans (`RL_PLAN`, `TRACKS`, `GENERALIZATION_PLAN`) are working documents,
+not results; `PLAN.html` is their visual summary.
 
 | Document | English | 한국어 | 中文 |
 |---|---|---|---|
 | Proposal — STA3145 course (phases + pre-registered gate) | [PROPOSAL_COURSE](https://cyracaid.github.io/rl-oversight-dag/PROPOSAL_COURSE.html) | — | — |
 | Roadmap — what would make this publishable (and what does not) | [ROADMAP](https://cyracaid.github.io/rl-oversight-dag/ROADMAP.html) | — | — |
+| Paper — *The Signal, Not the Scheduler* (claim ladder enforced by tests) | [PAPER_DRAFT](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) | [PAPER_DRAFT_KO](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) | [PAPER_DRAFT_CN](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html) |
 | Project narrative | [PROJECT_EN](https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html) | [PROJECT_KO](https://cyracaid.github.io/rl-oversight-dag/PROJECT_KO.html) | [PROJECT_CN](https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.html) |
 | Evidence-chain design | [EVIDENCE_CHAIN_DESIGN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN.html) | — | [EVIDENCE_CHAIN_DESIGN_CN](https://cyracaid.github.io/rl-oversight-dag/EVIDENCE_CHAIN_DESIGN_CN.html) |
 | Implementation spec | [IMPLEMENTATION_SPEC_EN](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_EN.html) | [IMPLEMENTATION_SPEC_KO](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_KO.html) | [网页版](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC.html) · [md 渲染](https://cyracaid.github.io/rl-oversight-dag/IMPLEMENTATION_SPEC_CN.html) |
@@ -286,9 +319,18 @@ The same index is on the site landing page: <https://cyracaid.github.io/rl-overs
 ## Repository structure
 
 ```
-PROJECT_EN.md                   Full project document (English)
-PROJECT_KO.md                   Full project document (한국어)
-PROJECT_CN.md                   Full project document (中文)
+PAPER_DRAFT.md / _KO / _CN      The paper, three languages, same 630 numeric tokens
+figures/                        Its four figures + figure_data.json (every plotted value)
+experiments/make_figures.py     Draws them from committed JSON/CSV; adds no numbers
+experiments/test_figures.py     Fails if a figure, its JSON, or a caption drifts
+experiments/test_published_numbers.py  Paper (and project docs) number -> artifact, 19 checks
+experiments/test_retired_numbers.py   Registry guard: retired values may not return
+RETIRED_NUMBERS.md              Every superseded number, its replacement, and why
+PROJECT_POSITIONING.md          Claim ladder: which sentence may appear where
+
+PROJECT_EN.md                   Project narrative (English) — §7c maps it to the paper
+PROJECT_KO.md                   Project narrative (한국어)
+PROJECT_CN.md                   Project narrative (中文)
 COURSE_ALIGNMENT.md / _CN.md    Course-rubric mapping + data-search split (EN / CN)
 TEAM_CLAIMS.md / _CN.md         Markdown source for TEAM_CLAIMS.html (EN / CN)
 proposal_sciforge_en.md         SciForge / AI4Science proposal (EN)
@@ -343,6 +385,8 @@ claim_graph/                         Read-only layer that turns an external case
 | Learned baselines on the other 5 families (3 seeds, same budget) | `cd "role3 improvement" && python3 run_learned_baselines.py --jobs 4` | No |
 | Pair the learned policies against `marginal` (spec §7) | `cd "role3 improvement" && python3 report_learned_baselines.py` | No |
 | Canonical Role 2 contrasts (confidence, planning) | `cd role2_규리 && python3 evaluate_conditions.py --out … && python3 evaluate_planning.py --out …` | No |
+| The paper's four figures + `figures/figure_data.json` | `python3 experiments/make_figures.py` | No |
+| Paper guards (numbers, figures, retired values) | `python3 experiments/test_published_numbers.py && python3 experiments/test_figures.py && python3 experiments/test_retired_numbers.py` | No |
 
 Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torch matplotlib`).
 
@@ -358,11 +402,14 @@ Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torc
 
 ## Honest caveats (please read)
 
+- **One claim is retired and must not come back.** "RL reduces human review by X %" is not a result of this project — it came from legacy seeds 1–20 and reproduced nowhere. `RETIRED_NUMBERS.md` lists each retired value with its replacement, and `experiments/test_retired_numbers.py` fails the build if one reappears in any tracked markdown file.
+- **The figures are generated, never drawn by hand.** `experiments/make_figures.py` reads the committed JSON/CSV; `experiments/test_figures.py` re-derives every plotted value from the same files, so a picture cannot silently disagree with the table beside it.
+
 - **Deployable belief greedy beats every learned policy.** On 200 held-out graphs (paired): belief greedy 1.14, GNN static state 1.56, GNN observed state 1.56; GNN − belief greedy = +0.42 ± 0.15. Giving the GNN its review outcomes did not help (−0.00 ± 0.08). See `experiments/gnn_vs_greedy_table.md` (`rl_gnn_multiseed.py`).
 - **The old N=500 "greedy" read the true error state** — it was an oracle. It is now reported as "oracle greedy (reads truth)", next to the deployable belief greedy (`belief.py`).
 - **CMDP soft-budget (PPO-Lagrangian + stop action), naive version: 2.15 with a fixed seed (4.85 in an earlier unseeded run)** — its stop-action credit assignment is too coarse and needs a FALCON-style reward-critic + cost-critic. This is our open problem.
 - **GNN + PPO had not converged (~5.60)**, the MLP-only `rl_methods_compare.py` PPO. The pre-registered GNN+PPO on spike is a different script and it did converge — and lost anyway: 1.225 / 1.335 / 1.340 vs `marginal` 0.875 (row above, `role3 improvement/outputs/ppo-v1/`).
 - **N=500 results are heuristics, not RL.** Deployable belief greedy: BA 12.8 vs threshold 37.6; on modular/ER it is only slightly better than the threshold.
 - **Real-pipeline DAG (N=21): threshold 0.50 vs no-review 2.12** — the application-value result on our actual lab pipeline.
-- **Real review queue (1,048 flags, 68 human-confirmed errors, 6.5% precision):** one rule ("M1-bearing first") reaches **84% of errors in 13% of the queue**; the pipeline's own order is *worse than random*. Errors cluster inside participants (variance/mean 2.00 vs null 1.10, p=0.0005), but ranking participants adds **no significant** gain over the row rule (@400 +7.3% [−8.6%, +10.0%]). Inside the 885 M4-only flags a grouped model gets **AUC 0.467** and adaptive belief **P@200 1.5%** vs 1.24% base — no headroom. That makes 84% an **information ceiling**, not a win: 7 of 72 corrections are never flagged at all, so no ranking policy can reach them. See `triage_bench/CEILING.md`.
+- **Real review queue (1,048 flags, 68 human-confirmed errors, 6.5% precision):** one rule ("M1-bearing first") reaches **83.8 % of the reachable errors by k = 140**; the pipeline's own order is *worse than random*. Errors cluster inside participants (variance/mean 2.00 vs null 1.10, p=0.0005), but ranking participants adds **no significant** gain over the row rule (@400 +7.3% [−8.6%, +10.0%]). Inside the 885 M4-only flags a grouped model gets **AUC 0.467** and adaptive belief **P@200 1.5%** vs 1.24% base — no headroom. That makes 84% an **information ceiling**, not a win: 7 of 72 corrections are never flagged at all, so no ranking policy can reach them. See `triage_bench/CEILING.md`.
 - All numbers were produced by an AI agent and have not been independently verified, except the 2000–2199 confirmation re-run above, which the repository owner executed end-to-end from the committed scripts; Section 12 of `PROJECT_EN.md` lists the full checklist.

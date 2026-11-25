@@ -7,7 +7,9 @@ layout: default
 
 <p><b>언어:</b> <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_EN.html">English</a> · <b>한국어</b> · <a href="https://cyracaid.github.io/rl-oversight-dag/PROJECT_CN.html">中文</a></p>
 
-> STA3145 강화학습 · 팀 프로젝트 · 심화판 2026-11-09
+<p><b>짧은 판:</b> 논문 — <a href="https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html">스케줄러가 아니라 신호</a>. 이 문서는 같은 세 결과에 이르는 먼 길이다(7c절이 둘을 대응시킨다).</p>
+
+> STA3145 강화학습 · 팀 프로젝트 · 심화판 2026-11-09 · 논문 추가 2026-11-25
 > 수면 데이터: 한 대학 수면 연구실와 1년 협업 EMA
 > 응용 대상: SciForge(Zhangyang Gao 개발, AI4Science, Shanghai AI Lab)
 > 영어판: `PROJECT_EN.md` · 중국어판: `PROJECT_CN.md`
@@ -24,6 +26,9 @@ layout: default
 1. **밴딧에서 MDP로.** 1판은 항목마다 통과/검토를 독립적으로 결정했다. 이 방식은 그래프를 평평하게 만들고, 보정 임계값(2.81)이 테이블 Q-러닝(3.38)을 이겼다. 이제 에이전트가 의존성 그래프에서 다음 검토 노드를 고르며, 한 번의 검토가 하류를 바꾼다.
 2. **대리 데이터에서 우리 데이터 + 합성 그래프로.** 실제 정정 75건이 문제의 동기를 보이고, 주요 실험은 합성 그래프다.
 3. **계획에서 결과로, 그리고 업그레이드와 솔직한 부정적 결과로.** 수치, 대조 실험, 보고된 실패, 우리의 모든 학습 정책을 이기는 배포 가능한 신념 그리디 베이스라인(7절), 남은 오류를 신뢰도 신호에서 찾아낸 소거 실험이 있다.
+4. **결과 더미에서 논문으로.** 세 발견은 이제 세 언어 논문이 되었고, 동결된 청구 사다리
+   (`PROJECT_POSITIONING.md` §4), 네 개의 생성된 그림, 본문이 산출물에서 벗어나면 실패하는 테스트를
+   갖는다(7c절).
 
 ## 2. 주제
 제한된 검토 예산 아래에서, 의존성 그래프 위의 어떤 노드를 먼저 검토할지 학습한다.
@@ -193,6 +198,36 @@ $$
 (`PREREGISTER_P_CATCH.md`, 씨드 4000–4199) 방향은 유지됐고 — 네 칸 모두 규칙이 신뢰도순을 이기고 +0.255에서
 +0.530, 모든 구간이 0을 배제 — 사전에 적은 **크기** 예측은 반대로 나왔다. 검토자가 더 믿을 만할수록 격차가 크다.
 
+## 7c. 논문 (2026-11-25) — 세 결과, 하나의 파이프라인
+
+위 절들은 "어떤 스케줄러인가"에 답한다. 논문은 그 답을 저장소가 강제할 수 있는 주장으로 바꾸고, 하나의 수치를
+세 번 읽는 대신 단계마다 한 번씩 진술한다:
+
+| 단계 | 주장 | 논문 | 그림이 읽는 산출물 |
+|---|---|---|---|
+| 구조 | 학습 정책은 최선의 한 줄 규칙을 이기지 못하고, 적자는 그래프가 커질수록 커진다 | §4.1, 그림 2 | `outputs/v3-learned/learned_vs_marginal.json` |
+| 전달 | 큐에는 증명 가능한 상한이 있고, 빠진 것은 할당이 아니라 탐지기 문제다 | §7.7, 그림 3 | `triage_bench/outputs/ceiling.json` |
+| 신호 | 공개 플래그는 원인이 아니라 결과를 순위 매긴다 | §7.8, 그림 4 | `runs/real-confidence-ranking/results.json` |
+
+<img src="figures/fig4_where_the_results_sit.png" alt="파이프라인 도식: 논문의 세 결과가 하나의 파이프라인 세 단계에 놓인다">
+
+*논문의 그림 1. 세 결과는 하나의 파이프라인 단계이지, 한 단계를 세 번 본 것이 아니다.*
+
+**주장하지 않는 것.** "RL이 사람 검토를 X % 줄인다"는 어디에도 없다; 그것은 레거시 시드 1–20에서 나왔고
+`RETIRED_NUMBERS.md`가 다른 퇴역 값과 함께 등록해 둔다. 배포된 절감도 주장하지 않는다: 수면 데이터 정정은
+정책을 루프에 넣고 다시 돌린 것이 아니라 재생한 것이다. §4.1의 메커니즘 — 다중 홉 전파를 종단 보상만으로
+다시 유도해야 한다 — 은 이 데이터가 대안과 분리하지 못하는 가설로 진술된다.
+
+**수치가 움직이지 않는 이유.** `experiments/test_published_numbers.py`(19개 검사)는 본문과 산출물이
+어긋나면 실패하고, `experiments/test_figures.py`(6개)는 그려진 모든 값을 커밋된 JSON/CSV에서 다시
+유도하며, `experiments/test_retired_numbers.py`(3개)는 퇴역 값이 추적되는 마크다운으로 돌아오면 실패한다.
+세 초안은 같은 수치를 유지한다: 각 630개 숫자 토큰.
+
+읽기: [English](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) ·
+[한국어](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) ·
+[中文](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html). 논문이 따르는 청구 사다리는
+`PROJECT_POSITIONING.md` §4에 있다.
+
 ## 8. 소거: 신뢰도 신호가 병목이다
 
 세 가지 신뢰도 조건에서 GNN+REINFORCE 훈련 (3 시드 × 12k 에피소드):
@@ -319,6 +354,9 @@ HealthBench는 가장 가까운 **평가 철학** 선례지, 스케줄링 선례
 9. 이중 critic CMDP.
 10. SciForge: 노드 신뢰도 필드; 실제 그래프 크기 / 에지 유형.
 11. 75건 정정의 합의/하드 분할(27/48) — 라벨은 있고 평가 미실행.
+12. **논문 수치는 다시 읽는 것이 아니라 가드가 지킨다.** 19개 검사가 게재 수치를 산출물에, 6개가 그림을
+    JSON에 묶고, 3개가 퇴역 값을 막는다; 셋 다 깨끗한 클론에서 돈다. 아직 제2의 눈이 없는 것은 해석이지
+    계산이 아니다.
 
 ## 13. 역할과 일정
 
