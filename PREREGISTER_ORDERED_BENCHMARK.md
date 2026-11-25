@@ -74,6 +74,11 @@ decision has value and the value sits in the pair.
 
 ## M2 — the order channel
 
+> **Superseded in part by the Amendment at the end of this file.** The amendment was
+> written the same day, after the analytic check below and before any sampler code or any
+> episode on the reserved block. The original text is kept rather than edited, so the
+> defect can be read in the form it was committed.
+
 Scope is deliberately small: **7 of the 21 nodes** in `real` and 5 of 21 in `ticket`.
 Everything else keeps v1 semantics, unchanged, bit for bit.
 
@@ -199,3 +204,82 @@ that does not overturn it.
 3. Every outcome, including the ones that close the line, is written into
    `BENCHMARK_SPEC.md` and the course report.
 4. Blocks 5160–5183 and 5600–5639 are spent by this file whether or not v2 ships.
+
+---
+
+# Amendment, 2026-11-25 — M2's eligible-pair rule is degenerate; mechanism revised to M2′
+
+Written after implementing the sampler's specification on paper and before writing sampler
+code, before any episode was drawn from 5600–5639, and before any gate number existed. No
+result is being reinterpreted; a design defect was found and is being recorded where it can
+be read.
+
+## What was found
+
+M2 restricted the transposition to *adjacent* members `(i, i+1)` and justified itself with
+the claim that "member `i` is inconsistent with `t_{i-1}` and member `i+1` with `t_{i+2}`".
+That claim is false. Transposing two adjacent elements of a monotone sequence changes exactly
+one constraint — the one between them — and leaves both members consistent with their outer
+neighbours *and* inside the plausible range:
+
+```
+true chain   [10, 400, 430, 700]
+recorded     [10, 430, 400, 700]      transpose (1,2)
+violated     only (430, 400)
+outer checks member 1: 10 < 430  ok      member 2: 400 < 700  ok
+```
+
+So the culprit is localisable only by asking "is this clock plausible for *this position's
+type*" — a per-node feature — or not at all. That is Candidate A's defect one layer up: the
+mechanism would either be solvable by a node-level score, or be a coin flip. M2 as frozen
+could not have produced the evidence it was written to produce, and a null from it would have
+been a null by construction for the second time in the same week.
+
+## M2′, the revised mechanism
+
+A transposition is over two chain positions at distance **≥ 2**, chosen uniformly among
+eligible pairs `(i, j)`, `j ≥ i + 2`, restricted to chains of length ≥ 4 (`real` qualifies,
+`ticket`'s triple qualifies at distance 2 only, and is reported as the smaller case).
+
+```
+true chain   [10, 400, 430, 700]
+recorded     [10, 700, 430, 400]      transpose (1,3)
+violated     (700, 430) and (430, 400)
+```
+
+Every recorded value is still inside the plausible range and still plausible for the position's
+type, and **no single node is locally anomalous**: position 1 holds a large value that a large
+sleep segment could legitimately hold, position 3 holds a small value a short segment could
+hold. What identifies the two misplaced positions is the *rank pattern across the chain* —
+the misplaced values are the ones whose removal restores monotonicity with the fewest changes.
+That is a comparison between nodes, not a property of one, which is exactly the structure the
+pilot failed to reach.
+
+Transition, unchanged in spirit: reviewing a misplaced node re-derives its clock from the
+monotone fit of the remaining chain, catching with `p_catch = 0.9` and repairing the derived
+differences that involve it. Reviewing an innocent node catches nothing (v1 miss semantics).
+Two nodes per transposed episode are misplaced, so the budget trade-off is real.
+
+## Revised gate — strictly stricter, not looser
+
+| # | prediction | verdict rule |
+|---|---|---|
+| G1a | the signal is **not local**: AUC of "is this node misplaced" from per-node public features only (own clock, own adjacent residuals, own confidence, own belief) ≤ 0.65 | `contradicted` if > 0.65 — the mechanism would be Candidate A again, and the benchmark would prove nothing about relational state |
+| G1b | the signal **is** global: AUC of the same question from the chain's rank pattern (positions' ranks, longest-monotone fit residuals) ≥ 0.75 | `contradicted` if < 0.75 — the mechanism would be undetectable, and no policy could win |
+| G2 | `truth_reader − marginal` ≥ 0.15 sink errors per episode at K = 8 on `real` | unchanged |
+| G3 | negative control with `confidence_mode="noise"`: G1a stays ≤ 0.65 and G1b stays ≥ 0.75 | unchanged in intent; a shift *upward* in G1a voids the numbers |
+
+G1 is now a two-sided test, because the failure has two directions: a mechanism that is
+locally solvable proves nothing about relational state, and a mechanism that is unobservable
+proves nothing about anything. The original single-sided G1 could not tell them apart.
+
+## What is unchanged
+
+`q = 0.50`, episode seeds 5600–5639, graph seeds 5160–5183, budgets, `p_catch`, the clock and
+duration constants, the sign convention, the bit-identity guard, the four-outcome reading
+table (with G1 replaced by G1a ∧ G1b), and every non-negotiable. The 0.15 threshold in G2 is
+untouched and was not revisited while writing this amendment.
+
+The `ticket` case is kept and reported separately rather than dropped: its chain has length 3,
+so the only eligible distance-≥2 pair is `(0, 2)`, and a single pair per episode is a weaker
+version of the same mechanism. If `real` and `ticket` disagree, both are reported.
