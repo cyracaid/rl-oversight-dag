@@ -63,21 +63,15 @@ in `7f58534`)? It takes about 20–40 minutes and needs no new decisions. Which 
 collide with yours? The rewire RNG streams use `Random(4_040_000 + 100_000·k + seed)` and
 `Random(5_050_000 + 100_000·k + seed)`; these are draw seeds, not graph blocks, but tell me if you want them in the ledger.
 
-**Q6. "numpy only".** The acceptance line says the script runs with numpy only. The frozen
-`dag_role3/graphs.py` imports `networkx`, so no script that builds these graphs can. README says so. OK to amend the
-acceptance line to "numpy + networkx"?
-
-**Q7. Where worst-of-n lives.** Your request says "produce `benchmark_worst_of_n.csv` next to it" (the frozen summary).
-I put it in `role4_controls/results/` to avoid writing into `role3 improvement/outputs/v3/`, which `FROZEN.md` freezes.
-OK, or should it go next to the frozen file?
-
-**Q8. Where the result goes.** Your request says these controls belong in the abstract. `PAPER_DRAFT.md` and
+**Q6. Where the result goes.** Your request says these controls belong in the abstract. `PAPER_DRAFT.md` and
 `COURSE_FINAL_REPORT.md` do not mention flatten/rewire yet. Will you integrate, or should I draft the paragraph?
 Suggested wording: *"Removing propagation removes the advantage (modular, BA, ER: within ±20 % of zero); a wrong map
 removes or reverses it; on hub graphs the gain rests on hub identity — and with a wrong graph, graph-aware review is worse than ignoring the graph."*
 
-**Q9. Merge path.** Should I open a PR from `p4/role4-controls` to `main` now, or wait for your answers to Q1–Q5?
-Who reviews it (P1 for code review, as role 2 had)?
+## For information (decided, no answer needed)
 
-**Q10. 27/48.** Still blocked on the labels. When can you land them, and in which file? I will evaluate each half
-with the frozen rules and report "one table, two rows" as the plan says.
+- `benchmark_worst_of_n.csv` lives in `role4_controls/results/`, not next to the frozen summary, so nothing is written
+  into `role3 improvement/outputs/v3/`.
+- The 27/48 consensus split is dropped from Person 4's scope; it is not attempted.
+- I will open the PR to `main` once all files are final; P1 does the code review, as for role 2.
+

@@ -94,6 +94,6 @@ On the 500-node families almost every policy leaves at least one error on almost
 measure saturates there; it separates policies only on spike and real. On spike `marginal` leaves an
 error on 34 % of graphs against 47 % for confidence; on real 28 % against 30 %.
 
-## 6. Blocked
+## 6. Out of scope
 
-27/48 consensus split: waiting for P5's labels. Not attempted.
+27/48 consensus split: dropped by Person 4. Not attempted.

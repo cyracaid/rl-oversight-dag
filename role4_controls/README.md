@@ -32,9 +32,6 @@ No GPU, no torch, no real data. About 3 minutes on one CPU core.
 `results/controls.md` is written by hand **from** `results/controls_summary.csv`; every number in it
 is a cell of that file.
 
-Acceptance note: the request says "numpy only". The frozen `dag_role3/graphs.py` imports
-`networkx`, so numpy alone is not enough for any script that builds these graphs. Nothing else is needed.
-
 ## What is frozen
 
 | Item | Value |
@@ -100,9 +97,9 @@ of the 100 graphs where the policy leaves **at least one** sink error (`worst_of
 maximum and the 95th percentile. It is a groupby over `outputs/v3/benchmark_role3.csv`; the frozen
 files are not touched. `worst_of_n = 1 − zero_error_rate` of the frozen summary by construction.
 
-## Blocked
+## Out of scope
 
-27/48 consensus split — waiting for P5's labels. Not attempted, no split invented.
+27/48 consensus split — dropped by Person 4 (not waiting for labels). Not attempted, no split invented.
 
 ---
 
@@ -162,3 +159,24 @@ Applied to flatten, `rewire_index` and `rewire_order`. Primary cells: `marginal`
 
 `intact` must equal the frozen benchmark and `flatten` / `rewire_index:0` must equal v1 `controls.csv`,
 errors and actions, row by row; otherwise the script exits 2 and writes nothing.
+
+---
+
+## v2 confirmation on a fresh block — frozen before outcomes
+
+Why: the v2 rules were chosen after reading v1 on 90000–90099, so by the seed ledger in
+`COURSE_FINAL_REPORT.md` that block is spent for v2. The same frozen code and rules (`7f58534`) are
+rerun once on a block no run has used.
+
+| Item | Value |
+|---|---|
+| Graph block | **7100–7199** (ledger: spent blocks end at 5829 and resume at 60000; no file in the repo uses 7100–7199) |
+| Episodes | `20000 + graph_seed` (27100–27199), budgets and policies unchanged |
+| Rules | exactly v2: `rewire_index` and `rewire_order`, 10 draws, three-level verdict, margin 20 % of this block's intact gain |
+| Command | `python3 run_controls_v2.py --start-seed 7100 --jobs 4 --out results/v2_confirm/` |
+
+Endpoint, read once: the label of each primary cell (`marginal` on spike, modular, BA, ER under flatten,
+`rewire_index`, `rewire_order`; 11 cells) on 7100–7199, compared with its label on 90000–90099.
+A cell is **replicated** if the label is the same; otherwise it is reported as **not replicated** with
+both intervals. No rule, margin or code changes after this run. The block is spent whatever the outcome.
+There is no row-by-row acceptance check on this block (no frozen reference exists for it).

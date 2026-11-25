@@ -206,17 +206,29 @@ def main():
     ap.add_argument("--out", type=Path, default=HERE / "results" / "v2")
     ap.add_argument("--jobs", type=int, default=1)
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--start-seed", type=int, default=rc.START_SEED,
+                    help="first graph seed of the 100-graph block (90000 = frozen benchmark block)")
     args = ap.parse_args()
     if args.selftest:
         selftest()
         return
-    tasks = [(f, s) for f in rc.FAMILIES for s in range(rc.START_SEED, rc.START_SEED + rc.N_SEEDS)]
+    tasks = [(f, s) for f in rc.FAMILIES for s in range(args.start_seed, args.start_seed + rc.N_SEEDS)]
     if args.jobs > 1:
         with ProcessPoolExecutor(args.jobs) as pool:
             chunks = list(pool.map(run_graph, tasks, chunksize=4))
     else:
         chunks = [run_graph(t) for t in tasks]
     rows = [r for chunk in chunks for r in chunk]
+
+    if args.start_seed != rc.START_SEED:
+        print(f"block {args.start_seed}-{args.start_seed + rc.N_SEEDS - 1}: no frozen benchmark or v1 rows "
+              f"exist for it; the row-by-row acceptance check applies to the 90000 block only")
+        rc.save(args.out / "controls_v2.csv", rows)
+        summary = summarise(rows)
+        rc.save(args.out / "controls_v2_summary.csv",
+                [{k: (rc.fmt(v, 4) if isinstance(v, float) else v) for k, v in r.items()} for r in summary])
+        print(f"wrote {args.out}/controls_v2.csv, controls_v2_summary.csv")
+        return
 
     # acceptance: intact == frozen benchmark, rewire_index:0 and flatten == v1 controls.csv
     frozen = rc.frozen_rows()
