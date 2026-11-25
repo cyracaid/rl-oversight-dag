@@ -76,6 +76,7 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | order-aware benchmark (v2) | graphs 5160–5183, episodes 5600–5639 | `PREREGISTER_ORDERED_BENCHMARK.md`; gate read 2026-11-25, **both AUC verdicts void**, see `outputs/ordered-gate-v2/CORRECTION.md` |
 | order benchmark v2.1 | graphs 5184–5195, episodes 5640–5699 (60, q=1.0) | `PREREGISTER_ORDERED_BENCHMARK_V21.md`; H1 holds, **H3 contradicted**, `outputs/ordered-gate-v21/CORRECTION.md` |
 | order benchmark v3 | none consumed | **not built**: `k ≥ 2` transpositions are solved exactly by rank-vs-index, `role3 improvement/outputs/ordered-v3-design/DESIGN.md` |
+| information accounting | none consumed | closed form, no sampling: `role3 improvement/analyse_information_budget.py`, `outputs/information-v1/` |
 
 Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in
 the repo", and that sentence is wrong — `dag_role3/training.py` draws `BestValidation` graphs from 60000 onward.
@@ -454,7 +455,58 @@ what no file prices — would require corrupting the derived differences themsel
 estimation with a new family and a different claim, no longer "the real data's failure mode in this simulator".
 
 Nothing in v1 moved: `tests/test_ordered.py` asserts that the v2 sampler with `q = 0` returns the v1 episode
-tuple-for-tuple, and the 112-test suite passes; `tests/test_ordered_locality.py` pins the defect itself (the two-line local rule scores 100 %, and the relational feature set is broadcast to one row per episode), so neither can be forgotten.
+tuple-for-tuple, and the full suite passes (154 tests, including `tests/test_information_budget.py`); `tests/test_ordered_locality.py` pins the defect itself (the two-line local rule scores 100 %, and the relational feature set is broadcast to one row per episode), so neither can be forgotten.
+
+### Information accounting (closed form, no block): the budget is smaller than the repairable entropy
+
+The remaining objection to the null is a framing one: reviews are an *information acquisition* problem, so maybe
+the policies are allocating a fixed information budget badly. `role3 improvement/analyse_information_budget.py`
+answers it arithmetically — no sampling, no policy run, no block. Every number below is conditional on the
+simulator's assumed model (rate table, `p_catch = 0.9`, nominal edge weight `1 − exp(−λ)`, with 0.6 / 1.4 as
+sensitivity).
+
+**A review reports `e_j` but repairs `b_j`.** `P(flag | e_j=1) = 0.9`, `P(flag | e_j=0) = 0` is a Z-channel: only
+"not flagged" carries information, and it is ambiguous. The repair, however, clears the node's *own* value, so
+`P(flag | b_j=0) = 0.9 · inherited_j`. Median `I(B_j;O_j)/I(E_j;O_j)` is **0.33** (`real`) and **0.35**
+(`ticket`), 0.16 on node 19: about two thirds of the bits a review delivers are about a variable the review
+cannot repair.
+
+**The budget is below the repairable entropy.** `sum H(B) = 14.31` bits (`real`, 12.09 `ticket`); eight reviews at
+the per-node ceiling of 0.735 bits total 5.88 — an upper bound of **41 %** (49 %). Sequential reviews correlate, so
+the bound is loose, but it is a ceiling, not an estimate.
+
+**Three rankings disagree, and the disagreement is measurable.** With `VoI_j = 0.9 · b_j · Δ_j` and `Δ_j` the exact
+finite difference on the forward OR recursion (not the derivative), `real` at the nominal edge weight:
+
+| ranked by | first | value | that node's VoI |
+|---|---|---:|---:|
+| error probability `p_j` | node 20 | 0.801 | 0.0337 |
+| entropy `H(E_j)` | node 10 | 0.997 bits | **0.0000** |
+| review information `I(E_j;O_j)` | node 8 | 0.763 bits | 0.0043 |
+| repairable information `I(B_j;O_j)` | node 0 | 0.735 bits | 0.0292 |
+| `VoI` | node 17 | 0.0735 | — |
+
+Node 10 has the highest entropy *and* the highest review information with exactly zero value of information: it
+reaches no conclusion (`sink_reach = 0`). Node 17 is 11th by `I(E)` (0.687 bits) and first by `VoI`. Across the six
+settings, Spearman against `VoI` runs −0.16…+0.65 for `H(E)`, −0.18…+0.31 for `I(E)`, −0.04…+0.62 for `I(B)`. So
+"information gain ≠ error reduction" is not a possible conflict here; it is a measured mismatch whose sign is not
+stable.
+
+Two reporting rules follow, and both are prohibitions:
+
+1. **`H(F)` for the verdict vector `F` is not identified by this environment.** It supplies per-node marginals (the
+   forward OR recursion is exact for marginals) and exactly one joint (mean field), while the reward needs only the
+   marginals. Entropy is a functional of the joint, so any "residual entropy of the final verdict" is a property of
+   the chosen approximation.
+2. **`marginal_scores` is a derivative, not an action value.** Its per-node magnitude differs from the exact
+   one-step `VoI` by up to 0.21 while the largest exact `VoI` anywhere is 0.098; only the ordering survives
+   (ρ = 0.68–1.00). Quote
+   it as a ranking, never as an error reduction and never as bits.
+
+What this adds is explanatory, not experimental: the `oracle` gap survives the one-step value estimate, the belief
+scale and the horizon because the shortfall is **evidence about the repairable variable**, and the 8-review budget
+cannot supply it. That is also the argument for the cheapest real-data action — more annotations, not another
+scheduler.
 
 ## 7. What counts as progress on this benchmark
 

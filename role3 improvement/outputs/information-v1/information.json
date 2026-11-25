@@ -1,0 +1,1985 @@
+{
+  "note": "Closed-form analysis of the shipped generative model. No sampling, no seed blocks.",
+  "p_catch": 0.9,
+  "lam_weight": {
+    "nominal": 1.0,
+    "weak_edges": 0.6,
+    "strong_edges": 1.4
+  },
+  "results": [
+    {
+      "family": "real",
+      "label": "nominal",
+      "n": 21,
+      "sinks": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected_wrong_conclusions": 2.3571809490358717,
+      "total_entropy_bits": 16.24098180990563,
+      "max_entropy_bits": 21.0,
+      "expected_information_first_review_bits": 0.7626648278138066,
+      "mean_information_first_review_bits": 0.5886731448212107,
+      "top1": {
+        "by_probability": 20,
+        "by_entropy": 10,
+        "by_information": 8,
+        "by_voi": 17,
+        "by_marginal_baseline": 17
+      },
+      "top5": {
+        "by_probability": [
+          20,
+          19,
+          15,
+          16,
+          17
+        ],
+        "by_entropy": [
+          10,
+          13,
+          8,
+          9,
+          14
+        ],
+        "by_voi": [
+          17,
+          19,
+          20,
+          0,
+          1
+        ],
+        "by_marginal_baseline": [
+          17,
+          19,
+          20,
+          0,
+          1
+        ]
+      },
+      "spearman": {
+        "entropy_vs_voi": 0.15605755965759174,
+        "entropy_vs_probability": 0.5134426229508199,
+        "information_vs_voi": 0.10904440361011639,
+        "repairable_information_vs_voi": -0.043748353544178435,
+        "repairable_information_vs_information": -0.0439344262295082,
+        "voi_vs_marginal_baseline": 0.8465539661898569,
+        "voi_vs_sink_reach": -0.06485226083438363
+      },
+      "max_abs_error_baseline_vs_exact_voi": 0.15975996199341624,
+      "voi_range": [
+        0.0,
+        0.07346625989478257
+      ],
+      "total_repairable_entropy_bits": 14.306835485490948,
+      "max_repairable_information_bits": 0.7347125792750308,
+      "median_repairable_fraction": 0.326384352641417,
+      "top1_repairable": {
+        "node": 0,
+        "information_bits": 0.7347125792750308,
+        "voi": 0.02919417707536716
+      },
+      "nodes": [
+        {
+          "node": 0,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.02919417707536716,
+          "delta": 0.0926799272233878,
+          "marginal_baseline": 0.08951994128960371,
+          "sink_reach": 3
+        },
+        {
+          "node": 1,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.02667773721864306,
+          "delta": 0.08469122926553352,
+          "marginal_baseline": 0.08178545572569056,
+          "sink_reach": 3
+        },
+        {
+          "node": 2,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.002357522973227357,
+          "delta": 0.007484199915007483,
+          "marginal_baseline": 0.007431770083968188,
+          "sink_reach": 2
+        },
+        {
+          "node": 3,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.004846150379296108,
+          "delta": 0.015384604378717803,
+          "marginal_baseline": 0.015166255647881322,
+          "sink_reach": 2
+        },
+        {
+          "node": 4,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.001674870001585397,
+          "delta": 0.015508055570235157,
+          "marginal_baseline": 0.015508055570235067,
+          "sink_reach": 2
+        },
+        {
+          "node": 5,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0008081732194476233,
+          "delta": 0.01795940487661385,
+          "marginal_baseline": 0.017956434815683025,
+          "sink_reach": 3
+        },
+        {
+          "node": 6,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0008081732194476233,
+          "delta": 0.01795940487661385,
+          "marginal_baseline": 0.017956434815683025,
+          "sink_reach": 3
+        },
+        {
+          "node": 7,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.001341674377967841,
+          "delta": 0.02981498617706313,
+          "marginal_baseline": 0.029814986177063116,
+          "sink_reach": 2
+        },
+        {
+          "node": 8,
+          "p": 0.447590288089577,
+          "entropy_bits": 0.9920598970163917,
+          "information_bits": 0.7626648278138066,
+          "repairable_information_bits": 0.10671323915710557,
+          "inherited_share": 0.372261691010883,
+          "voi": 0.004258053101973584,
+          "delta": 0.039426417610866515,
+          "marginal_baseline": 0.03867698396427176,
+          "sink_reach": 2
+        },
+        {
+          "node": 9,
+          "p": 0.4224807557300123,
+          "entropy_bits": 0.9825908787764283,
+          "information_bits": 0.7600645783971723,
+          "repairable_information_bits": 0.07429700843789377,
+          "inherited_share": 0.372261691010883,
+          "voi": 0.00017790721659783772,
+          "delta": 0.002470933563858857,
+          "marginal_baseline": 0.002465164759263315,
+          "sink_reach": 2
+        },
+        {
+          "node": 10,
+          "p": 0.4664224373592506,
+          "entropy_bits": 0.9967444095279426,
+          "information_bits": 0.7626013282617596,
+          "repairable_information_bits": 0.12901172558199153,
+          "inherited_share": 0.372261691010883,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 11,
+          "p": 0.39976125183583067,
+          "entropy_bits": 0.9708107643980461,
+          "information_bits": 0.7550184180973183,
+          "repairable_information_bits": 0.12620828225060515,
+          "inherited_share": 0.3179105134498076,
+          "voi": 0.0029788281467069753,
+          "delta": 0.027581742099138662,
+          "marginal_baseline": 0.027581742099138818,
+          "sink_reach": 2
+        },
+        {
+          "node": 12,
+          "p": 0.10553950334888484,
+          "entropy_bits": 0.4863133826235443,
+          "information_bits": 0.4033980039965825,
+          "repairable_information_bits": 0.14690739589085453,
+          "inherited_share": 0.05846263510408922,
+          "voi": 0.0013911749004544196,
+          "delta": 0.030914997787875986,
+          "marginal_baseline": 0.030906195053803993,
+          "sink_reach": 3
+        },
+        {
+          "node": 13,
+          "p": 0.543466654600391,
+          "entropy_bits": 0.9945416006850099,
+          "information_bits": 0.7447749497686135,
+          "repairable_information_bits": 0.29054891409775185,
+          "inherited_share": 0.2976410070775246,
+          "voi": 0.010845927208523305,
+          "delta": 0.03443151494769303,
+          "marginal_baseline": 0.03337417416605598,
+          "sink_reach": 2
+        },
+        {
+          "node": 14,
+          "p": 0.591970099157074,
+          "entropy_bits": 0.9754544076058687,
+          "information_bits": 0.7192672825620459,
+          "repairable_information_bits": 0.23475758639516453,
+          "inherited_share": 0.372261691010883,
+          "voi": 0.01010303365517155,
+          "delta": 0.032073122714830316,
+          "marginal_baseline": 0.031151903265640855,
+          "sink_reach": 2
+        },
+        {
+          "node": 15,
+          "p": 0.7143297111959621,
+          "entropy_bits": 0.8630624009726453,
+          "information_bits": 0.605234888504069,
+          "repairable_information_bits": 0.12614116678579224,
+          "inherited_share": 0.5605072479937878,
+          "voi": 0.01314473938326867,
+          "delta": 0.04172933137545609,
+          "marginal_baseline": 0.04172933137545639,
+          "sink_reach": 2
+        },
+        {
+          "node": 16,
+          "p": 0.7143297111959621,
+          "entropy_bits": 0.8630624009726453,
+          "information_bits": 0.605234888504069,
+          "repairable_information_bits": 0.12614116678579224,
+          "inherited_share": 0.5605072479937878,
+          "voi": 0.01314473938326867,
+          "delta": 0.04172933137545609,
+          "marginal_baseline": 0.04172933137545639,
+          "sink_reach": 2
+        },
+        {
+          "node": 17,
+          "p": 0.6358911014551556,
+          "entropy_bits": 0.9460411120651309,
+          "information_bits": 0.6866332620503284,
+          "repairable_information_bits": 0.19120897509534762,
+          "inherited_share": 0.43983246377716256,
+          "voi": 0.07346625989478257,
+          "delta": 0.23322622188819864,
+          "marginal_baseline": 0.23322622188819883,
+          "sink_reach": 2
+        },
+        {
+          "node": 18,
+          "p": 0.13592134694204183,
+          "entropy_bits": 0.5734566972929642,
+          "information_bits": 0.47227274679023495,
+          "repairable_information_bits": 0.1258338190196239,
+          "inherited_share": 0.09044352309688608,
+          "voi": 0.0023092585165040026,
+          "delta": 0.051316855922311166,
+          "marginal_baseline": 0.05131685592231141,
+          "sink_reach": 2
+        },
+        {
+          "node": 19,
+          "p": 0.7842744008953351,
+          "entropy_bits": 0.7522854086596173,
+          "information_bits": 0.5062045070751904,
+          "repairable_information_bits": 0.07925815963272487,
+          "inherited_share": 0.6681144629159,
+          "voi": 0.04466952382489773,
+          "delta": 0.14180801214253247,
+          "marginal_baseline": 0.1418080121425326,
+          "sink_reach": 2
+        },
+        {
+          "node": 20,
+          "p": 0.8010940997433394,
+          "entropy_bits": 0.7197344911721981,
+          "information_bits": 0.47839602703460704,
+          "repairable_information_bits": 0.06937987894109454,
+          "inherited_share": 0.6939909226820606,
+          "voi": 0.03373750077430286,
+          "delta": 0.10710317706127892,
+          "marginal_baseline": 0.10710317706127877,
+          "sink_reach": 1
+        }
+      ]
+    },
+    {
+      "family": "real",
+      "label": "weak_edges",
+      "n": 21,
+      "sinks": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected_wrong_conclusions": 1.8890776787169643,
+      "total_entropy_bits": 16.561041419913643,
+      "max_entropy_bits": 21.0,
+      "expected_information_first_review_bits": 0.7628128373318067,
+      "mean_information_first_review_bits": 0.6117908114570378,
+      "top1": {
+        "by_probability": 20,
+        "by_entropy": 17,
+        "by_information": 13,
+        "by_voi": 17,
+        "by_marginal_baseline": 17
+      },
+      "top5": {
+        "by_probability": [
+          20,
+          19,
+          15,
+          16,
+          14
+        ],
+        "by_entropy": [
+          17,
+          14,
+          13,
+          15,
+          16
+        ],
+        "by_voi": [
+          17,
+          19,
+          20,
+          15,
+          16
+        ],
+        "by_marginal_baseline": [
+          17,
+          19,
+          20,
+          18,
+          15
+        ]
+      },
+      "spearman": {
+        "entropy_vs_voi": 0.6523075401587203,
+        "entropy_vs_probability": 0.9147540983606558,
+        "information_vs_voi": 0.31276807981584287,
+        "repairable_information_vs_voi": 0.19131742669319826,
+        "repairable_information_vs_information": 0.2616393442622951,
+        "voi_vs_marginal_baseline": 0.9011703511053314,
+        "voi_vs_sink_reach": -0.10938935562426151
+      },
+      "max_abs_error_baseline_vs_exact_voi": 0.21359503643843208,
+      "voi_range": [
+        0.0,
+        0.09822253500453439
+      ],
+      "total_repairable_entropy_bits": 14.306835485490948,
+      "max_repairable_information_bits": 0.7347125792750308,
+      "median_repairable_fraction": 0.4366843313897194,
+      "top1_repairable": {
+        "node": 0,
+        "information_bits": 0.7347125792750308,
+        "voi": 0.01608908784980136
+      },
+      "nodes": [
+        {
+          "node": 0,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.01608908784980136,
+          "delta": 0.05107646936444876,
+          "marginal_baseline": 0.05043918892296359,
+          "sink_reach": 3
+        },
+        {
+          "node": 1,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.014300649347716294,
+          "delta": 0.045398886818146966,
+          "marginal_baseline": 0.044817169645073526,
+          "sink_reach": 3
+        },
+        {
+          "node": 2,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.000985016500050724,
+          "delta": 0.003127036508097536,
+          "marginal_baseline": 0.003121557348584884,
+          "sink_reach": 2
+        },
+        {
+          "node": 3,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.0027677679293196355,
+          "delta": 0.00878656485498297,
+          "marginal_baseline": 0.00874357662647495,
+          "sink_reach": 2
+        },
+        {
+          "node": 4,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.0011120470441207217,
+          "delta": 0.010296731890006683,
+          "marginal_baseline": 0.010296731890006565,
+          "sink_reach": 2
+        },
+        {
+          "node": 5,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0004134511405207287,
+          "delta": 0.009187803122682858,
+          "marginal_baseline": 0.009187414046180314,
+          "sink_reach": 3
+        },
+        {
+          "node": 6,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0004134511405207287,
+          "delta": 0.009187803122682858,
+          "marginal_baseline": 0.009187414046180314,
+          "sink_reach": 3
+        },
+        {
+          "node": 7,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0009934817650531715,
+          "delta": 0.02207737255673714,
+          "marginal_baseline": 0.0220773725567372,
+          "sink_reach": 2
+        },
+        {
+          "node": 8,
+          "p": 0.3582592020849301,
+          "entropy_bits": 0.9412287020573493,
+          "information_bits": 0.7389859726544642,
+          "repairable_information_bits": 0.14576302666543411,
+          "inherited_share": 0.27074909327832963,
+          "voi": 0.003629633425939134,
+          "delta": 0.03360771690684383,
+          "marginal_baseline": 0.03324766958389506,
+          "sink_reach": 2
+        },
+        {
+          "node": 9,
+          "p": 0.3290891658160632,
+          "entropy_bits": 0.9139930700525284,
+          "information_bits": 0.7222300554184752,
+          "repairable_information_bits": 0.1020424300663072,
+          "inherited_share": 0.27074909327832963,
+          "voi": 0.0001143841099552141,
+          "delta": 0.0015886681938224179,
+          "marginal_baseline": 0.0015872515429818017,
+          "sink_reach": 2
+        },
+        {
+          "node": 10,
+          "p": 0.38013672928658016,
+          "entropy_bits": 0.9581385326186544,
+          "information_bits": 0.7485533983510297,
+          "repairable_information_bits": 0.1755539618843528,
+          "inherited_share": 0.27074909327832963,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 11,
+          "p": 0.2890214052832103,
+          "entropy_bits": 0.8674537735866823,
+          "information_bits": 0.6913765257808568,
+          "repairable_information_bits": 0.18614031136892384,
+          "inherited_share": 0.1920697787309208,
+          "voi": 0.0028769600492954705,
+          "delta": 0.02663851897495806,
+          "marginal_baseline": 0.026638518974958218,
+          "sink_reach": 2
+        },
+        {
+          "node": 12,
+          "p": 0.08922543084984069,
+          "entropy_bits": 0.43387910827323134,
+          "information_bits": 0.3613992019909562,
+          "repairable_information_bits": 0.16213156021329705,
+          "inherited_share": 0.04128992721035862,
+          "voi": 0.0010213465318189242,
+          "delta": 0.02269658959597609,
+          "marginal_baseline": 0.02269421497873502,
+          "sink_reach": 3
+        },
+        {
+          "node": 13,
+          "p": 0.4601297636528674,
+          "entropy_bits": 0.9954084075698721,
+          "information_bits": 0.7628128373318067,
+          "repairable_information_bits": 0.41404365209427463,
+          "inherited_share": 0.16943040561979605,
+          "voi": 0.009703616626746412,
+          "delta": 0.030805132148401304,
+          "marginal_baseline": 0.030289252472470492,
+          "sink_reach": 2
+        },
+        {
+          "node": 14,
+          "p": 0.5259869106309143,
+          "entropy_bits": 0.9980505615265565,
+          "information_bits": 0.7512700954610536,
+          "repairable_information_bits": 0.31309405581006533,
+          "inherited_share": 0.27074909327832963,
+          "voi": 0.008806397144618778,
+          "delta": 0.027956816332123102,
+          "marginal_baseline": 0.027530626107224274,
+          "sink_reach": 2
+        },
+        {
+          "node": 15,
+          "p": 0.5900599967542098,
+          "entropy_bits": 0.9764689542652508,
+          "information_bits": 0.7204801418695421,
+          "repairable_information_bits": 0.23678947542915896,
+          "inherited_share": 0.3693230719295536,
+          "voi": 0.017111903704583632,
+          "delta": 0.054323503824075026,
+          "marginal_baseline": 0.0543235038240749,
+          "sink_reach": 2
+        },
+        {
+          "node": 16,
+          "p": 0.5900599967542098,
+          "entropy_bits": 0.9764689542652508,
+          "information_bits": 0.7204801418695421,
+          "repairable_information_bits": 0.23678947542915896,
+          "inherited_share": 0.3693230719295536,
+          "voi": 0.017111903704583632,
+          "delta": 0.054323503824075026,
+          "marginal_baseline": 0.0543235038240749,
+          "sink_reach": 2
+        },
+        {
+          "node": 17,
+          "p": 0.5138337707320868,
+          "entropy_bits": 0.9994477431595501,
+          "information_bits": 0.7549420709606189,
+          "repairable_information_bits": 0.329671373495408,
+          "inherited_share": 0.25205195497244126,
+          "voi": 0.09822253500453439,
+          "delta": 0.3118175714429663,
+          "marginal_baseline": 0.31181757144296646,
+          "sink_reach": 2
+        },
+        {
+          "node": 18,
+          "p": 0.10444958376214819,
+          "entropy_bits": 0.4829437997504185,
+          "information_bits": 0.4007109377661867,
+          "repairable_information_bits": 0.1478147370518299,
+          "inherited_share": 0.05731535132857701,
+          "voi": 0.0024540407823399947,
+          "delta": 0.054534239607555435,
+          "marginal_baseline": 0.05453423960755556,
+          "sink_reach": 2
+        },
+        {
+          "node": 19,
+          "p": 0.6306641073307429,
+          "entropy_bits": 0.9501608082728801,
+          "information_bits": 0.6909962100835829,
+          "repairable_information_bits": 0.19609282076270818,
+          "inherited_share": 0.43179093435498905,
+          "voi": 0.07541086845704843,
+          "delta": 0.23939958240332837,
+          "marginal_baseline": 0.23939958240332845,
+          "sink_reach": 2
+        },
+        {
+          "node": 20,
+          "p": 0.6401302168919865,
+          "entropy_bits": 0.9425750463782198,
+          "information_bits": 0.6829991186700564,
+          "repairable_information_bits": 0.187303276881425,
+          "inherited_share": 0.4463541798338254,
+          "voi": 0.06103945167332076,
+          "delta": 0.19377603705816115,
+          "marginal_baseline": 0.1937760370581611,
+          "sink_reach": 1
+        }
+      ]
+    },
+    {
+      "family": "real",
+      "label": "strong_edges",
+      "n": 21,
+      "sinks": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected_wrong_conclusions": 2.67166627223741,
+      "total_entropy_bits": 15.467798080145524,
+      "max_entropy_bits": 21.0,
+      "expected_information_first_review_bits": 0.7610725050273527,
+      "mean_information_first_review_bits": 0.5534343323229206,
+      "top1": {
+        "by_probability": 20,
+        "by_entropy": 8,
+        "by_information": 9,
+        "by_voi": 17,
+        "by_marginal_baseline": 17
+      },
+      "top5": {
+        "by_probability": [
+          20,
+          19,
+          15,
+          16,
+          17
+        ],
+        "by_entropy": [
+          8,
+          11,
+          9,
+          10,
+          13
+        ],
+        "by_voi": [
+          17,
+          0,
+          1,
+          19,
+          20
+        ],
+        "by_marginal_baseline": [
+          17,
+          0,
+          1,
+          19,
+          20
+        ]
+      },
+      "spearman": {
+        "entropy_vs_voi": 0.12014473212132586,
+        "entropy_vs_probability": 0.3416393442622951,
+        "information_vs_voi": 0.0639901290646192,
+        "repairable_information_vs_voi": 0.0013059210013187592,
+        "repairable_information_vs_information": 0.009836065573770493,
+        "voi_vs_marginal_baseline": 0.6801040312093628,
+        "voi_vs_sink_reach": 0.01797110842398582
+      },
+      "max_abs_error_baseline_vs_exact_voi": 0.11461332808333982,
+      "voi_range": [
+        0.0,
+        0.052705399045623526
+      ],
+      "total_repairable_entropy_bits": 14.306835485490948,
+      "max_repairable_information_bits": 0.7347125792750308,
+      "median_repairable_fraction": 0.2792931665286179,
+      "top1_repairable": {
+        "node": 0,
+        "information_bits": 0.7347125792750308,
+        "voi": 0.035362967285299945
+      },
+      "nodes": [
+        {
+          "node": 0,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.035362967285299945,
+          "delta": 0.11226338820730142,
+          "marginal_baseline": 0.10548356697227293,
+          "sink_reach": 3
+        },
+        {
+          "node": 1,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.03324964281099733,
+          "delta": 0.10555442162221373,
+          "marginal_baseline": 0.09917871640240317,
+          "sink_reach": 3
+        },
+        {
+          "node": 2,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.0028450432926685433,
+          "delta": 0.009031883468789026,
+          "marginal_baseline": 0.008892105253217927,
+          "sink_reach": 2
+        },
+        {
+          "node": 3,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.004915644960369436,
+          "delta": 0.015605222096410909,
+          "marginal_baseline": 0.015196955823087697,
+          "sink_reach": 2
+        },
+        {
+          "node": 4,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.0017809654175622355,
+          "delta": 0.016490420532983663,
+          "marginal_baseline": 0.01649042053298392,
+          "sink_reach": 2
+        },
+        {
+          "node": 5,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0011023980746565232,
+          "delta": 0.02449773499236718,
+          "marginal_baseline": 0.024491718465647398,
+          "sink_reach": 3
+        },
+        {
+          "node": 6,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0011023980746565232,
+          "delta": 0.02449773499236718,
+          "marginal_baseline": 0.024491718465647398,
+          "sink_reach": 3
+        },
+        {
+          "node": 7,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0015177951237974098,
+          "delta": 0.033728780528831326,
+          "marginal_baseline": 0.03372878052883118,
+          "sink_reach": 2
+        },
+        {
+          "node": 8,
+          "p": 0.5059513821818922,
+          "entropy_bits": 0.9998978001000354,
+          "information_bits": 0.7569525957619183,
+          "repairable_information_bits": 0.08631575582810175,
+          "inherited_share": 0.43858111611578665,
+          "voi": 0.004082234959215199,
+          "delta": 0.03779847184458518,
+          "marginal_baseline": 0.03679379345120199,
+          "sink_reach": 2
+        },
+        {
+          "node": 9,
+          "p": 0.48349462682652367,
+          "entropy_bits": 0.9992137980198478,
+          "information_bits": 0.7610725050273527,
+          "repairable_information_bits": 0.05995217236927186,
+          "inherited_share": 0.43858111611578665,
+          "voi": 0.00016705610835846232,
+          "delta": 0.0023202237272008652,
+          "marginal_baseline": 0.0023107842250285624,
+          "sink_reach": 2
+        },
+        {
+          "node": 10,
+          "p": 0.5227939486984187,
+          "entropy_bits": 0.9985003352067723,
+          "information_bits": 0.7523019520321328,
+          "repairable_information_bits": 0.10452773164151463,
+          "inherited_share": 0.43858111611578665,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 11,
+          "p": 0.487173121643918,
+          "entropy_bits": 0.9995252181233227,
+          "information_bits": 0.7605612314204885,
+          "repairable_information_bits": 0.09252669558102489,
+          "inherited_share": 0.41724218368627053,
+          "voi": 0.0025823462358787043,
+          "delta": 0.02391061329517319,
+          "marginal_baseline": 0.023910613295173716,
+          "sink_reach": 2
+        },
+        {
+          "node": 12,
+          "p": 0.11683413254236563,
+          "entropy_bits": 0.5201916853477244,
+          "information_bits": 0.43031882052383846,
+          "repairable_information_bits": 0.13821528694175222,
+          "inherited_share": 0.07035171846564803,
+          "voi": 0.0015620534279974475,
+          "delta": 0.034712298399943275,
+          "marginal_baseline": 0.034700214912125465,
+          "sink_reach": 3
+        },
+        {
+          "node": 13,
+          "p": 0.6106862947283049,
+          "entropy_bits": 0.9643552299703215,
+          "information_bits": 0.7064755351089138,
+          "repairable_information_bits": 0.21548131405496096,
+          "inherited_share": 0.40105583804354605,
+          "voi": 0.008318729992446627,
+          "delta": 0.026408666642687706,
+          "marginal_baseline": 0.025279000531363355,
+          "sink_reach": 2
+        },
+        {
+          "node": 14,
+          "p": 0.6350777254752613,
+          "entropy_bits": 0.9466933390974885,
+          "information_bits": 0.6873207436973274,
+          "repairable_information_bits": 0.19196398692803118,
+          "inherited_share": 0.43858111611578665,
+          "voi": 0.00803627745586699,
+          "delta": 0.025511991923387267,
+          "marginal_baseline": 0.02445478947679213,
+          "sink_reach": 2
+        },
+        {
+          "node": 15,
+          "p": 0.8006975188832746,
+          "entropy_bits": 0.7205308617104431,
+          "information_bits": 0.4790704151335128,
+          "repairable_information_bits": 0.06960673195954348,
+          "inherited_share": 0.6933807982819609,
+          "voi": 0.008030993772607253,
+          "delta": 0.025495218325737312,
+          "marginal_baseline": 0.025495218325737357,
+          "sink_reach": 2
+        },
+        {
+          "node": 16,
+          "p": 0.8006975188832746,
+          "entropy_bits": 0.7205308617104431,
+          "information_bits": 0.4790704151335128,
+          "repairable_information_bits": 0.06960673195954348,
+          "inherited_share": 0.6933807982819609,
+          "voi": 0.008030993772607253,
+          "delta": 0.025495218325737312,
+          "marginal_baseline": 0.025495218325737357,
+          "sink_reach": 2
+        },
+        {
+          "node": 17,
+          "p": 0.730208471253815,
+          "entropy_bits": 0.8411653339989281,
+          "information_bits": 0.5850200083273205,
+          "repairable_information_bits": 0.11464808079151367,
+          "inherited_share": 0.584936109621254,
+          "voi": 0.052705399045623526,
+          "delta": 0.16731872712896356,
+          "marginal_baseline": 0.16731872712896334,
+          "sink_reach": 2
+        },
+        {
+          "node": 18,
+          "p": 0.16068761434402645,
+          "entropy_bits": 0.6359520116822857,
+          "information_bits": 0.5208467287143419,
+          "repairable_information_bits": 0.11274895940117294,
+          "inherited_share": 0.11651327825686986,
+          "voi": 0.0021504337093462534,
+          "delta": 0.047787415763250074,
+          "marginal_baseline": 0.0477874157632498,
+          "sink_reach": 2
+        },
+        {
+          "node": 19,
+          "p": 0.8818059178798662,
+          "entropy_bits": 0.5241474348251236,
+          "information_bits": 0.3209325815828842,
+          "repairable_information_bits": 0.02941108451472907,
+          "inherited_share": 0.8181629505844095,
+          "voi": 0.023986945456998015,
+          "delta": 0.0761490331968191,
+          "marginal_baseline": 0.07614903319681887,
+          "sink_reach": 2
+        },
+        {
+          "node": 20,
+          "p": 0.8989642687597025,
+          "entropy_bits": 0.4722702122155904,
+          "information_bits": 0.28180711392816304,
+          "repairable_information_bits": 0.022605602099152522,
+          "inherited_share": 0.8445604134764653,
+          "voi": 0.017137214414219757,
+          "delta": 0.05440385528323732,
+          "marginal_baseline": 0.05440385528323714,
+          "sink_reach": 1
+        }
+      ]
+    },
+    {
+      "family": "ticket",
+      "label": "nominal",
+      "n": 21,
+      "sinks": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected_wrong_conclusions": 1.9433699614273072,
+      "total_entropy_bits": 16.667606123888394,
+      "max_entropy_bits": 21.0,
+      "expected_information_first_review_bits": 0.7626013282617596,
+      "mean_information_first_review_bits": 0.6221013947771965,
+      "top1": {
+        "by_probability": 17,
+        "by_entropy": 9,
+        "by_information": 9,
+        "by_voi": 17,
+        "by_marginal_baseline": 17
+      },
+      "top5": {
+        "by_probability": [
+          17,
+          19,
+          9,
+          10,
+          14
+        ],
+        "by_entropy": [
+          9,
+          10,
+          14,
+          15,
+          16
+        ],
+        "by_voi": [
+          17,
+          0,
+          2,
+          1,
+          18
+        ],
+        "by_marginal_baseline": [
+          17,
+          0,
+          2,
+          1,
+          18
+        ]
+      },
+      "spearman": {
+        "entropy_vs_voi": -0.11585216274459409,
+        "entropy_vs_probability": 0.8933508887425939,
+        "information_vs_voi": -0.13029265895071915,
+        "repairable_information_vs_voi": 0.5621947727520954,
+        "repairable_information_vs_information": -0.4535878867676103,
+        "voi_vs_marginal_baseline": 0.9960732984293195,
+        "voi_vs_sink_reach": 0.8173843790353748
+      },
+      "max_abs_error_baseline_vs_exact_voi": 0.15853972661046473,
+      "voi_range": [
+        0.0,
+        0.07290512975517714
+      ],
+      "total_repairable_entropy_bits": 12.090761061724297,
+      "max_repairable_information_bits": 0.7347125792750308,
+      "median_repairable_fraction": 0.3478361319957994,
+      "top1_repairable": {
+        "node": 0,
+        "information_bits": 0.7347125792750308,
+        "voi": 0.041334684128876295
+      },
+      "nodes": [
+        {
+          "node": 0,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.041334684128876295,
+          "delta": 0.13122121945675014,
+          "marginal_baseline": 0.1297836700404224,
+          "sink_reach": 2
+        },
+        {
+          "node": 1,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.03549374901688628,
+          "delta": 0.1126785683075755,
+          "marginal_baseline": 0.11267856830757549,
+          "sink_reach": 2
+        },
+        {
+          "node": 2,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.041334684128876295,
+          "delta": 0.13122121945675014,
+          "marginal_baseline": 0.1297836700404224,
+          "sink_reach": 2
+        },
+        {
+          "node": 3,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 4,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.004133428843839633,
+          "delta": 0.03827248929481142,
+          "marginal_baseline": 0.03820845763023865,
+          "sink_reach": 2
+        },
+        {
+          "node": 5,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.010167739026810872,
+          "delta": 0.09414573172973029,
+          "marginal_baseline": 0.09191721875539459,
+          "sink_reach": 2
+        },
+        {
+          "node": 6,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.003048901306496797,
+          "delta": 0.028230567652748118,
+          "marginal_baseline": 0.028230567652748215,
+          "sink_reach": 1
+        },
+        {
+          "node": 7,
+          "p": 0.09999999999999998,
+          "entropy_bits": 0.4689955935892811,
+          "information_bits": 0.38957025770517484,
+          "repairable_information_bits": 0.3895702577014575,
+          "inherited_share": 0.0,
+          "voi": 0.0014198813864134776,
+          "delta": 0.015776459849038638,
+          "marginal_baseline": 0.015619548512052779,
+          "sink_reach": 1
+        },
+        {
+          "node": 8,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.009083211489468035,
+          "delta": 0.08410381008766699,
+          "marginal_baseline": 0.08193932877790415,
+          "sink_reach": 1
+        },
+        {
+          "node": 9,
+          "p": 0.4664224373592506,
+          "entropy_bits": 0.9967444095279426,
+          "information_bits": 0.7626013282617596,
+          "repairable_information_bits": 0.12901172558199153,
+          "inherited_share": 0.372261691010883,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 10,
+          "p": 0.4664224373592506,
+          "entropy_bits": 0.9967444095279426,
+          "information_bits": 0.7626013282617596,
+          "repairable_information_bits": 0.12901172558199153,
+          "inherited_share": 0.372261691010883,
+          "voi": 0.0015544733786778254,
+          "delta": 0.011514617619835743,
+          "marginal_baseline": 0.011514617619835656,
+          "sink_reach": 1
+        },
+        {
+          "node": 11,
+          "p": 0.24086992180770717,
+          "entropy_bits": 0.7964839385666329,
+          "information_bits": 0.6412826356657925,
+          "repairable_information_bits": 0.2230612715060607,
+          "inherited_share": 0.13735218387239456,
+          "voi": 0.007361056103105959,
+          "delta": 0.06815792688061073,
+          "marginal_baseline": 0.06795538096895927,
+          "sink_reach": 2
+        },
+        {
+          "node": 12,
+          "p": 0.24086992180770717,
+          "entropy_bits": 0.7964839385666329,
+          "information_bits": 0.6412826356657925,
+          "repairable_information_bits": 0.2230612715060607,
+          "inherited_share": 0.13735218387239456,
+          "voi": 0.005422601765944495,
+          "delta": 0.05020927561059718,
+          "marginal_baseline": 0.050209275610597355,
+          "sink_reach": 1
+        },
+        {
+          "node": 13,
+          "p": 0.2744200800135188,
+          "entropy_bits": 0.8477359142533251,
+          "information_bits": 0.6777514458604909,
+          "repairable_information_bits": 0.1586085302313301,
+          "inherited_share": 0.19380008890390976,
+          "voi": 0.0025196884884032046,
+          "delta": 0.027996538760035605,
+          "marginal_baseline": 0.027509803999741102,
+          "sink_reach": 1
+        },
+        {
+          "node": 14,
+          "p": 0.44299844096226393,
+          "entropy_bits": 0.9906044408064335,
+          "information_bits": 0.7624199133379221,
+          "repairable_information_bits": 0.06920164468013268,
+          "inherited_share": 0.39456352278506956,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 15,
+          "p": 0.44299844096226393,
+          "entropy_bits": 0.9906044408064335,
+          "information_bits": 0.7624199133379221,
+          "repairable_information_bits": 0.06920164468013268,
+          "inherited_share": 0.39456352278506956,
+          "voi": 0.000933059685021874,
+          "delta": 0.012959162291970472,
+          "marginal_baseline": 0.012959162291970338,
+          "sink_reach": 1
+        },
+        {
+          "node": 16,
+          "p": 0.44299844096226393,
+          "entropy_bits": 0.9906044408064335,
+          "information_bits": 0.7624199133379221,
+          "repairable_information_bits": 0.06920164468013268,
+          "inherited_share": 0.39456352278506956,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 17,
+          "p": 0.6767181621697035,
+          "entropy_bits": 0.9079146943196893,
+          "information_bits": 0.6480343819985326,
+          "repairable_information_bits": 0.15552340637063988,
+          "inherited_share": 0.5026433264149284,
+          "voi": 0.07290512975517714,
+          "delta": 0.23144485636564172,
+          "marginal_baseline": 0.23144485636564185,
+          "sink_reach": 2
+        },
+        {
+          "node": 18,
+          "p": 0.2994955384229666,
+          "entropy_bits": 0.8806733748008906,
+          "information_bits": 0.7003503101763511,
+          "repairable_information_bits": 0.17923756996481105,
+          "inherited_share": 0.20397220275337113,
+          "voi": 0.010316520252316287,
+          "delta": 0.09552333566959526,
+          "marginal_baseline": 0.09552333566959546,
+          "sink_reach": 1
+        },
+        {
+          "node": 19,
+          "p": 0.6676607224116706,
+          "entropy_bits": 0.9172985691239774,
+          "information_bits": 0.6572949145397842,
+          "repairable_information_bits": 0.03545015835944909,
+          "inherited_share": 0.6307341360129674,
+          "voi": 0.0033233927758832852,
+          "delta": 0.036926586398703165,
+          "marginal_baseline": 0.03692658639870327,
+          "sink_reach": 1
+        },
+        {
+          "node": 20,
+          "p": 0.2994955384229666,
+          "entropy_bits": 0.8806733748008906,
+          "information_bits": 0.7003503101763511,
+          "repairable_information_bits": 0.17923756996481105,
+          "inherited_share": 0.20397220275337113,
+          "voi": 0.010316520252316287,
+          "delta": 0.09552333566959526,
+          "marginal_baseline": 0.09552333566959546,
+          "sink_reach": 1
+        }
+      ]
+    },
+    {
+      "family": "ticket",
+      "label": "weak_edges",
+      "n": 21,
+      "sinks": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected_wrong_conclusions": 1.5259706694475137,
+      "total_entropy_bits": 15.970821708379061,
+      "max_entropy_bits": 21.0,
+      "expected_information_first_review_bits": 0.7628307734202482,
+      "mean_information_first_review_bits": 0.6054300988390939,
+      "top1": {
+        "by_probability": 17,
+        "by_entropy": 19,
+        "by_information": 19,
+        "by_voi": 17,
+        "by_marginal_baseline": 17
+      },
+      "top5": {
+        "by_probability": [
+          17,
+          19,
+          9,
+          10,
+          0
+        ],
+        "by_entropy": [
+          19,
+          17,
+          9,
+          10,
+          0
+        ],
+        "by_voi": [
+          17,
+          0,
+          2,
+          1,
+          18
+        ],
+        "by_marginal_baseline": [
+          17,
+          18,
+          20,
+          0,
+          2
+        ]
+      },
+      "spearman": {
+        "entropy_vs_voi": 0.259600738614657,
+        "entropy_vs_probability": 0.9986833443054642,
+        "information_vs_voi": 0.20905900189321935,
+        "repairable_information_vs_voi": 0.5425031870164704,
+        "repairable_information_vs_information": -0.33377221856484535,
+        "voi_vs_marginal_baseline": 0.9659685863874345,
+        "voi_vs_sink_reach": 0.7933436620049226
+      },
+      "max_abs_error_baseline_vs_exact_voi": 0.19414472091585444,
+      "voi_range": [
+        0.0,
+        0.08927822932626883
+      ],
+      "total_repairable_entropy_bits": 12.090761061724297,
+      "max_repairable_information_bits": 0.7347125792750308,
+      "median_repairable_fraction": 0.4327766096133945,
+      "top1_repairable": {
+        "node": 0,
+        "information_bits": 0.7347125792750308,
+        "voi": 0.031477067912754585
+      },
+      "nodes": [
+        {
+          "node": 0,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.031477067912754585,
+          "delta": 0.09992719972303044,
+          "marginal_baseline": 0.09956034283665768,
+          "sink_reach": 2
+        },
+        {
+          "node": 1,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.028354278473361482,
+          "delta": 0.09001358245511581,
+          "marginal_baseline": 0.09001358245511601,
+          "sink_reach": 2
+        },
+        {
+          "node": 2,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.031477067912754585,
+          "delta": 0.09992719972303044,
+          "marginal_baseline": 0.09956034283665768,
+          "sink_reach": 2
+        },
+        {
+          "node": 3,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 4,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.00211561687943763,
+          "delta": 0.01958904517997806,
+          "marginal_baseline": 0.019580415324663775,
+          "sink_reach": 2
+        },
+        {
+          "node": 5,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.0065485343533359585,
+          "delta": 0.06063457734570332,
+          "marginal_baseline": 0.05985643825390785,
+          "sink_reach": 2
+        },
+        {
+          "node": 6,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.0015767022585588854,
+          "delta": 0.014599094986656347,
+          "marginal_baseline": 0.014599094986656342,
+          "sink_reach": 1
+        },
+        {
+          "node": 7,
+          "p": 0.09999999999999998,
+          "entropy_bits": 0.4689955935892811,
+          "information_bits": 0.38957025770517484,
+          "repairable_information_bits": 0.3895702577014575,
+          "inherited_share": 0.0,
+          "voi": 0.0010257443102060894,
+          "delta": 0.01139715900228988,
+          "marginal_baseline": 0.011352337627847191,
+          "sink_reach": 1
+        },
+        {
+          "node": 8,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.006009619732457214,
+          "delta": 0.05564462715238161,
+          "marginal_baseline": 0.05487511791590042,
+          "sink_reach": 1
+        },
+        {
+          "node": 9,
+          "p": 0.38013672928658016,
+          "entropy_bits": 0.9581385326186544,
+          "information_bits": 0.7485533983510297,
+          "repairable_information_bits": 0.1755539618843528,
+          "inherited_share": 0.27074909327832963,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 10,
+          "p": 0.38013672928658016,
+          "entropy_bits": 0.9581385326186544,
+          "information_bits": 0.7485533983510297,
+          "repairable_information_bits": 0.1755539618843528,
+          "inherited_share": 0.27074909327832963,
+          "voi": 0.0013299472143920854,
+          "delta": 0.00985146084734878,
+          "marginal_baseline": 0.009851460847348805,
+          "sink_reach": 1
+        },
+        {
+          "node": 11,
+          "p": 0.20591738630580703,
+          "entropy_bits": 0.7336061523128303,
+          "information_bits": 0.5950156673515801,
+          "repairable_information_bits": 0.25750886318326816,
+          "inherited_share": 0.0976333935293262,
+          "voi": 0.005477107176635372,
+          "delta": 0.05071395533921641,
+          "marginal_baseline": 0.050656195648820186,
+          "sink_reach": 2
+        },
+        {
+          "node": 12,
+          "p": 0.20591738630580703,
+          "entropy_bits": 0.7336061523128303,
+          "information_bits": 0.5950156673515801,
+          "repairable_information_bits": 0.25750886318326816,
+          "inherited_share": 0.0976333935293262,
+          "voi": 0.004079062510430527,
+          "delta": 0.03776909731880118,
+          "marginal_baseline": 0.03776909731880126,
+          "sink_reach": 1
+        },
+        {
+          "node": 13,
+          "p": 0.21165360627801622,
+          "entropy_bits": 0.7446316810325853,
+          "information_bits": 0.6032271066266884,
+          "repairable_information_bits": 0.20119684950537997,
+          "inherited_share": 0.12405956253112915,
+          "voi": 0.00263348517466099,
+          "delta": 0.02926094638512211,
+          "marginal_baseline": 0.028969080066454104,
+          "sink_reach": 1
+        },
+        {
+          "node": 14,
+          "p": 0.29428457187861246,
+          "entropy_bits": 0.874191783115777,
+          "information_bits": 0.6959680882303108,
+          "repairable_information_bits": 0.11496037078370308,
+          "inherited_share": 0.23291801291153535,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 15,
+          "p": 0.29428457187861246,
+          "entropy_bits": 0.874191783115777,
+          "information_bits": 0.6959680882303108,
+          "repairable_information_bits": 0.11496037078370308,
+          "inherited_share": 0.23291801291153535,
+          "voi": 0.0011370114428344547,
+          "delta": 0.01579182559492298,
+          "marginal_baseline": 0.015791825594922843,
+          "sink_reach": 1
+        },
+        {
+          "node": 16,
+          "p": 0.29428457187861246,
+          "entropy_bits": 0.874191783115777,
+          "information_bits": 0.6959680882303108,
+          "repairable_information_bits": 0.11496037078370308,
+          "inherited_share": 0.23291801291153535,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 17,
+          "p": 0.5952108871088135,
+          "entropy_bits": 0.9736832007553767,
+          "information_bits": 0.7171702899374783,
+          "repairable_information_bits": 0.23133827486162262,
+          "inherited_share": 0.377247518628944,
+          "voi": 0.08927822932626883,
+          "delta": 0.2834229502421233,
+          "marginal_baseline": 0.2834229502421233,
+          "sink_reach": 2
+        },
+        {
+          "node": 18,
+          "p": 0.23588508551560095,
+          "entropy_bits": 0.7881300921225423,
+          "information_bits": 0.6352206249198296,
+          "repairable_information_bits": 0.22749254204852115,
+          "inherited_share": 0.13168759717681922,
+          "voi": 0.011253328740588427,
+          "delta": 0.10419748833878173,
+          "marginal_baseline": 0.10419748833878169,
+          "sink_reach": 1
+        },
+        {
+          "node": 19,
+          "p": 0.45898961130749827,
+          "entropy_bits": 0.9951417451545452,
+          "information_bits": 0.7628307734202482,
+          "repairable_information_bits": 0.08353815528494701,
+          "inherited_share": 0.39887734589722035,
+          "voi": 0.005410103886925014,
+          "delta": 0.06011226541027792,
+          "marginal_baseline": 0.06011226541027797,
+          "sink_reach": 1
+        },
+        {
+          "node": 20,
+          "p": 0.23588508551560095,
+          "entropy_bits": 0.7881300921225423,
+          "information_bits": 0.6352206249198296,
+          "repairable_information_bits": 0.22749254204852115,
+          "inherited_share": 0.13168759717681922,
+          "voi": 0.011253328740588427,
+          "delta": 0.10419748833878173,
+          "marginal_baseline": 0.10419748833878169,
+          "sink_reach": 1
+        }
+      ]
+    },
+    {
+      "family": "ticket",
+      "label": "strong_edges",
+      "n": 21,
+      "sinks": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected_wrong_conclusions": 2.223797605991617,
+      "total_entropy_bits": 16.650140396634157,
+      "max_entropy_bits": 21.0,
+      "expected_information_first_review_bits": 0.7523019520321328,
+      "mean_information_first_review_bits": 0.6140756274675182,
+      "top1": {
+        "by_probability": 19,
+        "by_entropy": 9,
+        "by_information": 9,
+        "by_voi": 17,
+        "by_marginal_baseline": 17
+      },
+      "top5": {
+        "by_probability": [
+          19,
+          17,
+          14,
+          15,
+          16
+        ],
+        "by_entropy": [
+          9,
+          10,
+          14,
+          15,
+          16
+        ],
+        "by_voi": [
+          17,
+          0,
+          2,
+          1,
+          5
+        ],
+        "by_marginal_baseline": [
+          17,
+          0,
+          2,
+          1,
+          5
+        ]
+      },
+      "spearman": {
+        "entropy_vs_voi": -0.15452839072223337,
+        "entropy_vs_probability": 0.7551020408163266,
+        "information_vs_voi": -0.17683822207915884,
+        "repairable_information_vs_voi": 0.6190978201546803,
+        "repairable_information_vs_information": -0.40618828176431865,
+        "voi_vs_marginal_baseline": 0.9983644629674655,
+        "voi_vs_sink_reach": 0.8411498956999817
+      },
+      "max_abs_error_baseline_vs_exact_voi": 0.13086593829824755,
+      "voi_range": [
+        0.0,
+        0.06017922710065414
+      ],
+      "total_repairable_entropy_bits": 12.090761061724297,
+      "max_repairable_information_bits": 0.7347125792750308,
+      "median_repairable_fraction": 0.304664983691605,
+      "top1_repairable": {
+        "node": 0,
+        "information_bits": 0.7347125792750308,
+        "voi": 0.0442797424635942
+      },
+      "nodes": [
+        {
+          "node": 0,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.0442797424635942,
+          "delta": 0.14057061099553714,
+          "marginal_baseline": 0.13794334906653577,
+          "sink_reach": 2
+        },
+        {
+          "node": 1,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.03739721646690579,
+          "delta": 0.11872132211716124,
+          "marginal_baseline": 0.11872132211716073,
+          "sink_reach": 2
+        },
+        {
+          "node": 2,
+          "p": 0.35,
+          "entropy_bits": 0.934068055375491,
+          "information_bits": 0.7347125792880418,
+          "repairable_information_bits": 0.7347125792750308,
+          "inherited_share": 0.0,
+          "voi": 0.0442797424635942,
+          "delta": 0.14057061099553714,
+          "marginal_baseline": 0.13794334906653577,
+          "sink_reach": 2
+        },
+        {
+          "node": 3,
+          "p": 0.050000000000000044,
+          "entropy_bits": 0.2863969571159563,
+          "information_bits": 0.2413152542562168,
+          "repairable_information_bits": 0.24131525425435807,
+          "inherited_share": 0.0,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 4,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.005587220039358788,
+          "delta": 0.051733518882951746,
+          "marginal_baseline": 0.05157716593441441,
+          "sink_reach": 2
+        },
+        {
+          "node": 5,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.0126120049506991,
+          "delta": 0.11677782361758426,
+          "marginal_baseline": 0.11287466826963753,
+          "sink_reach": 2
+        },
+        {
+          "node": 6,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.004302738533836628,
+          "delta": 0.03984017160959841,
+          "marginal_baseline": 0.03984017160959799,
+          "sink_reach": 1
+        },
+        {
+          "node": 7,
+          "p": 0.09999999999999998,
+          "entropy_bits": 0.4689955935892811,
+          "information_bits": 0.38957025770517484,
+          "repairable_information_bits": 0.3895702577014575,
+          "inherited_share": 0.0,
+          "voi": 0.00135590057742252,
+          "delta": 0.01506556197136133,
+          "marginal_baseline": 0.014816402266507238,
+          "sink_reach": 1
+        },
+        {
+          "node": 8,
+          "p": 0.12,
+          "entropy_bits": 0.5293608652873644,
+          "information_bits": 0.4375742524688069,
+          "repairable_information_bits": 0.4375742524643459,
+          "inherited_share": 0.0,
+          "voi": 0.011327523445176893,
+          "delta": 0.10488447634423048,
+          "marginal_baseline": 0.10113767394482111,
+          "sink_reach": 1
+        },
+        {
+          "node": 9,
+          "p": 0.5227939486984187,
+          "entropy_bits": 0.9985003352067723,
+          "information_bits": 0.7523019520321328,
+          "repairable_information_bits": 0.10452773164151463,
+          "inherited_share": 0.43858111611578665,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 10,
+          "p": 0.5227939486984187,
+          "entropy_bits": 0.9985003352067723,
+          "information_bits": 0.7523019520321328,
+          "repairable_information_bits": 0.10452773164151463,
+          "inherited_share": 0.43858111611578665,
+          "voi": 0.0013685413481327703,
+          "delta": 0.010137343319502001,
+          "marginal_baseline": 0.010137343319502,
+          "sink_reach": 1
+        },
+        {
+          "node": 11,
+          "p": 0.2647896131141285,
+          "entropy_bits": 0.8338882946097164,
+          "information_bits": 0.6680344859990206,
+          "repairable_information_bits": 0.20352671578232134,
+          "inherited_share": 0.16453365126605513,
+          "voi": 0.008112318068802003,
+          "delta": 0.07511405619261113,
+          "marginal_baseline": 0.07478533776940839,
+          "sink_reach": 2
+        },
+        {
+          "node": 12,
+          "p": 0.2647896131141285,
+          "entropy_bits": 0.8338882946097164,
+          "information_bits": 0.6680344859990206,
+          "repairable_information_bits": 0.20352671578232134,
+          "inherited_share": 0.16453365126605513,
+          "voi": 0.006238841331367361,
+          "delta": 0.0577670493645126,
+          "marginal_baseline": 0.05776704936451271,
+          "sink_reach": 1
+        },
+        {
+          "node": 13,
+          "p": 0.32295506535133767,
+          "entropy_bits": 0.9075660802702781,
+          "information_bits": 0.7181072161444644,
+          "repairable_information_bits": 0.13369806233050752,
+          "inherited_share": 0.24772785039037515,
+          "voi": 0.0019666637584898217,
+          "delta": 0.021851819538775796,
+          "marginal_baseline": 0.021335183098685293,
+          "sink_reach": 1
+        },
+        {
+          "node": 14,
+          "p": 0.5576722149521954,
+          "entropy_bits": 0.990381554662817,
+          "information_bits": 0.738443717414101,
+          "repairable_information_bits": 0.04531248191923565,
+          "inherited_share": 0.5192089292958646,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 15,
+          "p": 0.5576722149521954,
+          "entropy_bits": 0.990381554662817,
+          "information_bits": 0.738443717414101,
+          "repairable_information_bits": 0.04531248191923565,
+          "inherited_share": 0.5192089292958646,
+          "voi": 0.0006580881867539895,
+          "delta": 0.00914011370491652,
+          "marginal_baseline": 0.009140113704916334,
+          "sink_reach": 1
+        },
+        {
+          "node": 16,
+          "p": 0.5576722149521954,
+          "entropy_bits": 0.990381554662817,
+          "information_bits": 0.738443717414101,
+          "repairable_information_bits": 0.04531248191923565,
+          "inherited_share": 0.5192089292958646,
+          "voi": 0.0,
+          "delta": 0.0,
+          "marginal_baseline": 0.0,
+          "sink_reach": 0
+        },
+        {
+          "node": 17,
+          "p": 0.726571436173981,
+          "entropy_bits": 0.8463415021730957,
+          "information_bits": 0.5897647924954532,
+          "repairable_information_bits": 0.11723483527574241,
+          "inherited_share": 0.5793406710368938,
+          "voi": 0.06017922710065414,
+          "delta": 0.19104516539890204,
+          "marginal_baseline": 0.19104516539890168,
+          "sink_reach": 2
+        },
+        {
+          "node": 18,
+          "p": 0.34821675873273394,
+          "entropy_bits": 0.9324653789246111,
+          "information_bits": 0.7337415784044089,
+          "repairable_information_bits": 0.15094456134657475,
+          "inherited_share": 0.2593372258326522,
+          "voi": 0.009598989553208878,
+          "delta": 0.08887953290008221,
+          "marginal_baseline": 0.08887953290008174,
+          "sink_reach": 1
+        },
+        {
+          "node": 19,
+          "p": 0.800792652352168,
+          "entropy_bits": 0.7203399547389655,
+          "information_bits": 0.478908723363793,
+          "repairable_information_bits": 0.015289562389394329,
+          "inherited_share": 0.77865850261352,
+          "voi": 0.0019920734764783225,
+          "delta": 0.022134149738648023,
+          "marginal_baseline": 0.022134149738648,
+          "sink_reach": 1
+        },
+        {
+          "node": 20,
+          "p": 0.34821675873273394,
+          "entropy_bits": 0.9324653789246111,
+          "information_bits": 0.7337415784044089,
+          "repairable_information_bits": 0.15094456134657475,
+          "inherited_share": 0.2593372258326522,
+          "voi": 0.009598989553208832,
+          "delta": 0.08887953290008177,
+          "marginal_baseline": 0.08887953290008174,
+          "sink_reach": 1
+        }
+      ]
+    }
+  ]
+}
