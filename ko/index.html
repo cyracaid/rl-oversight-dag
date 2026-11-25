@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>의존성 그래프 위 검토 스케줄링 — 한국어</title>
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
-<script>
-  MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; }
   body {
@@ -74,196 +70,114 @@
 
 <div class="wrap">
 <aside>
-  <a href="#goal">목표</a>
-  <a href="#real">왜 진짜 문제인가</a>
-  <a href="#detour">돌아간 길 (부정적 결과)</a>
-  <a href="#reframe">재구성: 그래프 MDP</a>
-  <a href="#math">수학</a>
-  <a href="#results">결과</a>
-  <a href="#ablation">소거</a>
-  <a href="#scale">규모 (N=500)</a>
-  <a href="#pipeline">실제 파이프라인</a>
-  <a href="#related">관련 연구</a>
-  <a href="#guide">결정 가이드</a>
-  <a href="#sciforge">SciForge 착지</a>
+  <a href="#paper">논문</a>
+  <a href="#results">세 결과</a>
+  <a href="#figures">그림 네 장</a>
+  <a href="#data">데이터가 말하는 것</a>
+  <a href="#limits">주장하지 않는 것</a>
+  <a href="#guards">수치의 출처</a>
   <a href="#team">팀</a>
   <a href="#verify">검증</a>
 </aside>
 
 <main>
 
-<h1>사람은 어느 항목을 먼저 검토해야 하는가?</h1>
-<p class="lead">연구 증거 사슬의 검토 계층을 위한 강화학습.</p>
-<p>수면 데이터: 한 대학 수면 연구실와 1년 협업 EMA.<br>
+<h1>검토자는 어느 주장을 먼저 열어야 하는가?</h1>
+<p class="lead">한 장으로 읽는 논문. 증거 사슬의 검토 계층을 위한 강화학습 — 그리고 그 질문이 애초에
+어디서 값어치가 있는지에 대한 측정.</p>
+<p>수면 데이터: 한 대학 수면 연구실와 한 해 협업한 EMA.<br>
 응용 대상: SciForge — Zhangyang Gao (AI4Science, Shanghai AI Lab)가 개발.</p>
 <p><span class="tag">기계는 도장을 찍지 않음</span> <span class="tag">읽기 전용 순위</span> <span class="tag">사람이 판정해야 영수증</span></p>
 
-<h2 id="goal">우리가 만드는 것</h2>
-<p>AI가 이미 수면 일기를 정제하고, 문헌에 라벨을 달고, 분석을 돌립니다. 그 출력은 <b>서로 의존</b>합니다: 시간이 반대로 쓰이면 잠복기가 틀리고, 수면 효율이 틀리고, 결론이 믿을 수 없게 됩니다.</p>
-<p>사람이 전부 확인할 수는 없습니다. 강화학습으로 <b>읽기 전용 제안기</b>를 학습합니다: 다음에 어떤 노드를 검토할지, 결론에 도달하는 오류를 줄이기 위해서.</p>
-<div class="box green">
-  기계는 도장을 찍지 않습니다. 제안기는 읽기 전용 조언자입니다. 검토는 사람이 판정을 기록할 때만 영수증이 됩니다.
+<h2 id="paper">논문 — <i>스케줄러가 아니라 신호</i></h2>
+<p><a href="../PAPER_DRAFT.html">English</a> · <a href="../PAPER_DRAFT_KO.html">한국어</a> ·
+<a href="../PAPER_DRAFT_CN.html">中文</a>. 그림 네 장. 논문의 모든 수치는 테스트가 커밋된 산출물에
+묶어 두므로, 본문이 그 수치를 만든 실행에서 벗어날 수 없다.</p>
+<p><b>한 문장으로.</b> 검토 예산이 고정된 의존성 그래프에서, 정책이 통제하는 부분 — 다음에 어떤 주장을
+열지 — 은 거의 소진되었고, 통제하지 못하는 부분 — 어떤 주장이 수상해 보이는지 — 에 남은 오류가 산다.</p>
+<div class="box">
+  <b>왜 이것이 결과이고 변명이 아닌가.</b> 두 반쪽 모두 같은 동결 분할에서 측정했다. 구조 쪽은 우리가
+  돌린 모든 셀에서 같은 방식으로 실패하고, 신호 쪽은 검토자가 몸으로 느끼는 방식으로 실패한다: 플래그는
+  결과를 가리키고, 검토자가 여는 입력은 원인이다.
 </div>
 
-<h2 id="real">왜 진짜 문제인가</h2>
-<p>우리 실험실 수면 일기: <b>13,990 기록, 237명</b>, 연구실 협력자와 1년 협업 EMA. 사람이 고친 것은 <b>75건</b>(0.54%)입니다.</p>
-<p>그 75건은 흩어져 있지 않습니다 — <b>76%가 같은 실수</b>(order_error: 시간 순서 반대, p &lt; 0.0001)입니다.</p>
-<p>실수는 제자리에 머물지 않습니다. 시간이 틀리면 → 잠복기가 틀리고 → 효율이 틀리고 → 결론이 틀립니다.</p>
+<h2 id="results">세 결과, 세 단계</h2>
+<p>세 발견은 하나의 파이프라인 세 단계이지, 한 단계를 세 번 본 것이 아니다:</p>
+<table>
+  <tr><th>단계</th><th>주장</th><th>논문</th><th>수치</th></tr>
+  <tr><td>구조</td><td>학습 정책은 한 줄 규칙을 이기지 못하고, 적자는 그래프가 커질수록 커진다</td><td>§4.1, 그림 2</td><td>36개 셀; N=21에서 +0.04, N=500에서 +17</td></tr>
+  <tr><td>전달</td><td>큐에는 상한이 있고, 빠진 것은 할당이 아니라 탐지기다</td><td>§7.7, 그림 3</td><td>k = 140에서 83.8 %; 1.2 % 기저율의 885행에 16.2 %</td></tr>
+  <tr><td>신호</td><td>공개 플래그는 원인이 아니라 결과를 순위 매긴다</td><td>§7.8, 그림 4</td><td>타당성 싱크 0.966, 원시 입력 0.569, 통합 0.807</td></tr>
+</table>
+<div class="box green">
+  규칙 자체 모델의 최적해를 계산할 수 있는 곳(21개 노드, 예산 ≤ 5)에서 지평 전체의 값은 <b>4.2 %</b>다.
+  계산을 열 배로 늘리면 적자가 좁아지지만(+0.377 → +0.262) 닫히지 않는다: 빠진 것은 최적화가 아니라
+  정보다.
+</div>
+
+<h2 id="figures">그림 네 장</h2>
+<figure><img src="../figures/fig4_where_the_results_sit.png" alt="파이프라인 도식: 원천 오류, 탐지기, 큐, 결론과 세 단계에 붙은 세 결과">
+  <figcaption>그림 1 — 세 결과가 놓이는 자리. 도식일 뿐이다: 카드의 모든 수치는
+  <code>experiments/make_figures.py</code>가 그림 2–4의 패널에서 읽는다.</figcaption></figure>
+<p>그림 2 <a href="../figures/fig1_gap_vs_graph_size.png">적자 대 그래프 크기</a> ·
+그림 3 <a href="../figures/fig2_queue_ceiling.png">큐 상한</a> ·
+그림 4 <a href="../figures/fig3_localisation_auc.png">국소화 AUC</a>.
+네 장 모두 <code>python3 experiments/make_figures.py</code>로 다시 그린다.</p>
+
+<h2 id="data">실제 데이터가 말할 수 있는 것</h2>
+<p>237명의 수면 기록 13,990건, 사람이 확인한 정정 75건 — 기록의 0.54 %다. 결함은 유형으로 뭉친다:
+75건 중 57건(76 %)이 시간을 반대 순서로 쓴 경우다. 결함은 제자리에 머물지 않는다; 틀린 잠복기,
+틀린 효율, 틀린 결론이 된다.</p>
+<p>행 단위 검토 큐에는 사람이 확인한 양성 68건이 6.5 % 기저율로 들어 있다. 같은 신뢰도 플래그가
+타당성 싱크 네 개에서 0.966, 파생 노드 여섯 개에서 0.733, 검토자가 실제로 여는 원시 타임스탬프 네
+개에서 0.569다.</p>
 <div class="box amber">
-  그래서 "얼마나 검토하느냐"보다 "무엇을 검토하느냐"가 더 중요합니다. 예산은 작습니다. 76% 유형의 상류에 쓰는 것이 값집니다.
+  큐는 상한이 있을 뿐, 배분이 나쁜 것이 아니다. 도달 가능한 오류의 90.3 %가 큐에 들어 있지만
+  k = 140까지 도달하는 것은 83.8 %뿐이다. 16.2 %가 1.2 % 기저율의 885행에 있기 때문이다. 이것은
+  탐지기 문제이고, 어떤 정렬도 고치지 못한다.
 </div>
 
-<h2 id="detour">돌아간 길 (솔직한 부정적 결과)</h2>
-<p>첫 버전은 밴딧이었습니다. 결과: <b>간단한 임계값이 Q-러닝을 이겼습니다</b> (2.81 vs 3.38).</p>
-<p>이유: 항목별 검토는 그래프를 평평하게 만듭니다. 76%가 한 유형이라 최적 정책은 if-규칙으로 무너집니다.</p>
-<div class="box">
-  이 실패를 숨기지 않았습니다. 재구성의 이유입니다.
-</div>
+<h2 id="limits">주장하지 않는 것</h2>
+<p><b>예산 헤드라인은 없다.</b> "RL이 사람 검토를 X % 줄인다"는 어디에도 없다: 그 문구는 레거시 시드
+1–20에서 나왔고 어디에서도 재현되지 않았다. <code>RETIRED_NUMBERS.md</code>가 다른 퇴역 값과 함께
+등록해 두고, 테스트가 그 값이 돌아오면 빌드를 실패시킨다.</p>
+<p><b>배포된 절감은 없다.</b> 수면 정정은 재생한 것이지, 정책을 루프에 넣고 다시 돌린 것이 아니다.</p>
+<p><b>노드별 확률은 없다.</b> 한 행의 <i>그</i> 원인을 지목하려면 감사된 정답 행이 필요하고, 실험실이
+아직 주지 않았다; 노드 수준 보정은 그것이 올 때까지 범위 밖이다.</p>
+<p><b>메커니즘은 가설이다.</b> 다중 홉 전파를 종단 보상만으로 다시 유도해야 한다는 설명은 구조적 실패를
+설명하지만, 이 데이터가 대안과 분리해 주지는 않는다.</p>
 
-<h2 id="reframe">재구성: "이 항목을 검토할까?"에서 "다음 노드는?"으로</h2>
-<p>증거를 방향 그래프로 그립니다. 에이전트가 걷고 노드를 하나 골라 검토합니다. 좋은 검토는 하류를 바꿉니다.</p>
-<p>진짜 MDP입니다: 상태에 그래프와 남은 예산, 보상은 마지막에 옵니다.</p>
-<div class="arch">
-프론트   일기 행 / 코드 / 주장에 하이라이트-질문     → 검토 흔적 (영수증 아님)
-           ↓
-검토층    신념 그리디 / GNN / 임계값 제안기              → "이것 먼저 검토" (읽기 전용)
-           ↓  사람이 "판정" 클릭
-백엔드    SciForge 증거 DAG + 영수증                → 기계 도장 없음, append-only
-</div>
+<h2 id="guards">수치는 어디서 오는가</h2>
+<p>깨끗한 클론에서 세 검사가 돈다: <code>test_published_numbers.py</code>(19)는 게재 수치를 산출물에,
+<code>test_figures.py</code>(6)는 그려진 모든 값을 다시 유도하고,
+<code>test_retired_numbers.py</code>(3)는 퇴역 값을 추적되는 모든 마크다운에서 막는다. 세 초안은 같은
+630개 숫자 토큰을 갖는다.</p>
+<p>원시 실행 산출물은 저장소에 없다: <code>*.rds</code>와 <code>*.csv</code>는 git 밖에 두고, 집계와
+<code>calibration.json</code>만 커밋한다.</p>
 
-<h2 id="math">수학 골격 (RL 수업의 메인)</h2>
-<p><b>1. 인과 전파 (DAG 개입).</b> \(X_v \in \{0,1\}\) (1=올바름). 에지 \((u,v)\), 가중치 \(w_{uv} \sim U(0.5, 1.5)\):</p>
-<p>\[ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad \lambda = 0.8 \]</p>
-<p>노드 \(v\) 검토 = do\((X_v := 1)\). 인과 개입이지 상관이 아닙니다.</p>
-<p><b>2. MDP.</b> 상태 = 그래프 지식 + 잔여 예산. 행동 = 다음 노드(또는 stop). 보상 \(r_T = -\#\text{sink 오류}\). \(\gamma &lt; 1\).</p>
-<p><b>3. CMDP 라그랑지안.</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\). 오늘 주 방법은 GNN + 고정 예산 REINFORCE; 이중 critic CMDP는 진행 중.</p>
-<p><b>4. 신념 위의 적응형 그리디.</b> 파티클 필터가 어떤 노드가 틀렸을지 추적하고, 매 단계 결론 오류의 기대 감소가 가장 큰 노드를 검토한 뒤 검토 결과로 신념을 갱신합니다. N=500 스케일프리에서 81 → 12.8. 같은 규칙을 실제 오류에 쓰면(오라클) 3.6이지만, 실제 정책은 참값을 볼 수 없습니다.</p>
-<p><b>5. 정보 이득 보상 (설계, 아직 미실행).</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
-<p><b>6. 정책 경사 (주 방법).</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
-<p>GNN 점수기: \( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
-<p><b>7. worst-of-n.</b> 검토 안 된 오류 하나가 결론을 무효화할 수 있습니다(HealthBench). 시드 3개 중 최악: noise 5.20, oracle 0.80.</p>
-
-<h2 id="results">결과 (N=80)</h2>
-<p>모든 수치는 결론에 도달한 오류 수입니다. 낮을수록 좋습니다. AI 생성, 팀원 재현 필요.</p>
-<div class="figure"><img src="../experiments/results_bar.png" alt="methods">
-  <figcaption>처음 보는 그래프 200개, 모든 정책이 같은 그래프와 같은 난수 흐름, 95% CI.</figcaption></div>
+<h2 id="team">팀과 상태</h2>
 <table>
-  <tr><th>방법</th><th>sink 오류</th></tr>
-  <tr><td>무검토</td><td>5.90</td></tr>
-  <tr><td>신뢰도 임계값</td><td>2.30</td></tr>
-  <tr><td>구조적 그리디</td><td>1.80</td></tr>
-  <tr><td class="best">신념 그리디 (적응형, 배포 가능)</td><td class="best">0.85</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.35</td></tr>
-  <tr><td>GNN + REINFORCE, 정적 / 관측 상태</td><td>1.51 ± 0.41 / 1.68 ± 0.56</td></tr>
-  <tr><td>DQN</td><td>5.05 (퇴화)</td></tr>
-  <tr><td>Oracle</td><td>0.00</td></tr>
-</table>
-<div class="figure"><img src="../experiments/learning_curves.png" alt="curves">
-  <figcaption>실제 훈련 로그: GNN의 500 에피소드 구간별 sink 오류(각 5 시드)와 MLP 점수기.</figcaption></div>
-<div class="box">
-  <p>위 표는 시드 1–20이며 쉬운 그래프로 드러났습니다. <b>처음 보는 그래프 200개</b>에서: 임계값 1.41, 구조적 그리디 1.45, <b>신념 그리디 1.14</b>, GNN 1.56. 배포 가능한 신념 그리디가 모든 학습 정책을 이기고(GNN − 신념 그리디 = +0.42 ± 0.15), GNN에 검토 결과를 넣어도 도움이 안 됐습니다.</p>
-  <p>DQN은 무작위로 퇴화합니다 — 희소 종료 보상은 가치 함수를 못 먹입니다. 그래서 <b>정책 경사가 맞는 도구</b>입니다.</p>
-  <p>1판 밴딧은 <b>임계값에 졌습니다</b> (2.81 vs Q-러닝 3.38). 그 실패가 재구성의 이유입니다.</p>
-</div>
-
-<h2 id="ablation">소거: 남은 오류는 신뢰도 신호 안에 살아 있습니다</h2>
-<p>같은 GNN, 세 가지 신뢰도:</p>
-<div class="figure"><img src="../experiments/ablation_conf.png" alt="ablation">
-  <figcaption>신호 파괴 → 임계값보다 나쁩니다. 완벽한 신호 → 거의 0.</figcaption></div>
-<table>
-  <tr><th>신뢰도</th><th>sink 오류</th></tr>
-  <tr><td>잡음</td><td>3.78</td></tr>
-  <tr><td>정상</td><td>1.38</td></tr>
-  <tr><td>oracle</td><td>0.72</td></tr>
-</table>
-<div class="box green">
-  <p><b>스케줄러를 계속 다듬지 마세요. 신뢰도 신호에 투자하세요.</b> 남은 오류는 예측기에 있습니다.</p>
-  <p>최악 시드(3개 중): normal 1.95 / noise 5.20 / oracle 0.80. 잡음 신호는 평균보다 꼬리를 더 아프게 합니다.</p>
-</div>
-
-<h2 id="scale">규모: N = 500, 세 그래프 족</h2>
-<p>같은 개입 모델. 예산 50(10%). 5 시드. 모든 정책이 같은 난수 흐름을 재생합니다. 신념 그리디는 배포 가능, 오라클 그리디는 실제 오류를 읽는 상한입니다. RL 아님.</p>
-<div class="figure"><img src="../experiments/scale500.png" alt="scale">
-  <figcaption>신념 그리디가 스케일프리 오류를 81 → 12.8로 줄입니다(84% 감소). 예전 "95%"는 오라클이었습니다.</figcaption></div>
-<table>
-  <tr><th>족</th><th>무검토</th><th>임계값</th><th>신념 그리디</th><th>오라클 그리디</th></tr>
-  <tr><td>모듈형</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
-  <tr><td>스케일프리 (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
-  <tr><td>희소 (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
-</table>
-<div class="box">
-  <p>무작위 ≈ 무검토. 신뢰도 임계값은 스케일프리에서 불안정합니다(6–76). 허브 방어는 도움이 되지만 신념 그리디에는 못 미칩니다. 모듈형과 희소 그래프에서 신념 그리디는 임계값보다 조금 나을 뿐입니다.</p>
-  <p><b>정직한 범위:</b> 이 500노드 수치는 휴리스틱이지 RL이 아닙니다.</p>
-</div>
-
-<h2 id="pipeline">실제 수면 파이프라인 DAG (N=21)</h2>
-<p>splsleep SCHEMA에서 인코딩: 일기 잎 → 차이 → SOL/WASO/TST/TIB/SE → 유효성/결론 sink.</p>
-<div class="figure"><img src="../experiments/real_pipeline.png" alt="real pipeline">
-  <figcaption>오늘 데이터 파이프라인에서 보정된 임계값이 2.12 → 0.50으로 줄입니다.</figcaption></div>
-<table>
-  <tr><th>정책</th><th>sink 오류</th></tr>
-  <tr><td>무검토</td><td>2.12</td></tr>
-  <tr><td class="best">신뢰도 임계값</td><td class="best">0.50</td></tr>
-  <tr><td>허브</td><td>1.75</td></tr>
-</table>
-<div class="box green">
-  500노드 결과는 증거 그래프가 클 때의 이야기입니다. 이 21노드 결과는 <b>오늘 우리 데이터</b>의 이야기입니다.
-</div>
-
-<h2 id="related">관련 연구</h2>
-<p><b>HealthBench</b>(2025-05)는 의미 있고, 신뢰 가능하고, 비포화인 rubric과 worst-of-n 신뢰성으로 평가하는 법을 가르쳤습니다.</p>
-<p><b>BioBasicsBench</b>(OpenAI + Ligo, 2026-11-06)는 에이전트가 원시 습식 증거를 읽고 오류와 불충분을 잡는지 물었습니다. 최고 모델 66.7%. 실패: 가정이 대조를 이기는 것, 모순 관찰 무시, 집계 오류. 우리 76% order_error는 같은 종입니다.</p>
-<p>L2D: Mozannar & Sontag ICML 2020; FALCON arXiv:2604.00904; SLTD arXiv:2109.06312; Reid et al. arXiv:2409.20489; KL-PBD arXiv:2610.15128; Oversight arXiv:2606.08919. 연쇄: Data Cascades CHI 2021; Finkel EMNLP 2006; From Spark to Fire arXiv:2603.04474. 예산+노드 선택: WS-option arXiv:2502.05537; Mattick arXiv:2310.00112.</p>
-<div class="box">
-  채택: 의미 있음 / 신뢰 가능 / 비포화; worst-of-n; 부분 점수 영수증; 오류 탐지 1급 기술; "증거가 결론을 지지하지 않는다" 행동.<br>
-  추가: 예산이 걸린 순차 검토 + 의존성 그래프 — 그들이 만들지 않았습니다.
-</div>
-
-<h2 id="guide">결정 가이드</h2>
-<table>
-  <tr><th>상황</th><th>사용</th></tr>
-  <tr><td>신뢰도 잘 보정, 그래프 앎</td><td>신념 그리디</td></tr>
-  <tr><td>신뢰도 잡음</td><td><b>RL 금지</b> — 정적 임계값 더 강건</td></tr>
-  <tr><td>신념 모델 없음</td><td>신뢰도 임계값 (처음 보는 그래프에서 구조적 그리디와 비슷, 더 단순)</td></tr>
-  <tr><td>예측기 개선 가능</td><td>신뢰도 보정이 정책 개선보다 이득</td></tr>
-  <tr><td>큰 스케일프리 그래프</td><td>신념 그리디</td></tr>
-  <tr><td>오늘의 작은 파이프라인</td><td>보정된 임계값</td></tr>
-</table>
-
-<h2 id="sciforge">SciForge 착지</h2>
-<p>SciForge에는 이미 증거 DAG, 사람 검토 영수증, 감사 계층이 있습니다. 이 프로젝트는 그 위에 <b>검토 우선순위 제안기</b>를 얹습니다. 기록 규칙은 바꾸지 않습니다.</p>
-<div class="arch">
-프론트   일기 행 / 코드 / 주장에 하이라이트-질문     → 검토 흔적 (영수증 아님)
-           ↓
-검토층    신념 그리디 / GNN / 임계값 제안기              → "이것 먼저 검토" (읽기 전용)
-           ↓  사람이 "판정" 클릭
-백엔드    SciForge 증거 DAG + 영수증                → 기계 도장 없음, append-only
-</div>
-<p>단계: (1) 합성 + 내보낸 비식별 DAG 오프라인 평가; (2) 검토 화면 옆 읽기 전용 제안; (3) 증거사슬 소유자(郑心)와 영수증 악수.</p>
-
-<h2 id="team">팀</h2>
-<table>
-  <tr><th>사람</th><th>주 담당</th></tr>
+  <tr><th>구성원</th><th>주 담당</th></tr>
   <tr><td>1</td><td>PM + 일정 + L2D 고전</td></tr>
   <tr><td>2</td><td>정책 경사 (REINFORCE → PPO-Lagrangian)</td></tr>
   <tr><td>3</td><td>환경 + GNN + DQN</td></tr>
   <tr><td>4</td><td>베이스라인 + 대조</td></tr>
-  <tr><td>5 동채하</td><td>내러티브 + 郑心联络 + 문헌 종합 + 집필 + 영어 발표</td></tr>
+  <tr><td>5 동채하</td><td>서사 + 연락 + 문헌 + 집필 + 발표</td></tr>
 </table>
-<p>지도: 한 대학 수면 연구실 · Zhangyang Gao, PhD (AI4Science, Shanghai AI Lab — SciForge).</p>
-<p>동채하의 주 담당은 문헌, 실데이터 동기, 집필, 발표입니다.</p>
+<p>자문: 한 대학 수면 연구실 · Zhangyang Gao 박사 (AI4Science, Shanghai AI Lab — SciForge).</p>
 
 <h2 id="verify">검증 상태</h2>
-<p>AI 생성, 팀원 재현 필요. 확인: 인용, 실데이터 수치(2026-11-09: 13,990 / 237 / 75 / 76%).</p>
-<p>미확인: 모든 시뮬레이션 수치; 시뮬레이터 설계; 표 간 무검토 차이(5.62 vs 5.90); "직접 선례 없음"(다시 검색); 논문 전문; 모델이 틀렸을 때의 신념 그리디; GNN+PPO 미수렴; 이중 critic CMDP 미구축; SciForge 신뢰도 필드; 합의/하드 분할 미실행.</p>
+<p>AI가 생성했고 팀원이 독립적으로 다시 돌리지 않았다. 가드가 지키는 것은 계산이다 — 논문 수치와
+산출물, 그림과 그 JSON. 아직 두 번째 눈이 없는 것은 해석이다. 열린 항목은
+<a href="../PROJECT_KO.html">프로젝트 문서</a> 12절과 논문 8절에 있다.</p>
 
 <footer>
   의존성 그래프 위 검토 스케줄링 · STA3145 ·
-  계획: <a href="../PLAN.html">작업 계획</a> · <a href="../GENERALIZATION_PLAN.html">일반화</a> · <a href="../RL_PLAN.html">RL</a><br>
+  <a href="../PROJECT_KO.html">프로젝트 문서</a> ·
+  <a href="../PLAN.html">작업 계획</a> · <a href="../GENERALIZATION_PLAN.html">일반화</a><br>
   <a href="https://github.com/cyracaid/rl-oversight-dag">github.com/cyracaid/rl-oversight-dag</a><br>
   English: <a href="../en/">../en/</a> · 中文: <a href="../zh/">../zh/</a> ·
-  <a href="../#documents">전체 문서</a>
+  <a href="../#documents">모든 문서</a>
 </footer>
 
 </main>

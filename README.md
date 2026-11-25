@@ -10,8 +10,9 @@
 [中文](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_CN.html) — *The Signal, Not the Scheduler*.
 Four figures. Every number in it is tied to a committed artifact: `experiments/test_published_numbers.py`
 (19 checks) fails if the text and the JSON disagree, `experiments/test_figures.py` (6 checks) fails if a
-figure drifts from the data it draws, and `experiments/test_retired_numbers.py` (3 checks) fails if a
-superseded number comes back.
+figure drifts from the data it draws, `experiments/test_retired_numbers.py` (3 checks) fails if a
+superseded number comes back, and `experiments/test_landing_pages.py` (4 checks) holds the three
+language landing pages to the same rules — same numbers, own paper, no retired value.
 
 **What it argues, in three sentences.**
 
@@ -325,6 +326,8 @@ experiments/make_figures.py     Draws them from committed JSON/CSV; adds no numb
 experiments/test_figures.py     Fails if a figure, its JSON, or a caption drifts
 experiments/test_published_numbers.py  Paper (and project docs) number -> artifact, 19 checks
 experiments/test_retired_numbers.py   Registry guard: retired values may not return
+experiments/test_landing_pages.py     en/ ko/ zh/ pages: same numbers, own paper, no retired value
+en/ ko/ zh/                     One page each: the paper in that language, four figures, limits
 RETIRED_NUMBERS.md              Every superseded number, its replacement, and why
 PROJECT_POSITIONING.md          Claim ladder: which sentence may appear where
 
@@ -387,6 +390,7 @@ claim_graph/                         Read-only layer that turns an external case
 | Canonical Role 2 contrasts (confidence, planning) | `cd role2_규리 && python3 evaluate_conditions.py --out … && python3 evaluate_planning.py --out …` | No |
 | The paper's four figures + `figures/figure_data.json` | `python3 experiments/make_figures.py` | No |
 | Paper guards (numbers, figures, retired values) | `python3 experiments/test_published_numbers.py && python3 experiments/test_figures.py && python3 experiments/test_retired_numbers.py` | No |
+| Landing-page guards (parity, paper links, retired values) | `python3 experiments/test_landing_pages.py` | No |
 
 Dependencies: `python3`, `numpy`, `torch`, `matplotlib` (`pip install numpy torch matplotlib`).
 

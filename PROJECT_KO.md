@@ -220,8 +220,9 @@ $$
 
 **수치가 움직이지 않는 이유.** `experiments/test_published_numbers.py`(19개 검사)는 본문과 산출물이
 어긋나면 실패하고, `experiments/test_figures.py`(6개)는 그려진 모든 값을 커밋된 JSON/CSV에서 다시
-유도하며, `experiments/test_retired_numbers.py`(3개)는 퇴역 값이 추적되는 마크다운으로 돌아오면 실패한다.
-세 초안은 같은 수치를 유지한다: 각 630개 숫자 토큰.
+유도하며, `experiments/test_retired_numbers.py`(3개)는 퇴역 값이 추적되는 마크다운으로 돌아오면 실패하고,
+`experiments/test_landing_pages.py`(4개)는 세 언어 페이지가 같은 수치를 유지하고 각자 자기 초안을
+가리키게 한다. 세 초안은 같은 수치를 유지한다: 각 630개 숫자 토큰.
 
 읽기: [English](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) ·
 [한국어](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) ·
@@ -355,8 +356,8 @@ HealthBench는 가장 가까운 **평가 철학** 선례지, 스케줄링 선례
 10. SciForge: 노드 신뢰도 필드; 실제 그래프 크기 / 에지 유형.
 11. 75건 정정의 합의/하드 분할(27/48) — 라벨은 있고 평가 미실행.
 12. **논문 수치는 다시 읽는 것이 아니라 가드가 지킨다.** 19개 검사가 게재 수치를 산출물에, 6개가 그림을
-    JSON에 묶고, 3개가 퇴역 값을 막는다; 셋 다 깨끗한 클론에서 돈다. 아직 제2의 눈이 없는 것은 해석이지
-    계산이 아니다.
+    JSON에 묶고, 3개가 퇴역 값을 막으며, 4개가 세 언어 페이지를 영어 초안과 같은 수치로 유지한다; 넷 다
+    깨끗한 클론에서 돈다. 아직 두 번째 눈이 없는 것은 해석이지 계산이 아니다.
 
 ## 13. 역할과 일정
 

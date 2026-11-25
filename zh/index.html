@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>依赖图上的审阅调度 — 中文</title>
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
-<script>
-  MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; }
   body {
@@ -74,196 +70,106 @@
 
 <div class="wrap">
 <aside>
-  <a href="#goal">目标</a>
-  <a href="#real">为什么是真的</a>
-  <a href="#detour">弯路（负结果）</a>
-  <a href="#reframe">重构：图 MDP</a>
-  <a href="#math">数学</a>
-  <a href="#results">结果</a>
-  <a href="#ablation">消融</a>
-  <a href="#scale">规模（N=500）</a>
-  <a href="#pipeline">真实管道</a>
-  <a href="#related">相关工作</a>
-  <a href="#guide">决策指南</a>
-  <a href="#sciforge">SciForge 落地</a>
-  <a href="#team">分工</a>
+  <a href="#paper">论文</a>
+  <a href="#results">三个结果</a>
+  <a href="#figures">四张图</a>
+  <a href="#data">数据能说什么</a>
+  <a href="#limits">不主张什么</a>
+  <a href="#guards">数字的来源</a>
+  <a href="#team">团队</a>
   <a href="#verify">验证</a>
 </aside>
 
 <main>
 
-<h1>人该先审哪一项？</h1>
-<p class="lead">科研证据链审阅层的强化学习。</p>
+<h1>审阅者该先打开哪一条主张？</h1>
+<p class="lead">一页读完的论文。为证据链的审阅层做强化学习——并测量这个问题本身在哪里值得问。</p>
 <p>睡眠数据：与 某大学睡眠研究实验室一年 EMA 合作。<br>
 应用：SciForge — Zhangyang Gao（AI4Science, Shanghai AI Lab）开发。</p>
 <p><span class="tag">机器不盖章</span> <span class="tag">只读排序</span> <span class="tag">人点裁决才有收据</span></p>
 
-<h2 id="goal">我们建什么</h2>
-<p>AI 已经在洗睡眠日记、标文献、跑分析。它的输出<b>互相依赖</b>：时间反了，潜伏期错，效率错，结论不可信。</p>
-<p>人不可能全查。我们训一个<b>只读 RL 建议器</b>：下一步审哪个节点，让更少错误走到结论。</p>
-<div class="box green">
-  机器不盖章。建议器是只读顾问。审阅只有人记录裁决时才变成收据。
+<h2 id="paper">论文 ——《不是调度器，是信号》</h2>
+<p><a href="../PAPER_DRAFT.html">English</a> · <a href="../PAPER_DRAFT_KO.html">한국어</a> ·
+<a href="../PAPER_DRAFT_CN.html">中文</a>。四张图。论文里每个数字都被测试绑到已提交的产物上，
+正文没法漂离产生它的那次运行。</p>
+<p><b>一句话。</b> 在预算固定的依赖图上，策略能控制的那一半——下一条打开哪条主张——已经接近耗尽；
+它控制不了的那一半——哪条主张看起来可疑——才是剩余错误的所在。</p>
+<div class="box">
+  <b>为什么这是结果而不是推脱。</b> 两半都在同一批冻结划分上测量。结构那一半在我们跑过的每个格子里
+  都以同样方式失败；信号那一半的失败是审阅者能亲身感到的：标记指向后果，而审阅者打开的输入是原因。
 </div>
 
-<h2 id="real">为什么这个问题是真的</h2>
-<p>我们实验室的睡眠日记：<b>13,990 条 / 237 人</b>，来自与 实验室合作者 一年 EMA 合作。人只改了 <b>75 处</b>（0.54%）。</p>
-<p>这 75 处不散——<b>76% 是同一种错</b>（order_error：时间顺序反了，p &lt; 0.0001）。</p>
-<p>错不待在原地。时间错 → 潜伏期错 → 效率错 → 结论错。</p>
+<h2 id="results">三个结果，三个阶段</h2>
+<p>三个发现是同一条流水线的三个阶段，不是同一阶段的三种看法：</p>
+<table>
+  <tr><th>阶段</th><th>主张</th><th>论文</th><th>数字</th></tr>
+  <tr><td>结构</td><td>学习策略打不过一行规则，且赤字随图规模增大</td><td>§4.1，图 2</td><td>36 个格子；N=21 时 +0.04，N=500 时 +17</td></tr>
+  <tr><td>交付</td><td>队列有上限，缺的是检测器而不是分配</td><td>§7.7，图 3</td><td>k = 140 时 83.8 %；1.2 % 基率下的 885 行里占 16.2 %</td></tr>
+  <tr><td>信号</td><td>公开标记排序的是后果，不是原因</td><td>§7.8，图 4</td><td>有效性汇点 0.966，原始输入 0.569，汇总 0.807</td></tr>
+</table>
+<div class="box green">
+  在能算出规则自身模型最优解的地方（21 个节点，预算 ≤ 5），整个视界的价值是 <b>4.2 %</b>。
+  把算力加到十倍，赤字被压窄（+0.377 → +0.262）却没有闭合：缺的是信息，不是优化。
+</div>
+
+<h2 id="figures">四张图</h2>
+<figure><img src="../figures/fig4_where_the_results_sit.png" alt="流水线示意图：源错误、检测器、队列、结论，以及挂在三个阶段的三个结果">
+  <figcaption>图 1 —— 三个结果各自的位置。仅为示意图：卡片上的每个数字都由
+  <code>experiments/make_figures.py</code> 从图 2–4 的面板读取。</figcaption></figure>
+<p>图 2 <a href="../figures/fig1_gap_vs_graph_size.png">赤字对图规模</a> ·
+图 3 <a href="../figures/fig2_queue_ceiling.png">队列上限</a> ·
+图 4 <a href="../figures/fig3_localisation_auc.png">定位 AUC</a>。
+四张都可用 <code>python3 experiments/make_figures.py</code> 重绘。</p>
+
+<h2 id="data">真实数据能说什么</h2>
+<p>237 人的 13,990 条睡眠记录，人工确认的纠错 75 条——占记录 0.54 %。缺陷按类型聚集：
+75 条里 57 条（76 %）是把时间写反了。缺陷不会停在原处；它变成错的潜伏期、错的效率、错的结论。</p>
+<p>行级复核队列里有 68 条人工确认阳性，基率 6.5 %。同一个置信度标记在四个有效性汇点上 0.966，
+在六个派生节点上 0.733，在审阅者真正会打开的四个原始时间戳上 0.569。</p>
 <div class="box amber">
-  所以「审什么」比「审多少」重要。预算很小，花在 76% 那种错的上游更值。
+  队列是有上限，而不是分配得差。可达错误的 90.3 % 本来就在队列里，但到 k = 140 只能触达 83.8 %，
+  因为 16.2 % 落在 1.2 % 基率的 885 行里。这是检测器问题，任何排序都修不好。
 </div>
 
-<h2 id="detour">走过的弯路（诚实负结果）</h2>
-<p>第一版是 bandit：一条一条决定审不审。结果：<b>简单阈值赢了 Q-learning</b>（2.81 vs 3.38）。</p>
-<p>为什么？逐项审把图压平。RL 没有非平凡的东西可学。76% 一种类型，最优策略坍缩成 if 规则。</p>
-<div class="box">
-  这个失败没藏。它是重构的理由。
-</div>
+<h2 id="limits">不主张什么</h2>
+<p><b>没有预算头条。</b>「RL 把人工复核减少 X %」在任何地方都不出现：那句话来自遗留种子 1–20，
+在任何地方都没有复现。<code>RETIRED_NUMBERS.md</code> 把它和其他退役值一起登记，测试在它回来时让构建失败。</p>
+<p><b>没有已部署的节省。</b>睡眠纠错是重放，不是把策略放进回路重跑。</p>
+<p><b>没有节点级概率。</b>要点出一条记录的<i>那个</i>原因，需要经审计的正确答案行，实验室还没提供；
+在拿到之前，节点级校准不在范围内。</p>
+<p><b>机制是假设。</b>多跳传播必须只从终止奖励重新推导——这能解释结构性失败，但这份数据并不能把它
+与其他解释分开。</p>
 
-<h2 id="reframe">重构：从「审这条吗」到「下一个审哪个」</h2>
-<p>把证据画成有向图。智能体在图上走，选一个节点审。好的审阅会改变下游。</p>
-<p>这是真 MDP：状态有图和剩余预算，奖励最后才来。</p>
-<div class="arch">
-前端   日记行 / 代码 / 论点上划线提问          → 审阅痕迹（不是收据）
-         ↓
-审阅层  信念贪心 / GNN / 阈值 建议器             → 「先审这几个」（只读）
-         ↓  人点「裁决」
-后端    SciForge 证据 DAG + 收据              → 机器不盖章，append-only
-</div>
+<h2 id="guards">数字从哪里来</h2>
+<p>干净克隆上跑三道检查：<code>test_published_numbers.py</code>（19 项）把每个发表数字绑到产物，
+<code>test_figures.py</code>（6 项）从 JSON 重新推导每个被绘制的值，
+<code>test_retired_numbers.py</code>（3 项）挡住所有受跟踪 markdown 里的退役值。三份草稿带着同样的
+630 个数字记号。</p>
+<p>原始运行产物不在仓库里：<code>*.rds</code> 与 <code>*.csv</code> 不进 git，只提交聚合值与
+<code>calibration.json</code>。</p>
 
-<h2 id="math">数学骨架（RL 课的主菜）</h2>
-<p><b>1. 因果传播（DAG 干预）。</b> \(X_v \in \{0,1\}\)（1=正确）。边 \((u,v)\) 权重 \(w_{uv} \sim U(0.5, 1.5)\)：</p>
-<p>\[ P(X_v = 0 \mid X_u = 0) = 1 - \exp(-\lambda\, w_{uv}), \quad \lambda = 0.8 \]</p>
-<p>审 \(v\) = do\((X_v := 1)\)。因果干预，不是相关。</p>
-<p><b>2. MDP。</b> 状态 = 图知识 + 剩余预算。动作 = 下一个节点（或 stop）。奖励 \(r_T = -\#\text{sink 错误}\)。\(\gamma &lt; 1\)。</p>
-<p><b>3. CMDP 拉格朗日。</b> \(\max_\pi \min_{\lambda \ge 0} J(\pi) + \lambda\,(B - C(\pi))\)。今天主方法是 GNN + 固定预算 REINFORCE；双 critic CMDP 在做。</p>
-<p><b>4. 信念上的自适应贪心。</b> 粒子滤波跟踪哪些节点可能是错的；每步审期望结论错误下降最大的节点，再用审查结果更新信念。N=500 无标度图上从 81 降到 12.8。同样的规则用在真实错误上（oracle）能到 3.6，但真实策略看不到真值。</p>
-<p><b>5. 信息增益奖励（设计里，还没跑）。</b> \(R = \alpha\, \Delta H_v - \beta\, \mathrm{Cost}(v)\)</p>
-<p><b>6. 策略梯度（主方法）。</b> \(\nabla_\theta J = \mathbb{E}[ \nabla_\theta \log \pi_\theta(a_t \mid s_t)\, A_t ]\)</p>
-<p>GNN 打分器：\( h_v = \tanh(W_{\text{self}} x_v + W_{\text{neigh}} \frac{1}{|N(v)|}\sum_{u\in N(v)} x_u ) \)</p>
-<p><b>7. worst-of-n。</b> 一个漏审错误能作废结论（HealthBench）。3 个种子中最差：noise 5.20，oracle 0.80。</p>
-
-<h2 id="results">结果（N=80）</h2>
-<p>所有数字是到达结论的错误数。越低越好。AI 生成，组员复现。</p>
-<div class="figure"><img src="../experiments/results_bar.png" alt="methods">
-  <figcaption>200 张没见过的图，每个策略用同一张图、同一条随机流，95% CI。</figcaption></div>
+<h2 id="team">团队与状态</h2>
 <table>
-  <tr><th>方法</th><th>sink 错误</th></tr>
-  <tr><td>不审</td><td>5.90</td></tr>
-  <tr><td>置信度阈值</td><td>2.30</td></tr>
-  <tr><td>结构贪心</td><td>1.80</td></tr>
-  <tr><td class="best">信念贪心（自适应，可部署）</td><td class="best">0.85</td></tr>
-  <tr><td>REINFORCE (MLP)</td><td>1.60</td></tr>
-  <tr><td>PPO (MLP)</td><td>1.35</td></tr>
-  <tr><td>GNN + REINFORCE，静态 / 带观测 state</td><td>1.51 ± 0.41 / 1.68 ± 0.56</td></tr>
-  <tr><td>DQN</td><td>5.05（退化）</td></tr>
-  <tr><td>Oracle</td><td>0.00</td></tr>
-</table>
-<div class="figure"><img src="../experiments/learning_curves.png" alt="curves">
-  <figcaption>真实训练日志：GNN 每 500 局的 sink 错误（各 5 个种子），以及 MLP 打分器。</figcaption></div>
-<div class="box">
-  <p>上表用的是种子 1–20，后来发现是容易的图。<b>在 200 张没见过的图上</b>：阈值 1.41，结构贪心 1.45，<b>信念贪心 1.14</b>，GNN 1.56。可部署的信念贪心打赢所有学到的策略（GNN − 信念贪心 = +0.42 ± 0.15），把审查结果喂给 GNN 也没帮助。</p>
-  <p>DQN 退化成随机——稀疏终局奖励喂不饱价值函数。所以这里该用策略梯度。</p>
-  <p>第一版 bandit <b>输给阈值</b>（2.81 vs Q 3.38）。那个失败是重构的理由。</p>
-</div>
-
-<h2 id="ablation">消融：剩余误差住在置信度信号里</h2>
-<p>同一个 GNN，三种置信度：</p>
-<div class="figure"><img src="../experiments/ablation_conf.png" alt="ablation">
-  <figcaption>打掉信号 → 比阈值还差。完美信号 → 几乎零。</figcaption></div>
-<table>
-  <tr><th>置信度</th><th>sink 错误</th></tr>
-  <tr><td>噪声（信号毁掉）</td><td>3.78</td></tr>
-  <tr><td>正常（学到的）</td><td>1.38</td></tr>
-  <tr><td>Oracle（真错揭示）</td><td>0.72</td></tr>
-</table>
-<div class="box green">
-  <p><b>别继续卷调度器。把置信度信号做好。</b>我们定位了剩余误差住在哪：预测器，不是策略。</p>
-  <p>3 个种子中最差：normal 1.95 / noise 5.20 / oracle 0.80。噪声信号伤尾部甚于均值。</p>
-</div>
-
-<h2 id="scale">规模：N = 500，三种图族</h2>
-<p>同样的干预模型。预算 50（10%）。5 种子。每个策略回放同一条随机流。信念贪心可部署；oracle 贪心读真实错误（只作天花板）。不是 RL。</p>
-<div class="figure"><img src="../experiments/scale500.png" alt="scale">
-  <figcaption>信念贪心把无标度错误从 81 降到 12.8（降 84%）。旧的「降 95%」是 oracle。</figcaption></div>
-<table>
-  <tr><th>图族</th><th>不审</th><th>阈值</th><th>信念贪心</th><th>oracle 贪心</th></tr>
-  <tr><td>模块化</td><td>24.0</td><td>9.2</td><td class="best">8.4</td><td>2.0</td></tr>
-  <tr><td>无标度 (BA)</td><td>80.6</td><td>37.6</td><td class="best">12.8</td><td>3.6</td></tr>
-  <tr><td>稀疏 (ER)</td><td>42.6</td><td>21.4</td><td class="best">19.2</td><td>7.8</td></tr>
-</table>
-<div class="box">
-  <p>随机 ≈ 不审。置信度阈值在无标度图上不稳定（6–76）。hub 防御有帮助但离信念贪心还远。模块化和稀疏图上信念贪心只比阈值好一点。</p>
-  <p><b>诚实范围：</b>这批 500 节点数字是启发式，不是 RL。</p>
-</div>
-
-<h2 id="pipeline">真实睡眠管道 DAG（N=21）</h2>
-<p>从 splsleep SCHEMA 编码：日记叶子 → 差值 → SOL/WASO/TST/TIB/SE → 有效性/结论 sink。</p>
-<div class="figure"><img src="../experiments/real_pipeline.png" alt="real pipeline">
-  <figcaption>今天的数据管道上，校准阈值把结论错误从 2.12 降到 0.50。</figcaption></div>
-<table>
-  <tr><th>策略</th><th>sink 错误</th></tr>
-  <tr><td>不审</td><td>2.12</td></tr>
-  <tr><td class="best">置信度阈值</td><td class="best">0.50</td></tr>
-  <tr><td>Hub</td><td>1.88</td></tr>
-</table>
-<div class="box green">
-  500 节点的结果是证据图变大时怎么办。这 21 节点的结果是<b>我们今天的数据</b>怎么办。
-</div>
-
-<h2 id="related">相关工作</h2>
-<p><b>HealthBench</b>（2025-05）教我们用有意义、可信、非饱和的 rubric 和 worst-of-n 评。</p>
-<p><b>BioBasicsBench</b>（OpenAI + Ligo，2026-11-06）问 agent 能不能读原始湿实验证据并知道证据何时不足。最强 66.7%。失败：假设压过对照；忽略矛盾观察；数错。我们 76% order_error 是同一物种。</p>
-<p>L2D：Mozannar & Sontag ICML 2020；FALCON arXiv:2604.00904；SLTD arXiv:2109.06312；Reid et al. arXiv:2409.20489；KL-PBD arXiv:2610.15128；Oversight arXiv:2606.08919。级联：Data Cascades CHI 2021；Finkel EMNLP 2006；From Spark to Fire arXiv:2603.04474。预算+选节点：WS-option arXiv:2502.05537；Mattick arXiv:2310.00112。</p>
-<div class="box">
-  采纳：meaningful / trustworthy / non-saturated；worst-of-n；偏学分收据；错误检测一等技能；「证据不足」当动作。<br>
-  加：预算下序贯审阅 + 依赖图——他们没建这个。
-</div>
-
-<h2 id="guide">决策指南</h2>
-<table>
-  <tr><th>如果你在这</th><th>用这个</th></tr>
-  <tr><td>置信度校准好、图已知</td><td>信念贪心</td></tr>
-  <tr><td>置信度噪声大</td><td><b>别用 RL</b>——静态阈值更稳</td></tr>
-  <tr><td>没有信念模型</td><td>置信度阈值（没见过的图上 ≈ 结构贪心，更简单）</td></tr>
-  <tr><td>能改进预测器</td><td>改置信度比改策略收益大</td></tr>
-  <tr><td>大无标度图</td><td>信念贪心</td></tr>
-  <tr><td>我们今天的小管道</td><td>校准阈值</td></tr>
-</table>
-
-<h2 id="sciforge">落进 SciForge</h2>
-<p>SciForge 已有证据 DAG、人审收据、审计层。本项目在<b>上面</b>加一个审阅优先级建议器，不改存证规则。</p>
-<div class="arch">
-前端   日记行 / 代码 / 论点上划线提问          → 审阅痕迹（不是收据）
-         ↓
-审阅层  信念贪心 / GNN / 阈值 建议器             → 「先审这几个」（只读）
-         ↓  人点「裁决」
-后端    SciForge 证据 DAG + 收据              → 机器不盖章，append-only
-</div>
-<p>分期：(1) 合成图 + 导出脱敏 DAG 离线评；(2) 审阅界面旁只读建议；(3) 和证据链主人（郑心）握手收据字段。</p>
-
-<h2 id="team">分工</h2>
-<table>
-  <tr><th>人</th><th>主责</th></tr>
-  <tr><td>1</td><td>组长 + 时间线 + L2D 经典</td></tr>
+  <tr><th>成员</th><th>主责</th></tr>
+  <tr><td>1</td><td>PM + 时间线 + L2D 经典</td></tr>
   <tr><td>2</td><td>策略梯度（REINFORCE → PPO-Lagrangian）</td></tr>
   <tr><td>3</td><td>环境 + GNN + DQN</td></tr>
   <tr><td>4</td><td>基线 + 对照</td></tr>
-  <tr><td>5 동채하</td><td>叙事 + 郑心联络 + 文献综合 + 写作 + 英文发表</td></tr>
+  <tr><td>5 동채하</td><td>叙事 + 对接 + 文献 + 写作 + 汇报</td></tr>
 </table>
-<p>指导：某大学睡眠研究实验室· Zhangyang Gao, PhD（AI4Science, Shanghai AI Lab——SciForge）。</p>
-<p>동채하 主责是叙事、郑心联络、文献综合、写作、英文发表。</p>
+<p>顾问：某大学睡眠研究实验室 · Zhangyang Gao 博士（AI4Science, Shanghai AI Lab — SciForge）。</p>
 
 <h2 id="verify">验证状态</h2>
-<p>AI 生成，组员复现。核对过：引文，真实数据数字（2026-11-09：13,990 / 237 / 75 / 76%）。</p>
-<p>没核对：每个模拟数字；模拟器设计；两张表「不审」不同（5.62 vs 5.90）的原因；「无直接先例」（再搜）；引文全文；模型设错时的信念贪心；GNN+PPO 没收敛；双 critic CMDP 没建；SciForge 置信度字段；共识/困难拆分没跑。</p>
+<p>由 AI 生成；组员尚未独立重跑。护栏守住的是算术——论文数字对产物，图对其 JSON。仍没有第二双眼睛的
+是解释。未闭合项见<a href="../PROJECT_CN.html">项目文档</a>第 12 节与论文第 8 节。</p>
 
 <footer>
   依赖图上的审阅调度 · STA3145 ·
-  计划：<a href="../PLAN.html">工作分工</a> · <a href="../GENERALIZATION_PLAN.html">泛化</a> · <a href="../RL_PLAN.html">强化学习</a><br>
+  <a href="../PROJECT_CN.html">项目文档</a> ·
+  <a href="../PLAN.html">工作计划</a> · <a href="../GENERALIZATION_PLAN.html">泛化</a><br>
   <a href="https://github.com/cyracaid/rl-oversight-dag">github.com/cyracaid/rl-oversight-dag</a><br>
   English: <a href="../en/">../en/</a> · 한국어: <a href="../ko/">../ko/</a> ·
-  <a href="../#documents">全部文档</a>
+  <a href="../#documents">所有文档</a>
 </footer>
 
 </main>

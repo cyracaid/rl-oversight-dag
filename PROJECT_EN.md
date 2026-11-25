@@ -229,8 +229,10 @@ does not separate from alternatives.
 
 **Why the numbers stay put.** `experiments/test_published_numbers.py` (19 checks) fails when the prose and its
 artifact disagree, `experiments/test_figures.py` (6 checks) re-derives every plotted value from the committed
-JSON/CSV, and `experiments/test_retired_numbers.py` (3 checks) fails if a superseded value returns to any
-tracked markdown file. The three drafts are held to the same numbers: 630 numeric tokens each.
+JSON/CSV, `experiments/test_retired_numbers.py` (3 checks) fails if a superseded value returns to any tracked
+markdown file, and `experiments/test_landing_pages.py` (4 checks) keeps the three language pages carrying the
+same numbers, each linking its own draft. The three drafts are held to the same numbers: 630 numeric tokens
+each.
 
 Read it: [English](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) ·
 [한국어](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) ·
@@ -380,8 +382,9 @@ HealthBench is the closest *evaluation-philosophy* precedent, not a scheduling p
 10. SciForge: confidence field on nodes; real graph size / edge types.
 11. Consensus / Hard split of the 75 corrections (27 / 48) — labels exist, evaluation not run.
 12. **Paper numbers are guarded, not re-read.** 19 checks tie each published number to an artifact, 6 tie each
-    figure to its JSON, 3 keep retired values out; all three run on a clean clone. What still has no second
-    pair of eyes is the interpretation, not the arithmetic.
+    figure to its JSON, 3 keep retired values out, and 4 keep the three language landing pages at parity with
+    the English draft; all four run on a clean clone. What still has no second pair of eyes is the
+    interpretation, not the arithmetic.
 
 ## 13. Roles and timeline
 

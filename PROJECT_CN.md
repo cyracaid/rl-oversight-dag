@@ -222,8 +222,9 @@ $$
 
 **数字为什么不会漂。** `experiments/test_published_numbers.py`（19 项）在正文与产物不一致时失败；
 `experiments/test_figures.py`（6 项）从已提交的 JSON/CSV 重新推导每个被绘制的值；
-`experiments/test_retired_numbers.py`（3 项）在退役值回到任何受跟踪的 markdown 时失败。三份草稿保持同样
-的数字：各 630 个数字记号。
+`experiments/test_retired_numbers.py`（3 项）在退役值回到任何受跟踪的 markdown 时失败；
+`experiments/test_landing_pages.py`（4 项）让三语页面保持同一组数字，并各自指向自己的草稿。三份草稿保持
+同样的数字：各 630 个数字记号。
 
 阅读：[English](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT.html) ·
 [한국어](https://cyracaid.github.io/rl-oversight-dag/PAPER_DRAFT_KO.html) ·
@@ -373,7 +374,8 @@ HealthBench 是最接近的**评估哲学**先例，不是调度先例。
 10. SciForge：节点置信度字段；真实图规模 / 边类型。
 11. 75 条纠错的共识 / 困难拆分（27 / 48）——标签有，评估没跑。
 12. **论文数字不是重读，而是用护栏守住。** 19 项检查把每个发表数字绑到产物，6 项把每张图绑到 JSON，
-    3 项挡住已退役的值；三者都在干净克隆上运行。仍然没有第二双眼睛的是解释，不是算术。
+    3 项挡住已退役的值，4 项让三语页面与英文草稿保持同一组数字；四者都在干净克隆上运行。仍然没有第二
+    双眼睛的是解释，不是算术。
 
 ## 13. 角色与时间线
 
