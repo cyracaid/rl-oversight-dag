@@ -12,7 +12,9 @@ Branch `p4/role4-controls`. Answers `TEAM_REQUESTS_P4_P5.md` → Person 4. Every
 | `6eb215d` | post-hoc diagnostics made reproducible (`diagnostics.py`; numbers unchanged) |
 | `7f58534` | **v2 amendment** frozen before any v2 outcome: hub-breaking rewire, 10 draws/graph, 3-level verdict (20 % margin) |
 | `f2c2fbe`, `7b7e5dd` | v2 results (`results/v2/`) |
-| this commit | `reproduce.py`, `EXPLAINER_KO.md`, this file |
+| `c07aedc` | fresh-block confirmation (7100–7199) frozen before running |
+| `c5ebb06` | `reproduce.py`, `EXPLAINER_KO.md`, this file |
+| latest | confirmation results `results/v2_confirm/` — 11/11 primary labels replicated |
 
 Acceptance checks that passed: `intact` equals `outputs/v3/benchmark_role3.csv` on all 1,500 shared rows
 (errors **and** action sequences); v2 `flatten` and rewire draw 0 equal v1 row by row; v1 was rerun on my own
@@ -56,12 +58,12 @@ the repo's pre-registration rules, and is 20 % a margin you are comfortable with
 clearly worse than `confidence` therefore reads `inconclusive`; `controls_v2.md` states the direction for each.
 Keep the frozen label as is (my preference), or do you want a separate label in a later, separately pre-registered version?
 
-**Q5. Spent block.** All of this ran on 90000–90099 as your request specifies. v2's rules were chosen after
-seeing v1 on the same graphs, which by the seed ledger in `COURSE_FINAL_REPORT.md` makes that block spent for v2.
-Do you want a confirmation run of the v2 rules on a fresh block (5600+, e.g. 5600–5699, unchanged code, rules frozen as
-in `7f58534`)? It takes about 20–40 minutes and needs no new decisions. Which block should I take so it does not
-collide with yours? The rewire RNG streams use `Random(4_040_000 + 100_000·k + seed)` and
-`Random(5_050_000 + 100_000·k + seed)`; these are draw seeds, not graph blocks, but tell me if you want them in the ledger.
+**Q5. Fresh-block confirmation and the ledger.** Because v2's rules were chosen after seeing v1 on 90000–90099, I
+pre-registered (`c07aedc`) and ran one confirmation of the unchanged v2 code on graph block **7100–7199**, which no
+file in the repo used. **11 of 11 primary cells kept their label** (`results/v2_confirm/confirm.md`). Please add
+7100–7199 (episodes 27100–27199) to the seed ledger as spent by role 4, or tell me if that block was reserved for you.
+The rewire RNG streams `Random(4_040_000 + 100_000·k + seed)` and `Random(5_050_000 + 100_000·k + seed)` are draw
+seeds, not graph blocks; list them too if you want.
 
 **Q6. Where the result goes.** Your request says these controls belong in the abstract. `PAPER_DRAFT.md` and
 `COURSE_FINAL_REPORT.md` do not mention flatten/rewire yet. Will you integrate, or should I draft the paragraph?

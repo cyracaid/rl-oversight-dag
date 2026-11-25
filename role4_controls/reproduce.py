@@ -6,6 +6,7 @@ file. The committed results are never touched.
     python3 reproduce.py               # v1 + diagnostics (~6 min, one core)
     python3 reproduce.py --full        # + v2, ten rewire draws (~20-40 min; use --jobs)
     python3 reproduce.py --full --jobs 4
+    python3 reproduce.py --full --confirm --jobs 4   # + fresh block 7100-7199
 
 Exit code 0 = every file identical. Report the printed table either way.
 """
@@ -38,6 +39,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--full", action="store_true", help="also rerun v2 (ten rewire draws)")
+    ap.add_argument("--confirm", action="store_true", help="also rerun the fresh-block confirmation (7100-7199)")
     ap.add_argument("--jobs", type=int, default=1, help="processes for v2")
     args = ap.parse_args()
 
@@ -65,13 +67,19 @@ def main():
         for name in ("controls_v2.csv", "controls_v2_summary.csv"):
             pairs.append((f"results/v2/{name}", tmp / "v2" / name))
 
+    if args.confirm:
+        run(["run_controls_v2.py", "--start-seed", 7100, "--jobs", args.jobs, "--out", tmp / "v2_confirm"])
+        for name in ("controls_v2.csv", "controls_v2_summary.csv"):
+            pairs.append((f"results/v2_confirm/{name}", tmp / "v2_confirm" / name))
+
     print("\n| committed file | identical |\n|---|---|")
     ok = True
     for committed, fresh in pairs:
         same = filecmp.cmp(HERE / committed, fresh, shallow=False)
         ok &= same
         print(f"| {committed} | {'yes' if same else '**NO**'} |")
-    scope = "v1 + diagnostics + v2" if args.full else "v1 + diagnostics (add --full for v2)"
+    scope = "v1 + diagnostics" + (" + v2" if args.full else " (add --full for v2)") + \
+        (" + fresh-block confirmation" if args.confirm else "")
     print(f"\n{'PASS' if ok else 'FAIL'}: {scope}. Fresh outputs in {tmp}")
     sys.exit(0 if ok else 1)
 

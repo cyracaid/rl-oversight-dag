@@ -12,12 +12,14 @@ not because any ordering with a good error prior would do as well.
 | `run_controls.py` / `results/controls*.csv`, `controls.md` | v1 (the request as written) |
 | `diagnostics.py` / `results/diagnostics.csv` | post-hoc diagnostics quoted in `controls.md` §3 |
 | `run_controls_v2.py` / `results/v2/` | v2 amendment (hub-breaking rewire, 10 draws, 3-level verdict) |
+| `results/v2_confirm/` | v2 rerun on fresh block 7100–7199; `confirm.md` — 11/11 primary labels replicated |
 | `EXPLAINER_KO.md` | 결과 설명서 (Korean FAQ for the team and the Q&A) |
 | `QUESTIONS_FOR_P5.md` | open questions for P5 before merging |
 
 ```bash
 python3 reproduce.py                  # v1 + diagnostics, ~6 min
 python3 reproduce.py --full --jobs 4  # + v2, ~20-40 min
+python3 reproduce.py --full --confirm --jobs 4  # + fresh-block confirmation, another ~20-40 min
 ```
 
 ## How to run
