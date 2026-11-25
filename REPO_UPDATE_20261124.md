@@ -86,7 +86,9 @@ plain trust (2.15 / 1.89 / 1.87). The `p_catch` trend did not come out as predic
 | 70000–70099 | calibration (parameters fitted here only) |
 | 91000–91199 / 92000–92199 / 93000–93199 / 94000–94199 | assess / feedback / residual / planning |
 
-Next free block: **5024–5199**, then **5600–59999**, then **60130 and up**. Rerunning a spent
+Next free block: graph seeds **5196–5199** and **60024–60099**, episode seeds **5700–59999**, then
+**60130 and up**. (This line said 5024–5199 until 2026-11-25; the contrastive pilot used 5024–5159,
+and the two ordered benchmarks hold graph 5160–5195 and episode 5600–5699.) Rerunning a spent
 block is a rules violation, not a re-check; the results are already byte-reproducible. (This
 line said "4200 and up" until 2026-11-24; four later blocks had gone unrecorded here, so the
 ledger listed less than it should have. The earlier "mixed δ at 4200–4299" suggestion was
