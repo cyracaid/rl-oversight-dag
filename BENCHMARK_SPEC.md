@@ -505,8 +505,29 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
    to the belief's **information**: the public belief ranks the truth at 0.966 AUC while the rule needs the
    mass on the right nodes, which the confidence channel does not carry. Untested and not claimed: a belief
    with more information; and the `modular` ceiling itself, which no DP can reach at N=500. See §6.
-4. Confidence is synthetic. No measured calibration exists for the real pipeline (Gap D).
-5. `triage_bench` proves an information ceiling (7 of 72 corrections are never flagged), not a scheduling
+4. Confidence is synthetic, and the gap is now understood as a **signal-class** result rather than a data
+   gap (Gap D). Entropy is invariant under relabelling, so it cannot separate "the right answer holds the
+   mass" from "the wrong answer holds the mass"; every confidence quantity in this family measures
+   distance from the uniform distribution, never distance from the truth. Consequences, in order:
+   (a) no calibration map repairs it, because the inversion is between subgroups and calibration is a
+   marginal operation; (b) raising coverage does not lower the resulting error floor, because the floor is
+   set by the reference and new vertices add pairs of the same kind; (c) the measured `false_inspected`
+   bucket is the discrete analogue of that floor, priced — 10.2 % under `marginal` and 14.9 % under
+   `oracle` on `modular`
+   (`outputs/supervisor-v1/`), i.e. better coverage makes it **larger**. The confidence channel is
+   therefore routing-only by construction, and the delivery layer's refusal to let it drive status is the
+   intended shape, not a missing dataset. Full argument, incl. the permutation-invariance lemma and what
+   is *not* claimed: `ENTROPY_LIMITS.md`.
+
+5. Coverage and correctness are orthogonal, and a delivery that reports only coverage overstates itself
+   **more** the more it reviews. Do not present a coverage number as a correctness number; the two have a
+   measured negative relation on `modular`.
+
+6. Audit objects are narrower than the governance requirement. `p_catch` (independence threshold),
+   `inspected` vs `clean` (construct mapping), and family membership (perspective set) are currently
+   implicit constants, not adjudicated, versioned objects. Making them explicit is method work, not
+   documentation work.
+7. `triage_bench` proves an information ceiling (7 of 72 corrections are never flagged), not a scheduling
    win. Do not put it in the same table as the synthetic means.
 
 ## 10. Reproduction

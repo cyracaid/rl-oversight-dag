@@ -42,7 +42,7 @@ delivery — not three views of one. Every number on the cards is read from the 
 | layer | plain question | what we measured | verdict |
 |---|---|---|---|
 | ranking | which claim do I check next? | optimal policy of the same model is worth 4.2 % where computable (21 nodes, budget ≤ 5); depth-two lookahead is worth 5 of 923 errors at N=500; learned policies lose to the rule at every size, and lose more as graphs grow (paper §4, Fig. 2) | **saturated** — do not invest here |
-| signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic; the flag scores 0.966 on validity sinks and 0.569 on the raw inputs a reviewer opens (paper §7.8, Fig. 4) | **unvalidated input** — the real blocker, needs measured calibration |
+| signal | why do I suspect *this* claim? | order-preserving rescaling gives nothing; confidence is synthetic; the flag scores 0.966 on validity sinks and 0.569 on the raw inputs a reviewer opens (paper §7.8, Fig. 4) | **unvalidated input** — the real blocker needs measured calibration, and calibration itself cannot promote an entropy-class signal to a guarantee ([why](ENTROPY_LIMITS.md)) |
 | delivery | what did I cover, and what did I miss? | receipt names 89.8–97.8 % of surviving errors as uncovered; 800/800 runs unchanged; deleting it removes the question; the queue itself saturates at 83.8 % by k = 140 (paper §7.7, Fig. 3) | **load-bearing interface** — without it the question has no answer |
 
 **The other three panels (paper Figs. 2–4):** [gap vs graph size](figures/fig1_gap_vs_graph_size.png) ·
@@ -362,6 +362,7 @@ experiments/                    (simulation & experiments)
 ```
 CROSS_IMPLEMENTATION_VALIDATION.md   Which line is canonical, what may not be compared, reproduction receipts
 BENCHMARK_SPEC.md                    The primary benchmark: frozen suite, splits, baselines, acceptance rules
+ENTROPY_LIMITS.md                    Why an entropy-class confidence signal cannot ground a guarantee
 role3 improvement/                   Frozen environment (dag_role3, 34 tests, hashed checkpoints, benchmark CSVs)
 role2_규리/                          Role 2 measurements: confidence robustness, planning, credit, KAIST nights
 CLAIM_GRAPH_CONTRACT.md              Review-coverage interface to an external case repository (what may be cited)
