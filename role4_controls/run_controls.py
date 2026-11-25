@@ -202,7 +202,8 @@ def summarise(rows):
     for r in rows:
         errors.setdefault((r["family"], r["condition"], r["policy"]), []).append(r["sink_errors"])
     out = []
-    for family in FAMILIES:
+    present = {r["family"] for r in rows}
+    for family in (f for f in FAMILIES if f in present):
         intact_lo = {}
         for condition in CONDITIONS:
             base = np.asarray(errors[family, condition, "confidence"], dtype=float)
