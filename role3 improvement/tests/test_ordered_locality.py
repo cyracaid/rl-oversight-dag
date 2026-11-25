@@ -65,5 +65,56 @@ class RelationalFeaturesAreDegenerate(unittest.TestCase):
                              "must then be re-read, not the other way round")
 
 
+class NoPermutationMechanismIsRelational(unittest.TestCase):
+    """The closure of the order line, pinned as a test.
+
+    `analyse_order_localisability.py` and `outputs/ordered-v3-design/DESIGN.md` claim that in a
+    monotone chain the culprit set is `{p : rank(clock_p) != p}` for *any* permutation mechanism.
+    If that ever stops being true the design study is wrong and v3 becomes possible again, so it
+    is worth an assertion rather than a paragraph.
+    """
+
+    def _rank_rule(self, clocks):
+        order = np.argsort(np.argsort(np.asarray(clocks, float)))
+        return {p for p in range(len(clocks)) if abs(order[p] - p) > 0.5}
+
+    def test_rank_rule_solves_single_and_double_transpositions(self):
+        """Accuracy over draws, not per draw: measurement noise can invert two close clocks.
+
+        The design study measures 0.998-1.000 at the sampler's own settings, so a per-draw
+        assertion would be false for the wrong reason.
+        """
+        rng = np.random.default_rng(20261125)
+        for mechanism in ("single", "double", "double_adjacent"):
+            hits = 0
+            for _ in range(400):
+                true = np.cumsum(rng.uniform(20, 480, 4)) + rng.uniform(1200, 1560)
+                recorded = list(true)
+                culprits = set()
+                if mechanism == "single":
+                    i, j = sorted(rng.choice(4, 2, replace=False))
+                    recorded[i], recorded[j] = recorded[j], recorded[i]
+                    culprits = {int(i), int(j)}
+                else:
+                    if mechanism == "double_adjacent":
+                        pairs = [(0, 1), (2, 3)]
+                    else:
+                        perm = rng.permutation(4)
+                        pairs = [(perm[0], perm[1]), (perm[2], perm[3])]
+                    for a, b in pairs:
+                        recorded[a], recorded[b] = recorded[b], recorded[a]
+                        culprits |= {int(a), int(b)}
+                recorded = np.asarray(recorded) + rng.normal(0, 8, 4)
+                hits += self._rank_rule(recorded) == culprits
+            self.assertGreaterEqual(hits / 400, 0.98, mechanism)
+
+    def test_descent_rule_fails_where_rank_rule_does_not(self):
+        """The planned v3 mechanism: adjacent comparisons lose, rank does not."""
+        # true chain 1300 < 1500 < 1900 < 2400, with positions (0,1) and (2,3) swapped
+        recorded = np.array([1500.0, 1300.0, 2400.0, 1900.0])
+        self.assertNotEqual(local_rule(recorded), {0, 1, 2, 3})
+        self.assertEqual(self._rank_rule(recorded), {0, 1, 2, 3})
+
+
 if __name__ == "__main__":
     unittest.main()

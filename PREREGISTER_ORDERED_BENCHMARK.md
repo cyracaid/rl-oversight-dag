@@ -341,3 +341,52 @@ written into `BENCHMARK_SPEC.md` §3 as a reading rule.
 answer is a minimum-removal / longest increasing subsequence problem. It must ship with a test
 that the descent-ascent rule **fails** on it (accuracy well below 1), and its gate must report
 within-affected-episode AUC as the primary number. Neither is written yet; nothing is reserved.
+
+---
+
+# Amendment 3, 2026-11-25 — the condition set by amendment 2 is met by a mechanism that is still solved, so v3 is not built and this line closes
+
+Written before any v3 code, with no block spent and no episode sampled.
+`role3 improvement/outputs/ordered-v3-design/DESIGN.md` holds the study; the numbers are in
+`mechanisms.json`.
+
+Amendment 2 said a next mechanism must be `k ≥ 2` disjoint transpositions and must ship with a
+test that the descent-ascent rule fails. Both are satisfiable, and both were about to be
+satisfied:
+
+| mechanism (n = 4, 4000 draws) | descent-ascent | interval ends | rank − index |
+|---|---:|---:|---:|
+| one transposition (v2) | 1.000 | 0.836 | 1.000 |
+| **two disjoint transpositions (planned v3)** | **0.000** | 0.327 | **1.000** |
+| rotation of a subarray | 0.601 | 0.601 | 1.000 |
+| one element moved by one place | 1.000 | 1.000 | 1.000 |
+
+The rank column is not a rule of thumb. Let the truth be strictly increasing and the record a
+permutation of the same values with no ties; then position `p` is misplaced iff
+`rank(c_p) ≠ p`, because a value in its own position is by definition the `p`-th smallest and
+conversely. Three lines, no search, exact for **every** permutation mechanism, including ones
+not yet invented. Measurement noise at the sampler's own settings does not dent it (0.998–1.000).
+
+So the requirement amendment 2 wrote was the wrong requirement, in the same way v2's gate tested
+the wrong solver: it forbade one cheap rule where a cheaper one exists. The correct requirement —
+"no statistic computed in one pass over the chain recovers the culprit set" — cannot be met by
+any permutation mechanism at all, by the claim above.
+
+## What this file now requires, and what it withdraws
+
+- withdrawn: "`k ≥ 2` disjoint transpositions" as the recommended next mechanism, and the test
+  criterion attached to it.
+- withdrawn: the framing that this line is held open by an unbuilt v3. It is not open.
+- adopted: an order defect on a monotone chain is **information, not latent structure** — a
+  permutation to be inverted, plus an offset that shows up as two adjacent difference
+  inconsistencies. Both are one-pass statistics. A representation-learning question cannot live
+  here.
+- adopted: the only route that would keep the question alive is corrupting the derived
+  differences so that the one-pass statistics stop being sufficient. That is a robust-estimation
+  benchmark with a new family, a likelihood model and a different question, and it is *not* "the
+  real data's failure mode in this simulator". Nothing is reserved for it.
+
+**No block is spent by this amendment.** Graphs 5196–5199 and 60030–60099 and episodes
+5700–59999 remain free. The line is closed with no further measurement, which is the outcome
+`PREREGISTER_ORDERED_BENCHMARK.md` was written to make possible: a mechanism can be rejected
+before its numbers exist, and that is cheaper than rejecting it after.

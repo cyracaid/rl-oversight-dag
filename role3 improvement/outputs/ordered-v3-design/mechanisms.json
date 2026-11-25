@@ -1,0 +1,210 @@
+{
+  "note": "combinatorial design study; no seeds consumed, no episodes sampled",
+  "spec": {
+    "clock_start": [
+      1200.0,
+      1560.0
+    ],
+    "gap": [
+      20.0,
+      480.0
+    ],
+    "noise_sd": 8.0
+  },
+  "draws": 4000,
+  "seed": 20261125,
+  "rows": [
+    {
+      "n": 4,
+      "mechanism": "T1",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 0.836,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.16400000000000003
+    },
+    {
+      "n": 4,
+      "mechanism": "T2",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.0,
+        "interval_ends": 0.32675,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 1.0
+    },
+    {
+      "n": 4,
+      "mechanism": "ROT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.60125,
+        "interval_ends": 0.60125,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.11075000000000002
+    },
+    {
+      "n": 4,
+      "mechanism": "SHIFT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 1.0,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.0
+    },
+    {
+      "n": 5,
+      "mechanism": "T1",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 0.69725,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.30274999999999996
+    },
+    {
+      "n": 5,
+      "mechanism": "T2",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.0,
+        "interval_ends": 0.319,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.0
+    },
+    {
+      "n": 5,
+      "mechanism": "ROT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.51175,
+        "interval_ends": 0.51175,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.05974999999999997
+    },
+    {
+      "n": 5,
+      "mechanism": "SHIFT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 1.0,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.0
+    },
+    {
+      "n": 6,
+      "mechanism": "T1",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 0.5965,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.40349999999999997
+    },
+    {
+      "n": 6,
+      "mechanism": "T2",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.0,
+        "interval_ends": 0.1345,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 1.0
+    },
+    {
+      "n": 6,
+      "mechanism": "ROT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.453,
+        "interval_ends": 0.453,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.04125000000000001
+    },
+    {
+      "n": 6,
+      "mechanism": "SHIFT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 1.0,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.0
+    },
+    {
+      "n": 7,
+      "mechanism": "T1",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 0.52525,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.47475
+    },
+    {
+      "n": 7,
+      "mechanism": "T2",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.0,
+        "interval_ends": 0.08475,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.0
+    },
+    {
+      "n": 7,
+      "mechanism": "ROT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 0.41275,
+        "interval_ends": 0.41275,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.02200000000000002
+    },
+    {
+      "n": 7,
+      "mechanism": "SHIFT",
+      "draws": 4000,
+      "local_rule_exact": {
+        "descent_ascent": 1.0,
+        "interval_ends": 1.0,
+        "rank_offset": 1.0
+      },
+      "culprit_set_admits_a_solution": 1.0,
+      "culprit_set_is_unique": 0.0
+    }
+  ]
+}

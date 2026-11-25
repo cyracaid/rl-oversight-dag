@@ -253,7 +253,7 @@ rendered page — no link opens raw markdown in the browser. Plans (`RL_PLAN`, `
 | Benchmark specification — task, splits, baseline matrix, acceptance rules | [BENCHMARK_SPEC](BENCHMARK_SPEC.md) | — | — |
 | Boundary map — where graph-aware triage pays (budget coverage × graph shape) | [BOUNDARY_REPORT](experiments/BOUNDARY_REPORT.md) | — | — |
 | Label-free contrastive pilot — can an unsupervised representation close the residual gap? | [PREREGISTER](../role3%20improvement/PREREGISTER_CONTRASTIVE.md) · [report](../role3%20improvement/outputs/contrastive-v1/report.md) | — | [CONTRASTIVE_PILOT_CN](CONTRASTIVE_PILOT_CN.md) |
-| Order-aware benchmark v2 / v2.1 — can the real data's dominant failure mode exist in the simulator? | [PREREGISTER](../PREREGISTER_ORDERED_BENCHMARK.md) · [v2.1](../PREREGISTER_ORDERED_BENCHMARK_V21.md) · [correction](../role3%20improvement/outputs/ordered-gate-v2/CORRECTION.md) | — | withdrawn: the mechanism is locally solvable |
+| Order-aware benchmark v2 / v2.1 — can the real data's dominant failure mode exist in the simulator? | [PREREGISTER](../PREREGISTER_ORDERED_BENCHMARK.md) · [v2.1](../PREREGISTER_ORDERED_BENCHMARK_V21.md) · [correction](../role3%20improvement/outputs/ordered-gate-v2/CORRECTION.md) | — | closed without spending v3: order is information, not latent structure |
 | Measurement layer — what review receipts can and cannot answer | [MEASUREMENT_LAYER](triage_bench/MEASUREMENT_LAYER.md) | — | — |
 | SciForge export protocol (frozen pre-registration) + mock report | [PROTOCOL](sciforge_review/export/PROTOCOL.md) · [REPORT](sciforge_review/export/REPORT.md) | — | — |
 | Error card — known failure modes, error budget, what is not comparable | [ERROR_CARD](ERROR_CARD.md) | — | — |

@@ -73,7 +73,7 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | coverage receipt | 5400–5599 | pre-registered receipt / deletion test, `outputs/supervisor-v1/` |
 | order-aware benchmark (v2) | graphs 5160–5183, episodes 5600–5639 | `PREREGISTER_ORDERED_BENCHMARK.md`; gate read 2026-11-25, **both AUC verdicts void**, see `outputs/ordered-gate-v2/CORRECTION.md` |
 | order benchmark v2.1 | graphs 5184–5195, episodes 5640–5699 (60, q=1.0) | `PREREGISTER_ORDERED_BENCHMARK_V21.md`; H1 holds, **H3 contradicted**, `outputs/ordered-gate-v21/CORRECTION.md` |
-| order benchmark v3 (not written) | none reserved | would need `k ≥ 2` transpositions to be non-local; nothing priced |
+| order benchmark v3 | none consumed | **not built**: `k ≥ 2` transpositions are solved exactly by rank-vs-index, `role3 improvement/outputs/ordered-v3-design/DESIGN.md` |
 
 Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in
 the repo", and that sentence is wrong — `dag_role3/training.py` draws `BestValidation` graphs from 60000 onward.
@@ -389,7 +389,7 @@ single-δ family recovers. The declared claim is "the decision variable is the n
 "`scope` is the best repair".
 
 
-### Order channel (v2, v2.1): built, priced, and withdrawn — the mechanism is locally solvable (5160–5195 / 5600–5699)
+### Order channel (v2, v2.1, v3): built, priced, closed — a monotone chain cannot host the question (5160–5195 / 5600–5699; no block for v3)
 
 The contrastive pilot left one question it could not ask: 40 of 53 replayed human corrections are `order_error`,
 and the simulator samples source errors independently, so no ordering structure existed to represent.
@@ -434,13 +434,25 @@ gap, so the power sentence in that pre-registration was wrong when written), and
 before `mkdir` — the numbers come from `gate.json`, whose rerun hash is identical, a determinism check rather than
 a second sample.
 
-What this settles: an order defect *can* be built, and the first two attempts to build one could not have produced
-the evidence they were written for, which is now known before any encoder exists. What it does not settle, and
-what is not reserved: whether a defect exists in this simulator that needs the whole chain. `k ≥ 2` disjoint
-transpositions would (localisation becomes a minimum-removal problem), but no file prices it.
+A design study then closed the line without spending a seed (`role3 improvement/outputs/ordered-v3-design/`,
+4000 draws per mechanism at `n = 4`). `k ≥ 2` disjoint transpositions do defeat the descent-ascent rule — 0.000 —
+and are recovered exactly (1.000) by a third statistic that was never tested: `rank(clock) − position`. That is
+not a heuristic. If the truth is strictly increasing and the record is a permutation of the same values, a position
+holds its own value iff its value's rank equals its index, so the culprit set is `{p : rank(c_p) ≠ p}` — three
+lines, no search, exact for every permutation mechanism, noise-robust at the sampler's own settings (0.998–1.000).
+The complementary defect, a ±12 h offset rather than a permutation, is not a permutation at all, and the derived
+durations then break at exactly the two nodes that name the shifted segment. Both families of order defect in a
+monotone chain are one-pass statistics, so the order channel is **information, not latent structure**: there is
+nothing here for a representation to learn, and a third mechanism would have failed the same way with a different
+rule. `PREREGISTER_ORDERED_BENCHMARK.md` amendment 3 records the closure and spends no block.
+
+What this settles, therefore, is not "the testbed is hard to build" but the opposite: the simulator can only
+express order defects that a two-line rule inverts, which is why v2's gate read what it read. What remains — and
+what no file prices — would require corrupting the derived differences themselves, turning the question into robust
+estimation with a new family and a different claim, no longer "the real data's failure mode in this simulator".
 
 Nothing in v1 moved: `tests/test_ordered.py` asserts that the v2 sampler with `q = 0` returns the v1 episode
-tuple-for-tuple, and the 110-test suite passes; `tests/test_ordered_locality.py` pins the defect itself (the two-line local rule scores 100 %, and the relational feature set is broadcast to one row per episode), so neither can be forgotten.
+tuple-for-tuple, and the 112-test suite passes; `tests/test_ordered_locality.py` pins the defect itself (the two-line local rule scores 100 %, and the relational feature set is broadcast to one row per episode), so neither can be forgotten.
 
 ## 7. What counts as progress on this benchmark
 
