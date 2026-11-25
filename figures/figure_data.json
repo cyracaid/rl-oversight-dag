@@ -199,5 +199,14 @@
   ],
   "hit1": 0.0028,
   "ties_records": 51
+ },
+ "fig4": {
+  "file": "fig4_where_the_results_sit.png",
+  "schematic": true,
+  "refs": {
+   "structure": 2,
+   "delivery": 3,
+   "signal": 4
+  }
  }
 }

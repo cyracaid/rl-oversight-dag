@@ -29,6 +29,9 @@ RANKING = os.path.join(ROOT, "runs", "real-confidence-ranking", "results.json")
 INK, MUTED = "#1c2530", "#6a7683"
 BLUE, ORANGE, TEAL = "#3b6ea5", "#c26f3a", "#4b8b7a"
 
+# Where each schematic card points; the paper captions use the same numbers.
+FIGREF = {"structure": 2, "delivery": 3, "signal": 4}
+
 
 def read(path):
     with open(path, encoding="utf-8") as handle:
@@ -260,6 +263,88 @@ def figure_localisation():
     return save(fig, "fig3_localisation_auc.png"), data
 
 
+# --------------------------------------------------------------------------- #
+# Figure 4 — one pipeline, three different questions
+# --------------------------------------------------------------------------- #
+
+def figure_schematic(payload):
+    """No data of its own: every number is pulled from the three result figures.
+
+    The point of the drawing is that the paper's three results are three stages of
+    one pipeline, so the schematic is only honest if it reads the same values.
+    """
+    sink_auc = next(b["auc"] for b in payload["fig3"]["bars"] if "sink" in b["label"])
+    raw_auc = next(b["auc"] for b in payload["fig3"]["bars"] if "raw" in b["label"])
+    coverage = payload["fig2"]["coverage_ceiling"]
+    ceiling = payload["fig2"]["saturation"]
+    plateau_k = payload["fig2"]["plateau_k"]
+    deltas = [p["delta"] for p in payload["fig1"]["points"]]
+
+    fig, ax = plt.subplots(figsize=(10.0, 4.9))
+    ax.set_xlim(0, 10.3)
+    ax.set_ylim(0, 5.25)
+    ax.axis("off")
+
+    boxes = [
+        (0.15, 1.75, "hidden source errors\n(never observed)"),
+        (2.15, 1.95, "pipeline computes\n14 claims per record"),
+        (4.35, 1.95, "published confidence\nflags a row"),
+        (6.55, 1.95, "review queue\nbudget k, order chosen"),
+        (8.75, 1.15, "final\nconclusion"),
+    ]
+    top, height = 3.50, 0.95
+    for x, w, label in boxes:
+        ax.add_patch(plt.Rectangle((x, top), w, height, facecolor="#f2f5f7",
+                                   edgecolor=MUTED, linewidth=0.9, zorder=2))
+        ax.text(x + w / 2, top + height / 2, label, ha="center", va="center",
+                fontsize=8, color=INK, zorder=3, linespacing=1.45)
+    for (x, w, _), (nx, _, _) in zip(boxes, boxes[1:]):
+        ax.annotate("", (nx - 0.02, top + height / 2), (x + w + 0.02, top + height / 2),
+                    arrowprops={"arrowstyle": "-|>", "color": MUTED, "linewidth": 1.0,
+                                "shrinkA": 0, "shrinkB": 0}, zorder=1)
+
+    cards = [
+        (4.55, BLUE, f"structure  ·  §4.1  ·  Fig. {FIGREF['structure']}",
+         f"learners lose to the rule;\n"
+         f"deficit grows with N:\n+{min(deltas):.2f} → +{max(deltas):.0f} errors",
+         "tested, and not the lever"),
+        (6.95, ORANGE, f"signal  ·  §7.8  ·  Fig. {FIGREF['signal']}",
+         f"{sink_auc:.3f} on sinks, {raw_auc:.3f}\n"
+         f"on the raw inputs —\nsame flag, no cause",
+         "synthetic; the real blocker"),
+        (9.15, TEAL, f"delivery  ·  §7.7  ·  Fig. {FIGREF['delivery']}",
+         f"coverage {coverage * 100:.1f} %; type\n"
+         f"order saturates at\n{ceiling * 100:.1f} % by k = {plateau_k}",
+         "a detector limit, not allocation"),
+    ]
+    card_top, card_h, card_w = 2.05, 1.55, 2.30
+    for cx, colour, title, body, verdict in cards:
+        left, x = cx - card_w / 2, cx
+        ax.add_patch(plt.Rectangle((left, card_top - card_h), card_w, card_h,
+                                   facecolor="white", edgecolor=colour, linewidth=1.0,
+                                   zorder=2))
+        ax.add_patch(plt.Rectangle((left, card_top - card_h), 0.055, card_h,
+                                   facecolor=colour, edgecolor="none", zorder=3))
+        ax.text(left + 0.16, card_top - 0.20, title, ha="left", va="center",
+                fontsize=7.7, color=colour, fontweight="bold", zorder=3)
+        ax.text(left + 0.16, card_top - 0.75, body, ha="left", va="center",
+                fontsize=6.9, color=INK, zorder=3, linespacing=1.55)
+        ax.text(left + 0.16, card_top - card_h + 0.15, verdict, ha="left", va="center",
+                fontsize=7.3, color=colour, zorder=3, style="italic")
+        ax.plot([x, x], [top, card_top], color=colour, linewidth=0.9,
+                linestyle=(0, (2, 2)), zorder=1)
+
+    ax.text(0.15, 5.02, "One pipeline, three different questions", ha="left", va="center",
+            fontsize=10.5, color=INK)
+    ax.text(0.15, 4.62, "The paper's three results are three stages, not three views of one stage.",
+            ha="left", va="center", fontsize=8.2, color=MUTED)
+    ax.text(0.15, 0.22, "Schematic. Every number is read from the panels in Figs. 2–4; "
+                        "the drawing adds no measurements.",
+            ha="left", va="center", fontsize=7.2, color=MUTED)
+        # Where each card points, so `test_figures.py` can check the paper's numbering.
+    return save(fig, "fig4_where_the_results_sit.png"), {"schematic": True, "refs": dict(FIGREF)}
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     styled()
@@ -268,6 +353,9 @@ def main():
         name, data = fn()
         payload[key] = {"file": name, **data}
         print(f"wrote figures/{name}")
+    name, data = figure_schematic(payload)
+    payload["fig4"] = {"file": name, **data}
+    print(f"wrote figures/{name}")
     with open(os.path.join(OUT, "figure_data.json"), "w", encoding="utf-8") as handle:
         json.dump(payload, handle, indent=1, ensure_ascii=False)
         handle.write("\n")

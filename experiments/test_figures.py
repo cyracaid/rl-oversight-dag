@@ -112,13 +112,30 @@ def test_every_figure_file_exists_and_is_not_empty():
         assert size > 20_000, f"{key} looks truncated ({size} bytes)"
 
 
-def test_the_paper_shows_all_three_figures():
+def test_the_paper_shows_every_figure():
     """A figure nobody embeds is dead weight; keep the drafts and the files in step."""
     files = [entry["file"] for entry in plotted().values()]
     for name in PAPERS:
         body = read(os.path.join(ROOT, name))
         for f in files:
             assert f"figures/{f}" in body, f"{name} does not embed figures/{f}"
+
+
+def test_the_schematic_points_at_the_figures_it_claims():
+    """Card numbering lives in two places, the image and the caption, so pin it.
+
+    `FIGREF` in `make_figures.py` is written into the picture; the drafts must use the
+    same numbers or a reader follows a card to the wrong panel.
+    """
+    data = plotted()["fig4"]
+    assert data["schematic"] is True
+    assert sorted(data["refs"]) == ["delivery", "signal", "structure"], data["refs"]
+    labels = {"PAPER_DRAFT.md": "Figure {}", "PAPER_DRAFT_KO.md": "그림 {}",
+              "PAPER_DRAFT_CN.md": "图 {}"}
+    for name, template in labels.items():
+        body = read(os.path.join(ROOT, name))
+        for key, number in data["refs"].items():
+            assert template.format(number) + "." in body, (name, key, number)
 
 
 def main():

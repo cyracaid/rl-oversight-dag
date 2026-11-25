@@ -111,6 +111,11 @@ reviewed flags, remaining budget, and geometry. This restriction is what makes t
 comparison meaningful — a truth-reading policy is included as a *reference point*,
 not as a bound (§3.4).
 
+<img src="figures/fig4_where_the_results_sit.png" alt="Pipeline schematic: source errors, detector, queue, conclusion, with the paper's three results attached to three stages">
+
+*Figure 1. Where the three results sit. Schematic only: the cards restate Figs. 2–4,
+and nothing here is a new measurement.*
+
 ---
 
 ## 3. Benchmark
@@ -219,7 +224,7 @@ overlap, so the absolute ordering is the sharper statement and the one we make.
 
 <img src="figures/fig1_gap_vs_graph_size.png" alt="Learner minus marginal sink errors against graph size, absolute and relative">
 
-*Figure 1. The deficit tracks graph size, not the learner. Filled markers are the
+*Figure 2. The deficit tracks graph size, not the learner. Filled markers are the
 GNN aggregate, pale markers DQN; whiskers are paired intervals over 100 graphs. The
 right panel divides the same difference by the rule's own error level — larger at
 scale, but the ranges overlap across sizes, which is why §4.1 states the absolute
@@ -530,7 +535,7 @@ over 203 participants):
 
 <img src="figures/fig2_queue_ceiling.png" alt="Recall bound against rows reviewed, with detector coverage and type-partition ceilings">
 
-*Figure 2. Where the queue runs out of room. The dashed line is the detector's
+*Figure 3. Where the queue runs out of room. The dashed line is the detector's
 coverage — the corrections whose rows are never flagged and so cannot be ranked at
 any budget. Within the flagged population, taking whole flag types in order of base
 rate saturates because what is left is a large group at 1.2 %. Past the saturation
@@ -580,7 +585,7 @@ a cause cannot outrank its effect.
 
 <img src="figures/fig3_localisation_auc.png" alt="AUC by node group: all nodes, validity sinks, derived nodes, raw timestamps">
 
-*Figure 3. One flag rule, scored twice. Pooled AUC 0.807 is carried by the validity
+*Figure 4. One flag rule, scored twice. Pooled AUC 0.807 is carried by the validity
 sinks (0.966), whose values are wrong exactly when the check feeding them fires; on
 the four raw timestamps a reviewer would actually open, the same rule is at chance
 (0.569). The signal ranks consequences, and the reviewers' inputs are the causes.*
@@ -714,4 +719,4 @@ scheduler is where the error lives.
 | 7.6 | learned window scorer, AUC 0.991/0.816/0.840 | `runs/learned-window-scorer/` |
 | 7.7 | coverage / type ceiling / power | `triage_bench/CEILING.md`, `triage_bench/outputs/ceiling.json` |
 | 7.8 | localisation AUC 0.807 / 0.569, hit@1 0.003 | `experiments/REAL_CONFIDENCE_RANKING.md`, `runs/real-confidence-ranking/results.json` |
-| Figs. 1–3 | plotted values only, no new numbers | `experiments/make_figures.py`, `figures/figure_data.json` |
+| Figs. 1–4 | plotted values only, no new numbers | `experiments/make_figures.py`, `figures/figure_data.json` |
