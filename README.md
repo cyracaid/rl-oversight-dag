@@ -363,6 +363,7 @@ experiments/                    (simulation & experiments)
 CROSS_IMPLEMENTATION_VALIDATION.md   Which line is canonical, what may not be compared, reproduction receipts
 BENCHMARK_SPEC.md                    The primary benchmark: frozen suite, splits, baselines, acceptance rules
 ENTROPY_LIMITS.md                    Why an entropy-class confidence signal cannot ground a guarantee
+AUDIT_POLICY.md                      Frozen register: the four objects only a human may adjudicate, and the evaluation lock
 role3 improvement/                   Frozen environment (dag_role3, 34 tests, hashed checkpoints, benchmark CSVs)
 role2_규리/                          Role 2 measurements: confidence robustness, planning, credit, KAIST nights
 CLAIM_GRAPH_CONTRACT.md              Review-coverage interface to an external case repository (what may be cited)

@@ -524,9 +524,12 @@ A new baseline is not progress. A new benchmark axis is progress only after it i
    measured negative relation on `modular`.
 
 6. Audit objects are narrower than the governance requirement. `p_catch` (independence threshold),
-   `inspected` vs `clean` (construct mapping), and family membership (perspective set) are currently
-   implicit constants, not adjudicated, versioned objects. Making them explicit is method work, not
-   documentation work.
+   `inspected` vs `clean` (construct mapping), family membership (perspective set), and the status set
+   itself were implicit constants, not adjudicated objects. **Named and frozen 2026-11-25**:
+   `AUDIT_POLICY.md` v1 plus `dag_role3/audit_policy.py` (20 tests) — machine may route and propose, only
+   a versioned human ratification may move any of the four, and the policy is frozen while an evaluation
+   window is open. Note what this changes: the coverage arithmetic in `outputs/supervisor-v1/` now
+   produces *proposals*, and no re-run under a different policy is allowed without a fresh block (≥ 5600).
 7. `triage_bench` proves an information ceiling (7 of 72 corrections are never flagged), not a scheduling
    win. Do not put it in the same table as the synthetic means.
 
