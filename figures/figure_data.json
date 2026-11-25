@@ -1,0 +1,203 @@
+{
+ "fig1": {
+  "file": "fig1_gap_vs_graph_size.png",
+  "groups": [
+   21,
+   80,
+   500
+  ],
+  "points": [
+   {
+    "family": "ba",
+    "learner": "gnn",
+    "n": 500,
+    "delta": 16.97,
+    "lo": 12.81666666666667,
+    "hi": 21.556833333333334,
+    "marginal": 20.13,
+    "relative_pct": 84.30203676105316
+   },
+   {
+    "family": "ba",
+    "learner": "dqn",
+    "n": 500,
+    "delta": 14.45,
+    "lo": 12.56325,
+    "hi": 16.730083333333333,
+    "marginal": 20.13,
+    "relative_pct": 71.78340784898162
+   },
+   {
+    "family": "er",
+    "learner": "gnn",
+    "n": 500,
+    "delta": 8.946666666666665,
+    "lo": 7.556583333333334,
+    "hi": 10.393333333333334,
+    "marginal": 16.76,
+    "relative_pct": 53.38106603023069
+   },
+   {
+    "family": "er",
+    "learner": "dqn",
+    "n": 500,
+    "delta": 5.633333333333334,
+    "lo": 4.733333333333334,
+    "hi": 6.596666666666668,
+    "marginal": 16.76,
+    "relative_pct": 33.611774065234684
+   },
+   {
+    "family": "modular",
+    "learner": "gnn",
+    "n": 500,
+    "delta": 6.256666666666666,
+    "lo": 5.513333333333332,
+    "hi": 7.056666666666667,
+    "marginal": 8.78,
+    "relative_pct": 71.26044039483675
+   },
+   {
+    "family": "modular",
+    "learner": "dqn",
+    "n": 500,
+    "delta": 5.226666666666667,
+    "lo": 4.553333333333334,
+    "hi": 5.92,
+    "marginal": 8.78,
+    "relative_pct": 59.5292331055429
+   },
+   {
+    "family": "real",
+    "learner": "gnn",
+    "n": 21,
+    "delta": 0.08,
+    "lo": 0.023333333333333334,
+    "hi": 0.14666666666666667,
+    "marginal": 0.47,
+    "relative_pct": 17.02127659574468
+   },
+   {
+    "family": "real",
+    "learner": "dqn",
+    "n": 21,
+    "delta": 0.19333333333333333,
+    "lo": 0.12333333333333334,
+    "hi": 0.27,
+    "marginal": 0.47,
+    "relative_pct": 41.13475177304964
+   },
+   {
+    "family": "spike",
+    "learner": "gnn",
+    "n": 80,
+    "delta": 0.40333333333333327,
+    "lo": 0.26,
+    "hi": 0.5866666666666667,
+    "marginal": 0.66,
+    "relative_pct": 61.1111111111111
+   },
+   {
+    "family": "spike",
+    "learner": "dqn",
+    "n": 80,
+    "delta": 0.7066666666666666,
+    "lo": 0.5333333333333333,
+    "hi": 0.9033333333333333,
+    "marginal": 0.66,
+    "relative_pct": 107.07070707070704
+   },
+   {
+    "family": "ticket",
+    "learner": "gnn",
+    "n": 21,
+    "delta": 0.03666666666666667,
+    "lo": -0.0033333333333333344,
+    "hi": 0.09,
+    "marginal": 0.29,
+    "relative_pct": 12.64367816091954
+   },
+   {
+    "family": "ticket",
+    "learner": "dqn",
+    "n": 21,
+    "delta": 0.19999999999999996,
+    "lo": 0.12333333333333332,
+    "hi": 0.2866666666666666,
+    "marginal": 0.29,
+    "relative_pct": 68.9655172413793
+   }
+  ],
+  "relative_range_by_n": {
+   "21": [
+    12.64367816091954,
+    68.9655172413793
+   ],
+   "80": [
+    61.1111111111111,
+    107.07070707070704
+   ],
+   "500": [
+    33.611774065234684,
+    84.30203676105316
+   ]
+  }
+ },
+ "fig2": {
+  "file": "fig2_queue_ceiling.png",
+  "k": [
+   50,
+   100,
+   140,
+   200,
+   400
+  ],
+  "recall": [
+   0.2794,
+   0.6176,
+   0.8382,
+   0.8382,
+   0.8382
+  ],
+  "coverage_ceiling": 0.9027777777777778,
+  "saturation": 0.8382,
+  "plateau_k": 140,
+  "uncovered": 0.16180000000000005,
+  "tail_group": "M4",
+  "tail_size": 885,
+  "tail_base_rate": 0.012429378531073447,
+  "narrow_total": 72,
+  "narrow_in_queue": 65
+ },
+ "fig3": {
+  "file": "fig3_localisation_auc.png",
+  "chance": 0.5,
+  "bars": [
+   {
+    "label": "all 14 nodes",
+    "auc": 0.8067,
+    "ci": [
+     0.7798,
+     0.8309
+    ]
+   },
+   {
+    "label": "4 validity sinks",
+    "auc": 0.9656,
+    "ci": null
+   },
+   {
+    "label": "6 derived nodes",
+    "auc": 0.7327,
+    "ci": null
+   },
+   {
+    "label": "4 raw timestamps",
+    "auc": 0.5691,
+    "ci": null
+   }
+  ],
+  "hit1": 0.0028,
+  "ties_records": 51
+ }
+}

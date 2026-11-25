@@ -213,6 +213,18 @@ multi-hop propagation that separates `marginal` from `oracle` has to be re-deriv
 from terminal reward alone. We state the mechanism as a hypothesis this data does
 not separate from alternatives.
 
+Divided by the rule's own error level the same difference is 13–69 % at N=21,
+61–107 % at N=80 and 34–84 % at N=500: larger at scale, but with ranges that
+overlap, so the absolute ordering is the sharper statement and the one we make.
+
+<img src="figures/fig1_gap_vs_graph_size.png" alt="Learner minus marginal sink errors against graph size, absolute and relative">
+
+*Figure 1. The deficit tracks graph size, not the learner. Filled markers are the
+GNN aggregate, pale markers DQN; whiskers are paired intervals over 100 graphs. The
+right panel divides the same difference by the rule's own error level — larger at
+scale, but the ranges overlap across sizes, which is why §4.1 states the absolute
+form.*
+
 A 10× training budget tests the same explanation from the other side. On the N=80
 confirmation block, ten thousand episodes instead of one thousand moves the GNN from
 1.185 / 1.325 / 1.275 to 1.155 / 1.140 / 1.145 against an unchanged `marginal` at
@@ -516,6 +528,14 @@ over 203 participants):
   percentage points; the two candidate orderings differ by +7.3 % [−8.9 %, +12.8 %].
   We report the interval, not the winning row.
 
+<img src="figures/fig2_queue_ceiling.png" alt="Recall bound against rows reviewed, with detector coverage and type-partition ceilings">
+
+*Figure 2. Where the queue runs out of room. The dashed line is the detector's
+coverage — the corrections whose rows are never flagged and so cannot be ranked at
+any budget. Within the flagged population, taking whole flag types in order of base
+rate saturates because what is left is a large group at 1.2 %. Past the saturation
+point the curve is flat by construction, not by measurement.*
+
 Three plausible escapes were tested and all three failed: within-type features
 (AUC 0.467, permutation p = 0.53), the best univariate rule (AUC 0.78 but precision
 @100 = 3 %), and a participant-level ranking (AUC 0.868, paired Δ +7.3 % [−8.6 %,
@@ -557,6 +577,13 @@ counted twice. On the four raw timestamps — the nodes a reviewer would actuall
 open — it is at chance. The top-ranked node is `SE_conclusion` in 51 of 53 records,
 because the leaf score is defined as a *mean over its descendants*: by construction
 a cause cannot outrank its effect.
+
+<img src="figures/fig3_localisation_auc.png" alt="AUC by node group: all nodes, validity sinks, derived nodes, raw timestamps">
+
+*Figure 3. One flag rule, scored twice. Pooled AUC 0.807 is carried by the validity
+sinks (0.966), whose values are wrong exactly when the check feeding them fires; on
+the four raw timestamps a reviewer would actually open, the same rule is at chance
+(0.569). The signal ranks consequences, and the reviewers' inputs are the causes.*
 
 A continuous version of the same rule (hours past threshold rather than a flag) does
 not fix it: AUC falls to 0.653 and hit@1 stays at 0.003, though the mean rank
@@ -687,3 +714,4 @@ scheduler is where the error lives.
 | 7.6 | learned window scorer, AUC 0.991/0.816/0.840 | `runs/learned-window-scorer/` |
 | 7.7 | coverage / type ceiling / power | `triage_bench/CEILING.md`, `triage_bench/outputs/ceiling.json` |
 | 7.8 | localisation AUC 0.807 / 0.569, hit@1 0.003 | `experiments/REAL_CONFIDENCE_RANKING.md`, `runs/real-confidence-ranking/results.json` |
+| Figs. 1–3 | plotted values only, no new numbers | `experiments/make_figures.py`, `figures/figure_data.json` |
