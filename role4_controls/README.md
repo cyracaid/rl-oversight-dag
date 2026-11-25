@@ -87,3 +87,62 @@ files are not touched. `worst_of_n = 1 − zero_error_rate` of the frozen summar
 ## Blocked
 
 27/48 consensus split — waiting for P5's labels. Not attempted, no split invented.
+
+---
+
+## v2 — frozen before outcomes (amendment)
+
+Written and pushed **after reading v1** and **before** any v2 outcome was computed. v1 code, rules and
+results above stay as they are and keep their labels. v2 adds three things; the motive for each is a
+v1 result, stated here so the amendment is not mistaken for an original plan.
+
+Run: `python3 run_controls_v2.py --selftest`, then `python3 run_controls_v2.py --jobs 4`
+→ `results/v2/controls_v2.csv`, `results/v2/controls_v2_summary.csv`, written up in `results/v2/controls_v2.md`.
+
+### 1. A hub-breaking rewire, `rewire_order` (motive: BA survived v1 rewire)
+
+v1's rule draws parents from lower-index nodes. In BA and ER, low index means "old node", so the
+rewired map keeps who the hubs are (out-degree rank correlation 0.63 / 0.62, `results/diagnostics.csv`).
+`rewire_order` (modular, BA, ER only):
+
+- build a random feasible order — at each step choose uniformly among unplaced nodes whose parent count
+  is at most the number already placed;
+- each node draws its parents uniformly from the nodes placed before it;
+- parent counts, types and the sink set are kept; the graph stays acyclic; source errors, confidences
+  and reviewer draws are asserted identical to the intact episode.
+
+Design check run before freezing (structure only, no outcome; printed by `--selftest`): median out-degree
+rank correlation, original vs rewired, draw 0 — modular 0.05 → 0.01, BA 0.63 → 0.01, ER 0.62 → 0.01.
+spike and real are layered and their v1 rule already draws uniformly within the allowed layers, so they
+get no `rewire_order`.
+
+Reading: if the BA advantage survives `rewire_index` but not `rewire_order`, it rests on *who the hubs
+are*; if it survives both, a wrong map with no hub information still helps, which is a problem.
+
+### 2. Ten fixed-seed draws per graph (motive: v1 used one draw per graph)
+
+`rewire_index` draw k uses `Random(4_040_000 + 100_000·k + graph_seed)`, so **draw 0 is v1** (asserted
+row by row, errors and actions). `rewire_order` draw k uses `Random(5_050_000 + 100_000·k + graph_seed)`.
+k = 0…9. Per graph the ten draws are averaged; the paired bootstrap (unchanged, seed 411) resamples graphs.
+Also reported: the range of the 100-graph mean gain across the ten draws, and within-graph (across draws)
+vs between-graph standard deviation of the policy's errors.
+
+### 3. Three-level verdict with an equivalence margin (motive: "CI includes 0" was labelled `removed`)
+
+Margin `m = 0.20 × intact mean gain` of the same family and policy. In this order:
+
+| Label | Rule |
+|---|---|
+| `no-intact-advantage` | intact CI lower bound ≤ 0 |
+| `survives` | control CI lower bound > 0 (even if the CI also lies inside ±m) |
+| `removed` | control CI lies entirely inside [−m, +m] |
+| `inconclusive` | anything else |
+
+A control that makes `marginal` clearly *worse* than confidence (CI entirely below −m) is
+`inconclusive` under this rule, not `removed`; the write-up says which direction it went.
+Applied to flatten, `rewire_index` and `rewire_order`. Primary cells: `marginal` on spike, modular, BA, ER.
+
+### Acceptance (v2)
+
+`intact` must equal the frozen benchmark and `flatten` / `rewire_index:0` must equal v1 `controls.csv`,
+errors and actions, row by row; otherwise the script exits 2 and writes nothing.
