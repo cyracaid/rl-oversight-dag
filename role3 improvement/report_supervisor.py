@@ -2,6 +2,8 @@
 import json
 from pathlib import Path
 
+from dag_role3.audit_policy import frozen_policy_v1
+
 OUT = Path("outputs/supervisor-v1")
 THRESHOLD = 0.90
 
@@ -19,11 +21,16 @@ def main():
     payload = json.loads((OUT / "summary.json").read_text())
     rows = payload["rows"]
     p1 = payload["p1_holds"]
+    policy = frozen_policy_v1()
 
     lines = ["# Supervisor axis — what a delivery can say about its own coverage", "",
              f"Block {payload['block'][0]}–{payload['block'][1]}, "
              f"p_catch {payload['p_catch']}, "
              f"pre-registered in `PREREGISTER_SUPERVISOR.md`.", "",
+             f"Policy register: `{policy.fingerprint()}` — the adjudicated objects this "
+             f"report is rendered under, frozen in `AUDIT_POLICY.md` v1. A different "
+             f"register would describe a different delivery, so the string is quoted rather "
+             f"than implied.", "",
              "`declared share` = of the sink errors that survive the budget, the fraction the "
              "honest receipt labels `partial` or `untouched`. The rest sit inside sinks whose "
              "every upstream source was reviewed — that is `p_catch < 1`, not a reporting bug.", "",
@@ -108,6 +115,26 @@ def main():
               "* `modular`/`spike` sinks may be structurally unreachable within the budget; "
               "that is exactly what `untouched` reports, and it is a finding about the budget, "
               "not about the receipt."]
+
+    manifest = json.loads((OUT / "manifest.json").read_text())
+    lines += ["", "## Provenance", "",
+              "The report is a rendering, not a computation: every number above is read from "
+              "`summary.json`, which was written once on the block named at the top. What "
+              "produced it is quoted here so a reader does not have to trust the prose.", "",
+              "| item | value |", "|---|---|",
+              f"| policy register | `{policy.fingerprint()}` |",
+              f"| block / episode offset | {manifest['block'][0]}–{manifest['block'][1]} / "
+              f"{manifest['episode_offset']} |",
+              f"| p_catch | {manifest['p_catch']} |",
+              f"| budgets | " + ", ".join(f"{k} {v}" for k, v in manifest["budget"].items()) + " |",
+              f"| python / numpy | {manifest['python']} / {manifest['numpy']} |"]
+    for name, digest in manifest["sha256"].items():
+        lines.append(f"| `{name}` | `{digest}` |")
+    lines += ["",
+              "Deleting this report leaves `outputs/supervisor-v1/summary.json` intact — the "
+              "counts survive, the *statement about what they cover* does not. That asymmetry "
+              "is the deletion test in `CLAIM_GRAPH_CONTRACT.md`, and it is why this file "
+              "quotes the register it was rendered under."]
 
     (OUT / "receipt_vs_silent.md").write_text("\n".join(lines) + "\n")
     (OUT / "verdict.json").write_text(json.dumps(

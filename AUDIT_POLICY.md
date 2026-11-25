@@ -62,7 +62,10 @@ cost.
 - History is append-only: `history` returns every ratified version, and the incumbent object is frozen, so
   it cannot be mutated in place.
 - `fingerprint()` returns e.g. `v1:p_catch>=0.90:statuses=4:perspectives=6:constructs=2`, which a delivery
-  can quote so a reader knows the rules the numbers were produced under.
+  can quote so a reader knows the rules the numbers were produced under. `report_supervisor.py` now does:
+  the string is in the render header and again in a provenance table with the block, budgets, runtime and
+  source hashes. The change is presentation-only — the rendered `verdict.json` is byte-identical before and
+  after, so the frozen block still says exactly what it said.
 
 ## 5. Status ledger: a proposal is not a guarantee
 
@@ -97,7 +100,5 @@ Stated plainly so the claim does not outrun the code:
   signed receipts.
 - **No escalation policy.** `escalated` is a valid status and is tested, but no policy version says when a
   proposal must escalate. Adding one is an adjudication, not a code change.
-- **No delivery integration.** `report_supervisor.py` does not yet quote `fingerprint()`. Left alone
-  because that output is frozen; the next block should quote it in the header.
 - **No cross-claim ledger.** The ledger is per claim. A conjunction over ancestor sources still needs one
   proposal per source, and the aggregation rule is not adjudicated.

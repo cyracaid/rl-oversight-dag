@@ -2,6 +2,8 @@
 
 Block 5400–5599, p_catch 0.9, pre-registered in `PREREGISTER_SUPERVISOR.md`.
 
+Policy register: `v1:p_catch>=0.90:statuses=4:perspectives=6:constructs=2` — the adjudicated objects this report is rendered under, frozen in `AUDIT_POLICY.md` v1. A different register would describe a different delivery, so the string is quoted rather than implied.
+
 `declared share` = of the sink errors that survive the budget, the fraction the honest receipt labels `partial` or `untouched`. The rest sit inside sinks whose every upstream source was reviewed — that is `p_catch < 1`, not a reporting bug.
 
 | family | policy | errors/graph | surviving sink errors | declared | false-inspected | declared share | verdict |
@@ -41,3 +43,20 @@ So the three arms differ in nothing but the statement, and the statement is what
 * No escalation policy is preregistered: `judged` is 1.0 on every row, so no refusal inflates fidelity.
 * Nothing here is about calibration. The receipt is about scope, never truth.
 * `modular`/`spike` sinks may be structurally unreachable within the budget; that is exactly what `untouched` reports, and it is a finding about the budget, not about the receipt.
+
+## Provenance
+
+The report is a rendering, not a computation: every number above is read from `summary.json`, which was written once on the block named at the top. What produced it is quoted here so a reader does not have to trust the prose.
+
+| item | value |
+|---|---|
+| policy register | `v1:p_catch>=0.90:statuses=4:perspectives=6:constructs=2` |
+| block / episode offset | 5400–5599 / 20000 |
+| p_catch | 0.9 |
+| budgets | spike 16, modular 50, real 8, ticket 8 |
+| python / numpy | 3.13.5 / 2.4.4 |
+| `dag_role3/environment.py` | `c9844ed5b4cf7f2387db986d4f2cfc372e461c6d6660dd93088af743ba76d9dd` |
+| `dag_role3/supervisor.py` | `d28af44ab459a525ec5102524c24de90c6f15b948d09ba4c2711631f3d201c41` |
+| `run_supervisor_check.py` | `da6c311ef31c2b3efe88f56a136a40547c784230f8236f5d0d45a3d39fffd920` |
+
+Deleting this report leaves `outputs/supervisor-v1/summary.json` intact — the counts survive, the *statement about what they cover* does not. That asymmetry is the deletion test in `CLAIM_GRAPH_CONTRACT.md`, and it is why this file quotes the register it was rendered under.
