@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What a delivery can say about its own coverage</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --line: #283040; --ink: #e6edf3;
+    --dim: #8b949e; --good: #3fb950; --bad: #f85149; --warn: #d29922;
+    --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px 24px 64px; background: var(--bg); color: var(--ink);
+    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.02em; }
+  .sub { color: var(--dim); margin: 0 0 24px; font-size: 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 20px; }
+  button.fam {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer; font-size: 13px;
+  }
+  button.fam[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  .toggle {
+    margin-left: auto; display: flex; gap: 8px; align-items: center;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 7px 12px; font-size: 13px; cursor: pointer; user-select: none;
+  }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .card h2 { font-size: 14px; margin: 0 0 2px; letter-spacing: 0.02em; }
+  .card .tag { color: var(--dim); font-size: 12px; min-height: 34px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0;
+         border-top: 1px solid var(--line); font-size: 13px; }
+  .row span:first-child { color: var(--dim); }
+  .row b { font-variant-numeric: tabular-nums; }
+  .badge { display: inline-block; margin-top: 12px; padding: 3px 9px; border-radius: 999px;
+           font-size: 12px; border: 1px solid; }
+  .g { color: var(--good); border-color: color-mix(in srgb, var(--good) 45%, transparent); }
+  .b { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, transparent); }
+  .w { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+  .n { color: var(--dim); border-color: var(--line); }
+  .absent { color: #4d5566; font-style: italic; }
+  .banner { margin: 18px 0 0; padding: 12px 14px; border-radius: 8px; font-size: 13px;
+            border: 1px solid #5a3d00; background: #2a1f05; color: #e3b341; display: none; }
+  .banner.on { display: block; }
+  .truth { margin: 18px 0 0; padding: 12px 16px; border: 1px solid var(--line);
+           border-radius: 8px; background: #11161d; font-size: 13px; color: var(--dim); }
+  .truth b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  footer { margin-top: 26px; color: var(--dim); font-size: 12px; line-height: 1.7; }
+  code { background: #11161d; padding: 1px 5px; border-radius: 4px; }
+  @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="wrap">
+  <h1>What a delivery can say about its own coverage</h1>
+  <p class="sub">Same review log, same policy, same episodes. Three ways of describing the result.
+     One of them makes a question answerable.</p>
+
+  <div class="bar" id="bar"></div>
+
+  <div class="grid">
+    <div class="card" id="c-silent">
+      <h2>silent</h2>
+      <div class="tag">Reports the review log and stops. No field says what was missed.</div>
+      <div class="rows"></div>
+      <div class="badge n">no claim</div>
+    </div>
+    <div class="card" id="c-overclaim">
+      <h2>overclaim</h2>
+      <div class="tag">Every reviewed sink is reported clean, so nothing is reported missed.</div>
+      <div class="rows"></div>
+      <div class="badge b">wrong</div>
+    </div>
+    <div class="card" id="c-honest">
+      <h2>honest receipt</h2>
+      <div class="tag">Says <code>inspected</code>, <code>partial</code> or <code>untouched</code>
+        per sink, and counts the errors outside full coverage.</div>
+      <div class="rows"></div>
+      <div class="badge g">accurate scope</div>
+    </div>
+  </div>
+
+  <div class="banner" id="banner"></div>
+  <div class="truth" id="truth"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script id="payload" type="application/json">{"families": ["spike", "modular", "real", "ticket"], "cells": {"spike": {"wrong": 193, "honest": {"uncovered": 188, "false_inspected": 5, "share": 0.9740932642487047, "status": "load-bearing"}, "overclaim": {"uncovered": 0, "false_inspected": 193, "share": 0.0}, "silent": {}, "counts": {"inspected": 279, "partial": 2241, "untouched": 1480}, "graphs": 200}, "modular": {"wrong": 1767, "honest": {"uncovered": 1587, "false_inspected": 180, "share": 0.8981324278438031, "status": "weak"}, "overclaim": {"uncovered": 0, "false_inspected": 1767, "share": 0.0}, "silent": {}, "counts": {"inspected": 4269, "partial": 13684, "untouched": 19132}, "graphs": 200}, "real": {"wrong": 90, "honest": {"uncovered": 88, "false_inspected": 2, "share": 0.9777777777777777, "status": "load-bearing"}, "overclaim": {"uncovered": 0, "false_inspected": 90, "share": 0.0}, "silent": {}, "counts": {"inspected": 13, "partial": 656, "untouched": 131}, "graphs": 200}, "ticket": {"wrong": 55, "honest": {"uncovered": 46, "false_inspected": 9, "share": 0.8363636363636363, "status": "weak"}, "overclaim": {"uncovered": 0, "false_inspected": 55, "share": 0.0}, "silent": {}, "counts": {"inspected": 143, "partial": 527, "untouched": 130}, "graphs": 200}}, "p_catch": 0.9, "footer": "Block 5400\u20135599, p_catch 0.9, policy register <code>v1:p_catch>=0.90:statuses=4:perspectives=6:constructs=2</code>. Rendered by <code>make_demo.py</code> from <code>outputs/supervisor-v1/summary.json</code>; the page contains no numbers of its own. Illustrative: the three columns are three statements about the same episodes, not three runs. P1 (receipt changes no action) holds. Hashes: <code>c9844ed5b4cf7f23\u2026</code> environment, <code>d28af44ab459a525\u2026</code> supervisor, <code>da6c311ef31c2b3e\u2026</code> runner. Result file: <code>outputs/supervisor-v1/receipt_vs_silent.md</code>."}</script>
+<script>
+const data = JSON.parse(document.getElementById("payload").textContent);
+const fams = data.families;
+const state = { family: fams[0], removed: false };
+
+const fmtPct = x => (x === null || x === undefined) ? "—" : (100 * x).toFixed(1) + "%";
+const row = (label, value, absent) =>
+  `<div class="row"><span>${label}</span>` +
+  (absent ? `<b class="absent">no field</b>` : `<b>${value}</b>`) + `</div>`;
+
+function paint() {
+  const d = data.cells[state.family];
+
+  const bar = document.getElementById("bar");
+  bar.innerHTML = fams.map(f =>
+    `<button class="fam" data-f="${f}" aria-pressed="${f === state.family}">${f}</button>`
+  ).join("") + `<label class="toggle"><input type="checkbox" id="kill" ${state.removed ? "checked" : ""}>
+    remove the receipt</label>`;
+
+  const silent = document.querySelector("#c-silent .rows");
+  silent.innerHTML =
+    row("surviving sink errors", d.wrong) +
+    row("reported uncovered", "", true) +
+    row("reported inspected but wrong", "", true) +
+    row("declared share", "", true);
+
+  const over = document.querySelector("#c-overclaim .rows");
+  over.innerHTML =
+    row("surviving sink errors", d.wrong) +
+    row("reported uncovered", d.overclaim.uncovered) +
+    row("reported inspected but wrong", d.overclaim.false_inspected) +
+    row("declared share", fmtPct(d.overclaim.share));
+
+  const honest = document.querySelector("#c-honest .rows");
+  honest.innerHTML = state.removed
+    ? row("surviving sink errors", d.wrong) +
+      row("reported uncovered", "", true) +
+      row("reported inspected but wrong", "", true) +
+      row("declared share", "", true)
+    : row("surviving sink errors", d.wrong) +
+      row("reported uncovered", d.honest.uncovered) +
+      row("reported inspected but wrong", d.honest.false_inspected) +
+      row("declared share", fmtPct(d.honest.share));
+
+  const badge = document.querySelector("#c-honest .badge");
+  badge.className = "badge " + (state.removed ? "n" : "g");
+  badge.textContent = state.removed ? "question not askable" : "accurate scope";
+
+  const banner = document.getElementById("banner");
+  banner.classList.toggle("on", state.removed);
+  banner.textContent = state.removed
+    ? "Receipt removed. The counts still exist in the log; the statement about what they cover does not. "
+      + "\u201cHow many of the surviving errors did we not cover?\u201d now has no answer \u2014 not a worse one."
+    : "";
+
+  document.getElementById("truth").innerHTML =
+    `<b>${d.graphs}</b> episodes, <code>${state.family}</code>. ` +
+    `Measured surviving errors: <b>${d.wrong}</b>. ` +
+    `Of those, <b>${d.honest.uncovered}</b> sit outside full coverage and ` +
+    `<b>${d.honest.false_inspected}</b> sit inside sinks whose every upstream source was reviewed ` +
+    `(that is <code>p_catch = ${data.p_catch}</code>, not a reporting bug).`;
+
+  document.getElementById("foot").innerHTML = data.footer;
+
+  bar.querySelectorAll("button.fam").forEach(b =>
+    b.onclick = () => { state.family = b.dataset.f; paint(); });
+  document.getElementById("kill").onchange = e => { state.removed = e.target.checked; paint(); };
+}
+
+paint();
+</script>
+</html>

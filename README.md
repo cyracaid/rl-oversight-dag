@@ -291,6 +291,7 @@ not results; `PLAN.html` is their visual summary.
 | Information accounting — is the review budget an information-allocation problem? | [REPORT](../role3%20improvement/outputs/information-v1/REPORT.md) · [script](../role3%20improvement/analyse_information_budget.py) | — | closed form, no block: two thirds of a review's bits concern a variable it cannot repair |
 | Measurement layer — what review receipts can and cannot answer | [MEASUREMENT_LAYER](triage_bench/MEASUREMENT_LAYER.md) | — | — |
 | The prohibited loop — does forbidding feedback actually matter? | [PREREGISTER](../PREREGISTER_DRIFT.md) · [report](../role3%20improvement/outputs/drift-v1/drift_vs_open.md) | — | load-bearing: the loop costs errors *and* makes the receipt withdraw |
+| Receipt demo — one page, three statements over the same measurement | [demo](../demo/receipt_demo.html) | — | untick the receipt and the coverage question stops having an answer |
 | SciForge export protocol (frozen pre-registration) + mock report | [PROTOCOL](sciforge_review/export/PROTOCOL.md) · [REPORT](sciforge_review/export/REPORT.md) | — | — |
 | Error card — known failure modes, error budget, what is not comparable | [ERROR_CARD](ERROR_CARD.md) | — | — |
 | Open requests to Person 4 / 5 | [TEAM_REQUESTS_P4_P5](TEAM_REQUESTS_P4_P5.md) | — | — |
@@ -367,7 +368,9 @@ BENCHMARK_SPEC.md                    The primary benchmark: frozen suite, splits
 ENTROPY_LIMITS.md                    Why an entropy-class confidence signal cannot ground a guarantee
 AUDIT_POLICY.md                      Frozen register: the four objects only a human may adjudicate, and the evaluation lock
 PREREGISTER_DRIFT.md                 Pre-registration for the closed-loop ablation: does the forbidden feedback hurt?
-role3 improvement/                   Frozen environment (dag_role3, 147 tests, hashed checkpoints, benchmark CSVs)
+demo/receipt_demo.html               One static page: silent / overclaim / honest over the same episodes; the honest column is deletable
+role3 improvement/make_demo.py       Renders that page from outputs/supervisor-v1/summary.json; the page types no numbers of its own
+role3 improvement/                   Frozen environment (dag_role3, 160 tests, hashed checkpoints, benchmark CSVs)
 role2_규리/                          Role 2 measurements: confidence robustness, planning, credit, KAIST nights
 CLAIM_GRAPH_CONTRACT.md              Review-coverage interface to an external case repository (what may be cited)
 claim_graph/                         Read-only layer that turns an external case's claim tables into a coverage receipt
@@ -393,6 +396,7 @@ claim_graph/                         Read-only layer that turns an external case
 | Learned baselines on the other 5 families (3 seeds, same budget) | `cd "role3 improvement" && python3 run_learned_baselines.py --jobs 4` | No |
 | Pair the learned policies against `marginal` (spec §7) | `cd "role3 improvement" && python3 report_learned_baselines.py` | No |
 | Prohibited-loop ablation (confirmatory block 5730–5829, paired open vs closed) | `cd "role3 improvement" && python3 run_drift_check.py && python3 report_drift.py` | No |
+| Receipt demo page (renders from the frozen supervisor block; no rerun) | `cd "role3 improvement" && python3 make_demo.py` | No |
 | Canonical Role 2 contrasts (confidence, planning) | `cd role2_규리 && python3 evaluate_conditions.py --out … && python3 evaluate_planning.py --out …` | No |
 | The paper's four figures + `figures/figure_data.json` | `python3 experiments/make_figures.py` | No |
 | Paper guards (numbers, figures, retired values) | `python3 experiments/test_published_numbers.py && python3 experiments/test_figures.py && python3 experiments/test_retired_numbers.py` | No |
