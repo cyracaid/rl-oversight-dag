@@ -71,6 +71,7 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | exact DP ceiling | 5000–5023 | `outputs/dp-ceiling-fresh/` (rerun; the first run sat on the validation block) |
 | label-free contrastive pilot | train 5024–5119, eval 5120–5159 | `outputs/contrastive-v1/`, `PREREGISTER_CONTRASTIVE.md` |
 | coverage receipt | 5400–5599 | pre-registered receipt / deletion test, `outputs/supervisor-v1/` |
+| order-aware benchmark (v2) | graphs 5160–5183, episodes 5600–5639 | `PREREGISTER_ORDERED_BENCHMARK.md`; reserved 2026-11-25 before any v2 code, spent whether or not v2 ships |
 
 Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in
 the repo", and that sentence is wrong — `dag_role3/training.py` draws `BestValidation` graphs from 60000 onward.
