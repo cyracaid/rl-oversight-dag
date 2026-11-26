@@ -1,0 +1,121 @@
+90000: my rows 54, target rows 54
+90000: 48 mismatched cells out of 810 compared
+  column mean_sink_errors: 6
+    ('ba', 'rewire_order', 'marginal'): mine=49.1790 target=49.0560
+    ('ba', 'rewire_order', 'structural'): mine=67.0210 target=65.3340
+    ('er', 'rewire_order', 'marginal'): mine=33.6270 target=33.3800
+    ('er', 'rewire_order', 'structural'): mine=38.3370 target=38.2120
+    ('modular', 'rewire_order', 'marginal'): mine=18.5640 target=18.5570
+    ('modular', 'rewire_order', 'structural'): mine=26.2290 target=26.4660
+  column gain_vs_confidence: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-19.5290 target=-19.4060
+    ('ba', 'rewire_order', 'structural'): mine=-37.3710 target=-35.6840
+    ('er', 'rewire_order', 'marginal'): mine=-11.8770 target=-11.6300
+    ('er', 'rewire_order', 'structural'): mine=-16.5870 target=-16.4620
+    ('modular', 'rewire_order', 'marginal'): mine=-7.9740 target=-7.9670
+    ('modular', 'rewire_order', 'structural'): mine=-15.6390 target=-15.8760
+  column paired_lo: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-25.3780 target=-25.2028
+    ('ba', 'rewire_order', 'structural'): mine=-45.3422 target=-42.7049
+    ('er', 'rewire_order', 'marginal'): mine=-13.3311 target=-13.0390
+    ('er', 'rewire_order', 'structural'): mine=-18.2571 target=-18.0611
+    ('modular', 'rewire_order', 'marginal'): mine=-8.8943 target=-8.8911
+    ('modular', 'rewire_order', 'structural'): mine=-16.8101 target=-17.0560
+  column paired_hi: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-12.9337 target=-13.0297
+    ('ba', 'rewire_order', 'structural'): mine=-29.4464 target=-28.5968
+    ('er', 'rewire_order', 'marginal'): mine=-10.3870 target=-10.2149
+    ('er', 'rewire_order', 'structural'): mine=-14.9370 target=-14.8509
+    ('modular', 'rewire_order', 'marginal'): mine=-7.1100 target=-7.1119
+    ('modular', 'rewire_order', 'structural'): mine=-14.5419 target=-14.7850
+  column draw_gain_min: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-25.1900 target=-25.3700
+    ('ba', 'rewire_order', 'structural'): mine=-40.6000 target=-38.7400
+    ('er', 'rewire_order', 'marginal'): mine=-12.4000 target=-12.2800
+    ('er', 'rewire_order', 'structural'): mine=-17.1800 target=-16.6600
+    ('modular', 'rewire_order', 'marginal'): mine=-8.6400 target=-8.6700
+    ('modular', 'rewire_order', 'structural'): mine=-16.0600 target=-16.4900
+  column draw_gain_max: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-16.4300 target=-16.1900
+    ('ba', 'rewire_order', 'structural'): mine=-36.4200 target=-32.4600
+    ('er', 'rewire_order', 'marginal'): mine=-11.0200 target=-10.7500
+    ('er', 'rewire_order', 'structural'): mine=-15.9000 target=-16.2000
+    ('modular', 'rewire_order', 'marginal'): mine=-7.3100 target=-7.2800
+    ('modular', 'rewire_order', 'structural'): mine=-14.9200 target=-15.4500
+  column within_graph_sd: 6
+    ('ba', 'rewire_order', 'marginal'): mine=23.4896 target=23.1077
+    ('ba', 'rewire_order', 'structural'): mine=17.8723 target=19.5816
+    ('er', 'rewire_order', 'marginal'): mine=4.7277 target=4.9674
+    ('er', 'rewire_order', 'structural'): mine=3.6963 target=3.7992
+    ('modular', 'rewire_order', 'marginal'): mine=4.3757 target=4.4284
+    ('modular', 'rewire_order', 'structural'): mine=4.0915 target=3.9981
+  column between_graph_sd: 6
+    ('ba', 'rewire_order', 'marginal'): mine=34.8024 target=35.2831
+    ('ba', 'rewire_order', 'structural'): mine=37.9251 target=36.4748
+    ('er', 'rewire_order', 'marginal'): mine=6.8611 target=6.8353
+    ('er', 'rewire_order', 'structural'): mine=6.7442 target=6.4367
+    ('modular', 'rewire_order', 'marginal'): mine=7.0056 target=7.3441
+    ('modular', 'rewire_order', 'structural'): mine=7.7696 target=8.1296
+90000: verdict label agreement 54/54
+90000: primary labels (marginal x sp/mod/ba/er x 3 controls) 11/11
+
+7100: my rows 54, target rows 54
+7100: 48 mismatched cells out of 810 compared
+  column mean_sink_errors: 6
+    ('ba', 'rewire_order', 'marginal'): mine=49.7720 target=47.8660
+    ('ba', 'rewire_order', 'structural'): mine=66.6780 target=66.1180
+    ('er', 'rewire_order', 'marginal'): mine=33.9010 target=33.9000
+    ('er', 'rewire_order', 'structural'): mine=38.3440 target=38.4420
+    ('modular', 'rewire_order', 'marginal'): mine=19.1870 target=19.3460
+    ('modular', 'rewire_order', 'structural'): mine=27.2710 target=27.1690
+  column gain_vs_confidence: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-17.9820 target=-16.0760
+    ('ba', 'rewire_order', 'structural'): mine=-34.8880 target=-34.3280
+    ('er', 'rewire_order', 'marginal'): mine=-11.9410 target=-11.9400
+    ('er', 'rewire_order', 'structural'): mine=-16.3840 target=-16.4820
+    ('modular', 'rewire_order', 'marginal'): mine=-8.8070 target=-8.9660
+    ('modular', 'rewire_order', 'structural'): mine=-16.8910 target=-16.7890
+  column paired_lo: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-24.7958 target=-22.4771
+    ('ba', 'rewire_order', 'structural'): mine=-42.7970 target=-42.2014
+    ('er', 'rewire_order', 'marginal'): mine=-13.5682 target=-13.5861
+    ('er', 'rewire_order', 'structural'): mine=-18.3031 target=-18.3103
+    ('modular', 'rewire_order', 'marginal'): mine=-9.9411 target=-10.1214
+    ('modular', 'rewire_order', 'structural'): mine=-18.3401 target=-18.2041
+  column paired_hi: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-10.2249 target=-8.8949
+    ('ba', 'rewire_order', 'structural'): mine=-26.0898 target=-25.8018
+    ('er', 'rewire_order', 'marginal'): mine=-10.5070 target=-10.4989
+    ('er', 'rewire_order', 'structural'): mine=-14.6998 target=-14.8639
+    ('modular', 'rewire_order', 'marginal'): mine=-7.7038 target=-7.8756
+    ('modular', 'rewire_order', 'structural'): mine=-15.4929 target=-15.4038
+  column draw_gain_min: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-21.8700 target=-19.4100
+    ('ba', 'rewire_order', 'structural'): mine=-38.2200 target=-39.6500
+    ('er', 'rewire_order', 'marginal'): mine=-12.9400 target=-12.8400
+    ('er', 'rewire_order', 'structural'): mine=-17.0700 target=-16.9200
+    ('modular', 'rewire_order', 'marginal'): mine=-9.8200 target=-9.6800
+    ('modular', 'rewire_order', 'structural'): mine=-17.5200 target=-17.5600
+  column draw_gain_max: 6
+    ('ba', 'rewire_order', 'marginal'): mine=-14.4300 target=-12.0600
+    ('ba', 'rewire_order', 'structural'): mine=-30.9400 target=-30.2300
+    ('er', 'rewire_order', 'marginal'): mine=-11.5800 target=-11.0300
+    ('er', 'rewire_order', 'structural'): mine=-15.7900 target=-15.8600
+    ('modular', 'rewire_order', 'marginal'): mine=-7.8800 target=-8.4900
+    ('modular', 'rewire_order', 'structural'): mine=-16.2900 target=-16.2000
+  column within_graph_sd: 6
+    ('ba', 'rewire_order', 'marginal'): mine=25.5252 target=25.4704
+    ('ba', 'rewire_order', 'structural'): mine=20.9630 target=21.8659
+    ('er', 'rewire_order', 'marginal'): mine=5.0979 target=4.7073
+    ('er', 'rewire_order', 'structural'): mine=3.8466 target=3.7094
+    ('modular', 'rewire_order', 'marginal'): mine=5.0445 target=4.8593
+    ('modular', 'rewire_order', 'structural'): mine=4.2377 target=4.3187
+  column between_graph_sd: 6
+    ('ba', 'rewire_order', 'marginal'): mine=32.7573 target=32.1416
+    ('ba', 'rewire_order', 'structural'): mine=35.6386 target=34.9479
+    ('er', 'rewire_order', 'marginal'): mine=6.9973 target=6.9878
+    ('er', 'rewire_order', 'structural'): mine=6.9264 target=6.7089
+    ('modular', 'rewire_order', 'marginal'): mine=7.3493 target=7.3147
+    ('modular', 'rewire_order', 'structural'): mine=8.6819 target=8.5255
+7100: verdict label agreement 54/54
+7100: primary labels (marginal x sp/mod/ba/er x 3 controls) 11/11

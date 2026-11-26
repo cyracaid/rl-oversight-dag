@@ -1,0 +1,4 @@
+intact==benchmark_role3: compared 1500 rows, mismatches 0
+flatten==controls.csv: compared 1500 rows, mismatches 0
+rewire_index:0==controls.csv[rewire]: compared 1500 rows, mismatches 0
+GATES PASS

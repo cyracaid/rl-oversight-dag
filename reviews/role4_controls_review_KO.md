@@ -94,9 +94,25 @@
 
 ### 6.1 v2 클린룸
 
-`run_controls_v2.py`를 읽지 않은 별도 구현이 진행 중입니다(README의 v2 절과 `dag_role3`만 보고 작성). 완료되면
-게이트 두 개(90000 블록: `intact` == 동결 벤치마크, `flatten`/`rewire_index:0` == v1 `controls.csv`)와 요약 셀
-단위 비교 결과를 `reviews/`에 붙입니다. 그때까지 v2는 **단일 구현**으로 표기합니다.
+`run_controls_v2.py`를 읽지 않은 별도 구현을 돌렸습니다(README의 v2 절과 `dag_role3`만 사용, 대조 요약은
+양쪽 블록 계산이 끝난 뒤에만 열람). 결과: `reviews/role4_controls_v2_cleanroom.md`, 코드/로그:
+`reviews/role4_independent_v2/`.
+
+| 항목 | 90000 | 7100 |
+|---|---|---|
+| `intact` == 동결 벤치마크 (1500행, 오류+행동) | 0 불일치 | — |
+| `flatten` / `rewire_index:0` == v1 `controls.csv` (각 1500행) | 0 불일치 | — |
+| `rewire_order` 밖 요약 셀 | 675/675 동일 | 675/675 동일 |
+| 판정 라벨 | 54/54 | 54/54 |
+| 주 표 셀(11개) | **11/11** | **11/11** |
+
+즉 v2의 **결론**은 사양만으로 재현됩니다. 다만 `rewire_order` 9행 중 6행(`marginal`/`structural`, modular·BA·ER)은
+4자리에서 어긋납니다(최대 1.7 오류, 이득의 4.5 %). 원인은 규칙이 아니라 **미지정 세부**입니다: 후보 풀의 순서와
+feasible 노드 tie-break를 README가 고정하지 않았습니다. 정렬 풀·비정렬 부모·유도 sink·rejection 순서를 모두
+시험했고 전부 더 나빴습니다.
+
+요청: `README.md`에 그 두 줄(풀 순서, tie-break)을 적어 주십시오. 코드는 그대로 두어도 됩니다. 그때까지
+`rewire_order` 수치는 4자리로 인용하지 말고 부호와 라벨만 쓰십시오.
 
 ### 6.2 차수 프로파일 vs 간선 — 13000–13099 블록, 사전등록
 

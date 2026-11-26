@@ -224,3 +224,11 @@ P5's review is in `role4규리피드백.md`. These notes scope the write-ups; th
 - **ER does not replicate.** Retention after `rewire_index` on that third block: BA 79 %, **ER 1 %**
   (+0.02 [−1.01, +1.02]), against 31 % / 32 % on 90000–90099 and 7100–7199. BA survives on all three blocks;
   ER's `survives` label is block-specific and should not be quoted as a family property.
+- **v2 is no longer single-implementation (P5 clean room, 2026-11-26).** An implementation written from
+  this README alone, without reading `run_controls_v2.py`, reproduces `intact`, `flatten` and
+  `rewire_index:0` row by row (1500 rows each, errors and actions), every summary cell outside
+  `rewire_order` (675/675 per block), all 54 verdict labels and 11/11 primary labels on both blocks.
+  Six of the nine `rewire_order` rows differ by up to 1.7 errors (≤ 4.5 % of the gain) because the
+  random-order detail — the order of the candidate pool and the tie-break among feasible nodes — is not
+  specified above. Either state that detail here, or report the `rewire_order` cells by sign and label
+  only. Report: `reviews/role4_controls_v2_cleanroom.md`.
