@@ -364,6 +364,7 @@ experiments/                    (simulation & experiments)
 
 ```
 CROSS_IMPLEMENTATION_VALIDATION.md   Which line is canonical, what may not be compared, reproduction receipts
+REPRO_R1.md                          Second-person receipt: exact commands, expected sha256, what counts as R1
 BENCHMARK_SPEC.md                    The primary benchmark: frozen suite, splits, baselines, acceptance rules
 ENTROPY_LIMITS.md                    Why an entropy-class confidence signal cannot ground a guarantee
 AUDIT_POLICY.md                      Frozen register: the four objects only a human may adjudicate, and the evaluation lock
