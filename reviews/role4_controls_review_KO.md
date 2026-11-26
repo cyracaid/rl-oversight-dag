@@ -1,0 +1,67 @@
+# role 4 구조 대조 — P5 검증 결과와 수정 요청
+
+검토일 2026-11-27 · 대상 `p4/role4-controls` (12 commits) · 병합: `main`에 `--no-ff`로 반영
+
+## 1. 검증 결과
+
+| 검증 | 범위 | 결과 |
+|---|---|---|
+| `reproduce.py --full --confirm` | v1 3표 + diagnostics + v2 + 확인 블록, 8개 파일 | **바이트 동일 8/8** (v2 825 s, 확인 1074 s) |
+| 확인 블록 앵커 | 7100–7199, `intact` 1,500행 (오류 수 + 검토 순서) | **불일치 0** |
+| 클린룸 재구현 | v1 전체 4,500행 + 요약 45칸 + 라벨 20개 + worst-of-n 36 + diagnostics | **불일치 0** |
+| 병합 | `merge --no-ff`, 저장소 가드 32 + `role3 improvement` 160/27 | 통과 |
+
+클린룸은 `run_controls.py`를 한 번도 보지 않은 세션이 `README`(v1 부분)만으로 다시 쓴 것입니다
+(`reviews/role4_independent/`, 578행, 223 s). 즉 **숫자는 문서화된 규칙에서 재현됩니다.** 이건
+`reproduce.py`가 보여주지 못하던 부분입니다(그것은 "같은 코드 = 같은 바이트"만 보장).
+
+단, 세 가지는 검증 범위 밖입니다.
+
+1. **환경**: 양쪽 모두 `dag_role3`를 import. 환경 자체의 버그는 못 잡습니다.
+2. **구간(CI)**: 클린룸은 `run_benchmark.interval`을 읽지 못하게 했고, 동결 요약표에서 절차를 역산해
+   모든 경계를 1e-9 이하로 맞췄습니다. 점추정은 독립, 구간은 보정, 라벨은 구간 부호를 읽습니다.
+3. **v2는 클린룸 미검증**: `rewire_order`, 10 draws, 3단 판정, 20 % 마진은 role 4 코드 단독입니다.
+
+## 2. Q1–Q5 답변 (확정)
+
+| 질문 | 답 |
+|---|---|
+| Q1 재배선 방식 | 동의. 단 이 대조가 재는 것은 "정책이 틀린 지도에 얼마나 민감한가"이며 "그래프가 필수인가"가 아님을 README에 한 줄 명시. |
+| Q2 부모 후보 풀 | v1(index 제한) 허용. 단 그 혼입을 본문에 적을 것 — 아래 수정 1. |
+| Q3 v2 사전등록·20 % | 수용. v1 라벨 유지 → v2 동결 → 독립 확인 블록 순서가 맞음. 20 %는 "블록별 `intact` 평균 대비, 이 실험의 판정 관례"로 명시. |
+| Q4 `inconclusive` | 동결 라벨 유지. 대신 CI 전체가 `−margin` 아래인 셀은 CSV에도 방향을 병기 — 수정 5. |
+| Q5 시드 원장 | 확인 완료. 그래프 7100–7199 / episode 27100–27199를 `BENCHMARK_SPEC.md` §3과 세 보고서 원장에 등록했음(커밋 `605e038`). `COURSE_FINAL_REPORT.md` §9의 "Fresh: 5600 and above"는 구버전이므로 인용하지 말 것. |
+
+## 3. PR 전 수정 요청
+
+1. **BA/ER 문장을 관측 범위로 좁혀 주세요.** "who the hubs are"는 ER에서 성립하지 않습니다(ER에는 허브가
+   없습니다). 근거: `_orient_graph`는 모든 간선을 낮은 index → 높은 index로 정렬해 방향을 정하므로
+   out-degree가 index의 함수입니다. Spearman(index, out-degree)는 원본에서 ER −0.78 / BA −0.74 /
+   modular −0.07이고, `rewire_index` 후 −0.78 / −0.84 / −0.73입니다. 즉 `rewire_index`는 "같은 크기의
+   틀린 지도"가 아니라 **index→차수 단조 프로파일을 그대로 복사**합니다. 따라서
+   - BA/ER의 `survives`는 "**차수 프로파일**이 남았다"이지 "간선이 남았다"가 아닙니다;
+   - modular의 −7.19는 "이득 상실"이 아니라 **원래 없던 프로파일이 주입된 결과**입니다;
+   - 동결 표에서 `hub`는 BA/ER에서 confidence보다 10.8 / 16.5개 더 나쁘므로 "차수만으로 충분"도 아닙니다.
+   정확한 문장: "차수 프로파일 × 공개 confidence의 상호작용". (근거를 `results/controls.md` §2에 각주로)
+2. `EXPLAINER_KO.md`의 "한 요인만 바꿨다" → "이 결과는 허브(정확히는 index에 묶인 차수 분포) 정보가
+   중요하다는 **해석**과 일치합니다". 그리고 `rewire_order`는 허브 순위와 함께 경로·sink 도달성도 바꾼다는
+   점을 한 줄.
+3. 재현 명령에 `--full --confirm` 추가(`EXPLAINER_KO.md:6`, `QUESTIONS_FOR_P5.md:4`), 의존성은
+   `numpy` + `networkx` 둘 다로.
+4. `role4_controls/.gitattributes` 추가: `results/**/*.csv text eol=lf`. (Windows `core.autocrlf=true`에서
+   현재 바이트 비교가 실패합니다. 내용은 같고 줄바꿈만 다릅니다.)
+5. `*_summary.csv`에 `direction` 열 추가: `inconclusive`이면서 CI 전체가 `−margin` 아래면
+   `worse-than-confidence`. 표에만 적지 말고 CSV에 넣어 주세요(집계 스크립트가 읽을 수 있게).
+6. `rewire_index`에서 모듈 상수 `rc.REWIRE_SEED_OFFSET`를 임시로 바꾸는 대신 seed를 인자로 넘겨 주세요.
+   지금은 프로세스 풀에서 우연히 동작하는 구조입니다.
+7. **확인 블록에 동결 앵커가 없다는 사실을 README에 적어 주세요.** `reproduce.py` 로그가 직접
+   "no frozen benchmark or v1 rows exist for it"이라고 출력합니다. 우리 쪽에서 앵커를 만들어 두었으니
+   (`reviews/role4_controls_recheck.py`, 1,500행 일치), 인용하거나 직접 앵커를 추가하세요.
+
+## 4. 선택 사항 (PR 이후)
+
+- 그래프 5900–5999에 **전파 없는 `confidence × in-degree` 점수 기준선**을 사전등록하면 "차수 프로파일 vs
+  간선"을 분리할 수 있습니다. 이것이 BA/ER의 잔여 이득을 가져가면 "차수" 쪽으로 결론이 굳습니다.
+  7100은 이미 소진입니다.
+- v2(`rewire_order`, 10 draws, 3단 판정)도 클린룸 재구현 대상으로 남겨 두면 좋겠습니다. 현재 유일하게
+  단일 구현에만 의존하는 표입니다.
