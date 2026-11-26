@@ -1,0 +1,9 @@
+diagnostic,family,condition,policy,value
+hub_rank_corr,spike,rewire_v1,,0.4048
+hub_rank_corr,modular,rewire_v1,,0.0530
+hub_rank_corr,ba,rewire_v1,,0.6298
+hub_rank_corr,er,rewire_v1,,0.6213
+hub_rank_corr,real,rewire_v1,,0.3244
+sink_review_share,spike,flatten,confidence,0.2362
+sink_review_share,spike,flatten,structural,0.1556
+sink_review_share,spike,flatten,marginal,0.3088
