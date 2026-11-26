@@ -77,6 +77,14 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | order benchmark v2.1 | graphs 5184–5195, episodes 5640–5699 (60, q=1.0) | `PREREGISTER_ORDERED_BENCHMARK_V21.md`; H1 holds, **H3 contradicted**, `outputs/ordered-gate-v21/CORRECTION.md` |
 | order benchmark v3 | none consumed | **not built**: `k ≥ 2` transpositions are solved exactly by rank-vs-index, `role3 improvement/outputs/ordered-v3-design/DESIGN.md` |
 | information accounting | none consumed | closed form, no sampling: `role3 improvement/analyse_information_budget.py`, `outputs/information-v1/` |
+| structural controls (role 4) | graphs 7100–7199, episodes 27100–27199 | rules frozen after reading v1 on 90000–90099, then rerun once on this block: `role4_controls/results/v2_confirm/`, 11/11 primary labels replicated |
+
+Environment fact behind that row (2026-11-26): `dag_role3/graphs.py::_orient_graph` orients every undirected
+edge from the lower to the higher node index, so for BA and ER the out-degree is a function of the index
+(Spearman(index, out-degree) ≈ −0.74 and −0.78 before any control). Any "structure does the work" claim on
+those two families must therefore say *which* profile it is testing — the degree-vs-index profile, not the
+exact edge set. Role 4's `rewire_index` keeps every node's parent count and draws parents from lower indices,
+so it preserves that profile; its `rewire_order` does not.
 
 Note on 60000 (2026-11-24): `role3 improvement/PREREGISTER_DP.md` calls 60000–60023 "never used by anything in
 the repo", and that sentence is wrong — `dag_role3/training.py` draws `BestValidation` graphs from 60000 onward.

@@ -178,8 +178,11 @@ is in observable features"), not a deployment result.
 ## 9. Reproduction, and the honest gap
 
 Every number was produced by an AI agent from committed scripts. Reruns are byte-identical, every report is
-regenerated from its `episodes.csv`, and the reports are hash-pinned in their manifests. **No teammate has rerun
-any of it**, which is why the first publication gate stays open regardless of how the numbers look.
+regenerated from its `episodes.csv`, and the reports are hash-pinned in their manifests. **One teammate has now
+re-run part of it**: Person 4 re-ran the frozen policy pass on the frozen benchmark graphs and matched all 1,500
+rows — errors *and* action sequences — of `outputs/v3/benchmark_role3.csv`, and Person 4's control scripts were then
+re-run again from a second checkout with byte-identical output. No teammate has re-run training or any learned
+policy, which is why the first publication gate stays open regardless of how the numbers look.
 
 Seed ledger — a block is spent once it has chosen a method or a threshold:
 
@@ -200,11 +203,16 @@ Seed ledger — a block is spent once it has chosen a method or a threshold:
 | 5200–5399 | depth-two planning (`planning-v2`) |
 | 5400–5599 | coverage receipt (`supervisor-v1`) |
 | 5000–5023 | exact DP ceiling (`dp-ceiling-fresh`) |
+| 5160–5183 · episodes 5600–5639 | order-aware benchmark v2 — **readings void**, see `outputs/ordered-gate-v2/CORRECTION.md` |
+| 5184–5195 · episodes 5640–5699 | order benchmark v2.1 — H1 holds, **H3 contradicted** |
+| graphs 5600–5699 · 5730–5829 | prohibited-loop ablation: confirmatory on 5730–5829, replication on 5600–5699 (already spent as episode seeds) |
+| 7100–7199 · episodes 27100–27199 | structural controls (role 4): rules frozen after reading v1, then rerun once on this block; 11/11 primary labels replicated |
 | 70000–70099 | calibration only (thresholds fitted here, never reported) |
 | 90000–90099 | the reported benchmark table |
 | 91000–94199 | assess / feedback / residual / planning |
 
-Fresh: 5600 and above. Every block listed above is spent, including 5400–5599.
+Fresh: graph blocks **5830 and above**, excluding the blocks listed above (7100–7199, 60000–60023, 70000–70099,
+90000–90099, 91000–94199). Episode seeds 5600–5699 and 27100–27199 are spent as well. Everything else is free.
 
 ## 10. Gates, unchanged by anything above
 
