@@ -112,12 +112,14 @@ directory-name-with-a-space dependency entirely.
 - Role 4 (baselines/controls) and Role 5 have committed no code. The control set that exists is ours, not theirs.
 - Tests are run by hand as a habit, but `.github/workflows/tests.yml` now runs the same commands on push and
   pull request: `role3 improvement` 160 pass / 27 subtests, `role2_규리` 4 pass / 6 subtests, plus the retired
-  number guard (checked locally 2026-11-26). The workflow itself has not yet reported on GitHub, so quote it as
-  "added, unrun", not as a passing build. The role3 suite requires Python ≥ 3.10 and `torch`; without torch,
-  three modules (`test_contrastive`, `test_models`, `test_v3`) fail at collection rather than skipping. It also
-  only collects from inside its own directory — from the repo root it stops with 10 `ImportError`s because the
-  tests import loose top-level modules. `REPRO_R1.md` records the exact versions and commands a second person
-  should reproduce.
+  number guard (checked locally 2026-11-26). Run #1 on `59852c4` is green
+  ([run 45778539596](https://github.com/cyracaid/rl-oversight-dag/actions/runs/45778539596)): install, role3,
+  role2 and the guard each reported success in 71 s. The job log needs authentication to download, so the hosted
+  pass proves the suites exit 0; the pass counts above are the local ones. The role3 suite requires Python ≥ 3.10
+  and `torch`; without torch, three modules (`test_contrastive`, `test_models`, `test_v3`) fail at collection
+  rather than skipping. It also only collects from inside its own directory — from the repo root it stops with
+  ten `ImportError`s because the tests import loose top-level modules. `REPRO_R1.md` records the exact versions
+  and commands a second person should reproduce.
 - The DP ceiling is the exact optimum of the **mean-field belief model the rule optimises**, not of the
   POMDP. It also uses a node-local miss-update instead of the environment's inherited-risk one (identical
   on source nodes, declared in `PREREGISTER_DP.md`). So "0.030 short of optimal" means short of optimal
