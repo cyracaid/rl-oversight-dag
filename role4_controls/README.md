@@ -9,6 +9,7 @@ not because any ordering with a good error prior would do as well.
 | File | What |
 |---|---|
 | `reproduce.py` | **teammate reproduction**: reruns everything into a temp folder, compares byte-for-byte, prints PASS/FAIL |
+| `check_rewire_order_spec.py` | reimplements the README's exact `rewire_order` procedure and checks it against the code (6000/6000 graphs) |
 | `run_controls.py` / `results/controls*.csv`, `controls.md` | v1 (the request as written) |
 | `diagnostics.py` / `results/diagnostics.csv` | post-hoc diagnostics quoted in `controls.md` §3 |
 | `run_controls_v2.py` / `results/v2/` | v2 amendment (hub-breaking rewire, 10 draws, 3-level verdict) |
@@ -229,6 +230,42 @@ P5's review is in `role4규리피드백.md`. These notes scope the write-ups; th
   `rewire_index:0` row by row (1500 rows each, errors and actions), every summary cell outside
   `rewire_order` (675/675 per block), all 54 verdict labels and 11/11 primary labels on both blocks.
   Six of the nine `rewire_order` rows differ by up to 1.7 errors (≤ 4.5 % of the gain) because the
-  random-order detail — the order of the candidate pool and the tie-break among feasible nodes — is not
-  specified above. Either state that detail here, or report the `rewire_order` cells by sign and label
-  only. Report: `reviews/role4_controls_v2_cleanroom.md`.
+  random-order detail — the order of the candidate pool and the tie-break among feasible nodes — was not
+  specified above. It is now: see **"Exact `rewire_order` procedure"** below. Report:
+  `reviews/role4_controls_v2_cleanroom.md`.
+
+---
+
+## Exact `rewire_order` procedure (documents the existing code; no rule, code or result change)
+
+Written for P5's clean-room request (`reviews/role4_controls_v2_cleanroom.md` §D.3). This is what
+`run_controls_v2.rewire_order(graph, graph_seed, k)` does, step by step, so the committed `rewire_order`
+numbers can be reproduced from text alone. `check_rewire_order_spec.py` reimplements this section without
+calling `rewire_order` and compares the result graph by graph: **6000/6000 graphs identical** (modular, BA, ER ×
+blocks 90000 and 7100 × 100 graphs × 10 draws). Both misreadings named at the end of this section differ on
+all 6000. The check was written by the same author as the code, so it shows the text is complete, not that
+an outsider reads it the same way; that is the clean room's job.
+
+1. **One random stream.** `rng = random.Random(5_050_000 + 100_000·k + graph_seed)` — Python's standard
+   `random` (Mersenne Twister), not numpy. Both phases below draw from this single stream, phase A first.
+2. **Inputs kept from the true graph.** `need[v] = len(graph.parents[v])` for every node `v`; node types, rates,
+   names and the **sink set** (`sink_override = graph.sinks`) are copied unchanged.
+3. **Phase A — the random order.** Start with `order = []` and every node unplaced. Repeat until every node is
+   placed:
+   - `pool` = the unplaced nodes `v` with `need[v] <= len(order)`, **sorted by node index, ascending**;
+   - `v = rng.choice(pool)` — one call per step, uniform over that sorted list; there is no other tie-break;
+   - append `v` to `order`.
+   (`pool` is never empty: nodes 0…t all satisfy `need ≤ t` in the original index-oriented graph.)
+4. **Phase B — the parents.** Go through the nodes **in placement order** (`order[0]`, `order[1]`, …), not
+   in index order. For node `v` at position `i`:
+   - if `need[v] == 0`: no parents and **no random draw**;
+   - otherwise `chosen = rng.sample(order[:i], need[v])`, where the population `order[:i]` is the list of
+     earlier-placed nodes **in placement order (not sorted)**; the stored parent tuple is
+     `tuple(sorted(chosen))`.
+5. **Graph.** `DAG(parents, types, rates, family, names, sink_override=<true sinks>, lam, spike_probability)`.
+   It is acyclic by construction (every parent was placed earlier); `DAG()` would raise otherwise.
+
+The two details a reader cannot guess are the **sorted pool in phase A** and the **unsorted, placement-order
+population in phase B**. Sorting the phase-B population by index, or walking phase B in index order, gives
+different graphs (and different numbers) from the same seed.
+
