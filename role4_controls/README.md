@@ -14,7 +14,8 @@ not because any ordering with a good error prior would do as well.
 | `run_controls_v2.py` / `results/v2/` | v2 amendment (hub-breaking rewire, 10 draws, 3-level verdict) |
 | `results/v2_confirm/` | v2 rerun on fresh block 7100–7199; `confirm.md` — 11/11 primary labels replicated |
 | `EXPLAINER_KO.md` | 결과 설명서 (Korean FAQ for the team and the Q&A) |
-| `QUESTIONS_FOR_P5.md` | open questions for P5 before merging |
+| `QUESTIONS_FOR_P5.md` | questions for P5 (answered in `role4규리피드백.md`) |
+| `role4규리피드백.md` | P5 review of this folder, with answers to Q1–Q5 |
 
 ```bash
 python3 reproduce.py                  # v1 + diagnostics, ~6 min
@@ -182,3 +183,25 @@ Endpoint, read once: the label of each primary cell (`marginal` on spike, modula
 A cell is **replicated** if the label is the same; otherwise it is reported as **not replicated** with
 both intervals. No rule, margin or code changes after this run. The block is spent whatever the outcome.
 There is no row-by-row acceptance check on this block (no frozen reference exists for it).
+
+---
+
+## Reading notes after P5 review (no rule, code or result change)
+
+P5's review is in `role4규리피드백.md`. These notes scope the write-ups; the frozen sections above are unchanged.
+
+- **v1 candidate pool.** Parents are drawn from lower-index nodes on modular/BA/ER because "all other nodes", as the
+  request words it, can create cycles, which the frozen `DAG()` rejects. `rewire_order` (v2) is an *additional*
+  control that draws parents in a random order, not a replacement for v1.
+- **Block roles.** 90000–90099 is the **v2 design block** (v2's rules were chosen after reading v1 on it);
+  7100–7199 is the **confirmation block**, run after the rules were frozen (`c07aedc`).
+- **Margin.** 20 % is this experiment's decision threshold, applied to each block's own intact mean gain.
+- **Scope of the rewire reading.** With the index rule, BA keeps about 73 % of its intact gain and ER about 31 %
+  (block 7100: 84 % and 32 %), so the two are reported separately. `rewire_order` changes paths and sink reachability
+  as well as hub rank; the index-vs-order contrast is *consistent with* hub information mattering, not a test of hub
+  rank alone.
+- **`inconclusive` cells.** Every one of them has its CI entirely below −margin; the tables mark them
+  "worse than confidence" next to the frozen label.
+- **Line endings.** `.gitattributes` pins result files to LF so the byte-for-byte check passes on Windows with
+  `core.autocrlf=true`. A Windows clone made before this commit refreshes its result files once with
+  `git rm -r -q --cached role4_controls/results` then `git checkout HEAD -- role4_controls/results`.

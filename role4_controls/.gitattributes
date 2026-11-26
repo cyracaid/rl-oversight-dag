@@ -1,0 +1,6 @@
+# Keep committed results byte-identical on every OS, so reproduce.py's byte-for-byte check also passes
+# on Windows with core.autocrlf=true (P5 review: CRLF checkout vs LF regenerated file).
+results/**/*.csv text eol=lf
+results/**/*.md text eol=lf
+*.py text eol=lf
+*.md text eol=lf

@@ -1,7 +1,12 @@
-# Person 4 → Person 5 (Cyra): did I do what you asked?
+# Person 4 → Person 5: did I do what you asked?
+
+> **Answered** by P5 in [`role4규리피드백.md`](role4규리피드백.md) (Q1 agree, Q2 acceptable, Q3 acceptable, Q4 keep
+> the frozen label and add "worse than confidence", Q5 record the block in the ledger). The wording and table
+> fixes it asked for are applied in this folder.
 
 Branch `p4/role4-controls`. Answers `TEAM_REQUESTS_P4_P5.md` → Person 4. Everything below can be rerun with
-`python3 role4_controls/reproduce.py --full --jobs 4`; it compares every output byte-for-byte with the committed file.
+`pip install numpy networkx`, then `python3 role4_controls/reproduce.py --full --confirm --jobs 4`; it compares every
+output, including the fresh-block confirmation, byte-for-byte with the committed file.
 
 ## What is in the branch
 
@@ -18,21 +23,25 @@ Branch `p4/role4-controls`. Answers `TEAM_REQUESTS_P4_P5.md` → Person 4. Every
 
 Acceptance checks that passed: `intact` equals `outputs/v3/benchmark_role3.csv` on all 1,500 shared rows
 (errors **and** action sequences); v2 `flatten` and rewire draw 0 equal v1 row by row; v1 was rerun on my own
-machine (macOS, Python 3.13, numpy 2.5.5, networkx 3.7) with a clean `git status`.
+machine (macOS, Python 3.13, numpy 2.5.5, networkx 3.7) with a clean `git status`; later the full
+`reproduce.py --full --confirm` passed on the same machine (all 8 files identical, PR #7).
 
 ## Headline (`marginal` vs `confidence`, paired over 100 graphs, mean [95 % CI], v2)
 
 | family | intact | flatten | rewire_index (10 draws) | rewire_order (hub-breaking, 10 draws) |
 |---|---|---|---|---|
-| spike | +0.37 [+0.20, +0.56] | +0.09 [+0.03, +0.15] survives | −0.97 [−1.18, −0.76] | — |
-| modular | +1.81 [+1.10, +2.56] | +0.01 [−0.10, +0.13] removed | −7.19 [−8.15, −6.24] | −7.97 [−8.89, −7.11] |
-| BA | +9.52 [+4.25, +15.99] | −0.58 [−0.77, −0.38] removed | **+6.99 [+1.74, +13.42] survives** | −19.41 [−25.20, −13.03] |
-| ER | +4.99 [+3.52, +6.61] | −0.35 [−0.48, −0.23] removed | **+1.54 [+0.40, +2.86] survives** | −11.63 [−13.04, −10.21] |
+| spike | +0.37 [+0.20, +0.56] | +0.09 [+0.03, +0.15] survives | −0.97 [−1.18, −0.76] inconclusive · worse than confidence | — |
+| modular | +1.81 [+1.10, +2.56] | +0.01 [−0.10, +0.13] removed | −7.19 [−8.15, −6.24] inconclusive · worse than confidence | −7.97 [−8.89, −7.11] inconclusive · worse than confidence |
+| BA | +9.52 [+4.25, +15.99] | −0.58 [−0.77, −0.38] removed | **+6.99 [+1.74, +13.42] survives** (≈73 % of intact) | −19.41 [−25.20, −13.03] inconclusive · worse than confidence |
+| ER | +4.99 [+3.52, +6.61] | −0.35 [−0.48, −0.23] removed | **+1.54 [+0.40, +2.86] survives** (≈31 % of intact) | −11.63 [−13.04, −10.21] inconclusive · worse than confidence |
 | real | +0.03 [+0.00, +0.07] | no intact advantage | no intact advantage | — |
 
-My reading: the gain needs propagation (flatten) and the true structure (a wrong map hurts). On BA and ER the part
-of the structure that matters is *who the hubs are*: a wrong map that keeps hub positions keeps most of the gain; one
-that breaks them reverses it. The flip side is a limit: with a wrong graph, `marginal` is worse than ignoring the graph.
+Reading, scoped to what was observed: removing propagation shrinks the gain to within ±20 % of the intact gain on
+modular, BA and ER (a small gain remains on spike). A wrong map makes `marginal` worse than confidence on spike and
+modular. A wrong map that keeps hub positions keeps about 73 % of the gain on BA and about 31 % on ER; one that breaks
+hub positions reverses it on both. `rewire_order` also changes paths and sink reachability, so this is consistent
+with hub information mattering rather than a test of hub rank alone. Limit: with a wrong graph, `marginal` is worse
+than ignoring the graph. Block 90000–90099 is the v2 design block; 7100–7199 the confirmation block.
 
 ## Questions — please answer each with yes / no / what instead
 
