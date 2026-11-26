@@ -78,6 +78,7 @@ Test graphs are generated from the family generator; episodes are sampled from t
 | order benchmark v3 | none consumed | **not built**: `k ≥ 2` transpositions are solved exactly by rank-vs-index, `role3 improvement/outputs/ordered-v3-design/DESIGN.md` |
 | information accounting | none consumed | closed form, no sampling: `role3 improvement/analyse_information_budget.py`, `outputs/information-v1/` |
 | structural controls (role 4) | graphs 7100–7199, episodes 27100–27199 | rules frozen after reading v1 on 90000–90099, then rerun once on this block: `role4_controls/results/v2_confirm/`, 11/11 primary labels replicated |
+| degree-only baseline | graphs 13000–13099, episodes 33000–33099 | `role4_controls/PREREG_DEGREE_BASELINE.md`, written before the first episode: `confidence × in-degree` with no propagation, three-exponent grid, decides whether the post-rewire residual is a degree profile or the edges |
 
 Environment fact behind that row (2026-11-26): `dag_role3/graphs.py::_orient_graph` orients every undirected
 edge from the lower to the higher node index, so for BA and ER the out-degree is a function of the index
