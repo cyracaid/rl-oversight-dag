@@ -1,0 +1,47 @@
+name: tests
+
+# The suites used to be run by hand; a claim of "160 passed" was only as good as the
+# last person's memory. This runs the same commands REPRO_R1.md tells a second person
+# to run, so a red check replaces "it worked on my machine".
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          # pyproject.toml declares >=3.10; 3.14 is the version the clean room used,
+          # so it is the one this file pins. Lower versions are untested, not forbidden.
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          # CPU wheels: the suite never touches a GPU, and this keeps the job short.
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -e "role3 improvement" scipy scikit-learn "pytest>=9,<10"
+
+      # Both suites must run from inside their own directory: several tests import
+      # loose top-level modules (belief_decomposition, report_value, make_demo), which
+      # only resolve when that directory is the working directory. From the repo root
+      # the role3 suite stops at collection with 10 ImportErrors. That is a known
+      # property of the layout, not a flake -- do not "fix" it by deleting the tests.
+      - name: role3 suite
+        working-directory: role3 improvement
+        run: python -m pytest -q
+
+      - name: role2 suite
+        working-directory: role2_규리
+        run: python -m pytest -q
+
+      - name: a retired number did not come back
+        run: python experiments/test_retired_numbers.py

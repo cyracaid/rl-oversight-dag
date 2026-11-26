@@ -21,6 +21,11 @@ byte-for-byte. Treat that as a smoke test that the instructions work, not as the
 - Versions used in the recorded clean room: Python 3.14.0, numpy 2.5.5, scipy 1.18.1, networkx 3.7,
   scikit-learn 1.9.1, pytest 9.2.0, torch 2.15.0. Other versions in range are presumably fine; say
   which ones you used.
+- **Run the role3 suite from inside `role3 improvement/`, not from the repo root.** Several tests import
+  loose top-level modules (`belief_decomposition`, `report_value`, `make_demo`), which only resolve when
+  that directory is the working directory. From the root the suite stops at collection with ten
+  `ImportError`s. That is a property of the layout, not a broken clone — `cd` and retry before reporting
+  a failure.
 
 ## Step 0 — clone and confirm you are on the same tree
 
@@ -35,6 +40,9 @@ python3 --version                   # must be >= 3.10
 Do not run anything on a dirty tree. If `git status` is not empty, stop and report.
 
 ## Step 1 — suite (2 minutes with torch installed)
+
+`.github/workflows/tests.yml` runs exactly this on every push; the commands below are the local equivalent,
+so a red check and a failed local run mean the same thing.
 
 ```bash
 python3 -m venv /tmp/r1-venv && . /tmp/r1-venv/bin/activate
