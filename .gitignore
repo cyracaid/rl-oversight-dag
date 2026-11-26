@@ -7,6 +7,7 @@ data-raw/
 # ===== 结果表例外：合成基准的 CSV 必须入库（红线只针对真实数据） =====
 # 合成图、无参与者信息；缺表则数字无法核对。role2 自己用本地 .gitignore 白名单。
 !role3 improvement/outputs/**/*.csv
+!role4_controls/results/**/*.csv
 
 # ===== Python =====
 __pycache__/

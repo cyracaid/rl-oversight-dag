@@ -16,6 +16,7 @@ not because any ordering with a good error prior would do as well.
 | `EXPLAINER_KO.md` | 결과 설명서 (Korean FAQ for the team and the Q&A) |
 | `QUESTIONS_FOR_P5.md` | questions for P5 (answered in `role4규리피드백.md`) |
 | `role4규리피드백.md` | P5 review of this folder, with answers to Q1–Q5 |
+| `PREREG_DEGREE_BASELINE.md` / `run_degree_baseline.py` / `results/degree_baseline/` | degree-only baseline (`confidence × in-degree`, no propagation) on block 13000–13099, pre-registered before the first episode |
 
 ```bash
 python3 reproduce.py                  # v1 + diagnostics, ~6 min
@@ -214,3 +215,12 @@ P5's review is in `role4규리피드백.md`. These notes scope the write-ups; th
 - **Line endings.** `.gitattributes` pins result files to LF so the byte-for-byte check passes on Windows with
   `core.autocrlf=true`. A Windows clone made before this commit refreshes its result files once with
   `git rm -r -q --cached role4_controls/results` then `git checkout HEAD -- role4_controls/results`.
+- **Degree profile vs edges (block 13000–13099, pre-registered).** `PREREG_DEGREE_BASELINE.md` asks whether
+  the gain that survives `rewire_index` is a property of the in-degree profile. A score that never propagates,
+  `(1 − conf) · (1 + indeg)^a` for a ∈ {0.5, 1, 2}, leaves **21.2 more** errors than confidence on BA and
+  **17.8 more** on ER (intact, `marginal`: 19.6 and 3.0 fewer). Δ = marginal − deg1 = +40.8 [+29.3, +52.6] on BA,
+  +20.8 [+19.1, +22.5] on ER; the best grid member is still beaten on both. Verdict: `propagation-necessary` —
+  the residual is carried by the edges, not by the degree profile. See `results/degree_baseline/degree_baseline.md`.
+- **ER does not replicate.** Retention after `rewire_index` on that third block: BA 79 %, **ER 1 %**
+  (+0.02 [−1.01, +1.02]), against 31 % / 32 % on 90000–90099 and 7100–7199. BA survives on all three blocks;
+  ER's `survives` label is block-specific and should not be quoted as a family property.
