@@ -45,12 +45,7 @@ def order_seed(graph_seed, k):
 
 def rewire_index(graph, graph_seed, k):
     """v1 rule with draw-specific seed. k=0 reproduces rc.rewire exactly."""
-    saved = rc.REWIRE_SEED_OFFSET
-    try:
-        rc.REWIRE_SEED_OFFSET = index_seed(graph_seed, k) - graph_seed
-        return rc.rewire(graph, graph_seed)
-    finally:
-        rc.REWIRE_SEED_OFFSET = saved
+    return rc.rewire(graph, graph_seed, offset=index_seed(graph_seed, k) - graph_seed)
 
 
 def rewire_order(graph, graph_seed, k):
@@ -158,6 +153,11 @@ def summarise(rows):
                     intact_stats[policy] = (lo, gain.mean(), gain)
                 label = "" if policy == "confidence" or rule == "intact" else \
                     verdict3(intact_stats[policy][0], intact_stats[policy][1], lo, hi)
+                margin = MARGIN * intact_stats[policy][1] if (policy != "confidence" and rule != "intact") else None
+                # P5 review: the frozen label stays, but a cell whose interval sits entirely below
+                # -margin is also marked in the CSV so that downstream scripts do not have to read prose.
+                direction = "worse-than-confidence" if label == "inconclusive" and margin is not None \
+                    and hi < -margin else ""
                 draws = [c for c in by_draw if c[0] == family and c[1].startswith(rule + ":") and c[2] == policy]
                 draw_means = [np.mean(by_draw[family, c[1], "confidence"]) - np.mean(by_draw[c])
                               for c in sorted(draws)]
@@ -172,7 +172,7 @@ def summarise(rows):
                     draw_gain_max=max(draw_means) if draw_means else "",
                     within_graph_sd=float(np.sqrt(np.mean(within))),
                     between_graph_sd=float(pol.std(ddof=1)),
-                    verdict=label))
+                    verdict=label, direction=direction))
     return out
 
 

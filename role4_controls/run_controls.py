@@ -51,8 +51,11 @@ def budget_for(family: str) -> int:
 
 
 # ---------------------------------------------------------------- rewire rule (frozen)
-def rewire(graph: DAG, graph_seed: int) -> DAG:
+def rewire(graph: DAG, graph_seed: int, offset: int | None = None) -> DAG:
     """Keep every node's number of parents, its type and the sink set; redraw parents.
+
+    ``offset`` overrides ``REWIRE_SEED_OFFSET`` (v2's per-draw seed). It is a parameter rather than a
+    module constant so that concurrent draws cannot race on shared state.
 
     spike : parents drawn from the previous layer (the generator's own rule)
     real  : parents drawn from all nodes in strictly lower layers
@@ -60,7 +63,7 @@ def rewire(graph: DAG, graph_seed: int) -> DAG:
             (the original graphs are oriented by index, so this keeps a DAG;
             "all other nodes" would allow cycles)
     """
-    rng = random.Random(REWIRE_SEED_OFFSET + graph_seed)
+    rng = random.Random((REWIRE_SEED_OFFSET if offset is None else offset) + graph_seed)
     layer = graph.layers
     parents = []
     for v, ps in enumerate(graph.parents):

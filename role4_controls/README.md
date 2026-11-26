@@ -202,6 +202,15 @@ P5's review is in `role4규리피드백.md`. These notes scope the write-ups; th
   rank alone.
 - **`inconclusive` cells.** Every one of them has its CI entirely below −margin; the tables mark them
   "worse than confidence" next to the frozen label.
+- **`direction` column (applied on `main`, 2026-11-26).** Both `controls_v2_summary.csv` files now carry a
+  `direction` column written by `run_controls_v2.py`: `worse-than-confidence` when the frozen label is
+  `inconclusive` and `paired_hi < -margin`, empty otherwise. Five cells per block, all `marginal`
+  (spike/`rewire_index`, modular/`rewire_index`, modular/`rewire_order`, BA/`rewire_order`,
+  ER/`rewire_order`). Every other cell of both files is unchanged.
+- **Rewire seed is a parameter now (applied on `main`, 2026-11-26).** `run_controls.rewire()` takes
+  `offset=None`; `run_controls_v2.rewire_index()` passes it explicitly instead of assigning the module
+  constant `REWIRE_SEED_OFFSET`. Behaviour is unchanged: both `controls_v2.csv` files regenerate
+  byte-identically.
 - **Line endings.** `.gitattributes` pins result files to LF so the byte-for-byte check passes on Windows with
   `core.autocrlf=true`. A Windows clone made before this commit refreshes its result files once with
   `git rm -r -q --cached role4_controls/results` then `git checkout HEAD -- role4_controls/results`.

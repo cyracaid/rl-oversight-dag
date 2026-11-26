@@ -65,3 +65,25 @@
   7100은 이미 소진입니다.
 - v2(`rewire_order`, 10 draws, 3단 판정)도 클린룸 재구현 대상으로 남겨 두면 좋겠습니다. 현재 유일하게
   단일 구현에만 의존하는 표입니다.
+
+---
+
+## 5. 후기 — `acbd729` 병합, 남은 2건은 `main`에서 처리
+
+`acbd729`("apply P5 review")를 `main`에 병합했습니다(`9379db7`). 문서 범위 조정, `--full --confirm`,
+`.gitattributes`, 확인 블록 무앵커 명시까지 반영 확인했습니다. 결과 CSV는 손대지 않았고, 그 판단이 맞습니다.
+
+남은 두 건은 우리가 `main`에서 직접 처리했습니다. 규칙·수치·라벨은 바꾸지 않았습니다.
+
+| 항목 | 처리 | 검증 |
+|---|---|---|
+| 5. `direction` 열 | `summarise()`가 `direction`을 생성: `inconclusive` + `paired_hi < -margin` → `worse-than-confidence` | 두 블록 재실행: 기존 열 **전부 동일**, 새 열만 추가. 블록마다 5칸, 모두 `marginal`(spike/`rewire_index`, modular/`rewire_index`, modular/`rewire_order`, BA/`rewire_order`, ER/`rewire_order`) |
+| 6. seed 인자화 | `run_controls.rewire(..., offset=None)`, `rewire_index()`가 `index_seed(...) - graph_seed`를 인자로 전달. 모듈 상수 대입 제거 | 두 블록 `controls_v2.csv` **바이트 동일** 재생성 |
+
+즉 `reproduce.py`의 바이트 비교는 새 파일 기준으로도 그대로 성립합니다(행 파일은 동일, 요약 파일만 열 1개 추가).
+
+여전히 열려 있는 것 두 가지:
+
+1. **v2는 클린룸 미검증**입니다. `rewire_order`, 10 draws, 3단 판정, 20 % 마진은 여전히 단일 구현입니다.
+2. **BA/ER의 잔여 이득**이 "차수 프로파일"인지 "간선"인지는 아직 분리되지 않았습니다. 그래프 5900–5999에
+   전파 없는 `confidence × in-degree` 기준선을 사전등록하면 갈립니다(7100은 소진).
